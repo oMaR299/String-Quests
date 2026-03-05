@@ -6,6 +6,8 @@ import { Question } from '../types';
 import { Button } from './Button';
 import { useSounds } from '../hooks/useSounds';
 import { HighlightableParagraph, ClickableWordParagraph } from './ReadingRenderers';
+import { PinkDiamondIcon } from './ui/PinkDiamondIcon';
+import { saveAttempt } from '../utils/skillMapStorage';
 
 interface QuizCardProps {
   question: Question;
@@ -37,14 +39,6 @@ const MATCH_COLORS = [
   'bg-emerald-100 border-emerald-300 text-emerald-700 shadow-emerald-100',
 ];
 
-// Reusable Diamond Gem Component for consistent UI
-const PinkDiamondIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <div className={`${className} flex items-center justify-center relative`}>
-      <div className="absolute w-full h-full bg-[#DA43D0] rotate-45 rounded-[3px] shadow-sm" />
-      <div className="absolute w-[65%] h-[65%] bg-[#F499EB] rotate-45 rounded-[1px]" />
-      <div className="absolute w-[35%] h-[35%] bg-[#FFD9FB] rotate-45" />
-  </div>
-);
 
 const QuizCard: React.FC<QuizCardProps> = ({ 
   question, 
@@ -327,6 +321,22 @@ const QuizCard: React.FC<QuizCardProps> = ({
     }
 
     setFeedback(feedbackData);
+
+    // Record attempt for skill map
+    saveAttempt({
+      questionId: question.id,
+      subject: question.subject,
+      lesson: question.lesson,
+      questionType: question.type,
+      isCorrect,
+      pointsAwarded: finalPoints,
+      maxPoints: currentMaxPoints,
+      confidence,
+      hintUsed,
+      isReviewMode,
+      timestamp: Date.now(),
+    });
+
     setTimeout(() => {
       playTransition();
       onAnswer(finalPoints);

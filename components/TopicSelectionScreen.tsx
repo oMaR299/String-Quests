@@ -1,32 +1,18 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  Calculator, Languages, Globe, Layers, Brain, 
+import {
+  Calculator, Languages, Globe, Layers, Brain,
   Cat, Map, Dna, Sparkles, ChevronLeft, Play,
   Landmark, Atom, FlaskConical, Moon, BookOpen, Monitor, Palette,
   Activity, Mountain, MessageCircle, MessageSquare, Coins, Dumbbell,
   Trophy, Percent, Flame, Calendar, Zap, Infinity, Book, User, Grid
 } from 'lucide-react';
 import { Button } from './Button';
-import { TOPIC_META } from '../constants';
-import { Question } from '../types';
-
-interface TopicSelectionScreenProps {
-  availableQuestions: Question[];
-  onSelectTopic: (topic: string | null) => void; // Goes to lessons view
-  onQuickStart: (topic: string | null) => void; // Starts game immediately
-  onBack: () => void;
-  onOpenStreak: () => void;
-}
-
-const PinkDiamondIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <div className={`${className} flex items-center justify-center relative`}>
-      <div className="absolute w-full h-full bg-[#DA43D0] rotate-45 rounded-[3px] shadow-sm" />
-      <div className="absolute w-[65%] h-[65%] bg-[#F499EB] rotate-45 rounded-[1px]" />
-      <div className="absolute w-[35%] h-[35%] bg-[#FFD9FB] rotate-45" />
-  </div>
-);
+import { PinkDiamondIcon } from './ui/PinkDiamondIcon';
+import { TOPIC_META, QUESTIONS } from '../constants';
+import { subjectToSlug } from '../utils/slugify';
 
 // Helper to render the correct icon
 const getIcon = (iconName: string, className: string) => {
@@ -174,13 +160,17 @@ const getTopicConfig = (subject: string, meta: any) => {
     };
 };
 
-const TopicSelectionScreen: React.FC<TopicSelectionScreenProps> = ({ 
-  availableQuestions, 
-  onSelectTopic,
-  onQuickStart,
-  onBack,
-  onOpenStreak
-}) => {
+const TopicSelectionScreen: React.FC = () => {
+  const navigate = useNavigate();
+  const availableQuestions = QUESTIONS;
+
+  const handleSelectTopic = (topic: string | null) => {
+    if (topic) navigate(`/learn/${subjectToSlug(topic)}`);
+  };
+  const handleQuickStart = (topic: string | null) => {
+    if (topic) navigate(`/learn/${subjectToSlug(topic)}/all/play`);
+  };
+
   const subjects: string[] = Array.from(new Set(availableQuestions.map(q => q.subject)));
   const allTopics: string[] = ['mix', ...subjects];
 
@@ -194,7 +184,7 @@ const TopicSelectionScreen: React.FC<TopicSelectionScreenProps> = ({
         className="w-full flex justify-between items-center max-w-[1400px] px-6 mb-12"
       >
           {/* Back Button */}
-          <Button onClick={onBack} variant="ghost" size="sm" className="text-slate-400 hover:bg-white/50 hidden md:flex">
+          <Button onClick={() => navigate('/home')} variant="ghost" size="sm" className="text-slate-400 hover:bg-white/50 hidden md:flex">
               <ChevronLeft className="w-5 h-5 ml-1" />
               الرئيسية
           </Button>
@@ -210,7 +200,7 @@ const TopicSelectionScreen: React.FC<TopicSelectionScreenProps> = ({
           <motion.button
              whileHover={{ scale: 1.05 }}
              whileTap={{ scale: 0.95 }}
-             onClick={onOpenStreak}
+             onClick={() => navigate('/profile')}
              className="relative flex items-center gap-3 bg-white p-2 pr-4 rounded-full shadow-xl shadow-slate-200/50 border border-slate-100 cursor-pointer group hover:border-orange-200 transition-colors"
           >
              <div className="text-right hidden sm:block">
@@ -234,7 +224,7 @@ const TopicSelectionScreen: React.FC<TopicSelectionScreenProps> = ({
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.01 }}
             className="w-full relative group cursor-pointer"
-            onClick={() => onQuickStart('practice')}
+            onClick={() => handleQuickStart('practice')}
         >
             <div className="absolute inset-0 bg-gradient-to-r from-[#2A1B3D] via-[#DA43D0] to-[#44318D] rounded-[2.5rem] blur-sm opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
             <div className="relative bg-gradient-to-br from-[#2A1B3D] to-slate-900 rounded-[2.5rem] p-8 md:p-12 overflow-hidden border border-white/10 shadow-2xl">
@@ -279,7 +269,7 @@ const TopicSelectionScreen: React.FC<TopicSelectionScreenProps> = ({
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 whileHover={{ y: -5 }}
-                onClick={() => onQuickStart('daily')}
+                onClick={() => handleQuickStart('daily')}
                 className="relative group cursor-pointer"
             >
                 <div className="bg-gradient-to-br from-sky-400 to-blue-600 rounded-[2.5rem] p-8 text-white shadow-xl shadow-blue-500/20 border-2 border-white/20 overflow-hidden min-h-[240px] flex flex-col justify-between">
@@ -311,7 +301,7 @@ const TopicSelectionScreen: React.FC<TopicSelectionScreenProps> = ({
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 whileHover={{ y: -5 }}
-                onClick={() => onQuickStart('weekly')}
+                onClick={() => handleQuickStart('weekly')}
                 className="relative group cursor-pointer"
             >
                 <div className="bg-gradient-to-br from-violet-500 to-purple-700 rounded-[2.5rem] p-8 text-white shadow-xl shadow-purple-500/20 border-2 border-white/20 overflow-hidden min-h-[240px] flex flex-col justify-between">
@@ -437,7 +427,7 @@ const TopicSelectionScreen: React.FC<TopicSelectionScreenProps> = ({
                     {/* Buttons: Start & Lessons */}
                     <div className="w-full mt-6 flex flex-col gap-3">
                         <Button 
-                            onClick={() => onQuickStart(targetSubject)} 
+                            onClick={() => handleQuickStart(targetSubject)}
                             size="md" 
                             fullWidth 
                             className="text-lg group shadow-lg"
@@ -449,7 +439,7 @@ const TopicSelectionScreen: React.FC<TopicSelectionScreenProps> = ({
                         </Button>
 
                         <Button 
-                            onClick={() => onSelectTopic(targetSubject)} 
+                            onClick={() => handleSelectTopic(targetSubject)}
                             size="sm" 
                             variant="secondary"
                             fullWidth 
@@ -469,7 +459,7 @@ const TopicSelectionScreen: React.FC<TopicSelectionScreenProps> = ({
       
       {/* Mobile Back Button (visible only on small screens at bottom) */}
       <div className="mt-8 mb-8 md:hidden w-full px-6">
-        <Button onClick={onBack} variant="ghost" fullWidth className="hover:bg-white/50 text-slate-500">
+        <Button onClick={() => navigate('/home')} variant="ghost" fullWidth className="hover:bg-white/50 text-slate-500">
             <ChevronLeft className="w-5 h-5 ml-2" />
             العودة للقائمة الرئيسية
         </Button>

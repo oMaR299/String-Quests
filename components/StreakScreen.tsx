@@ -1,22 +1,16 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ArrowRight, Flame, Zap, Target, Calendar, Star, 
-  Trophy, CheckCircle2, Lock, Crown, ShoppingBag, 
+import {
+  ArrowRight, Flame, Zap, Target, Calendar, Star,
+  Trophy, CheckCircle2, Lock, Crown, ShoppingBag,
   TrendingUp, Shield, Sparkles, Medal, User, ChevronUp, ChevronDown, Minus
 } from 'lucide-react';
 import { Button } from './Button';
 import { BoostIcon } from './BoostIcon';
 import { ComplexLeaderboardSystem } from './ComplexLeaderboardSystem';
-
-interface StreakScreenProps {
-  dailyCount: number;
-  currentStreak: number;
-  totalXP: number;
-  totalBoosts: number;
-  onClose: () => void;
-}
+import { useUser } from '../contexts/UserContext';
 
 // --- Sub-Components for cleaner code ---
 
@@ -110,13 +104,10 @@ function ChevronRight({ className }: { className?: string }) {
 
 // --- Main Screen ---
 
-const StreakScreen: React.FC<StreakScreenProps> = ({ 
-  dailyCount, 
-  currentStreak, 
-  totalXP, 
-  totalBoosts,
-  onClose 
-}) => {
+const StreakScreen: React.FC = () => {
+  const { state } = useUser();
+  const navigate = useNavigate();
+  const { dailyCorrectAnswers: dailyCount, currentStreak, xp: totalXP, totalBoosts } = state;
   const [activeView, setActiveView] = useState<'overview' | 'leaderboard'>('overview');
 
   const containerVariants = {
@@ -157,7 +148,7 @@ const StreakScreen: React.FC<StreakScreenProps> = ({
       {/* --- HEADER --- */}
       <motion.header variants={itemVariants} className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-            <Button onClick={onClose} variant="secondary" className="rounded-full w-12 h-12 flex items-center justify-center p-0 border-2 border-slate-100 hover:border-slate-300">
+            <Button onClick={() => navigate('/learn')} variant="secondary" className="rounded-full w-12 h-12 flex items-center justify-center p-0 border-2 border-slate-100 hover:border-slate-300">
                 <ArrowRight className="w-5 h-5 text-slate-600" />
             </Button>
             <div>

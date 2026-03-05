@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { RotateCcw, Trophy, Star, Target, Award } from 'lucide-react';
 import { Button } from './Button';
+import { PinkDiamondIcon } from './ui/PinkDiamondIcon';
 import { useSounds } from '../hooks/useSounds';
 
 interface EndScreenProps {
@@ -10,14 +11,6 @@ interface EndScreenProps {
   maxScore: number;
   onRestart: () => void;
 }
-
-const PinkDiamondIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <div className={`${className} flex items-center justify-center relative`}>
-      <div className="absolute w-full h-full bg-[#DA43D0] rotate-45 rounded-[3px] shadow-sm" />
-      <div className="absolute w-[65%] h-[65%] bg-[#F499EB] rotate-45 rounded-[1px]" />
-      <div className="absolute w-[35%] h-[35%] bg-[#FFD9FB] rotate-45" />
-  </div>
-);
 
 const EndScreen: React.FC<EndScreenProps> = ({ score, maxScore, onRestart }) => {
   const { playCelebration } = useSounds();

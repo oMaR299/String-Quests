@@ -1,34 +1,27 @@
 
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Play, CheckCircle, ChevronRight, Trophy, BookOpen, Star } from 'lucide-react';
-import { Question } from '../types';
 import { Button } from './Button';
-import { TOPIC_META } from '../constants';
+import { PinkDiamondIcon } from './ui/PinkDiamondIcon';
+import { TOPIC_META, QUESTIONS } from '../constants';
+import { useUser } from '../contexts/UserContext';
+import { slugToSubject, lessonToSlug } from '../utils/slugify';
 
-interface TopicDetailsScreenProps {
-  topic: string;
-  questions: Question[]; // These are all questions for the topic
-  history: Record<number, number>; // questionId -> bestScore
-  onPlayLesson: (lessonName: string) => void;
-  onBack: () => void;
-}
+const TopicDetailsScreen: React.FC = () => {
+  const { subjectSlug } = useParams<{ subjectSlug: string }>();
+  const navigate = useNavigate();
+  const { state } = useUser();
 
-const PinkDiamondIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <div className={`${className} flex items-center justify-center relative`}>
-      <div className="absolute w-full h-full bg-[#DA43D0] rotate-45 rounded-[3px] shadow-sm" />
-      <div className="absolute w-[65%] h-[65%] bg-[#F499EB] rotate-45 rounded-[1px]" />
-      <div className="absolute w-[35%] h-[35%] bg-[#FFD9FB] rotate-45" />
-  </div>
-);
+  const topic = subjectSlug ? slugToSubject(subjectSlug) : '';
+  const history = state.globalHistory;
+  const questions = useMemo(() => QUESTIONS.filter(q => q.subject === topic), [topic]);
 
-const TopicDetailsScreen: React.FC<TopicDetailsScreenProps> = ({ 
-  topic, 
-  questions, 
-  history, 
-  onPlayLesson, 
-  onBack 
-}) => {
+  const handlePlayLesson = (lesson: string) => {
+    navigate(`/learn/${subjectSlug}/${lessonToSlug(lesson)}/play`);
+  };
+  const handleBack = () => navigate('/learn');
   // Group Questions by Lesson
   const lessonsMap: Record<string, Question[]> = {};
   questions.forEach(q => {
@@ -59,7 +52,7 @@ const TopicDetailsScreen: React.FC<TopicDetailsScreenProps> = ({
         {/* Header */}
         <div className={`bg-${meta.bg.split('-')[1]}-50 p-6 pb-8 relative`}>
            <div className="absolute top-4 right-4">
-              <button onClick={onBack} className="p-2 bg-white/50 hover:bg-white rounded-full transition-colors">
+              <button onClick={handleBack} className="p-2 bg-white/50 hover:bg-white rounded-full transition-colors">
                   <ChevronRight className="w-5 h-5 text-slate-600" />
               </button>
            </div>
@@ -141,7 +134,7 @@ const TopicDetailsScreen: React.FC<TopicDetailsScreenProps> = ({
                       </div>
 
                       <Button 
-                        onClick={() => onPlayLesson(lesson)}
+                        onClick={() => handlePlayLesson(lesson)}
                         fullWidth 
                         size="md"
                         className="relative z-10 shadow-md"
