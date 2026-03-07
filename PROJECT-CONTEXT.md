@@ -247,7 +247,8 @@ Dev server: http://localhost:3000
 ## Design Language
 - Glassmorphism (backdrop-blur, semi-transparent whites)
 - Gradient accents (purple-to-blue headers, colored stat cards)
-- Arabic-first, RTL default, Cairo font
+- English-first, LTR default. Arabic (RTL) added as second language via toggle
+- Cairo font (supports both English and Arabic)
 - Duolingo-inspired color system: green (#58CC02), blue (#1CB0F6), gold (#FFC800), red (#FF4B4B), orange (#FF9600)
 - Framer Motion for all animations
 - Rounded corners (rounded-2xl, rounded-3xl)

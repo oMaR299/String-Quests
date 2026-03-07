@@ -70,8 +70,8 @@ The crown jewel - a comprehensive knowledge evaluation tool with:
 - SkillMapSummaryDashboard (6 widgets: score gauge, strongest/weakest, skills mastered, Bloom's depth, knowledge age rank)
 
 ## Key Conventions
-- Arabic-first UI with bilingual support (AR/EN toggle)
-- RTL layout by default, LTR for English
+- English-first UI with bilingual support (EN/AR toggle)
+- LTR layout by default, RTL when Arabic is selected
 - Glassmorphism + gradient aesthetic
 - All colors defined in `tailwind.config.ts` (duo*, pastel* prefixes)
 - Code splitting via React.lazy() + Suspense
