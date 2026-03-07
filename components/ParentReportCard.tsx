@@ -56,7 +56,7 @@ export const ParentReportCard: React.FC<ParentReportCardProps> = ({ student, loc
   const cls = MOCK_CLASSES.find(c => c.id === student.classId);
   const subjectProgress = getSubjectProgress(student, locale);
   const { top, bottom } = getTopBottom(student, locale);
-  const allScores = Object.values(student.masteries);
+  const allScores = Object.values(student.masteries) as number[];
   const overallAvg = Math.round(allScores.reduce((a, b) => a + b, 0) / allScores.length);
   const today = new Date().toLocaleDateString(locale === 'ar' ? 'ar-SA' : 'en-US', {
     year: 'numeric', month: 'long', day: 'numeric',
