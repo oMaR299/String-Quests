@@ -1,329 +1,240 @@
-import React, { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, ChevronDown, ChevronRight, FileText, Layers } from 'lucide-react';
-import { SkillMastery } from '../../utils/masteryEngine';
-import {
-  TEXTBOOK_DATA, KC_MAP, PAGE_MAP, LESSON_MAP, UNIT_MAP,
-  getAllKCs, getKCsForPage, getKCsForLesson, getKCsForUnit,
-  KnowledgeComponent,
-} from '../../data/sampleTextbook';
-import { BLOOM_LABELS, BloomLevel } from '../../data/skillTaxonomy';
+import React, { useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { Lock, Check, Star } from 'lucide-react';
+import { Textbook, UNIT_MAP, LESSON_MAP, PAGE_MAP } from '../../data/sampleTextbook';
+import { AttemptRecord } from '../../utils/skillMapStorage';
+import { calculatePageMastery, calculateUnitMastery, checkPrerequisites, SkillMastery } from '../../utils/masteryEngine';
 
 interface Props {
-  masteries: SkillMastery[];
+  activeTextbook: Textbook;
+  attempts: AttemptRecord[];
   locale: string;
   onSelectSkill: (skill: SkillMastery) => void;
 }
 
-// Simple KC mastery from attempt data stored in masteries
-// Since masteries map to questionIds (not KC ids), we simulate KC mastery
-// using a random-seeded but stable score for demo. In production this would
-// come from a real KC-level mastery engine.
-function getKCMasteryScore(kc: KnowledgeComponent, masteries: SkillMastery[]): number {
-  // Use a hash of the kc.id to generate a stable "mastery" score
-  // that responds to whether there are any masteries at all
-  const hasData = masteries.some(m => m.attemptCount > 0);
-  if (!hasData) return 0;
+// Unit banner color palette — one distinct hue per unit
+const UNIT_COLORS = ['#3b82f6', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444'];
 
-  // Simple hash to get a stable number
-  let hash = 0;
-  for (let i = 0; i < kc.id.length; i++) {
-    hash = ((hash << 5) - hash) + kc.id.charCodeAt(i);
-    hash |= 0;
-  }
-  // Map to 0-100 range, skewing toward middle-high for demo
-  const base = Math.abs(hash % 100);
-  // Weight by difficulty (easier KCs tend to be more mastered)
-  const difficultyBonus = (6 - kc.difficulty) * 8;
-  return Math.min(100, Math.max(0, base + difficultyBonus - 20));
+interface PathNode {
+  pageId: string;
+  pageName: string;
+  pageNumber: number;
+  unitId: string;
+  unitName: string;
+  unitNumber: number;
+  unitColor: string;
+  mastery: number;
+  isLocked: boolean;
+  isFirstInUnit: boolean;
 }
 
 function getMasteryColor(score: number): string {
-  if (score === 0) return '#94a3b8'; // grey - not started
-  if (score < 40) return '#FF4B4B';  // red - weak
-  if (score < 90) return '#FFC800';  // gold - developing
-  return '#58CC02';                   // green - mastered
+  if (score === 0) return '#94a3b8';
+  if (score < 40) return '#ef4444';
+  if (score < 70) return '#FFC800';
+  if (score < 90) return '#58CC02';
+  return '#eab308';
 }
 
-function getMasteryLabel(score: number, locale: string): string {
-  if (score === 0) return locale === 'ar' ? 'لم يبدأ' : 'Not Started';
-  if (score < 40) return locale === 'ar' ? 'ضعيف' : 'Weak';
-  if (score < 90) return locale === 'ar' ? 'نامٍ' : 'Developing';
-  return locale === 'ar' ? 'متقن' : 'Mastered';
-}
+export const TextbookExplorerView: React.FC<Props> = ({
+  activeTextbook,
+  attempts,
+  locale,
+  onSelectSkill,
+}) => {
+  // Build the flat path of nodes from the textbook hierarchy
+  const pathNodes = useMemo(() => {
+    const nodes: PathNode[] = [];
 
-function getAverageScore(scores: number[]): number {
-  if (scores.length === 0) return 0;
-  return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
-}
+    activeTextbook.unitIds.forEach((unitId, uIdx) => {
+      const unit = UNIT_MAP[unitId];
+      if (!unit) return;
 
-export const TextbookExplorerView: React.FC<Props> = ({ masteries, locale, onSelectSkill }) => {
-  const [expandedUnits, setExpandedUnits] = useState<Set<string>>(new Set());
-  const [expandedLessons, setExpandedLessons] = useState<Set<string>>(new Set());
-  const [expandedPages, setExpandedPages] = useState<Set<string>>(new Set());
+      const unitColor = UNIT_COLORS[uIdx % UNIT_COLORS.length];
+      let isFirstInUnit = true;
 
-  // Pre-compute all KC scores
-  const kcScores = useMemo(() => {
-    const scores: Record<string, number> = {};
-    for (const kc of getAllKCs()) {
-      scores[kc.id] = getKCMasteryScore(kc, masteries);
-    }
-    return scores;
-  }, [masteries]);
+      unit.lessonIds.forEach((lessonId) => {
+        const lesson = LESSON_MAP[lessonId];
+        if (!lesson) return;
 
-  const toggleUnit = (id: string) => {
-    setExpandedUnits(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      return next;
+        lesson.pageIds.forEach((pageId) => {
+          const page = PAGE_MAP[pageId];
+          if (!page) return;
+
+          const mastery = calculatePageMastery(pageId, attempts);
+
+          // A page is locked if ANY of its KCs has unmet prerequisites
+          const isLocked = page.kcIds.some(
+            (kcId) => checkPrerequisites(kcId, attempts).length > 0
+          );
+
+          nodes.push({
+            pageId,
+            pageName: locale === 'ar' ? page.nameAr : page.nameEn,
+            pageNumber: page.pageNumber,
+            unitId,
+            unitName: locale === 'ar' ? unit.nameAr : unit.nameEn,
+            unitNumber: unit.unitNumber,
+            unitColor,
+            mastery,
+            isLocked,
+            isFirstInUnit,
+          });
+
+          isFirstInUnit = false;
+        });
+      });
     });
-  };
 
-  const toggleLesson = (id: string) => {
-    setExpandedLessons(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      return next;
-    });
-  };
+    return nodes;
+  }, [activeTextbook, attempts, locale]);
 
-  const togglePage = (id: string) => {
-    setExpandedPages(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      return next;
-    });
-  };
-
-  const getPageScore = (pageId: string) => {
-    const kcs = getKCsForPage(pageId);
-    return getAverageScore(kcs.map(kc => kcScores[kc.id] || 0));
-  };
-
-  const getLessonScore = (lessonId: string) => {
-    const kcs = getKCsForLesson(lessonId);
-    return getAverageScore(kcs.map(kc => kcScores[kc.id] || 0));
-  };
-
-  const getUnitScore = (unitId: string) => {
-    const kcs = getKCsForUnit(unitId);
-    return getAverageScore(kcs.map(kc => kcScores[kc.id] || 0));
-  };
+  // Determine the "current" node: first non-locked node with mastery < 90
+  const currentIdx = useMemo(() => {
+    return pathNodes.findIndex((n) => !n.isLocked && n.mastery < 90);
+  }, [pathNodes]);
 
   return (
-    <div className="space-y-3">
-      {/* Book Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-          <BookOpen className="w-5 h-5 text-blue-600" />
-        </div>
-        <div>
-          <h3 className="text-lg font-black text-slate-800">
-            {locale === 'ar' ? TEXTBOOK_DATA.nameAr : TEXTBOOK_DATA.nameEn}
-          </h3>
-          <p className="text-xs text-slate-400 font-medium">
-            {locale === 'ar' ? `الصف ${TEXTBOOK_DATA.gradeLevel}` : `Grade ${TEXTBOOK_DATA.gradeLevel}`}
-            {' • '}
-            {TEXTBOOK_DATA.unitIds.length} {locale === 'ar' ? 'وحدات' : 'units'}
-          </p>
-        </div>
-      </div>
+    <div className="relative max-w-md mx-auto pb-16">
+      {/* Vertical center line */}
+      <div
+        className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-0.5 bg-slate-200"
+        aria-hidden="true"
+      />
 
-      {/* Units */}
-      {TEXTBOOK_DATA.unitIds.map((unitId, uIdx) => {
-        const unit = UNIT_MAP[unitId];
-        if (!unit) return null;
-        const unitScore = getUnitScore(unitId);
-        const unitColor = getMasteryColor(unitScore);
-        const isUnitOpen = expandedUnits.has(unitId);
+      {/* Path nodes */}
+      {pathNodes.map((node, idx) => {
+        const sideOffset = Math.sin((idx / 2.5) * Math.PI) * 60;
+        const isCurrent = idx === currentIdx;
+        const size = isCurrent ? 56 : 48;
+        const color = node.isLocked ? '#e2e8f0' : getMasteryColor(node.mastery);
 
         return (
-          <motion.div
-            key={unitId}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: uIdx * 0.08 }}
-            className="bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-100 overflow-hidden"
-          >
-            {/* Unit Header */}
-            <button
-              onClick={() => toggleUnit(unitId)}
-              className="w-full flex items-center gap-3 p-4 hover:bg-slate-50/50 transition-colors"
-            >
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-black text-sm shrink-0"
-                style={{ backgroundColor: unitColor }}
+          <React.Fragment key={node.pageId}>
+            {/* Unit header banner */}
+            {node.isFirstInUnit && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.05 + idx * 0.04, duration: 0.4 }}
+                className="relative z-10 flex items-center gap-3 rounded-2xl px-5 py-3 mb-6 mt-4"
+                style={{ backgroundColor: node.unitColor }}
               >
-                {unit.unitNumber}
-              </div>
-              <div className="flex-1 text-left">
-                <div className="text-sm font-bold text-slate-700">
-                  {locale === 'ar' ? unit.nameAr : unit.nameEn}
+                <div className="w-9 h-9 rounded-xl bg-white/25 flex items-center justify-center text-white font-black text-base shrink-0">
+                  {node.unitNumber}
                 </div>
-                <div className="text-[10px] text-slate-400 font-medium">
-                  {unit.lessonIds.length} {locale === 'ar' ? 'دروس' : 'lessons'}
+                <div className="flex-1 min-w-0">
+                  <p className="text-white font-black text-sm leading-tight truncate">
+                    {node.unitName}
+                  </p>
+                  <p className="text-white/70 text-[10px] font-semibold">
+                    {locale === 'ar' ? 'الوحدة' : 'Unit'} {node.unitNumber}
+                    {' \u2022 '}
+                    {calculateUnitMastery(node.unitId, attempts)}%
+                  </p>
                 </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="text-right">
-                  <span className="text-sm font-black" style={{ color: unitColor }}>{unitScore}%</span>
-                </div>
-                {/* Progress bar */}
-                <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden hidden sm:block">
-                  <div className="h-full rounded-full transition-all" style={{ width: `${unitScore}%`, backgroundColor: unitColor }} />
-                </div>
-                {isUnitOpen ? <ChevronDown className="w-4 h-4 text-slate-400" /> : <ChevronRight className="w-4 h-4 text-slate-400" />}
-              </div>
-            </button>
+              </motion.div>
+            )}
 
-            {/* Lessons inside unit */}
-            <AnimatePresence>
-              {isUnitOpen && (
+            {/* Node */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 + idx * 0.04, duration: 0.35 }}
+              className="relative z-10 flex flex-col items-center py-3"
+              style={{ marginLeft: `calc(50% - ${size / 2}px + ${sideOffset}px)` }}
+            >
+              {/* Pulsing ring for current node */}
+              {isCurrent && (
                 <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-4 pb-3 space-y-2">
-                    {unit.lessonIds.map((lessonId, lIdx) => {
-                      const lesson = LESSON_MAP[lessonId];
-                      if (!lesson) return null;
-                      const lessonScore = getLessonScore(lessonId);
-                      const lessonColor = getMasteryColor(lessonScore);
-                      const isLessonOpen = expandedLessons.has(lessonId);
-
-                      return (
-                        <motion.div
-                          key={lessonId}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: lIdx * 0.05 }}
-                          className="bg-slate-50/80 rounded-xl border border-slate-100"
-                        >
-                          {/* Lesson Header */}
-                          <button
-                            onClick={() => toggleLesson(lessonId)}
-                            className="w-full flex items-center gap-3 p-3 hover:bg-slate-100/50 transition-colors rounded-xl"
-                          >
-                            <Layers className="w-4 h-4 text-slate-400 shrink-0" />
-                            <div className="flex-1 text-left">
-                              <span className="text-xs font-bold text-slate-600">
-                                {locale === 'ar' ? lesson.nameAr : lesson.nameEn}
-                              </span>
-                            </div>
-                            <span className="text-xs font-black" style={{ color: lessonColor }}>{lessonScore}%</span>
-                            {isLessonOpen ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
-                          </button>
-
-                          {/* Pages inside lesson */}
-                          <AnimatePresence>
-                            {isLessonOpen && (
-                              <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                                className="overflow-hidden"
-                              >
-                                <div className="px-3 pb-3 space-y-1.5">
-                                  {lesson.pageIds.map((pageId, pIdx) => {
-                                    const page = PAGE_MAP[pageId];
-                                    if (!page) return null;
-                                    const pageScore = getPageScore(pageId);
-                                    const pageColor = getMasteryColor(pageScore);
-                                    const isPageOpen = expandedPages.has(pageId);
-
-                                    return (
-                                      <div key={pageId}>
-                                        {/* Page Row */}
-                                        <button
-                                          onClick={() => togglePage(pageId)}
-                                          className="w-full flex items-center gap-2 p-2 hover:bg-white/70 transition-colors rounded-lg"
-                                        >
-                                          <div
-                                            className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] font-black text-white shrink-0"
-                                            style={{ backgroundColor: pageColor }}
-                                          >
-                                            {page.pageNumber}
-                                          </div>
-                                          <FileText className="w-3.5 h-3.5 text-slate-300 shrink-0" />
-                                          <span className="text-[11px] font-medium text-slate-600 flex-1 text-left truncate">
-                                            {locale === 'ar' ? page.nameAr : page.nameEn}
-                                          </span>
-                                          <span className="text-[10px] font-bold" style={{ color: pageColor }}>
-                                            {getMasteryLabel(pageScore, locale)}
-                                          </span>
-                                          {isPageOpen ? <ChevronDown className="w-3 h-3 text-slate-300" /> : <ChevronRight className="w-3 h-3 text-slate-300" />}
-                                        </button>
-
-                                        {/* KCs inside page */}
-                                        <AnimatePresence>
-                                          {isPageOpen && (
-                                            <motion.div
-                                              initial={{ height: 0, opacity: 0 }}
-                                              animate={{ height: 'auto', opacity: 1 }}
-                                              exit={{ height: 0, opacity: 0 }}
-                                              transition={{ duration: 0.15 }}
-                                              className="overflow-hidden"
-                                            >
-                                              <div className="ml-8 space-y-1 py-1">
-                                                {getKCsForPage(pageId).map(kc => {
-                                                  const score = kcScores[kc.id] || 0;
-                                                  const color = getMasteryColor(score);
-                                                  return (
-                                                    <div
-                                                      key={kc.id}
-                                                      className="flex items-center gap-2 p-2 bg-white/80 rounded-lg border border-slate-50"
-                                                    >
-                                                      <div
-                                                        className="w-2 h-2 rounded-full shrink-0"
-                                                        style={{ backgroundColor: color }}
-                                                      />
-                                                      <span className="text-[10px] font-medium text-slate-600 flex-1">
-                                                        {locale === 'ar' ? kc.nameAr : kc.nameEn}
-                                                      </span>
-                                                      <span
-                                                        className="text-[9px] font-bold px-1.5 py-0.5 rounded-md"
-                                                        style={{ backgroundColor: `${color}15`, color }}
-                                                      >
-                                                        {BLOOM_LABELS[kc.bloomLevel as BloomLevel]?.[locale === 'ar' ? 'ar' : 'en'] || `B${kc.bloomLevel}`}
-                                                      </span>
-                                                      {/* Mastery bar */}
-                                                      <div className="w-12 h-1 bg-slate-100 rounded-full overflow-hidden">
-                                                        <div
-                                                          className="h-full rounded-full"
-                                                          style={{ width: `${score}%`, backgroundColor: color }}
-                                                        />
-                                                      </div>
-                                                      <span className="text-[10px] font-black w-7 text-right" style={{ color }}>
-                                                        {score}
-                                                      </span>
-                                                    </div>
-                                                  );
-                                                })}
-                                              </div>
-                                            </motion.div>
-                                          )}
-                                        </AnimatePresence>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </motion.div>
+                  className="absolute rounded-full"
+                  style={{
+                    width: size + 16,
+                    height: size + 16,
+                    top: -(8),
+                    left: -(8),
+                    border: `3px solid ${color}`,
+                  }}
+                  animate={{
+                    scale: [1, 1.15, 1],
+                    opacity: [0.4, 0.15, 0.4],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                />
               )}
-            </AnimatePresence>
-          </motion.div>
+
+              {/* Circle button */}
+              <button
+                onClick={() => {
+                  // No-op for now — integration will wire up onSelectSkill
+                }}
+                disabled={node.isLocked}
+                className="relative rounded-full flex items-center justify-center font-black text-white transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                style={{
+                  width: size,
+                  height: size,
+                  backgroundColor: color,
+                  opacity: node.isLocked ? 0.5 : 1,
+                  border:
+                    !node.isLocked && node.mastery === 0
+                      ? '3px dashed #94a3b8'
+                      : '3px solid transparent',
+                  boxShadow: isCurrent ? `0 0 0 3px ${color}33` : undefined,
+                  cursor: node.isLocked ? 'not-allowed' : 'pointer',
+                }}
+              >
+                {node.isLocked ? (
+                  <Lock className="w-5 h-5 text-slate-400" />
+                ) : node.mastery >= 90 ? (
+                  <Star className="w-6 h-6 text-yellow-300 fill-yellow-300" />
+                ) : node.mastery > 0 ? (
+                  <Check className="w-5 h-5 text-white" />
+                ) : (
+                  <span className="text-sm">{node.pageNumber}</span>
+                )}
+              </button>
+
+              {/* Label below */}
+              <p
+                className="mt-1.5 text-[11px] font-semibold text-slate-600 max-w-[100px] text-center truncate leading-tight"
+                title={node.pageName}
+              >
+                {node.pageName}
+              </p>
+              {node.mastery > 0 && !node.isLocked && (
+                <span
+                  className="text-[10px] font-black"
+                  style={{ color }}
+                >
+                  {node.mastery}%
+                </span>
+              )}
+            </motion.div>
+          </React.Fragment>
         );
       })}
+
+      {/* End marker — golden star */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.05 + pathNodes.length * 0.04, duration: 0.5 }}
+        className="relative z-10 flex flex-col items-center pt-6"
+        style={{ marginLeft: 'calc(50% - 32px)' }}
+      >
+        <div
+          className="w-16 h-16 rounded-full flex items-center justify-center"
+          style={{
+            background: 'linear-gradient(135deg, #facc15, #f59e0b)',
+            boxShadow: '0 4px 20px rgba(245, 158, 11, 0.35)',
+          }}
+        >
+          <Star className="w-8 h-8 text-white fill-white" />
+        </div>
+        <p className="mt-2 text-xs font-black text-amber-600">
+          {locale === 'ar' ? 'النهاية!' : 'Finish!'}
+        </p>
+      </motion.div>
     </div>
   );
 };
