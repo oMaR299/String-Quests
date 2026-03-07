@@ -20,28 +20,31 @@ interface Props {
   onClose: () => void;
 }
 
-const MetricCard: React.FC<{ label: string; value: number; icon: React.ElementType; color: string }> = ({
-  label, value, icon: Icon, color,
-}) => (
-  <div className="bg-slate-50 rounded-xl p-3 border border-slate-100">
-    <div className="flex items-center gap-2 mb-1">
-      <Icon className={`w-3.5 h-3.5 ${color}`} />
-      <span className="text-[10px] font-bold text-slate-400 uppercase">{label}</span>
-    </div>
-    <div className="flex items-center gap-2">
-      <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full rounded-full"
-          style={{ backgroundColor: value >= 70 ? '#22c55e' : value >= 40 ? '#f59e0b' : '#ef4444' }}
-          initial={{ width: 0 }}
-          animate={{ width: `${Math.min(100, value)}%` }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        />
+const MetricCard: React.FC<{ label: string; value: number; icon: React.ElementType; color: string; locale?: string }> = ({
+  label, value, icon: Icon, color, locale,
+}) => {
+  const isRTL = locale === 'ar';
+  return (
+    <div className="bg-slate-50 rounded-xl p-3 border border-slate-100">
+      <div className="flex items-center gap-2 mb-1">
+        <Icon className={`w-3.5 h-3.5 ${color}`} />
+        <span className="text-[10px] font-bold text-slate-400 uppercase">{label}</span>
       </div>
-      <span className="text-xs font-black text-slate-600 w-8 text-right">{Math.round(value)}</span>
+      <div className="flex items-center gap-2" dir="ltr">
+        <div className={`flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden ${isRTL ? 'flex justify-end' : ''}`}>
+          <motion.div
+            className="h-full rounded-full"
+            style={{ backgroundColor: value >= 70 ? '#22c55e' : value >= 40 ? '#f59e0b' : '#ef4444' }}
+            initial={{ width: 0 }}
+            animate={{ width: `${Math.min(100, value)}%` }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          />
+        </div>
+        <span className="text-xs font-black text-slate-600 w-8 text-right">{Math.round(value)}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const SkillDetailPanel: React.FC<Props> = ({ mastery, locale, onClose }) => {
   const navigate = useNavigate();
@@ -134,12 +137,12 @@ export const SkillDetailPanel: React.FC<Props> = ({ mastery, locale, onClose }) 
 
               {/* Metrics Grid */}
               <div className="grid grid-cols-2 gap-2">
-                <MetricCard label={locale === 'ar' ? 'الدقة' : 'Accuracy'} value={mastery.metrics.accuracy} icon={Target} color="text-blue-500" />
-                <MetricCard label={locale === 'ar' ? 'الثبات' : 'Consistency'} value={mastery.metrics.consistency} icon={BarChart3} color="text-green-500" />
-                <MetricCard label={locale === 'ar' ? 'الاحتفاظ' : 'Retention'} value={mastery.metrics.retention} icon={Brain} color="text-purple-500" />
-                <MetricCard label={locale === 'ar' ? 'المعايرة' : 'Calibration'} value={mastery.metrics.confidenceCalibration} icon={Shield} color="text-amber-500" />
-                <MetricCard label={locale === 'ar' ? 'النمو' : 'Growth'} value={mastery.metrics.growthVelocity} icon={TrendingUp} color="text-emerald-500" />
-                <MetricCard label={locale === 'ar' ? 'العمق' : 'Depth'} value={mastery.metrics.cognitiveDepth} icon={Brain} color="text-indigo-500" />
+                <MetricCard label={locale === 'ar' ? 'الدقة' : 'Accuracy'} value={mastery.metrics.accuracy} icon={Target} color="text-blue-500" locale={locale} />
+                <MetricCard label={locale === 'ar' ? 'الثبات' : 'Consistency'} value={mastery.metrics.consistency} icon={BarChart3} color="text-green-500" locale={locale} />
+                <MetricCard label={locale === 'ar' ? 'الاحتفاظ' : 'Retention'} value={mastery.metrics.retention} icon={Brain} color="text-purple-500" locale={locale} />
+                <MetricCard label={locale === 'ar' ? 'المعايرة' : 'Calibration'} value={mastery.metrics.confidenceCalibration} icon={Shield} color="text-amber-500" locale={locale} />
+                <MetricCard label={locale === 'ar' ? 'النمو' : 'Growth'} value={mastery.metrics.growthVelocity} icon={TrendingUp} color="text-emerald-500" locale={locale} />
+                <MetricCard label={locale === 'ar' ? 'العمق' : 'Depth'} value={mastery.metrics.cognitiveDepth} icon={Brain} color="text-indigo-500" locale={locale} />
               </div>
 
               {/* Knowledge Components Breakdown */}

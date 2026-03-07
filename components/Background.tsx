@@ -9,8 +9,8 @@ const Background: React.FC = () => {
       <div className="absolute bottom-[-20%] left-[20%] w-[45rem] h-[45rem] bg-pink-200/40 rounded-full mix-blend-multiply filter blur-[80px] animate-blob animation-delay-4000"></div>
       <div className="absolute bottom-[10%] right-[10%] w-[30rem] h-[30rem] bg-yellow-100/40 rounded-full mix-blend-multiply filter blur-[60px] animate-blob animation-delay-6000"></div>
 
-      {/* Subtle Grid Overlay */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]"></div>
+      {/* Subtle dot grid overlay */}
+      <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, #64748b 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
       
       {/* Geometric Accents */}
       <div className="absolute top-20 left-10 opacity-20 animate-float">

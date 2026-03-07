@@ -87,7 +87,7 @@ const EndScreen: React.FC<EndScreenProps> = ({ score, maxScore, onRestart }) => 
          <div className="bg-slate-50 rounded-3xl p-6 mb-8 border border-slate-100 relative overflow-hidden">
             <div className="absolute -right-4 -top-4 opacity-10"><PinkDiamondIcon className="w-24 h-24" /></div>
             <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 relative z-10">النتيجة النهائية</div>
-            <div className="flex items-center justify-center gap-1 leading-none relative z-10">
+            <div className="flex items-center justify-center gap-1 leading-none relative z-10" dir="ltr">
                 <span className="text-6xl font-black text-slate-800">{Math.round(score)}</span>
                 <span className="text-2xl font-bold text-slate-400 self-end mb-2">/{maxScore}</span>
             </div>
@@ -107,9 +107,13 @@ const EndScreen: React.FC<EndScreenProps> = ({ score, maxScore, onRestart }) => 
              </div>
          </div>
 
-         <Button onClick={onRestart} fullWidth size="lg" className="shadow-xl shadow-blue-500/20">
+         <Button onClick={onRestart} fullWidth size="lg" className="shadow-xl shadow-blue-500/20 mb-3">
             <RotateCcw className="w-5 h-5 ml-2" />
             إلعب مرة أخرى
+         </Button>
+         <Button onClick={() => navigate('/learn')} variant="secondary" fullWidth size="lg">
+            <BookOpen className="w-5 h-5 ml-2" />
+            العودة إلى التعلم
          </Button>
       </motion.div>
     </div>

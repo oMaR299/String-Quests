@@ -295,7 +295,7 @@ const StreakScreen: React.FC = () => {
                          <div className="w-8 h-8 rounded-full bg-slate-200"></div>
                          <span className="font-bold text-slate-700 text-sm">خالد .ع</span>
                      </div>
-                     <span className="text-xs font-black text-slate-400">1950 XP</span>
+                     <span className="text-xs font-black text-slate-400">1950 نقطة</span>
                  </div>
             </div>
             <div className="text-center text-xs text-slate-400 font-bold mt-auto">
