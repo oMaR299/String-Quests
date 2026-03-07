@@ -1,21 +1,25 @@
-import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { SkillMastery, MASTERY_COLORS, MasteryStatus } from '../../utils/masteryEngine';
-import { getCategoryForSubject } from '../../data/skillTaxonomy';
+'use client';
 
-const MASTERY_LABEL_AR: Record<MasteryStatus, string> = {
-  unstarted: 'لم يُبدأ',
-  attempted: 'جُرِّب',
-  developing: 'في التطور',
-  proficient: 'متقدم',
-  mastered: 'مُتقَن',
-};
+import React, { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
+import { Textbook } from '../../data/sampleTextbook';
+
+// ─── Types ──────────────────────────────────────────────────────────────────────
+
+interface UnitScore {
+  unitId: string;
+  nameAr: string;
+  nameEn: string;
+  score: number; // 0-100
+}
 
 interface Props {
-  masteries: SkillMastery[];
+  unitScores: UnitScore[];
   locale: string;
-  onSelectSkill: (mastery: SkillMastery) => void;
+  activeTextbook: Textbook;
 }
+
+// ─── Helpers ────────────────────────────────────────────────────────────────────
 
 /** Deterministic pseudo-random from a seed number */
 function seededRandom(seed: number): number {
@@ -23,328 +27,493 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-/** Map maxPoints to star diameter */
-function getStarSize(maxPoints: number): number {
-  if (maxPoints <= 10) return 10;
-  if (maxPoints <= 20) return 14;
-  return 18;
+/** Map score to a mastery color */
+function getMasteryColor(score: number): string {
+  if (score === 0) return '#64748b';
+  if (score < 40) return '#ef4444';
+  if (score < 70) return '#f59e0b';
+  if (score < 90) return '#22c55e';
+  return '#eab308';
 }
 
-export const GalaxyView: React.FC<Props> = ({ masteries, locale, onSelectSkill }) => {
-  // Group masteries by subject
-  const subjectGroups = useMemo(() => {
-    const groups: Record<string, SkillMastery[]> = {};
-    for (const m of masteries) {
-      const subj = m.skill.subject;
-      if (!groups[subj]) groups[subj] = [];
-      groups[subj].push(m);
-    }
-    return groups;
-  }, [masteries]);
+// ─── Constants ──────────────────────────────────────────────────────────────────
 
-  const subjects = Object.keys(subjectGroups);
+const W = 800;
+const H = 600;
+const CX = W / 2;     // 400
+const CY = H / 2;     // 300
+const MAX_RADIUS = 200;
+const RING_LEVELS = [0.25, 0.50, 0.75, 1.0];
+const NUM_BG_STARS = 80;
 
-  // Viewport dimensions for our coordinate space
-  const W = 800;
-  const H = 600;
-  const CX = W / 2;
-  const CY = H / 2;
-  const ORBIT_RADIUS = Math.min(W, H) * 0.34;
+const LEGEND_ITEMS = [
+  { label: 'Weak', labelAr: 'ضعيف', range: '<40%', color: '#ef4444' },
+  { label: 'Developing', labelAr: 'نامٍ', range: '40-69%', color: '#f59e0b' },
+  { label: 'Proficient', labelAr: 'متقدم', range: '70-89%', color: '#22c55e' },
+  { label: 'Mastered', labelAr: 'مُتقَن', range: '90%+', color: '#eab308' },
+];
 
-  // Compute absolute positions for every star within its subject cluster
-  const starPositions = useMemo(() => {
-    const positions: {
-      mastery: SkillMastery;
-      x: number;
-      y: number;
-      color: string;
-      size: number;
-    }[] = [];
+// ─── Component ──────────────────────────────────────────────────────────────────
 
-    subjects.forEach((subject, sIdx) => {
-      const cluster = subjectGroups[subject];
-      const category = getCategoryForSubject(subject);
-      const clusterColor = category?.color ?? '#94a3b8';
+export const GalaxyView: React.FC<Props> = ({ unitScores, locale, activeTextbook }) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-      // Cluster center angle and position
-      const angle = (sIdx / subjects.length) * Math.PI * 2 - Math.PI / 2;
-      const clusterCX = CX + Math.cos(angle) * ORBIT_RADIUS;
-      const clusterCY = CY + Math.sin(angle) * ORBIT_RADIUS;
+  const n = unitScores.length;
 
-      // Spread stars within each cluster
-      const clusterSpread = 40 + cluster.length * 8;
+  // Compute spoke angles (evenly distributed, starting from top)
+  const angles = useMemo(
+    () =>
+      unitScores.map(
+        (_, i) => (i / n) * Math.PI * 2 - Math.PI / 2
+      ),
+    [n, unitScores]
+  );
 
-      cluster.forEach((m, i) => {
-        const seed = m.skill.questionId * 137 + i;
-        const starAngle = (i / cluster.length) * Math.PI * 2 + seededRandom(seed) * 0.8;
-        const dist = 12 + seededRandom(seed + 1) * clusterSpread;
+  // Helper: point on a spoke at a given fraction (0-1) of MAX_RADIUS
+  const spokePoint = (angleIdx: number, fraction: number) => {
+    const a = angles[angleIdx];
+    return {
+      x: CX + Math.cos(a) * MAX_RADIUS * fraction,
+      y: CY + Math.sin(a) * MAX_RADIUS * fraction,
+    };
+  };
 
-        positions.push({
-          mastery: m,
-          x: clusterCX + Math.cos(starAngle) * dist,
-          y: clusterCY + Math.sin(starAngle) * dist,
-          color: clusterColor,
-          size: getStarSize(m.skill.maxPoints),
-        });
-      });
-    });
+  // Build polygon points string for a given set of fractions per spoke
+  const polygonPoints = (fractions: number[]) =>
+    fractions
+      .map((f, i) => {
+        const p = spokePoint(i, f);
+        return `${p.x},${p.y}`;
+      })
+      .join(' ');
 
-    return positions;
-  }, [subjects, subjectGroups, CX, CY, ORBIT_RADIUS]);
+  // Ring polygon points (all spokes at same level)
+  const ringPolygonPoints = (level: number) =>
+    polygonPoints(unitScores.map(() => level));
 
-  // Build lines connecting stars within same subject
-  const constellationLines = useMemo(() => {
-    const lines: { x1: number; y1: number; x2: number; y2: number; color: string }[] = [];
+  // Score fractions (0-1)
+  const scoreFractions = useMemo(
+    () => unitScores.map((u) => u.score / 100),
+    [unitScores]
+  );
 
-    subjects.forEach((subject) => {
-      const category = getCategoryForSubject(subject);
-      const color = category?.color ?? '#94a3b8';
+  // Average score
+  const avgScore = useMemo(() => {
+    if (unitScores.length === 0) return 0;
+    return Math.round(
+      unitScores.reduce((sum, u) => sum + u.score, 0) / unitScores.length
+    );
+  }, [unitScores]);
 
-      // Find positions for this subject
-      const clusterPositions = starPositions.filter(
-        (sp) => sp.mastery.skill.subject === subject
-      );
+  // Score polygon path for Framer Motion animation (from all-zeros to actual)
+  const zeroPolygon = polygonPoints(unitScores.map(() => 0));
+  const scorePolygon = polygonPoints(scoreFractions);
 
-      // Connect consecutive stars in the cluster
-      for (let i = 0; i < clusterPositions.length - 1; i++) {
-        lines.push({
-          x1: clusterPositions[i].x,
-          y1: clusterPositions[i].y,
-          x2: clusterPositions[i + 1].x,
-          y2: clusterPositions[i + 1].y,
-          color,
-        });
-      }
-      // Connect last to first if 3+ stars to close the constellation
-      if (clusterPositions.length >= 3) {
-        lines.push({
-          x1: clusterPositions[clusterPositions.length - 1].x,
-          y1: clusterPositions[clusterPositions.length - 1].y,
-          x2: clusterPositions[0].x,
-          y2: clusterPositions[0].y,
-          color,
-        });
-      }
-    });
+  // Data point positions
+  const dataPoints = useMemo(
+    () =>
+      unitScores.map((u, i) => {
+        const p = spokePoint(i, u.score / 100);
+        return { ...p, score: u.score, color: getMasteryColor(u.score) };
+      }),
+    [unitScores, angles]
+  );
 
-    return lines;
-  }, [subjects, starPositions]);
+  // Label positions (slightly beyond spoke tips)
+  const labelPositions = useMemo(
+    () =>
+      unitScores.map((_, i) => {
+        const a = angles[i];
+        const labelRadius = MAX_RADIUS + 30;
+        return {
+          x: CX + Math.cos(a) * labelRadius,
+          y: CY + Math.sin(a) * labelRadius,
+        };
+      }),
+    [unitScores, angles]
+  );
 
-  // Subject labels at cluster centers
-  const subjectLabels = useMemo(() => {
-    return subjects.map((subject, sIdx) => {
-      const angle = (sIdx / subjects.length) * Math.PI * 2 - Math.PI / 2;
-      const lx = CX + Math.cos(angle) * (ORBIT_RADIUS + 55);
-      const ly = CY + Math.sin(angle) * (ORBIT_RADIUS + 55);
-      const category = getCategoryForSubject(subject);
-      return { subject, x: lx, y: ly, color: category?.color ?? '#94a3b8' };
-    });
-  }, [subjects, CX, CY, ORBIT_RADIUS]);
+  // Background stars
+  const bgStars = useMemo(
+    () =>
+      Array.from({ length: NUM_BG_STARS }, (_, i) => ({
+        cx: seededRandom(i * 7 + 3) * W,
+        cy: seededRandom(i * 13 + 11) * H,
+        r: seededRandom(i * 3 + 1) < 0.5 ? 0.6 : 1.1,
+        baseOpacity: 0.08 + seededRandom(i * 5 + 17) * 0.12,
+        twinkleDur: 2 + seededRandom(i * 9 + 7) * 5,
+        twinkleMin: 0.05 + seededRandom(i * 5) * 0.08,
+        twinkleMax: 0.18 + seededRandom(i * 5) * 0.14,
+      })),
+    []
+  );
+
+  // Nebula positions: near high-mastery axes (>75%)
+  const nebulae = useMemo(
+    () =>
+      unitScores
+        .map((u, i) => ({ unit: u, idx: i }))
+        .filter((item) => item.unit.score > 75)
+        .map((item) => {
+          const a = angles[item.idx];
+          const dist = MAX_RADIUS * (item.unit.score / 100) * 0.65;
+          return {
+            cx: CX + Math.cos(a) * dist,
+            cy: CY + Math.sin(a) * dist,
+            baseR: 30 + (item.unit.score - 75) * 1.2,
+            color: getMasteryColor(item.unit.score),
+            seed: item.idx,
+          };
+        }),
+    [unitScores, angles]
+  );
+
+  // Ring label positions (placed on the first spoke, slightly offset)
+  const ringLabelPositions = useMemo(
+    () =>
+      RING_LEVELS.map((level) => {
+        // Place along the first spoke direction but offset slightly to the right
+        const a = angles[0] ?? -Math.PI / 2;
+        const offset = 12;
+        return {
+          x: CX + Math.cos(a) * MAX_RADIUS * level + offset,
+          y: CY + Math.sin(a) * MAX_RADIUS * level - 4,
+          label: `${Math.round(level * 100)}%`,
+        };
+      }),
+    [angles]
+  );
 
   return (
     <div className="bg-gradient-to-b from-slate-900 to-indigo-950 min-h-[500px] rounded-2xl overflow-hidden relative">
-      {/* Ambient background stars (decorative) */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        preserveAspectRatio="none"
-      >
-        {Array.from({ length: 60 }).map((_, i) => (
-          <circle
-            key={`bg-star-${i}`}
-            cx={`${seededRandom(i * 7 + 3) * 100}%`}
-            cy={`${seededRandom(i * 13 + 11) * 100}%`}
-            r={seededRandom(i * 3 + 1) < 0.6 ? 0.8 : 1.3}
-            fill="white"
-            opacity={0.1 + seededRandom(i * 5 + 17) * 0.15}
-          >
-            <animate
-              attributeName="opacity"
-              values={`${0.08 + seededRandom(i * 5) * 0.12};${0.2 + seededRandom(i * 5) * 0.15};${0.08 + seededRandom(i * 5) * 0.12}`}
-              dur={`${2 + seededRandom(i * 9 + 7) * 4}s`}
-              repeatCount="indefinite"
-            />
-          </circle>
-        ))}
-      </svg>
-
-      {/* Main SVG canvas */}
+      {/* Main SVG */}
       <svg
         viewBox={`0 0 ${W} ${H}`}
         className="w-full h-full min-h-[500px]"
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
-          {/* Glow filter for mastered stars */}
-          <filter id="galaxy-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+          {/* Neon glow filter for score polygon edge */}
+          <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur1" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2" />
+            <feMerge>
+              <feMergeNode in="blur2" />
+              <feMergeNode in="blur1" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          {/* Glow filter for data point stars */}
+          <filter id="star-glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
+
+          {/* Mastered pulse glow filter */}
+          <filter id="mastered-pulse" x="-150%" y="-150%" width="400%" height="400%">
+            <feGaussianBlur stdDeviation="6" result="bigBlur" />
+            <feMerge>
+              <feMergeNode in="bigBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          {/* Score polygon fill: radial gradient */}
+          <radialGradient id="score-fill-gradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#6366f1" stopOpacity="0.05" />
+            <stop offset="100%" stopColor="#6366f1" stopOpacity="0.25" />
+          </radialGradient>
         </defs>
 
-        {/* Constellation lines */}
-        {constellationLines.map((line, i) => (
-          <motion.line
-            key={`line-${i}`}
-            x1={line.x1}
-            y1={line.y1}
-            x2={line.x2}
-            y2={line.y2}
-            stroke={line.color}
-            strokeWidth={0.8}
-            strokeOpacity={0.12}
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.3 + i * 0.02 }}
+        {/* ── Layer 1: Background Stars ────────────────────────────────────── */}
+        {bgStars.map((star, i) => (
+          <circle
+            key={`bg-star-${i}`}
+            cx={star.cx}
+            cy={star.cy}
+            r={star.r}
+            fill="white"
+            opacity={star.baseOpacity}
+          >
+            <animate
+              attributeName="opacity"
+              values={`${star.twinkleMin};${star.twinkleMax};${star.twinkleMin}`}
+              dur={`${star.twinkleDur}s`}
+              repeatCount="indefinite"
+            />
+          </circle>
+        ))}
+
+        {/* ── Layer 2: Grid Rings ──────────────────────────────────────────── */}
+        {RING_LEVELS.map((level) => (
+          <polygon
+            key={`ring-${level}`}
+            points={ringPolygonPoints(level)}
+            fill="none"
+            stroke="white"
+            strokeWidth={0.5}
+            opacity={0.15}
           />
         ))}
 
-        {/* Subject labels */}
-        {subjectLabels.map((label) => (
+        {/* ── Layer 3: Ring Labels ─────────────────────────────────────────── */}
+        {ringLabelPositions.map((rl) => (
           <text
-            key={`label-${label.subject}`}
-            x={label.x}
-            y={label.y}
-            textAnchor="middle"
+            key={`ring-label-${rl.label}`}
+            x={rl.x}
+            y={rl.y}
+            fill="white"
+            fontSize={9}
+            opacity={0.2}
+            textAnchor="start"
             dominantBaseline="middle"
-            fill={label.color}
-            fontSize={10}
-            fontWeight={700}
-            opacity={0.6}
           >
-            {label.subject}
+            {rl.label}
           </text>
         ))}
 
-        {/* Stars */}
-        {starPositions.map((star, i) => {
-          const { mastery, x, y, color, size } = star;
-          const isUnstarted = mastery.status === 'unstarted';
-          const isMastered = mastery.status === 'mastered';
-          const brightness = isUnstarted ? 0.45 : 0.3 + (mastery.masteryScore / 100) * 0.7;
-          const r = isUnstarted ? Math.max(size / 2, 7) : size / 2;
-          const skillName =
-            locale === 'ar' ? mastery.skill.skillNameAr : mastery.skill.skillNameEn;
+        {/* ── Layer 4: Spoke Lines ─────────────────────────────────────────── */}
+        {angles.map((a, i) => {
+          const tip = spokePoint(i, 1);
+          return (
+            <line
+              key={`spoke-${i}`}
+              x1={CX}
+              y1={CY}
+              x2={tip.x}
+              y2={tip.y}
+              stroke="white"
+              strokeWidth={0.5}
+              opacity={0.1}
+            />
+          );
+        })}
 
-          // Twinkling animation parameters (vary per star)
-          const twinkleDuration = 2.5 + seededRandom(mastery.skill.questionId * 3) * 3;
-          const twinkleDelay = seededRandom(mastery.skill.questionId * 7) * 3;
+        {/* ── Layer 5: Nebula Clouds ───────────────────────────────────────── */}
+        {nebulae.map((neb, i) => (
+          <circle
+            key={`nebula-${i}`}
+            cx={neb.cx}
+            cy={neb.cy}
+            r={neb.baseR}
+            fill={neb.color}
+            opacity={0.06}
+            style={{ mixBlendMode: 'screen' }}
+          >
+            {/* Breathing animation (radius oscillation) */}
+            <animate
+              attributeName="r"
+              values={`${neb.baseR * 0.85};${neb.baseR * 1.15};${neb.baseR * 0.85}`}
+              dur={`${4 + seededRandom(neb.seed * 17) * 3}s`}
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="opacity"
+              values="0.04;0.08;0.04"
+              dur={`${4 + seededRandom(neb.seed * 17) * 3}s`}
+              repeatCount="indefinite"
+            />
+          </circle>
+        ))}
+
+        {/* ── Layer 6: Score Polygon Fill ───────────────────────────────────── */}
+        <motion.polygon
+          points={scorePolygon}
+          fill="url(#score-fill-gradient)"
+          initial={{ points: zeroPolygon } as any}
+          animate={{ points: scorePolygon } as any}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+        />
+
+        {/* ── Layer 7: Score Polygon Edge (Neon Glow) ──────────────────────── */}
+        <motion.polygon
+          points={scorePolygon}
+          fill="none"
+          stroke="#818cf8"
+          strokeWidth={2}
+          filter="url(#neon-glow)"
+          initial={{ points: zeroPolygon } as any}
+          animate={{ points: scorePolygon } as any}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+        />
+
+        {/* ── Layer 8: Data Point Stars ────────────────────────────────────── */}
+        {dataPoints.map((dp, i) => {
+          const isMastered = unitScores[i].score >= 90;
+          const isHovered = hoveredIndex === i;
+          const pointRadius = isHovered ? 7 : 5;
 
           return (
-            <motion.g
-              key={mastery.skill.questionId}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.03 }}
+            <g
+              key={`dp-${i}`}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
               style={{ cursor: 'pointer' }}
-              onClick={() => onSelectSkill(mastery)}
             >
-              <title>{`${skillName} (${mastery.masteryScore}%)`}</title>
-
-              {/* Glow halo for mastered skills */}
+              {/* ── Layer 9: Mastered Pulsing ──────────────────────────────── */}
               {isMastered && (
                 <circle
-                  cx={x}
-                  cy={y}
-                  r={r + 6}
-                  fill="none"
-                  stroke={color}
-                  strokeWidth={1.5}
-                  opacity={0.3}
-                  filter="url(#galaxy-glow)"
+                  cx={dp.x}
+                  cy={dp.y}
+                  r={10}
+                  fill={dp.color}
+                  opacity={0.25}
+                  filter="url(#mastered-pulse)"
                 >
                   <animate
-                    attributeName="opacity"
-                    values="0.15;0.4;0.15"
-                    dur={`${twinkleDuration}s`}
-                    begin={`${twinkleDelay}s`}
+                    attributeName="r"
+                    values="8;14;8"
+                    dur="2.5s"
                     repeatCount="indefinite"
                   />
                   <animate
-                    attributeName="r"
-                    values={`${r + 4};${r + 8};${r + 4}`}
-                    dur={`${twinkleDuration}s`}
-                    begin={`${twinkleDelay}s`}
+                    attributeName="opacity"
+                    values="0.15;0.35;0.15"
+                    dur="2.5s"
                     repeatCount="indefinite"
                   />
                 </circle>
               )}
 
-              {isUnstarted ? (
-                /* Dim filled circle with dashed border for unstarted */
-                <circle
-                  cx={x}
-                  cy={y}
-                  r={r}
-                  fill="#475569"
-                  fillOpacity={0.25}
-                  stroke="#64748b"
-                  strokeWidth={1}
-                  strokeDasharray="3,2"
-                  opacity={brightness}
-                />
-              ) : (
-                /* Solid filled circle for attempted skills */
-                <>
-                  <circle
-                    cx={x}
-                    cy={y}
-                    r={r}
-                    fill={color}
-                    opacity={brightness}
-                    filter={isMastered ? 'url(#galaxy-glow)' : undefined}
-                  >
-                    {/* Twinkle animation */}
-                    <animate
-                      attributeName="opacity"
-                      values={`${brightness * 0.85};${Math.min(1, brightness * 1.15)};${brightness * 0.85}`}
-                      dur={`${twinkleDuration}s`}
-                      begin={`${twinkleDelay}s`}
-                      repeatCount="indefinite"
-                    />
-                  </circle>
+              {/* Actual data point circle */}
+              <motion.circle
+                cx={dp.x}
+                cy={dp.y}
+                r={pointRadius}
+                fill={dp.color}
+                filter="url(#star-glow)"
+                initial={{ cx: CX, cy: CY, r: 0 }}
+                animate={{ cx: dp.x, cy: dp.y, r: pointRadius }}
+                transition={{ duration: 1.2, ease: 'easeOut' }}
+              />
 
-                  {/* Inner bright core */}
-                  <circle
-                    cx={x}
-                    cy={y}
-                    r={r * 0.4}
+              {/* Bright core */}
+              <motion.circle
+                cx={dp.x}
+                cy={dp.y}
+                r={pointRadius * 0.4}
+                fill="white"
+                opacity={0.7}
+                initial={{ cx: CX, cy: CY, r: 0 }}
+                animate={{ cx: dp.x, cy: dp.y, r: pointRadius * 0.4 }}
+                transition={{ duration: 1.2, ease: 'easeOut' }}
+              />
+
+              {/* Invisible larger hit area */}
+              <circle
+                cx={dp.x}
+                cy={dp.y}
+                r={20}
+                fill="transparent"
+              />
+
+              {/* ── Layer 10: Hover Tooltip ─────────────────────────────────── */}
+              {isHovered && (
+                <g>
+                  <rect
+                    x={dp.x - 24}
+                    y={dp.y - 30}
+                    width={48}
+                    height={20}
+                    rx={10}
+                    fill="rgba(0,0,0,0.75)"
+                    stroke="rgba(255,255,255,0.15)"
+                    strokeWidth={0.5}
+                  />
+                  <text
+                    x={dp.x}
+                    y={dp.y - 17}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
                     fill="white"
-                    opacity={brightness * 0.6}
+                    fontSize={11}
+                    fontWeight={600}
                   >
-                    <animate
-                      attributeName="opacity"
-                      values={`${brightness * 0.4};${brightness * 0.7};${brightness * 0.4}`}
-                      dur={`${twinkleDuration}s`}
-                      begin={`${twinkleDelay}s`}
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                </>
+                    {dp.score}%
+                  </text>
+                </g>
               )}
-
-              {/* Hover hit area (larger, invisible) */}
-              <circle cx={x} cy={y} r={Math.max(r + 4, 12)} fill="transparent" />
-            </motion.g>
+            </g>
           );
         })}
+
+        {/* ── Layer 11: Unit Labels at Spoke Tips ──────────────────────────── */}
+        {unitScores.map((u, i) => {
+          const lp = labelPositions[i];
+          const a = angles[i];
+          const isHovered = hoveredIndex === i;
+
+          // Determine text-anchor based on angle position
+          let textAnchor: 'start' | 'middle' | 'end' = 'middle';
+          const aDeg = ((a + Math.PI / 2) / Math.PI) * 180; // normalize so 0 = top
+          if (aDeg > 30 && aDeg < 150) textAnchor = 'start';
+          if (aDeg > 210 && aDeg < 330) textAnchor = 'end';
+
+          const label = locale === 'ar' ? u.nameAr : u.nameEn;
+
+          return (
+            <text
+              key={`label-${u.unitId}`}
+              x={lp.x}
+              y={lp.y}
+              textAnchor={textAnchor}
+              dominantBaseline="middle"
+              fill="white"
+              fontSize={11}
+              fontWeight={isHovered ? 700 : 500}
+              opacity={hoveredIndex === null || isHovered ? 0.85 : 0.35}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              style={{ cursor: 'pointer', transition: 'opacity 0.2s, font-weight 0.2s' }}
+            >
+              {label}
+            </text>
+          );
+        })}
+
+        {/* ── Layer 12: Center Score ───────────────────────────────────────── */}
+        <text
+          x={CX}
+          y={CY - 8}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill="white"
+          fontSize={36}
+          fontWeight={700}
+          opacity={0.95}
+        >
+          {avgScore}%
+        </text>
+        <text
+          x={CX}
+          y={CY + 22}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill="white"
+          fontSize={11}
+          fontWeight={500}
+          opacity={0.5}
+        >
+          {locale === 'ar' ? 'الإتقان الكلي' : 'Overall Mastery'}
+        </text>
       </svg>
 
-      {/* Legend */}
-      <div className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-x-4 gap-y-1 px-3 py-2 bg-black/30 backdrop-blur-sm rounded-xl">
-        {(Object.keys(MASTERY_COLORS) as Array<keyof typeof MASTERY_COLORS>).map((status) => (
-          <div key={status} className="flex items-center gap-1.5">
+      {/* ── Legend Bar ──────────────────────────────────────────────────────── */}
+      <div className="absolute bottom-3 left-3 right-3 flex flex-wrap justify-center gap-x-5 gap-y-1 px-4 py-2.5 bg-black/30 backdrop-blur-sm rounded-xl">
+        {LEGEND_ITEMS.map((item) => (
+          <div key={item.label} className="flex items-center gap-1.5">
             <span
               className="w-2.5 h-2.5 rounded-full inline-block"
-              style={{
-                backgroundColor: status === 'unstarted' ? 'transparent' : MASTERY_COLORS[status],
-                border: status === 'unstarted' ? '1px dashed #475569' : 'none',
-                opacity: status === 'unstarted' ? 0.5 : 1,
-              }}
+              style={{ backgroundColor: item.color }}
             />
-            <span className="text-[10px] font-medium text-slate-300">{locale === 'ar' ? MASTERY_LABEL_AR[status] : status}</span>
+            <span className="text-[10px] font-medium text-slate-300">
+              {locale === 'ar' ? item.labelAr : item.label}{' '}
+              <span className="text-slate-500">{item.range}</span>
+            </span>
           </div>
         ))}
       </div>
