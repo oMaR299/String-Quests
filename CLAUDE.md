@@ -1,5 +1,7 @@
 # String-Quests - Educational Gamification Platform
 
+> **IMPORTANT FOR AGENT TEAMMATES**: Read `PROJECT-CONTEXT.md` for FULL project context including file structure, data models, how knowledge tracking works, and what needs to be built. This CLAUDE.md is a quick reference.
+
 ## What This Is
 A Duolingo-like Arabic educational module for Al-Khadr Modern Schools. Students play quizzes/quests based on real textbooks. The app tracks knowledge at every level: subject > unit > lesson > page > knowledge component (KC).
 
