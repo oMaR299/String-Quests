@@ -1,20 +1,21 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  LayoutDashboard, Users, BookOpen, Settings, LogOut, 
-  Search, Bell, Menu, X
+import {
+  LayoutDashboard, Users, BookOpen, Settings, LogOut,
+  Search, Bell, Menu, X, BrainCircuit
 } from 'lucide-react';
 import { MasterDashboard } from './MasterDashboard';
 import { CurriculumDashboard } from './CurriculumDashboard';
 import { ClassesDashboard } from './ClassesDashboard';
+import { TeacherSkillMapPage } from '../../pages/TeacherSkillMapPage';
 
 interface TeacherLayoutProps {
     onLogout: () => void;
 }
 
 export const TeacherLayout: React.FC<TeacherLayoutProps> = ({ onLogout }) => {
-    const [activeTab, setActiveTab] = useState<'overview' | 'classes' | 'curriculum'>('overview');
+    const [activeTab, setActiveTab] = useState<'overview' | 'classes' | 'curriculum' | 'skill-map'>('overview');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const NavItem = ({ id, label, icon: Icon }: any) => (
@@ -50,6 +51,7 @@ export const TeacherLayout: React.FC<TeacherLayoutProps> = ({ onLogout }) => {
                     <NavItem id="overview" label="نظرة عامة" icon={LayoutDashboard} />
                     <NavItem id="classes" label="الطلاب والصفوف" icon={Users} />
                     <NavItem id="curriculum" label="المنهج والتحليل" icon={BookOpen} />
+                    <NavItem id="skill-map" label="خريطة المهارات" icon={BrainCircuit} />
                     <NavItem id="settings" label="الإعدادات" icon={Settings} />
                 </nav>
 
@@ -82,6 +84,7 @@ export const TeacherLayout: React.FC<TeacherLayoutProps> = ({ onLogout }) => {
                         <NavItem id="overview" label="نظرة عامة" icon={LayoutDashboard} />
                         <NavItem id="classes" label="الطلاب والصفوف" icon={Users} />
                         <NavItem id="curriculum" label="المنهج والتحليل" icon={BookOpen} />
+                        <NavItem id="skill-map" label="خريطة المهارات" icon={BrainCircuit} />
                         <button onClick={onLogout} className="w-full flex items-center gap-3 px-4 py-3 text-rose-400 font-bold">
                             <LogOut className="w-5 h-5" /> خروج
                         </button>
@@ -119,7 +122,9 @@ export const TeacherLayout: React.FC<TeacherLayoutProps> = ({ onLogout }) => {
                     {activeTab === 'classes' && <ClassesDashboard />}
                     
                     {activeTab === 'curriculum' && <CurriculumDashboard />}
-                    
+
+                    {activeTab === 'skill-map' && <TeacherSkillMapPage />}
+
                     {activeTab === 'settings' && (
                         <div className="flex flex-col items-center justify-center h-full text-slate-400 p-8">
                             <Settings className="w-16 h-16 mb-4 opacity-20" />

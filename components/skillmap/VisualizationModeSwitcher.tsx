@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Grid3X3, Radar, Sparkles, TreePine, Dna } from 'lucide-react';
+import { Grid3X3, Radar, Sparkles, TreePine, Dna, BookOpen, Clock } from 'lucide-react';
 
-export type VisualizationMode = 'heatmap' | 'radar' | 'galaxy' | 'tree' | 'dna';
+export type VisualizationMode = 'heatmap' | 'radar' | 'galaxy' | 'tree' | 'dna' | 'textbook' | 'memory';
 
 interface ModeDef {
   id: VisualizationMode;
@@ -17,6 +17,8 @@ const MODES: ModeDef[] = [
   { id: 'galaxy', labelAr: 'مجرة', labelEn: 'Galaxy', icon: Sparkles },
   { id: 'tree', labelAr: 'شجرة', labelEn: 'Tree', icon: TreePine },
   { id: 'dna', labelAr: 'حمض نووي', labelEn: 'DNA', icon: Dna },
+  { id: 'textbook', labelAr: 'الكتاب المدرسي', labelEn: 'Textbook', icon: BookOpen },
+  { id: 'memory', labelAr: 'الذاكرة', labelEn: 'Memory', icon: Clock },
 ];
 
 interface Props {
@@ -27,7 +29,7 @@ interface Props {
 
 export const VisualizationModeSwitcher: React.FC<Props> = ({ active, onChange, locale }) => {
   return (
-    <div className="flex gap-1.5 p-1.5 bg-slate-100 rounded-2xl overflow-x-auto">
+    <div className="flex gap-1.5 p-1.5 bg-slate-100 rounded-2xl overflow-x-auto scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
       {MODES.map((mode) => {
         const Icon = mode.icon;
         const isActive = active === mode.id;

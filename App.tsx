@@ -14,6 +14,9 @@ const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const SkillMapPage = lazy(() => import('./pages/SkillMapPage'));
+const TeacherSkillMapPage = lazy(() => import('./pages/TeacherSkillMapPage'));
+const PrincipalSkillMapPage = lazy(() => import('./pages/PrincipalSkillMapPage'));
+const ParentReportPage = lazy(() => import('./pages/ParentReportPage'));
 
 // Role-based layouts (keep as-is)
 import { TeacherLayout } from './components/teacher/TeacherLayout';
@@ -51,6 +54,9 @@ const App: React.FC = () => {
               <Route path="/teacher/*" element={<TeacherLayout onLogout={() => window.location.href = '/home'} />} />
               <Route path="/admin/*" element={<EduMatrixAllocation onExit={() => window.location.href = '/home'} />} />
               <Route path="/principal/*" element={<PrincipalLayout onLogout={() => window.location.href = '/home'} />} />
+
+              {/* Stakeholder report routes */}
+              <Route path="/parent-report" element={<ParentReportPage />} />
 
               {/* Default redirect */}
               <Route path="/" element={<Navigate to="/home" replace />} />
