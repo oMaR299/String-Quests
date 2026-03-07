@@ -65,12 +65,12 @@ export const DnaStrandView: React.FC<Props> = ({ masteries, locale, onSelectSkil
   const PADDING_BOTTOM = 40;
   const RUNG_SPACING = 36;
   const AMPLITUDE = 80;
-  const CENTER_X = 200; // center of the 400-wide SVG
+  const W = 500;
+  const CENTER_X = W / 2; // center of the SVG
   const STRAND_STEPS = 200; // smoothness of the bezier path
 
   const totalRungs = masteries.length;
   const contentHeight = PADDING_TOP + totalRungs * RUNG_SPACING + PADDING_BOTTOM;
-  const W = 400;
   const H = Math.max(400, contentHeight);
 
   const START_Y = PADDING_TOP;
@@ -97,7 +97,7 @@ export const DnaStrandView: React.FC<Props> = ({ masteries, locale, onSelectSkil
       const category = getCategoryForSubject(mastery.skill.subject);
       const rungColor = category?.color ?? '#94a3b8';
       const isUnstarted = mastery.status === 'unstarted';
-      const opacity = isUnstarted ? 0.15 : Math.max(0.15, mastery.masteryScore / 100);
+      const opacity = isUnstarted ? 0.4 : Math.max(0.3, mastery.masteryScore / 100);
 
       return {
         mastery,
@@ -165,10 +165,10 @@ export const DnaStrandView: React.FC<Props> = ({ masteries, locale, onSelectSkil
                   y1={y}
                   x2={xB}
                   y2={y}
-                  stroke="#cbd5e1"
-                  strokeWidth={1}
+                  stroke="#94a3b8"
+                  strokeWidth={1.5}
                   strokeDasharray="4,3"
-                  opacity={0.35}
+                  opacity={0.5}
                 />
               ) : (
                 /* Solid colored rung */

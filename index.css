@@ -13,11 +13,11 @@ body {
   background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C7B8EA;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #A7C7E7;
+  background: #94a3b8;
 }
 
 /* Utility: hide scrollbar while keeping scroll functionality */
