@@ -223,8 +223,8 @@ export const GalaxyView: React.FC<Props> = ({ masteries, locale, onSelectSkill }
           const { mastery, x, y, color, size } = star;
           const isUnstarted = mastery.status === 'unstarted';
           const isMastered = mastery.status === 'mastered';
-          const brightness = isUnstarted ? 0.2 : 0.2 + (mastery.masteryScore / 100) * 0.8;
-          const r = size / 2;
+          const brightness = isUnstarted ? 0.45 : 0.3 + (mastery.masteryScore / 100) * 0.7;
+          const r = isUnstarted ? Math.max(size / 2, 7) : size / 2;
           const skillName =
             locale === 'ar' ? mastery.skill.skillNameAr : mastery.skill.skillNameEn;
 
@@ -273,15 +273,16 @@ export const GalaxyView: React.FC<Props> = ({ masteries, locale, onSelectSkill }
               )}
 
               {isUnstarted ? (
-                /* Hollow dashed circle for unstarted */
+                /* Dim filled circle with dashed border for unstarted */
                 <circle
                   cx={x}
                   cy={y}
                   r={r}
-                  fill="none"
-                  stroke="#475569"
+                  fill="#475569"
+                  fillOpacity={0.25}
+                  stroke="#64748b"
                   strokeWidth={1}
-                  strokeDasharray="2,2"
+                  strokeDasharray="3,2"
                   opacity={brightness}
                 />
               ) : (

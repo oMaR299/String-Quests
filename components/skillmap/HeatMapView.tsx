@@ -30,7 +30,30 @@ export const HeatMapView: React.FC<Props> = ({ masteries, locale, onSelectSkill 
             {/* Subject header */}
             <div className="flex items-center gap-2 mb-2 px-1">
               <div className={`w-6 h-6 rounded-lg ${meta?.bg || 'bg-slate-100'} flex items-center justify-center`}>
-                <span className="text-xs">{meta?.icon === 'calculator' ? '🧮' : meta?.icon === 'languages' ? '🌐' : meta?.icon === 'globe' ? '🌍' : '📚'}</span>
+                <span className="text-xs">{
+                  meta?.icon === 'calculator' ? '🧮' :
+                  meta?.icon === 'languages' ? '🌐' :
+                  meta?.icon === 'globe' ? '🌍' :
+                  meta?.icon === 'layers' ? '📊' :
+                  meta?.icon === 'brain' ? '🧠' :
+                  meta?.icon === 'cat' ? '🐱' :
+                  meta?.icon === 'map' ? '🗺️' :
+                  meta?.icon === 'dna' ? '🧬' :
+                  meta?.icon === 'landmark' ? '🏛️' :
+                  meta?.icon === 'atom' ? '⚛️' :
+                  meta?.icon === 'flask' ? '🧪' :
+                  meta?.icon === 'moon' ? '🌙' :
+                  meta?.icon === 'book' ? '📖' :
+                  meta?.icon === 'monitor' ? '💻' :
+                  meta?.icon === 'palette' ? '🎨' :
+                  meta?.icon === 'activity' ? '🦠' :
+                  meta?.icon === 'mountain' ? '🏔️' :
+                  meta?.icon === 'message-circle' ? '🇬🇧' :
+                  meta?.icon === 'message-square' ? '🇫🇷' :
+                  meta?.icon === 'coins' ? '💰' :
+                  meta?.icon === 'dumbbell' ? '🏃' :
+                  '📚'
+                }</span>
               </div>
               <span className="text-sm font-bold text-slate-700">{subject}</span>
               <span className="text-xs text-slate-400">({skills.length})</span>

@@ -1,7 +1,15 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { SkillMastery, MASTERY_COLORS } from '../../utils/masteryEngine';
+import { SkillMastery, MASTERY_COLORS, MasteryStatus } from '../../utils/masteryEngine';
 import { getCategoryForSubject } from '../../data/skillTaxonomy';
+
+const MASTERY_LABEL_AR: Record<MasteryStatus, string> = {
+  unstarted: 'لم يُبدأ',
+  attempted: 'جُرِّب',
+  developing: 'في التطور',
+  proficient: 'متقدم',
+  mastered: 'مُتقَن',
+};
 
 interface Props {
   masteries: SkillMastery[];
@@ -290,7 +298,7 @@ export const DnaStrandView: React.FC<Props> = ({ masteries, locale, onSelectSkil
                 opacity: status === 'unstarted' ? 0.5 : 1,
               }}
             />
-            <span className="text-[10px] font-medium text-slate-500 capitalize">{status}</span>
+            <span className="text-[10px] font-medium text-slate-500">{locale === 'ar' ? MASTERY_LABEL_AR[status] : status}</span>
           </div>
         ))}
       </div>

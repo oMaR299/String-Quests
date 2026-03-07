@@ -1,7 +1,15 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { SkillMastery, MASTERY_COLORS } from '../../utils/masteryEngine';
+import { SkillMastery, MASTERY_COLORS, MasteryStatus } from '../../utils/masteryEngine';
 import { getCategoryForSubject } from '../../data/skillTaxonomy';
+
+const MASTERY_LABEL_AR: Record<MasteryStatus, string> = {
+  unstarted: 'لم يُبدأ',
+  attempted: 'جُرِّب',
+  developing: 'في التطور',
+  proficient: 'متقدم',
+  mastered: 'مُتقَن',
+};
 
 interface Props {
   masteries: SkillMastery[];
@@ -295,8 +303,8 @@ export const KnowledgeTreeView: React.FC<Props> = ({ masteries, locale, onSelect
               <title>{`${skillName} (${mastery.masteryScore}%)`}</title>
 
               {isUnstarted ? (
-                /* Small grey dot for unstarted (no leaf) */
-                <circle cx={x} cy={y} r={4} fill="#cbd5e1" opacity={0.5} />
+                /* Visible grey leaf bud for unstarted */
+                <circle cx={x} cy={y} r={8} fill="#cbd5e1" opacity={0.6} stroke="#94a3b8" strokeWidth={1} strokeDasharray="3,2" />
               ) : (
                 /* Leaf circle */
                 <>
@@ -377,7 +385,7 @@ export const KnowledgeTreeView: React.FC<Props> = ({ masteries, locale, onSelect
                 opacity: status === 'unstarted' ? 0.5 : 1,
               }}
             />
-            <span className="text-[10px] font-medium text-slate-600 capitalize">{status}</span>
+            <span className="text-[10px] font-medium text-slate-600">{locale === 'ar' ? MASTERY_LABEL_AR[status] : status}</span>
           </div>
         ))}
       </div>
