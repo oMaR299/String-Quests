@@ -1,19 +1,20 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  LayoutGrid, Building2, Users, FileText, Settings, 
+import {
+  LayoutGrid, Building2, Users, FileText, Settings,
   LogOut, Bell, Search, Menu, X, CheckCircle2,
-  PieChart, GraduationCap
+  PieChart, GraduationCap, BrainCircuit
 } from 'lucide-react';
 import { PrincipalDashboard } from './PrincipalDashboard';
+import PrincipalSkillMapPage from '../../pages/PrincipalSkillMapPage';
 
 interface PrincipalLayoutProps {
     onLogout: () => void;
 }
 
 export const PrincipalLayout: React.FC<PrincipalLayoutProps> = ({ onLogout }) => {
-    const [activeTab, setActiveTab] = useState<'dashboard' | 'schools' | 'reports'>('dashboard');
+    const [activeTab, setActiveTab] = useState<'dashboard' | 'schools' | 'staff' | 'reports' | 'settings' | 'skill-map'>('dashboard');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const NavItem = ({ id, label, icon: Icon }: any) => (
@@ -52,6 +53,7 @@ export const PrincipalLayout: React.FC<PrincipalLayoutProps> = ({ onLogout }) =>
                     <NavItem id="schools" label="إدارة المدارس" icon={Building2} />
                     <NavItem id="staff" label="الكادر التعليمي" icon={Users} />
                     <NavItem id="reports" label="التقارير والتحليلات" icon={PieChart} />
+                    <NavItem id="skill-map" label="خريطة المهارات" icon={BrainCircuit} />
                     <NavItem id="settings" label="إعدادات النظام" icon={Settings} />
                 </nav>
 
@@ -114,8 +116,10 @@ export const PrincipalLayout: React.FC<PrincipalLayoutProps> = ({ onLogout }) =>
                 {/* Content Views */}
                 <div className="flex-1 overflow-y-auto bg-[#f8fafc] relative">
                     {activeTab === 'dashboard' && <PrincipalDashboard />}
-                    
-                    {activeTab !== 'dashboard' && (
+
+                    {activeTab === 'skill-map' && <PrincipalSkillMapPage />}
+
+                    {activeTab !== 'dashboard' && activeTab !== 'skill-map' && (
                         <div className="flex flex-col items-center justify-center h-full text-slate-400 p-8">
                             <Building2 className="w-24 h-24 mb-6 opacity-10" />
                             <h2 className="text-2xl font-black text-slate-300">هذا القسم قيد التطوير</h2>

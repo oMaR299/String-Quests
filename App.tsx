@@ -14,8 +14,6 @@ const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const SkillMapPage = lazy(() => import('./pages/SkillMapPage'));
-const TeacherSkillMapPage = lazy(() => import('./pages/TeacherSkillMapPage'));
-const PrincipalSkillMapPage = lazy(() => import('./pages/PrincipalSkillMapPage'));
 const ParentReportPage = lazy(() => import('./pages/ParentReportPage'));
 
 // Role-based layouts (keep as-is)

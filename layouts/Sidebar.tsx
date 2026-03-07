@@ -10,6 +10,7 @@ import {
   GraduationCap,
   Settings2,
   Building2,
+  FileText,
 } from 'lucide-react';
 import { useI18n } from '../contexts/I18nContext';
 
@@ -39,6 +40,7 @@ const DEV_TOGGLES: DevToggle[] = [
   { label: 'Teacher', icon: GraduationCap, route: '/teacher', color: 'text-slate-500' },
   { label: 'Admin', icon: Settings2, route: '/admin', color: 'text-indigo-400' },
   { label: 'Principal', icon: Building2, route: '/principal', color: 'text-emerald-400' },
+  { label: 'Parent Report', icon: FileText, route: '/parent-report', color: 'text-violet-400' },
 ];
 
 export const Sidebar: React.FC = () => {
