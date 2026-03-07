@@ -63,10 +63,15 @@ export const TextbookExplorerView: React.FC<Props> = ({
 
           const mastery = calculatePageMastery(pageId, attempts);
 
-          // A page is locked if ANY of its KCs has unmet prerequisites
-          const isLocked = page.kcIds.some(
-            (kcId) => checkPrerequisites(kcId, attempts).length > 0
-          );
+          // A page is locked if any of its KCs has unmet prerequisites
+          // from OUTSIDE this page (cross-page deps only).
+          // Internal page dependencies don't lock the page itself.
+          const pageKcSet = new Set(page.kcIds);
+          const isLocked = page.kcIds.some((kcId) => {
+            const unmet = checkPrerequisites(kcId, attempts);
+            // Only count unmet prereqs that are NOT on this same page
+            return unmet.some((preId) => !pageKcSet.has(preId));
+          });
 
           nodes.push({
             pageId,
