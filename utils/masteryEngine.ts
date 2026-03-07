@@ -345,3 +345,142 @@ export function getStrengthAnalysis(allMasteries?: SkillMastery[]): StrengthItem
 
   return strengths;
 }
+
+// ─── KC-level mastery & Ebbinghaus forgetting curve ─────────────────────────
+
+import { KC_MAP, PAGE_MAP, LESSON_MAP, UNIT_MAP } from '../data/sampleTextbook';
+
+const MS_PER_DAY = 86_400_000;
+
+/**
+ * Ebbinghaus retention: R = e^(-t/S)
+ * @param lastAttemptMs timestamp of last attempt
+ * @param stability    memory stability in days
+ * @returns retention 0-1
+ */
+export function calculateRetention(lastAttemptMs: number, stability: number): number {
+  const elapsedDays = (Date.now() - lastAttemptMs) / MS_PER_DAY;
+  return Math.exp(-elapsedDays / stability);
+}
+
+/**
+ * Calculate memory stability from attempt history.
+ * Starts at 1 day, doubles on success, halves on failure.
+ * Clamped to [0.5, 365] days.
+ */
+export function calculateStability(attempts: AttemptRecord[]): number {
+  const sorted = [...attempts].sort((a, b) => a.timestamp - b.timestamp);
+  let stability = 1;
+  for (const a of sorted) {
+    stability = a.isCorrect ? stability * 2 : stability / 2;
+    stability = Math.max(0.5, Math.min(365, stability));
+  }
+  return stability;
+}
+
+/**
+ * Predict when retention drops below 70%.
+ * Solves 0.7 = e^(-t/S) => t = -S * ln(0.7)
+ * @returns future timestamp, or null if no attempts
+ */
+export function predictForgettingDate(kcId: string, attempts: AttemptRecord[]): number | null {
+  const kcAttempts = attempts.filter(a => a.kcIds?.includes(kcId));
+  if (kcAttempts.length === 0) return null;
+
+  const sorted = [...kcAttempts].sort((a, b) => a.timestamp - b.timestamp);
+  const lastTimestamp = sorted[sorted.length - 1].timestamp;
+  const stability = calculateStability(kcAttempts);
+  const daysUntilForgotten = -stability * Math.log(0.7);
+  return lastTimestamp + daysUntilForgotten * MS_PER_DAY;
+}
+
+/**
+ * Mastery score for a single KC (0-100).
+ * Combines weighted accuracy with recency via retention.
+ */
+export function calculateKCMastery(kcId: string, attempts: AttemptRecord[]): number {
+  const kcAttempts = attempts.filter(a => a.kcIds?.includes(kcId));
+  if (kcAttempts.length === 0) return 0;
+
+  const correctCount = kcAttempts.filter(a => a.isCorrect).length;
+  const accuracy = (correctCount / kcAttempts.length) * 100;
+
+  const sorted = [...kcAttempts].sort((a, b) => a.timestamp - b.timestamp);
+  const lastTimestamp = sorted[sorted.length - 1].timestamp;
+  const stability = calculateStability(kcAttempts);
+  const retention = calculateRetention(lastTimestamp, stability);
+
+  // 70% accuracy weight, 30% retention weight
+  return Math.max(0, Math.min(100, Math.round(accuracy * 0.7 + retention * 100 * 0.3)));
+}
+
+/** Average KC mastery across all KCs on a page. */
+export function calculatePageMastery(pageId: string, attempts: AttemptRecord[]): number {
+  const page = PAGE_MAP[pageId];
+  if (!page || page.kcIds.length === 0) return 0;
+  const total = page.kcIds.reduce((sum, id) => sum + calculateKCMastery(id, attempts), 0);
+  return Math.round(total / page.kcIds.length);
+}
+
+/** Average page mastery across all pages in a lesson. */
+export function calculateLessonMastery(lessonId: string, attempts: AttemptRecord[]): number {
+  const lesson = LESSON_MAP[lessonId];
+  if (!lesson || lesson.pageIds.length === 0) return 0;
+  const total = lesson.pageIds.reduce((sum, id) => sum + calculatePageMastery(id, attempts), 0);
+  return Math.round(total / lesson.pageIds.length);
+}
+
+/** Average lesson mastery across all lessons in a unit. */
+export function calculateUnitMastery(unitId: string, attempts: AttemptRecord[]): number {
+  const unit = UNIT_MAP[unitId];
+  if (!unit || unit.lessonIds.length === 0) return 0;
+  const total = unit.lessonIds.reduce((sum, id) => sum + calculateLessonMastery(id, attempts), 0);
+  return Math.round(total / unit.lessonIds.length);
+}
+
+/**
+ * Check prerequisites for a KC.
+ * @returns array of prerequisite KC IDs whose mastery is below 70%
+ */
+export function checkPrerequisites(kcId: string, attempts: AttemptRecord[]): string[] {
+  const kc = KC_MAP[kcId];
+  if (!kc) return [];
+  return kc.prerequisiteKcIds.filter(preId => calculateKCMastery(preId, attempts) < 70);
+}
+
+// ─── Spaced-repetition review schedule ──────────────────────────────────────
+
+export interface ReviewItem {
+  kcId: string;
+  predictedRetention: number;
+  urgency: number;
+  predictedForgettingDate: number | null;
+}
+
+/**
+ * Build a review schedule sorted by urgency (lowest retention first).
+ * Only includes KCs that have been attempted at least once.
+ */
+export function getReviewSchedule(allKCIds: string[], attempts: AttemptRecord[]): ReviewItem[] {
+  const items: ReviewItem[] = [];
+
+  for (const kcId of allKCIds) {
+    const kcAttempts = attempts.filter(a => a.kcIds?.includes(kcId));
+    if (kcAttempts.length === 0) continue;
+
+    const sorted = [...kcAttempts].sort((a, b) => a.timestamp - b.timestamp);
+    const lastTimestamp = sorted[sorted.length - 1].timestamp;
+    const stability = calculateStability(kcAttempts);
+    const retention = calculateRetention(lastTimestamp, stability);
+    const forgettingDate = predictForgettingDate(kcId, attempts);
+
+    items.push({
+      kcId,
+      predictedRetention: Math.round(retention * 100) / 100,
+      urgency: 1 - retention, // higher urgency = lower retention
+      predictedForgettingDate: forgettingDate,
+    });
+  }
+
+  return items.sort((a, b) => b.urgency - a.urgency);
+}
