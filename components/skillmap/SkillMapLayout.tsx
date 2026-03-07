@@ -5,10 +5,12 @@ import { AlertTriangle, Trophy, BrainCircuit } from 'lucide-react';
 import { useI18n } from '../../contexts/I18nContext';
 import { loadAttempts, AttemptRecord } from '../../utils/skillMapStorage';
 import { computeAllSkillMasteries, getGapAnalysis, getStrengthAnalysis } from '../../utils/masteryEngine';
-import { computeCategoryMasteries } from '../../utils/masteryEngine';
+import { computeCategoryMasteries, calculateUnitMastery } from '../../utils/masteryEngine';
 import { SUBJECT_CATEGORIES } from '../../data/skillTaxonomy';
+import { AVAILABLE_TEXTBOOKS, UNIT_MAP, getKCsForUnit, Textbook } from '../../data/sampleTextbook';
 import { subjectToSlug, lessonToSlug } from '../../utils/slugify';
 
+import { TextbookSelector } from './TextbookSelector';
 import { SkillMapSummaryDashboard } from './SkillMapSummaryDashboard';
 import { VisualizationModeSwitcher, VisualizationMode } from './VisualizationModeSwitcher';
 import { TimeSlider, TimeRange, getTimeRangeMs } from './TimeSlider';
@@ -35,6 +37,23 @@ export const SkillMapLayout: React.FC = () => {
   const [showGaps, setShowGaps] = useState(false);
   const [showStrengths, setShowStrengths] = useState(false);
 
+  const [activeTextbook, setActiveTextbook] = useState<Textbook>(() => {
+    try {
+      const savedId = localStorage.getItem('string-quests-active-textbook');
+      if (savedId) {
+        const found = AVAILABLE_TEXTBOOKS.find(t => t.id === savedId);
+        if (found) return found;
+      }
+    } catch {}
+    return AVAILABLE_TEXTBOOKS[0];
+  });
+
+  const handleTextbookChange = (tb: Textbook) => {
+    setActiveTextbook(tb);
+    localStorage.setItem('string-quests-active-textbook', tb.id);
+    setSelectedSkill(null);
+  };
+
   // Load and filter attempts by time range
   const filteredAttempts = useMemo(() => {
     const all = loadAttempts();
@@ -60,6 +79,20 @@ export const SkillMapLayout: React.FC = () => {
       };
     });
   }, [masteries]);
+
+  const unitScores = useMemo(() => {
+    return activeTextbook.unitIds.map(unitId => {
+      const unit = UNIT_MAP[unitId];
+      if (!unit) return { unitId, nameAr: '', nameEn: '', score: 0 };
+      const score = calculateUnitMastery(unitId, filteredAttempts);
+      return {
+        unitId,
+        nameAr: unit.nameAr,
+        nameEn: unit.nameEn,
+        score,
+      };
+    });
+  }, [activeTextbook, filteredAttempts]);
 
   // Analysis data
   const gaps = useMemo(() => getGapAnalysis(masteries), [masteries]);
@@ -115,6 +148,13 @@ export const SkillMapLayout: React.FC = () => {
         </div>
       </div>
 
+      {/* Textbook Selector */}
+      <TextbookSelector
+        activeTextbook={activeTextbook}
+        onSelect={handleTextbookChange}
+        locale={locale}
+      />
+
       {/* Summary Dashboard */}
       <SkillMapSummaryDashboard
         masteries={masteries}
@@ -165,7 +205,7 @@ export const SkillMapLayout: React.FC = () => {
             <RadarView categoryScores={categoryScores} locale={locale} />
           )}
           {mode === 'galaxy' && (
-            <GalaxyView masteries={masteries} locale={locale} onSelectSkill={setSelectedSkill} />
+            <GalaxyView unitScores={unitScores} locale={locale} activeTextbook={activeTextbook} />
           )}
           {mode === 'tree' && (
             <KnowledgeTreeView masteries={masteries} locale={locale} onSelectSkill={setSelectedSkill} />
@@ -175,7 +215,7 @@ export const SkillMapLayout: React.FC = () => {
           )}
           {mode === 'textbook' && (
             <Suspense fallback={<div className="flex items-center justify-center py-12"><div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" /></div>}>
-              <TextbookExplorerView masteries={masteries} locale={locale} onSelectSkill={setSelectedSkill} />
+              <TextbookExplorerView activeTextbook={activeTextbook} attempts={filteredAttempts} locale={locale} onSelectSkill={setSelectedSkill} />
             </Suspense>
           )}
           {mode === 'memory' && (
