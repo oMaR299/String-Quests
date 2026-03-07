@@ -16,6 +16,9 @@ const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const SkillMapPage = lazy(() => import('./pages/SkillMapPage'));
 const ParentReportPage = lazy(() => import('./pages/ParentReportPage'));
 
+// Curriculum admin (lazy, full-screen)
+const CurriculumAdminPage = lazy(() => import('./components/curriculum-admin/CurriculumAdminPage').then(m => ({ default: m.CurriculumAdminPage })));
+
 // Role-based layouts (keep as-is)
 import { TeacherLayout } from './components/teacher/TeacherLayout';
 import { EduMatrixAllocation } from './components/admin/EduMatrixAllocation';
@@ -51,6 +54,7 @@ const App: React.FC = () => {
               {/* Role-based routes (own layouts, untouched) */}
               <Route path="/teacher/*" element={<TeacherLayout onLogout={() => window.location.href = '/home'} />} />
               <Route path="/admin/*" element={<EduMatrixAllocation onExit={() => window.location.href = '/home'} />} />
+              <Route path="/curriculum-admin" element={<CurriculumAdminPage />} />
               <Route path="/principal/*" element={<PrincipalLayout onLogout={() => window.location.href = '/home'} />} />
 
               {/* Stakeholder report routes */}
