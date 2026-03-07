@@ -1,5 +1,6 @@
 import { AttemptRecord, loadAttempts } from './skillMapStorage';
 import { SKILL_TAXONOMY, SkillDef, BloomLevel, SUBJECT_CATEGORIES, getSkillsBySubject } from '../data/skillTaxonomy';
+import { KC_MAP, PAGE_MAP, LESSON_MAP, UNIT_MAP } from '../data/sampleTextbook';
 
 // Mastery status labels
 export type MasteryStatus = 'unstarted' | 'attempted' | 'developing' | 'proficient' | 'mastered';
@@ -347,8 +348,6 @@ export function getStrengthAnalysis(allMasteries?: SkillMastery[]): StrengthItem
 }
 
 // ─── KC-level mastery & Ebbinghaus forgetting curve ─────────────────────────
-
-import { KC_MAP, PAGE_MAP, LESSON_MAP, UNIT_MAP } from '../data/sampleTextbook';
 
 const MS_PER_DAY = 86_400_000;
 
