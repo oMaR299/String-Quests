@@ -189,7 +189,7 @@ const StreakScreen: React.FC = () => {
             variants={itemVariants}
             className="md:col-span-8 bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-2xl shadow-orange-500/20 flex flex-col md:flex-row items-center md:items-start justify-between min-h-[300px]"
         >
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+            <div className="absolute inset-0 opacity-[0.08] mix-blend-overlay" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
             <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-yellow-500/30 rounded-full blur-[80px]"></div>
             
             <div className="relative z-10 flex flex-col h-full justify-between text-center md:text-right items-center md:items-start w-full">
