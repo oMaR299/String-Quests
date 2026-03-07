@@ -142,7 +142,14 @@ const CollapsibleSection: React.FC<{
                     <p className="text-[11px] text-slate-400 font-medium truncate">
                       {gap.skill.subject} &middot; {gap.skill.lesson}
                     </p>
-                    <p className="text-[10px] text-slate-400 mt-0.5">{gap.detail}</p>
+                    <p className="text-[10px] text-slate-400 mt-0.5">
+                      {locale === 'ar'
+                        ? gap.detail === 'No attempts yet' ? 'لا محاولات بعد'
+                          : gap.detail === 'Performance declining' ? 'الأداء في تراجع'
+                          : gap.detail.endsWith('% accuracy') ? `${gap.detail.replace('% accuracy', '')}% دقة`
+                          : gap.detail
+                        : gap.detail}
+                    </p>
                     {reason === 'low_accuracy' && (
                       <div className="flex items-center gap-2 mt-1.5">
                         <div className="h-1.5 w-16 bg-slate-100 rounded-full overflow-hidden">

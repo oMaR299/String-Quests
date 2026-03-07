@@ -150,7 +150,15 @@ const CollapsibleSection: React.FC<{
                     <p className="text-[11px] text-slate-400 font-medium truncate">
                       {strength.skill.subject} &middot; {strength.skill.lesson}
                     </p>
-                    <p className="text-[10px] text-slate-400 mt-0.5">{strength.detail}</p>
+                    <p className="text-[10px] text-slate-400 mt-0.5">
+                      {locale === 'ar'
+                        ? strength.detail === 'High confidence + accuracy' ? 'ثقة عالية + دقة'
+                          : strength.detail === 'Rapid improvement' ? 'تحسن سريع'
+                          : strength.detail.endsWith('% accuracy') ? `${strength.detail.replace('% accuracy', '')}% دقة`
+                          : strength.detail.startsWith("Bloom's level") ? `مستوى بلوم ${strength.detail.replace("Bloom's level ", '')}`
+                          : strength.detail
+                        : strength.detail}
+                    </p>
                   </div>
                   {/* Mastery Score Badge */}
                   <div className={`ml-3 shrink-0 flex flex-col items-center px-3 py-1.5 rounded-xl ${config.scoreBg}`}>

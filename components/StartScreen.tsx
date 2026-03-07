@@ -49,7 +49,7 @@ const StartScreen: React.FC = () => {
       },
       {
         icon: <BoostIcon className="w-5 h-5" />,
-        label: "Boosts",
+        label: "المعززات",
         value: totalBoosts,
         color: "bg-purple-50 border-purple-100 text-purple-600",
         desc: "معززات يمكنك استخدامها لمضاعفة نقاطك."

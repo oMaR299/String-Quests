@@ -224,8 +224,8 @@ export const SkillDetailPanel: React.FC<Props> = ({ mastery, locale, onClose }) 
                           <span className="font-bold text-slate-700">
                             {attempt.pointsAwarded}/{attempt.maxPoints}
                           </span>
-                          {attempt.hintUsed && <span className="text-[9px] bg-yellow-100 text-yellow-600 px-1.5 py-0.5 rounded font-bold">Hint</span>}
-                          {attempt.isReviewMode && <span className="text-[9px] bg-orange-100 text-orange-600 px-1.5 py-0.5 rounded font-bold">Review</span>}
+                          {attempt.hintUsed && <span className="text-[9px] bg-yellow-100 text-yellow-600 px-1.5 py-0.5 rounded font-bold">{locale === 'ar' ? 'تلميح' : 'Hint'}</span>}
+                          {attempt.isReviewMode && <span className="text-[9px] bg-orange-100 text-orange-600 px-1.5 py-0.5 rounded font-bold">{locale === 'ar' ? 'مراجعة' : 'Review'}</span>}
                         </div>
                         <span className="text-[10px] text-slate-400 font-medium">
                           {new Date(attempt.timestamp).toLocaleDateString(locale === 'ar' ? 'ar-SA' : 'en-US', { month: 'short', day: 'numeric' })}
