@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AlertTriangle, Trophy, BrainCircuit } from 'lucide-react';
@@ -21,6 +21,9 @@ import { SkillDetailPanel } from './SkillDetailPanel';
 import { GapAnalysisPanel } from './GapAnalysisPanel';
 import { StrengthFinderPanel } from './StrengthFinderPanel';
 import { SkillMastery } from '../../utils/masteryEngine';
+
+const TextbookExplorerView = React.lazy(() => import('./TextbookExplorerView').then(m => ({ default: m.TextbookExplorerView })));
+const MemoryTimelineView = React.lazy(() => import('./MemoryTimelineView').then(m => ({ default: m.MemoryTimelineView })));
 
 export const SkillMapLayout: React.FC = () => {
   const { locale, t } = useI18n();
@@ -169,6 +172,16 @@ export const SkillMapLayout: React.FC = () => {
           )}
           {mode === 'dna' && (
             <DnaStrandView masteries={masteries} locale={locale} onSelectSkill={setSelectedSkill} />
+          )}
+          {mode === 'textbook' && (
+            <Suspense fallback={<div className="flex items-center justify-center py-12"><div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" /></div>}>
+              <TextbookExplorerView masteries={masteries} locale={locale} onSelectSkill={setSelectedSkill} />
+            </Suspense>
+          )}
+          {mode === 'memory' && (
+            <Suspense fallback={<div className="flex items-center justify-center py-12"><div className="w-8 h-8 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin" /></div>}>
+              <MemoryTimelineView masteries={masteries} locale={locale} onSelectSkill={setSelectedSkill} />
+            </Suspense>
           )}
         </div>
       )}
