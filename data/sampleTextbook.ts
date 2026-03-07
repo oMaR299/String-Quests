@@ -392,14 +392,24 @@ const ALL_UNITS: Unit[] = [
 
 // ─── Textbook ──────────────────────────────────────────────────────────────────
 
-export const TEXTBOOK_DATA: Textbook = {
-  id: 'textbook-g3-math',
-  nameEn: 'Grade 3 Mathematics',
-  nameAr: 'الرياضيات للصف الثالث',
-  gradeLevel: 3,
-  subject: 'رياضيات',
-  unitIds: ['unit-3m-01', 'unit-3m-02', 'unit-3m-03', 'unit-3m-04', 'unit-3m-05'],
-};
+export const AVAILABLE_TEXTBOOKS: Textbook[] = [
+  {
+    id: 'textbook-g3-math',
+    nameEn: 'Grade 3 Mathematics',
+    nameAr: 'الرياضيات للصف الثالث',
+    gradeLevel: 3,
+    subject: 'رياضيات',
+    unitIds: ['unit-3m-01', 'unit-3m-02', 'unit-3m-03', 'unit-3m-04', 'unit-3m-05'],
+  },
+];
+
+/** @deprecated Use AVAILABLE_TEXTBOOKS[0] or getTextbookById() instead */
+export const TEXTBOOK_DATA: Textbook = AVAILABLE_TEXTBOOKS[0];
+
+/** Get a textbook by its id */
+export function getTextbookById(id: string): Textbook | undefined {
+  return AVAILABLE_TEXTBOOKS.find(t => t.id === id);
+}
 
 // ─── Flat Lookup Maps ──────────────────────────────────────────────────────────
 
