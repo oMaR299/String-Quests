@@ -93,6 +93,39 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'skillmap.gaps': 'الفجوات',
     'skillmap.strengths': 'نقاط القوة',
     'skillmap.practice': 'تمرّن',
+
+    // Teacher Skill Map
+    'teacher.skillmap.title': 'خريطة مهارات الفصل',
+    'teacher.skillmap.class_avg': 'متوسط الفصل',
+    'teacher.skillmap.struggling': 'طلاب يحتاجون مساعدة',
+    'teacher.skillmap.mastered_kcs': 'مهارات مكتملة',
+    'teacher.skillmap.filter_subject': 'المادة',
+    'teacher.skillmap.alert_prefix': 'تنبيه',
+    'teacher.skillmap.mastered': 'متقن',
+    'teacher.skillmap.proficient': 'جيد',
+    'teacher.skillmap.developing': 'نامٍ',
+    'teacher.skillmap.weak': 'ضعيف',
+    'teacher.skillmap.not_started': 'لم يبدأ',
+
+    // Parent Report
+    'parent.report.title': 'تقرير أداء الطالب',
+    'parent.report.progress': 'التقدم في المواد الدراسية',
+    'parent.report.strengths': 'نقاط القوة',
+    'parent.report.needs_practice': 'يحتاج إلى تدريب',
+    'parent.report.this_week': 'هذا الأسبوع تعلم ابنك/ابنتك',
+    'parent.report.print': 'طباعة التقرير',
+    'parent.report.select_student': 'اختر الطالب',
+    'parent.report.overall': 'التقدير العام',
+    'parent.report.school': 'مدارس الخضر الحديثة',
+
+    // Principal Skill Map
+    'principal.skillmap.title': 'خريطة المهارات المدرسية',
+    'principal.skillmap.school_avg': 'متوسط الإتقان',
+    'principal.skillmap.best_class': 'أفضل فصل',
+    'principal.skillmap.attention': 'مواد تحتاج تدخلاً',
+    'principal.skillmap.kcs_at_risk': 'مهارات بخطر',
+    'principal.skillmap.class_comparison': 'مقارنة الفصول',
+    'principal.skillmap.subject_performance': 'أداء المواد',
   },
   en: {
     // Navigation
@@ -184,6 +217,39 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'skillmap.gaps': 'Gaps',
     'skillmap.strengths': 'Strengths',
     'skillmap.practice': 'Practice',
+
+    // Teacher Skill Map
+    'teacher.skillmap.title': 'Class Skill Map',
+    'teacher.skillmap.class_avg': 'Class Avg Mastery',
+    'teacher.skillmap.struggling': 'Need Support',
+    'teacher.skillmap.mastered_kcs': 'KCs Mastered',
+    'teacher.skillmap.filter_subject': 'Subject',
+    'teacher.skillmap.alert_prefix': 'Alert',
+    'teacher.skillmap.mastered': 'Mastered',
+    'teacher.skillmap.proficient': 'Proficient',
+    'teacher.skillmap.developing': 'Developing',
+    'teacher.skillmap.weak': 'Weak',
+    'teacher.skillmap.not_started': 'Not started',
+
+    // Parent Report
+    'parent.report.title': 'Student Report Card',
+    'parent.report.progress': 'Progress by Subject',
+    'parent.report.strengths': 'Strengths (Top 5 Skills)',
+    'parent.report.needs_practice': 'Needs Practice (5 Skills)',
+    'parent.report.this_week': 'This week your child learned',
+    'parent.report.print': 'Print Report',
+    'parent.report.select_student': 'Select student',
+    'parent.report.overall': 'Overall Grade',
+    'parent.report.school': 'Al-Khadr Modern Schools',
+
+    // Principal Skill Map
+    'principal.skillmap.title': 'School-Wide Skill Map',
+    'principal.skillmap.school_avg': 'School Avg Mastery',
+    'principal.skillmap.best_class': 'Best Performing Class',
+    'principal.skillmap.attention': 'Subjects Need Attention',
+    'principal.skillmap.kcs_at_risk': 'KCs At Risk',
+    'principal.skillmap.class_comparison': 'Class Comparison',
+    'principal.skillmap.subject_performance': 'Subject Performance',
   },
 };
 
