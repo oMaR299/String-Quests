@@ -399,3 +399,64 @@ export function getAllDomains(): { domain: string; domainAr: string; domainEn: s
   }
   return result;
 }
+
+// ─── KC Layer: Bridge from existing SkillDefs to new Knowledge Components ─────
+
+// Re-export textbook types for convenience
+export type {
+  KnowledgeComponent,
+  TextbookPage,
+  Lesson,
+  Unit,
+  Textbook,
+} from './sampleTextbook';
+
+export {
+  TEXTBOOK_DATA,
+  KC_MAP,
+  PAGE_MAP,
+  LESSON_MAP,
+  UNIT_MAP,
+  getAllKCs,
+  getAllPages,
+  getAllLessons,
+  getAllUnits,
+  getKCsForPage,
+  getKCsForLesson,
+  getKCsForUnit,
+  getPrerequisiteChain,
+  getDependentKCs,
+  getKCsByBloomLevel,
+  getKCsByTag,
+  getPageForKC,
+  getLessonForPage,
+  getUnitForLesson,
+} from './sampleTextbook';
+
+/**
+ * Maps existing SkillDef skillCodes to related KC IDs.
+ * This bridges the old skill-level tracking to the new KC-level granularity.
+ */
+export const SKILL_TO_KC_MAP: Record<string, string[]> = {
+  'MATH-ADD': ['kc-3m-038', 'kc-3m-039'],
+  'MATH-SUB': ['kc-3m-040', 'kc-3m-041'],
+  'MATH-NUM': ['kc-3m-030', 'kc-3m-031', 'kc-3m-032', 'kc-3m-033'],
+  'ORD-NUM': ['kc-3m-033'],
+  'INFO-TIME': ['kc-3m-061', 'kc-3m-062'],
+};
+
+/** Get KC IDs associated with an existing skill code */
+export function getKCsForSkill(skillCode: string): string[] {
+  return SKILL_TO_KC_MAP[skillCode] ?? [];
+}
+
+/** Get all skill codes that map to a given KC */
+export function getSkillsForKC(kcId: string): string[] {
+  const result: string[] = [];
+  for (const [skillCode, kcIds] of Object.entries(SKILL_TO_KC_MAP)) {
+    if (kcIds.includes(kcId)) {
+      result.push(skillCode);
+    }
+  }
+  return result;
+}
