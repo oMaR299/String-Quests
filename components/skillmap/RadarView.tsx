@@ -213,8 +213,8 @@ export const RadarView: React.FC<Props> = ({ categoryScores, locale }) => {
   const gradientId = 'radar-gradient';
 
   return (
-    <div className="relative w-full max-w-md mx-auto select-none">
-      <svg viewBox="0 0 400 400" className="w-full h-auto" role="img" aria-label="Skill radar chart">
+    <div className="relative w-full max-w-lg mx-auto select-none flex justify-center">
+      <svg viewBox="0 0 400 400" className="w-full max-w-md h-auto" role="img" aria-label="Skill radar chart">
         <defs>
           {/* Radial gradient for the score polygon */}
           <radialGradient id={gradientId} cx="50%" cy="50%" r="50%">

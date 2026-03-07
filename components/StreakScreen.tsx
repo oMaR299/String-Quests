@@ -72,14 +72,14 @@ const LevelProgress = ({ current, max, level }: { current: number, max: number, 
                     />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center flex-col leading-none">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase">LVL</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase">مستوى</span>
                     <span className="text-lg font-black text-blue-600">{level}</span>
                 </div>
             </div>
             <div className="flex-1">
                 <div className="flex justify-between items-center mb-1">
                     <span className="text-sm font-black text-slate-700">مستكشف المعرفة</span>
-                    <span className="text-xs font-bold text-slate-400">{current} / {max} XP</span>
+                    <span className="text-xs font-bold text-slate-400">{current} / {max} نقطة</span>
                 </div>
                 <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
                     <motion.div 
@@ -277,7 +277,7 @@ const StreakScreen: React.FC = () => {
                          <div className="w-8 h-8 rounded-full bg-yellow-200 border-2 border-white shadow-sm"></div>
                          <span className="font-bold text-slate-700 text-sm">سارة .ك</span>
                      </div>
-                     <span className="text-xs font-black text-yellow-600">3200 XP</span>
+                     <span className="text-xs font-black text-yellow-600">3200 نقطة</span>
                  </div>
                  {/* You */}
                  <div className="flex items-center justify-between bg-slate-800 p-3 rounded-2xl shadow-lg shadow-slate-800/20 transform scale-105">
@@ -286,7 +286,7 @@ const StreakScreen: React.FC = () => {
                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 border-2 border-white shadow-sm"></div>
                          <span className="font-bold text-white text-sm">أنت</span>
                      </div>
-                     <span className="text-xs font-black text-white">{totalXP} XP</span>
+                     <span className="text-xs font-black text-white">{totalXP} نقطة</span>
                  </div>
                  {/* Rank 5 */}
                  <div className="flex items-center justify-between p-3 rounded-2xl border border-slate-50 opacity-60">

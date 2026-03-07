@@ -1,10 +1,11 @@
 
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { RotateCcw, Trophy, Star, Target, Award } from 'lucide-react';
+import { RotateCcw, Trophy, Star, Target, Award, BookOpen } from 'lucide-react';
 import { Button } from './Button';
 import { PinkDiamondIcon } from './ui/PinkDiamondIcon';
 import { useSounds } from '../hooks/useSounds';
+import { useNavigate } from 'react-router-dom';
 
 interface EndScreenProps {
   score: number;
@@ -14,6 +15,7 @@ interface EndScreenProps {
 
 const EndScreen: React.FC<EndScreenProps> = ({ score, maxScore, onRestart }) => {
   const { playCelebration } = useSounds();
+  const navigate = useNavigate();
   
   useEffect(() => {
     playCelebration();
