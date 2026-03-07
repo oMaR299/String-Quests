@@ -188,9 +188,9 @@ export const DnaStrandView: React.FC<Props> = ({ masteries, locale, onSelectSkil
               <circle
                 cx={xA}
                 cy={y}
-                r={isUnstarted ? 3 : 4.5}
-                fill={isUnstarted ? '#e2e8f0' : rungColor}
-                opacity={isUnstarted ? 0.4 : rungOpacity}
+                r={isUnstarted ? 5 : 6}
+                fill={isUnstarted ? '#94a3b8' : MASTERY_COLORS[mastery.status]}
+                opacity={isUnstarted ? 0.5 : rungOpacity}
                 filter={mastery.status === 'mastered' ? 'url(#dna-node-glow)' : undefined}
               />
 
@@ -198,9 +198,9 @@ export const DnaStrandView: React.FC<Props> = ({ masteries, locale, onSelectSkil
               <circle
                 cx={xB}
                 cy={y}
-                r={isUnstarted ? 3 : 4.5}
-                fill={isUnstarted ? '#e2e8f0' : rungColor}
-                opacity={isUnstarted ? 0.4 : rungOpacity}
+                r={isUnstarted ? 5 : 6}
+                fill={isUnstarted ? '#94a3b8' : MASTERY_COLORS[mastery.status]}
+                opacity={isUnstarted ? 0.5 : rungOpacity}
                 filter={mastery.status === 'mastered' ? 'url(#dna-node-glow)' : undefined}
               />
 
