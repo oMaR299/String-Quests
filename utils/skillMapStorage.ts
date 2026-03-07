@@ -1,4 +1,5 @@
 import { QuestionType } from '../types';
+import { PAGE_MAP, LESSON_MAP, UNIT_MAP } from '../data/sampleTextbook';
 
 export interface AttemptRecord {
   questionId: number;
@@ -49,8 +50,6 @@ export function clearAttempts(): void {
 }
 
 // ─── KC / Page / Lesson / Unit attempt aggregation ──────────────────────────
-
-import { PAGE_MAP, LESSON_MAP, UNIT_MAP } from '../data/sampleTextbook';
 
 /** Get all attempts that include the given KC (via the optional kcIds field). */
 export function getAttemptsForKC(kcId: string): AttemptRecord[] {
