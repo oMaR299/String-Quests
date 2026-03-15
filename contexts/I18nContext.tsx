@@ -11,6 +11,7 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'nav.profile': 'الملف',
     'nav.settings': 'إعدادات',
     'nav.skillmap': 'خريطة المهارات',
+    'nav.textbook': 'الكتاب',
 
     // Platform navbar
     'platform.dashboard': 'لوحة المعلومات',
@@ -57,6 +58,18 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'home.accuracy': 'الدقة',
     'home.daily_streak': 'حماس يومي',
     'home.boosts': 'التعزيزات',
+    'home.continue_where_left_off': 'أكمل من حيث توقفت',
+    'home.explore_topics': 'استكشف المواضيع',
+    'home.start_first_quest': 'ابدأ أول تحدي لك!',
+    'home.start_first_quest_desc': 'اختر موضوعاً وابدأ رحلة التعلم',
+    'home.questions_answered': 'أسئلة مُجابة',
+    'home.next_quest': 'التحدي التالي',
+    'home.all_completed': 'أحسنت! أكملت جميع التحديات',
+    'home.review_weakest': 'راجع نقاط الضعف',
+    'home.new_badge': 'جديد',
+    'home.continue_btn': 'تابع',
+    'home.start_btn': 'ابدأ',
+    'home.how_to_play': 'كيف ألعب؟',
 
     // Profile
     'profile.stats': 'الإحصائيات',
@@ -135,6 +148,7 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'nav.profile': 'Profile',
     'nav.settings': 'Settings',
     'nav.skillmap': 'Skill Map',
+    'nav.textbook': 'Textbook',
 
     // Platform navbar
     'platform.dashboard': 'Dashboard',
@@ -181,6 +195,18 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'home.accuracy': 'Accuracy',
     'home.daily_streak': 'Daily Streak',
     'home.boosts': 'Boosts',
+    'home.continue_where_left_off': 'Continue where you left off',
+    'home.explore_topics': 'Explore Topics',
+    'home.start_first_quest': 'Start Your First Quest!',
+    'home.start_first_quest_desc': 'Pick a topic and begin your learning journey',
+    'home.questions_answered': 'questions answered',
+    'home.next_quest': 'Next Quest',
+    'home.all_completed': 'All quests completed!',
+    'home.review_weakest': 'Review your weakest area',
+    'home.new_badge': 'New',
+    'home.continue_btn': 'Continue',
+    'home.start_btn': 'Start',
+    'home.how_to_play': 'How to play?',
 
     // Profile
     'profile.stats': 'Statistics',

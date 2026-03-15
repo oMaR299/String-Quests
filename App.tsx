@@ -14,6 +14,7 @@ const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const SkillMapPage = lazy(() => import('./pages/SkillMapPage'));
+const TextbookPage = lazy(() => import('./pages/TextbookPage'));
 const ParentReportPage = lazy(() => import('./pages/ParentReportPage'));
 
 // Curriculum admin (lazy, full-screen)
@@ -46,6 +47,7 @@ const App: React.FC = () => {
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/skill-map" element={<SkillMapPage />} />
+                <Route path="/textbook" element={<TextbookPage />} />
               </Route>
 
               {/* Immersive routes (no sidebar, full-screen) */}

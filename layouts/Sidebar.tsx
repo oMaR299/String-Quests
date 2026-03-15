@@ -26,6 +26,7 @@ const NAV_ITEMS: NavItem[] = [
   { labelKey: 'nav.learn', icon: BookOpen, route: '/learn' },
   { labelKey: 'nav.leaderboard', icon: Trophy, route: '/leaderboard' },
   { labelKey: 'nav.skillmap', icon: BrainCircuit, route: '/skill-map' },
+  { labelKey: 'nav.textbook', icon: FileText, route: '/textbook' },
   { labelKey: 'nav.profile', icon: User, route: '/profile' },
   { labelKey: 'nav.settings', icon: Settings, route: '/settings' },
 ];
