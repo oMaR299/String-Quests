@@ -1,0 +1,196 @@
+{
+  "gradeLevel": 0,
+  "gradeName": "KG 2",
+  "subject": "اللغة الإنجليزية",
+  "subjectEn": "English Language",
+  "sourcePages": "37-40",
+  "domains": [
+    {
+      "nameAr": "الاستماع",
+      "nameEn": "Listening",
+      "standards": [
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المنطوقة في سياقات موجهة بسيطة",
+          "nameEn": "Respond to spoken English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "فهم اللغة الإنجليزية المنطوقة والتفاعل معها في مواضيع أساسية بسيطة متنوعة",
+              "outcomeEn": "Understand and interact with spoken English on a variety of simple basic topics",
+              "indicators": [
+                "Recognize and respond to simple greetings (Hello! Goodbye! How are you today?)",
+                "Recognize basic classroom instructions (Open your book! Look at me!)",
+                "Identify cardinal numbers (1-10)",
+                "Listen to and recite simple nursery rhymes",
+                "Respond with gestures to yes/no and wh-simple questions"
+              ]
+            },
+            {
+              "outcomeAr": "إظهار التعرف على الكلمات الإنجليزية البسيطة",
+              "outcomeEn": "Demonstrate recognition of simple English words",
+              "indicators": [
+                "Associate basic words with their pictures",
+                "Listen to and identify simple words naming classroom objects, colors, shapes, animals, food, body parts and days of the week"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المحادثة",
+      "nameEn": "Speaking",
+      "standards": [
+        {
+          "nameAr": "تطوير استراتيجيات المحادثة الأساسية",
+          "nameEn": "Develop basic speaking strategies",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير التعرف على نطق الحروف المختلفة للأبجدية الإنجليزية والكلمات",
+              "outcomeEn": "Develop recognition of the pronunciation of the different letters of the English alphabet and words",
+              "indicators": [
+                "Correctly pronounce the English sounds and morphologically simple words",
+                "Distinguish often confused sounds (/b/ and /p/) with teacher guidance.",
+                "Use single words, cardinal numbers and simple formulaic utterances.",
+                "Recite rhymes and songs, individually and in groups, to enhance correct pronunciation"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "إنتاج كلمات أساسية وعبارات تواصلية بسيطة",
+          "nameEn": "Produce basic words and simple communicative utterances",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إظهار القدرة على إنتاج كلمات مفردة وعبارات بسيطة",
+              "outcomeEn": "Demonstrate the ability to produce single words and simple utterances",
+              "indicators": [
+                "Use utterances with to be + adjectives and to have with guidance (e.g., I have one brother. She is tall.)",
+                "Ask and answer simple yes/no questions with guidance using the vocabulary introduced"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "القراءة",
+      "nameEn": "Reading",
+      "standards": [
+        {
+          "nameAr": "فهم اللغة الإنجليزية المكتوبة في سياقات موجهة بسيطة واستخدام الموسيقى والأغاني والحركة للمساعدة في الفهم",
+          "nameEn": "Comprehend written English in basic and simple guided contexts and using music, songs and movement to aid comprehension",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير استراتيجيات ما قبل القراءة (إمساك الكتاب بشكل صحيح، تمييز الحروف والكلمات والمسافات، تخمين القصة من الصور)",
+              "outcomeEn": "Develop pre-reading strategies (holding a book correctly, distinguishing letters, words and spaces, guessing a story from pictures)",
+              "indicators": [
+                "Establish left-to-right, top-to-bottom direction of reading",
+                "Distinguish between spaces, letters and words",
+                "Identify sound-letter correspondence",
+                "Use pictures and other visual cues to better understand simple written material",
+                "Answer simple questions on the reading text"
+              ]
+            },
+            {
+              "outcomeAr": "تطوير التعرف على حروف الأبجدية الإنجليزية ومقابلاتها الصوتية وتركيباتها في الكلمات الأساسية",
+              "outcomeEn": "Develop recognition of the letters of the English alphabet, their phonic counterpart(s) and their combinations in basic words",
+              "indicators": [
+                "Identify the letters of the English alphabet by their names, sounds and shapes",
+                "Distinguish between small and capital letters",
+                "Decode phonetically non-phonemic sounds (e.g., enough, tough)",
+                "Learn alphabet rhymes and songs with visual aids and actions",
+                "Identify simple familiar sight words with correct pronunciation and relate them to familiar objects from the environment",
+                "Read minimal sets/word families (e.g., hat, rat, cat)"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المكتوبة في سياقات موجهة بسيطة",
+          "nameEn": "Respond to written English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير الإلمام بالكلمات البسيطة",
+              "outcomeEn": "Develop familiarity with simple words",
+              "indicators": [
+                "Recognize one's own name",
+                "Match simple words with pictures",
+                "Match words that begin or end with the same letter or sound",
+                "Distinguish reading-related vocabulary (book, page, line, word, title, next, turn over)",
+                "Demonstrate understanding of words through participation in games (I Spy, Bingo)",
+                "Classify, match and order key words from simple, short texts"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الكتابة",
+      "nameEn": "Writing",
+      "standards": [
+        {
+          "nameAr": "الكتابة في سياقات موجهة بسيطة",
+          "nameEn": "Write in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير الوعي باتجاه النص",
+              "outcomeEn": "Develop awareness of text direction",
+              "indicators": [
+                "Properly hold pencils and crayons",
+                "Demonstrate awareness of text direction",
+                "Trace letters and numbers on the board or on a paper"
+              ]
+            },
+            {
+              "outcomeAr": "البدء بكتابة الأبجدية والكلمات البسيطة",
+              "outcomeEn": "Begin to write the alphabet and simple words",
+              "indicators": [
+                "Write the letters of the alphabet, both capital and small",
+                "Copy simple words",
+                "Fill in missing letters to complete words"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المشاهدة والعرض",
+      "nameEn": "Viewing and Presenting",
+      "standards": [
+        {
+          "nameAr": "التعرف على النصوص المرئية في سياقات موجهة بسيطة واستخدام الموسيقى والأغاني والحركة للمساعدة في الفهم",
+          "nameEn": "Recognize visual texts in basic and simple guided contexts and using music, songs and movement to aid comprehension",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "فهم أن العالم من حوله مليء باللغة المرئية التي تنقل معنى",
+              "outcomeEn": "Understand that the world around him/her is full of visual language that conveys meaning",
+              "indicators": [
+                "Realize that colors, shapes, symbols and images in visual texts have meaning",
+                "Begin to notice and understand signs and labels in school and familiar places",
+                "Observe visual cues that indicate context"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المرئية في سياقات موجهة بسيطة",
+          "nameEn": "Respond to visual English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تفسير النصوص المرئية تلقائياً",
+              "outcomeEn": "Interpret visual texts spontaneously",
+              "indicators": [
+                "Begin to talk about his/her own feelings in response to visual presentations (by showing amusement, curiosity or surprise)",
+                "Attend to visual information showing understanding through play, gestures and facial expressions",
+                "Use body language to communicate ideas (pointing, gesturing, facial expressions)",
+                "Use single words and two-word phrases in context"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

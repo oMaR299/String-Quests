@@ -1,20 +1,42 @@
 import { MATH_CURRICULUM } from './mathCurriculum';
+import { ARTS_CURRICULUM } from './artsCurriculum';
+import { COMPUTER_CURRICULUM } from './computerCurriculum';
+import { ENGLISH_CURRICULUM } from './englishCurriculum';
+import { KINDERGARTEN_CURRICULUM } from './kindergartenCurriculum';
+import { PE_CURRICULUM } from './peCurriculum';
+import { SCIENCE_CURRICULUM } from './scienceCurriculum';
 import type { CurriculumFramework, GradeCurriculum, Domain, Standard, LearningOutcome, CurriculumKC } from './types';
 
 export { MATH_CURRICULUM };
+export { ARTS_CURRICULUM };
+export { COMPUTER_CURRICULUM };
+export { ENGLISH_CURRICULUM };
+export { KINDERGARTEN_CURRICULUM };
+export { PE_CURRICULUM };
+export { SCIENCE_CURRICULUM };
 export type { CurriculumFramework, GradeCurriculum, Domain, Standard, LearningOutcome, CurriculumKC };
 
-export function getGradeCurriculum(grade: number): GradeCurriculum | undefined {
-  return MATH_CURRICULUM.grades.find(g => g.gradeLevel === grade);
+export const ALL_CURRICULA: { key: string; data: CurriculumFramework }[] = [
+  { key: 'math', data: MATH_CURRICULUM },
+  { key: 'arts', data: ARTS_CURRICULUM },
+  { key: 'computer', data: COMPUTER_CURRICULUM },
+  { key: 'english', data: ENGLISH_CURRICULUM },
+  { key: 'kindergarten', data: KINDERGARTEN_CURRICULUM },
+  { key: 'pe', data: PE_CURRICULUM },
+  { key: 'science', data: SCIENCE_CURRICULUM }
+];
+
+export function getGradeCurriculum(grade: number, framework: CurriculumFramework = MATH_CURRICULUM): GradeCurriculum | undefined {
+  return framework.grades.find(g => g.gradeLevel === grade);
 }
 
-export function getDomainsForGrade(grade: number): Domain[] {
-  return getGradeCurriculum(grade)?.domains ?? [];
+export function getDomainsForGrade(grade: number, framework: CurriculumFramework = MATH_CURRICULUM): Domain[] {
+  return getGradeCurriculum(grade, framework)?.domains ?? [];
 }
 
-export function getKCsForGrade(grade: number): CurriculumKC[] {
+export function getKCsForGrade(grade: number, framework: CurriculumFramework = MATH_CURRICULUM): CurriculumKC[] {
   const kcs: CurriculumKC[] = [];
-  for (const domain of getDomainsForGrade(grade)) {
+  for (const domain of getDomainsForGrade(grade, framework)) {
     for (const std of domain.standards) {
       for (const outcome of std.learningOutcomes) {
         kcs.push(...outcome.knowledgeComponents);

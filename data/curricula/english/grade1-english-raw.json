@@ -1,0 +1,197 @@
+{
+  "gradeLevel": 1,
+  "gradeName": "Grade 1",
+  "subject": "اللغة الإنجليزية",
+  "subjectEn": "English Language",
+  "sourcePages": "41-45",
+  "domains": [
+    {
+      "nameAr": "الاستماع",
+      "nameEn": "Listening",
+      "standards": [
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المنطوقة في سياقات موجهة بسيطة",
+          "nameEn": "Respond to spoken English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التفاعل مع اللغة الإنجليزية المنطوقة في مواضيع أساسية بسيطة متنوعة",
+              "outcomeEn": "Interact with spoken English on a variety of simple basic topics",
+              "indicators": [
+                "Recognize and respond to simple greetings (Hello! Goodbye! How are you today?)",
+                "Listen and respond to expression of feelings (How are you feeling today?)",
+                "Follow simple instructions in activities and games (write, draw, hands up, close your eyes)",
+                "Listen to rhymes and songs",
+                "Recognize and respond to simple yes/no and wh- questions about name, likes, dislikes, feelings and classroom objects",
+                "Follow 2-3 step oral directions in order (e.g., open the window and sit down)"
+              ]
+            },
+            {
+              "outcomeAr": "إظهار التعرف على الكلمات الإنجليزية البسيطة",
+              "outcomeEn": "Demonstrate recognition of simple English words",
+              "indicators": [
+                "Identify familiar words in a stream of speech",
+                "Segment simple utterances into words (I/ love/ school) using fingers",
+                "Recognize basic intonation patterns"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المحادثة",
+      "nameEn": "Speaking",
+      "standards": [
+        {
+          "nameAr": "تطوير استراتيجيات المحادثة من خلال إعادة إنتاج كلمات مفردة وعبارات نمطية بسيطة",
+          "nameEn": "Develop speaking strategies by reproducing single-words and simple formulaic utterances",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إعادة إنتاج كلمات مفردة وعبارات نمطية بسيطة",
+              "outcomeEn": "Reproduce single-words and simple formulaic utterances",
+              "indicators": [
+                "Produce English words and short phrases",
+                "Copy basic stress and intonation patterns",
+                "Recite rhymes and songs, individually and in groups",
+                "Use and respond to simple formulaic utterances (Hello! Goodbye! What is your name? How are you? How old are you?)"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "التحدث للتواصل والتفاعل باستخدام عبارات بسيطة",
+          "nameEn": "Speak to communicate and interact using simple utterances",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إظهار القدرة على التواصل باستخدام جمل بسيطة في سياقات موجهة",
+              "outcomeEn": "Demonstrate ability to communicate using simple statements in guided contexts",
+              "indicators": [
+                "Use simple sentences with subjective personal pronouns (He is a boy. She is my sister.)",
+                "Use cardinal numbers to describe age, quantity (I have two brothers. I am four years old)",
+                "Use simple statements to identify objects, people, days of the week and position of objects or people",
+                "Respond to simple question-and-response exchanges (Is it Saturday? Is this a boy? What is this?)",
+                "Answer questions by looking at pictures or cards",
+                "Use polite forms appropriately (e.g., Please, Thank you, and Excuse me)",
+                "Ask and answer simple yes/no questions using proper intonation"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "القراءة",
+      "nameEn": "Reading",
+      "standards": [
+        {
+          "nameAr": "القراءة لفهم اللغة الإنجليزية المكتوبة في سياقات موجهة بسيطة واستخدام الموسيقى والأغاني والحركة للمساعدة في الفهم",
+          "nameEn": "Read to comprehend written English in basic and simple guided contexts and using music, songs and movement to aid comprehension",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير استراتيجيات ما قبل القراءة",
+              "outcomeEn": "Develop pre-reading strategies",
+              "indicators": [
+                "Track English text direction correctly (left-to-right)",
+                "Identify sound-letter correspondence",
+                "Recognize spaces between words",
+                "Use pictures and other visual cues to better understand simple written material",
+                "Recognize long and short vowels in simple words"
+              ]
+            },
+            {
+              "outcomeAr": "إظهار التعرف على حروف الأبجدية الإنجليزية وتركيباتها في الكلمات الأساسية",
+              "outcomeEn": "Demonstrate recognition of the letters of the English alphabet and their combinations in basic words",
+              "indicators": [
+                "Identify the letters of the English alphabet by their names, sounds and shapes",
+                "Distinguish between small and capital letters",
+                "Identify and read a range of simple familiar sight words with correct pronunciation",
+                "Recognize a range of simple familiar words",
+                "Distinguish reading-related vocabulary (page, line, title, next, turn over)",
+                "Practice segmenting and blending of words through games and activities",
+                "Practice reading aloud to develop reading speed",
+                "Practice sight words to enhance fluency in reading"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المكتوبة في سياقات موجهة بسيطة",
+          "nameEn": "Respond to written English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إظهار فهم الكلمات والعبارات البسيطة في مواد القراءة",
+              "outcomeEn": "Demonstrate understanding of simple words/phrases in reading materials",
+              "indicators": [
+                "Read and respond to simple instructions written with familiar words (e.g., open, close, hold, raise, etc.)",
+                "Answer simple yes/no and wh-questions about simple written material (texts and stories) with the help of picture clues and key vocabulary",
+                "Classify, match and order classroom labels, captions and keywords from familiar reading materials",
+                "Retell short texts with the help of the teacher and peers"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الكتابة",
+      "nameEn": "Writing",
+      "standards": [
+        {
+          "nameAr": "الكتابة في سياقات موجهة بسيطة",
+          "nameEn": "Write in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطبيق المعرفة بالكتابة لنقل المعلومات",
+              "outcomeEn": "Apply knowledge of writing to convey information",
+              "indicators": [
+                "Fill in missing words to complete sentences",
+                "Print the English alphabet, using small and capital letters correctly",
+                "Spell grade-appropriate words correctly",
+                "Write simple sentences of 4-5 words with the help of the teacher and classmates",
+                "Participate with classmates in composing simple sentences of 4-5 words"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المشاهدة والعرض",
+      "nameEn": "Viewing and Presenting",
+      "standards": [
+        {
+          "nameAr": "فهم النصوص المرئية في سياقات موجهة بسيطة واستخدام الموسيقى والأغاني والحركة للمساعدة في الفهم",
+          "nameEn": "Understand visual texts in basic and simple guided contexts and using music, songs and movement to aid comprehension",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إدراك أن العالم من حوله مليء باللغة المرئية التي تنقل معنى",
+              "outcomeEn": "Realize that the world around him/her is full of visual language that conveys meaning",
+              "indicators": [
+                "Recognize familiar signs, labels and logos (pedestrian walking sign, emergency exit sign)",
+                "Begin to connect visual information with his/her own experiences to construct meaning (relating a picture book about children making friends in new situation to his/her own experience)",
+                "Use drawings or other visual display when sharing information to clarify ideas, thoughts and feelings"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المرئية في سياقات موجهة بسيطة",
+          "nameEn": "Respond to visual English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "الاستجابة واستخدام اللغة المرئية بطريقة أكثر هادفة",
+              "outcomeEn": "Respond and use visual language in a more purposeful way",
+              "indicators": [
+                "Observe and discuss illustrations in picture books in English (with Arabic guidance, if needed) to explain ideas",
+                "Show appreciation of illustrations in picture books by selecting and rereading familiar books, focusing on favorite pages (with the help of the teacher and use of Arabic, if necessary)",
+                "Express his/her own feelings in response to visual messages in posters, cartoons or illustrations using the mother tongue, if necessary",
+                "Use body language in a variety of ways to communicate and convey understanding of ideas and feelings visually",
+                "Understand simple questions and respond with actions or vocabulary words introduced earlier"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

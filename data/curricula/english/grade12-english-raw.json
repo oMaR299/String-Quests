@@ -1,0 +1,231 @@
+{
+  "gradeLevel": 12,
+  "gradeName": "Grade 12",
+  "subject": "اللغة الإنجليزية",
+  "subjectEn": "English Language",
+  "sourcePages": "100-107",
+  "domains": [
+    {
+      "nameAr": "الاستماع",
+      "nameEn": "Listening",
+      "standards": [
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المنطوقة في مجموعة متنوعة من السياقات الأكاديمية والأصيلة",
+          "nameEn": "Respond to spoken English in a variety of academic and authentic contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التفاعل مع اللغة الإنجليزية المنطوقة في مجموعة متنوعة من السياقات الأكاديمية والأصيلة",
+              "outcomeEn": "Interact with spoken English in a variety of authentic and academic contexts",
+              "indicators": [
+                "Evaluate the main ideas and supporting details presented in diverse media and formats to judge how the ideas appropriately clarify the topic, text or issue under study",
+                "Summarize main points in extended announcements, information texts, narratives and short presentations",
+                "Take precise notes based on exposure to a variety of texts on special topics",
+                "Identify the effect of using personification, irony, metaphor and simile in a text",
+                "Demonstrate awareness of allusions in a literary text and their importance to overall meaning",
+                "Engage in a range of functions in conversations in which speakers are making offers, requests or suggestions, expressing likes, dislikes and preferences, giving advice or directions, making assumptions, checking information with question tags, giving opinions, agreeing and disagreeing",
+                "Anticipate the speaker's responses and questions while engaged in a conversation.",
+                "Respond persuasively to critical thinking questions before, during and after listening",
+                "Make a variety of persuasive inferences citing evidence",
+                "Assess audio materials citing evidence",
+                "Demonstrate understanding of the purpose of an advertisement related to an area of a vocational study"
+              ]
+            },
+            {
+              "outcomeAr": "تطوير استراتيجيات استماع متقدمة لفهم اللغة الإنجليزية المنطوقة والتفاعل في السياقات الأكاديمية والأصيلة",
+              "outcomeEn": "Develop advanced listening strategies to comprehend spoken English and interact in academic and authentic contexts",
+              "indicators": [
+                "Use resources (print, electronic and online dictionaries, online search engines) to help construct meaning",
+                "Use morphology and phonology (suffixes, prefixes, roots, word stress and sentence stress) to help construct meaning",
+                "Ask and answer questions about what a speaker says in order to check comprehension, collect additional information or enhance understanding",
+                "Identify rhetorical structures and use them to help understand meaning",
+                "Identify signal words and use them to understand the sequence of and relationships between ideas",
+                "Identify common organizational patterns (logical or chronological division of ideas, compare and contrast) to help understand meaning",
+                "Recognize redundancies, social cues and prior knowledge to help construct meaning and make inferences",
+                "Identify cultural influences in audio-texts and performance",
+                "Use tone to help identify speakers' purpose (warnings, advice, excuses, complaints, blame, contrition) or mood (disappointment, surprise, regret)",
+                "Show understanding of texts spoken by nonnative speakers of English (e.g., Indians, Africans, etc.)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المحادثة",
+      "nameEn": "Speaking",
+      "standards": [
+        {
+          "nameAr": "المشاركة بنشاط في المحادثات التداولية والمناقشات الجماعية في مجموعة متنوعة من السياقات الأكاديمية والأصيلة",
+          "nameEn": "Actively engage in deliberative conversations and group discussions in a variety of academic, authentic contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير القدرة على التحدث بشكل متماسك ومتسق بطلاقة ودقة",
+              "outcomeEn": "Develop the ability to speak cohesively and coherently with fluency and accuracy",
+              "indicators": [
+                "Communicate using advanced language structures (subordinate clauses, appropriate conjunctions, active and passive voice, gerunds, infinitives)",
+                "Discuss job expectations for different career positions",
+                "Speak using a wide range of conjunctions to express chronological development, comparison, contrast, cause and effect",
+                "Speak fluently and accurately for up to 12 minutes without lapses and hesitations using a variety of structures and expressions",
+                "Build on consensus-building discussions that are grounded on techniques, tactics of inclusion and issue-relatedness",
+                "Debate regularly in a deliberative discussion as an innovative teaching strategy",
+                "Give a 5-minute speech on an issue of local or international concern",
+                "Explain how two or more literary texts compare and contrast"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "القراءة",
+      "nameEn": "Reading",
+      "standards": [
+        {
+          "nameAr": "القراءة لفهم مجموعة متنوعة من السرد الواقعي والنصوص المعلوماتية والأدبية",
+          "nameEn": "Read to understand a variety of factual recounts and informational and literary texts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير واستخدام مجموعة من استراتيجيات القراءة لفهم مجموعة متنوعة من النصوص المعلوماتية والأدبية الأصيلة",
+              "outcomeEn": "Develop and use a battery of reading strategies to understand a variety of authentic information and literary texts",
+              "indicators": [
+                "Follow the SQRRR (SQ3R) reading strategy (survey, question, read, recite and review) when approaching a text",
+                "Identify the distinctive features of both 'versed' and free verse poetry",
+                "Employ descriptions that use concrete sensory details to present and support impressions of people, places, things or experiences",
+                "Infer tone and mood in a poem",
+                "Pinpoint figures of speech in a poem and explain their significance",
+                "Demonstrate familiarity with the various types of poetry (lyric, sonnet, ballad, ode, haiku, tanka, etc.)",
+                "Pause and ask questions",
+                "Speed up the reading rate by skipping unknown words",
+                "Monitor understanding by asking questions, thinking about and reflecting on the ideas and information in a text",
+                "Use semantic mapping or clustering",
+                "Demonstrate creativity in identifying the author's purpose and tone",
+                "Discuss persuasively the author's line of reasoning",
+                "Paraphrase accurately main ideas in a text",
+                "Engage actively in a discussion that indicates appropriate processing of information",
+                "Distinguish between literal and implied meaning analyze the development of a central idea over the course of the text, including how it emerges and is shaped and refined by specific details",
+                "Evaluate the argument in a text in terms of validity, relevance and evidence"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة أو التفاعل مع مجموعة متنوعة من السرد الواقعي والنصوص المعلوماتية والأدبية",
+          "nameEn": "Respond to or interact with a variety of factual recounts and informational and literary texts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "دمج المعرفة السابقة مع المعلومات الجديدة المقدمة في نصوص القراءة",
+              "outcomeEn": "Integrate prior knowledge with new information presented in reading texts",
+              "indicators": [
+                "Determine an author's point of view or purpose in a text and critique how he/she uses rhetoric to advance it",
+                "Evaluate the argument and specific claims in a text, assessing whether the reasoning is valid and the evidence relevant and sufficient",
+                "Identify and critique false statements and fallacious reasoning",
+                "Link specific points in texts to context",
+                "Judge the acceptability of sentences put in a list which includes both grammatical and ungrammatical ones, and correct the faulty items on the basis of feedback from the teacher or any other reliable source",
+                "Identify the type of any sentence in the text (simple, compound, complex and compound-complex)",
+                "Determine the referent of a pronoun used in the text",
+                "Identify the word in a text whose meaning or opposite is given.",
+                "Find words and phrases in the text that show the writer's view point",
+                "Determine the best place to insert a given sentence into the text",
+                "Close read a literary text"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الكتابة",
+      "nameEn": "Writing",
+      "standards": [
+        {
+          "nameAr": "استخدام استراتيجيات ما قبل الكتابة لتوليد الأفكار وتطوير الصوت والتخطيط للكتابة",
+          "nameEn": "Use pre-writing strategies to generate ideas, develop voice and plan writing",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "استخدام تقنيات العصف الذهني لتوليد وتوضيح الأفكار",
+              "outcomeEn": "Use brainstorming techniques to generate and clarify ideas",
+              "indicators": [
+                "Use free writing with periods of reflection and analysis (a write-reflect-write-reflect pattern activity), to produce a line of thinking and writing that might form the basis of a more considered exploration",
+                "Use \"The journalists' questions\" strategy, (i.e. Who? What? Where? When? Why? and How?) to invent and organize ideas"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "كتابة مقالات أكاديمية باستخدام الموارد والاقتباس الصحيح",
+          "nameEn": "Write academic essays using resources and proper citation",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التمييز بين المقالات الرأيية والأكاديمية",
+              "outcomeEn": "Differentiate between opinion essays and academic ones",
+              "indicators": [
+                "List the main features of an opinion essay",
+                "Write opinion essays on assigned topics",
+                "Write a well-structured CV that presents personal information",
+                "List the main features of academic essays",
+                "Write narrative, descriptive, argumentative and persuasive essays on various topics",
+                "Use resources in academic writing",
+                "Use in-text citations, quotations and references in writing",
+                "Demonstrate competent writing that includes a clear, original thesis or claim, appropriate evidence and support, a logical structure and a style of language that serves the purpose and audience",
+                "Type an academic essay with a title page, headings, footnotes, reference list following clear research methods",
+                "Conduct small-scale investigations and inquiry-based projects",
+                "Use research methods in writing an extended essay on an assigned topic",
+                "Change linear information into nonlinear format and vice versa",
+                "List the components (elements) of a literary work (poem, short story, etc.)",
+                "Write a creative text resembling a specific literary genre (a thought, contemplative essay, poem, short story, dramatic dialogue, etc.)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المشاهدة والعرض",
+      "nameEn": "Viewing and Presenting",
+      "standards": [
+        {
+          "nameAr": "عرض لفهم ونقد مجموعة متنوعة من النصوص المرئية ومحاكاة الأسلوب المكتوب لبعض النصوص بشكل إبداعي",
+          "nameEn": "View to understand and critique a variety visual texts and to creatively mimic the written style of some texts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التفكير الإبداعي حول استخدام مجموعة من موارد النص المرئي للتواصل والتأثير على الجمهور",
+              "outcomeEn": "Think creatively about the use of a range of visual text resources used to communicate and influence the audience",
+              "indicators": [
+                "View and critique a range of visual texts (advertising, posters, newspaper reports), communicating understanding through oral, written and visual media",
+                "Demonstrate awareness that visual presentations reach out to a particular audience and influence the audience in creative ways",
+                "Make connections to the course themes",
+                "Select examples to explain how they achieve a particular impact (dominant images, use of color, texture, symbolism, analogy and correlation)",
+                "Examine and analyze texts and illustrations: analyzing how visual and written information work together to reinforce each other and make meaning more explicit",
+                "Demonstrate awareness that cultural influences affect the way one responds to visual effects and explain how this affects one's interpretation (the use of particular colors or symbols)",
+                "Analyze the intended audience and purpose of a visual presentation",
+                "Examine texts and illustrations analyzing the relationship between visual and written information",
+                "Interpret the ways in which visual effects are used to establish context by commenting on the image in relation to an Anglophone culture",
+                "Evaluate stylistic choices analyzing the selection and composition of visual presentations"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "التفاعل مع مجموعة متنوعة من النصوص المرئية بشكل نقدي وعرض الأفكار بفعالية وإبداع",
+          "nameEn": "Interact with a variety of visual texts critically, and presenting ideas effectively and creatively",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "استخدام الصور المرئية بفعالية لعرض المعلومات واختيار المعلومات الموثوقة والفعالة",
+              "outcomeEn": "Effectively use visual imagery to present information and select information considered reliable and effective",
+              "indicators": [
+                "Respond orally and in writing to visual texts, commenting on the main ideas, the issues presented and making connections with personal experiences",
+                "Present and develop ideas and opinions on a variety of topics orally",
+                "Respond to questions related to the visual texts with examples and justification",
+                "Present ideas or views using visual aids such as student-made posters, mind maps, charts or PowerPoint presentations",
+                "Give a high-tech and visually well-rounded presentation",
+                "Use appropriate body language when presenting",
+                "Project voice clearly when presenting, using intonation and pauses",
+                "Role-play a proposed conflict and its resolution in a workplace situation in an area of vocational interest"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

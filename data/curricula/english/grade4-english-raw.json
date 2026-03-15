@@ -1,0 +1,180 @@
+{
+  "gradeLevel": 4,
+  "gradeName": "Grade 4",
+  "subject": "اللغة الإنجليزية",
+  "subjectEn": "English Language",
+  "sourcePages": "55-59",
+  "domains": [
+    {
+      "nameAr": "الاستماع",
+      "nameEn": "Listening",
+      "standards": [
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المنطوقة في سياقات موجهة بسيطة",
+          "nameEn": "Respond to spoken English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التفاعل مع اللغة الإنجليزية المنطوقة في عروض قصيرة بسيطة وتعليمات وأسئلة ومحادثات موجهة",
+              "outcomeEn": "Interact with spoken English in short, simple presentations, instructions, questions and guided conversations",
+              "indicators": [
+                "Follow instructions in activities and games",
+                "Identify two or more key ideas in an oral presentation or conversation",
+                "Respond to questions before, during and after listening",
+                "Locate needed information while listening",
+                "Respond to oral presentation, instructions or conversations using simple questions or statements",
+                "Participate in a variety of short simple dialogues",
+                "Express opinions after listening to a(n) (audio) text",
+                "Detect sequence of events in a simple story",
+                "Identify main ideas and specific details in descriptions of people, places, and past, present and future events",
+                "Use textbook illustrations and pictionaries to",
+                "Use new words when listening",
+                "Use teacher introduction to understand new words when listening",
+                "Ask and answer questions in order to seek help, get information or clarify something that is not understood in the oral texts under discussion",
+                "Show engagement and care when listening to others"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المحادثة",
+      "nameEn": "Speaking",
+      "standards": [
+        {
+          "nameAr": "تطوير استراتيجيات المحادثة باستخدام التنغيم والنبر والتوقف الصحيح",
+          "nameEn": "Develop speaking strategies using correct intonation, stress and pauses",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تعزيز القدرة على النطق الصحيح لحروف العلة والحروف الساكنة النهائية",
+              "outcomeEn": "Consolidate the ability to correctly pronounce vowels and final consonants",
+              "indicators": [
+                "Accurately pronounce the third-person-singular -(e)s in simple present (/s/, /z/, /Iz/) and the past -ed (/d/, /t/, /Id/)",
+                "Accurately pronounce simple vowels and diphthongs"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "التحدث للتواصل والتفاعل الفعال باستخدام مجموعة من التراكيب المتعلمة",
+          "nameEn": "Speak to effectively communicate and interact using a range of learned structures",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التواصل بمجموعة متنوعة من الأفكار البسيطة والمشاركة في الحوارات",
+              "outcomeEn": "Communicate a variety of simple ideas and participate in dialogues",
+              "indicators": [
+                "Modify actions using adverbs",
+                "Describe and compare objects, people and incidents using comparative and superlative forms",
+                "Link sentences using conjunctions (or, so, because, when)",
+                "Express the future using going to and will in positive and negative statements and questions",
+                "Talk about needs and wants",
+                "Convey obligation, permission and suggestions, with had to, may, should, shouldn't and would",
+                "Use the simple present, simple past, present progressive and simple future to answer questions and/or produce statements in student dialogues"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "القراءة",
+      "nameEn": "Reading",
+      "standards": [
+        {
+          "nameAr": "القراءة لفهم مجموعة متنوعة من السرد الواقعي والنصوص المعلوماتية والأدبية",
+          "nameEn": "Read to understand a variety of factual recounts, and informational and literary texts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير استراتيجيات القراءة لفهم مجموعة متنوعة من النصوص الواقعية البسيطة والمعلوماتية والأدبية",
+              "outcomeEn": "Develop reading strategies to understand a variety of simple factual, informational and literary texts",
+              "indicators": [
+                "Use pictures and contextual clues to guess the meaning of unfamiliar words and to make predictions about the content of a reading text",
+                "Ask and answer questions to help determine or clarify the meaning of words/phrases in context",
+                "Use illustrations and key details in a text to determine its main idea(s)",
+                "Independently read longer texts (up to two pages)",
+                "Identify and use various text features (e.g., title, headings) to locate key facts or information in a text"
+              ]
+            },
+            {
+              "outcomeAr": "إظهار فهم السرد الواقعي البسيط والنصوص المعلوماتية والأدبية",
+              "outcomeEn": "Demonstrate understanding of simple factual recounts and informational and literary texts",
+              "indicators": [
+                "Read silently first to understand the main idea and then loudly to show their understanding of the text",
+                "Recognize and name some basic types of reading materials (e.g., story, poem, postcard, letter)",
+                "Identify the topic and main idea(s) of simple reading materials",
+                "Identify main characters, settings and major events in a short simple narrative using key details",
+                "Retell short pictorial stories read for pleasure"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة لمجموعة متنوعة من السرد الواقعي والنصوص المعلوماتية والأدبية",
+          "nameEn": "Respond to a variety of factual recounts, and informational and literary texts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إجراء روابط بين المعرفة السابقة والتجارب والنصوص",
+              "outcomeEn": "Make connections between prior knowledge and experiences and simple factual recounts, and informational and literary texts",
+              "indicators": [
+                "Express opinions on characters, events and information in a reading text",
+                "Discuss causes of certain events in a reading text",
+                "Identify and discuss new ideas and vocabulary items in a text",
+                "Identify the gist of the whole text regardless of any difficult words",
+                "Discuss the text using clues and referring to certain sentences, phrases or words",
+                "Identify words and phrases in a story that express feelings or emotions"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الكتابة",
+      "nameEn": "Writing",
+      "standards": [
+        {
+          "nameAr": "تأليف نصوص قصيرة بسيطة من 4-6 جمل عن الناس والأماكن أو الأحداث",
+          "nameEn": "Compose short, simple texts of 4-6 sentences about people, places or events",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "كتابة نصوص وظيفية قصيرة (رسائل، بريد إلكتروني، قوائم، تذكيرات)",
+              "outcomeEn": "Write short, functional texts (messages, emails, lists, reminders)",
+              "indicators": [
+                "Write correct sentences",
+                "Write a short, simple text in the past, present or future tense",
+                "Appropriately punctuate short texts devoid of punctuation marks",
+                "Write short texts that serve a purpose such as messages, emails, lists and reminders"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المشاهدة والعرض",
+      "nameEn": "Viewing and Presenting",
+      "standards": [
+        {
+          "nameAr": "عرض لفهم مجموعة متنوعة من النصوص المرئية",
+          "nameEn": "View to understand a variety of visual texts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التعرف على أن موارد النص المرئي يمكن أن توفر معلومات واقعية وتزيد الفهم",
+              "outcomeEn": "Recognize that visual text resources can provide factual information and increase understanding",
+              "indicators": [
+                "Attend to visual information showing understanding through discussion, role play and illustrations",
+                "Realize that shapes, symbols and colors have meaning and include them in presentations",
+                "Realize that visual information reflects and contributes to the understanding of context",
+                "View a range of visual language formats (film/video, posters, drama) and discuss their effectiveness",
+                "Observe and discuss familiar and unfamiliar visual messages and make judgments about effectiveness",
+                "Discuss personal experiences that relate to visual images",
+                "Use actions and body language to reinforce and add meaning to oral presentations",
+                "Deliver short oral presentations to peers"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

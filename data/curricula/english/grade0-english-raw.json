@@ -1,0 +1,187 @@
+{
+  "gradeLevel": -1,
+  "gradeName": "KG 1",
+  "subject": "اللغة الإنجليزية",
+  "subjectEn": "English Language",
+  "sourcePages": "34-36",
+  "domains": [
+    {
+      "nameAr": "الاستماع",
+      "nameEn": "Listening",
+      "standards": [
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المنطوقة في سياقات موجهة بسيطة",
+          "nameEn": "Respond to spoken English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التفاعل مع اللغة الإنجليزية المنطوقة",
+              "outcomeEn": "Interact with spoken English",
+              "indicators": [
+                "Respond to simple greetings (Hello, goodbye, how are you?)",
+                "Respond to simple commands (sit down; stand up)",
+                "Respond to number and alphabet rhymes with movement",
+                "Recite nursery rhymes in English with teacher/peers"
+              ]
+            },
+            {
+              "outcomeAr": "إظهار التعرف على الكلمات الإنجليزية الأساسية",
+              "outcomeEn": "Demonstrate recognition of basic English words",
+              "indicators": [
+                "Identify basic words related to classroom objects, family, colors, shapes, food and animals",
+                "Point to objects, colors or shapes named by the teacher"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المحادثة",
+      "nameEn": "Speaking",
+      "standards": [
+        {
+          "nameAr": "تطوير استراتيجيات المحادثة",
+          "nameEn": "Develop speaking strategies",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير التعرف على الأبجدية الإنجليزية والكلمات البسيطة",
+              "outcomeEn": "Develop recognition of the English alphabet and simple words",
+              "indicators": [
+                "Identify the letters of the English alphabet by pronouncing them in simple guided contexts",
+                "Recite rhymes and songs individually and in groups"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "إنتاج كلمات بسيطة وعبارات تواصلية بسيطة",
+          "nameEn": "Produce basic words and simple communicative utterances",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إنتاج كلمات مفردة وعبارات نمطية",
+              "outcomeEn": "Produce single words and formulaic utterances",
+              "indicators": [
+                "Say single words that describe family, familiar class objects and days of the week with guidance",
+                "Engage in simple guided social interactions (Hello! My name is Ahmad. I am five years old.)",
+                "Recite cardinal numbers",
+                "Use and respond to simple imperatives individually and in groups (Sit down! Stand up!)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "القراءة",
+      "nameEn": "Reading",
+      "standards": [
+        {
+          "nameAr": "قراءة وفهم اللغة الإنجليزية المكتوبة في سياقات موجهة بسيطة",
+          "nameEn": "Read to understand written English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير استراتيجيات ما قبل القراءة (إمساك الكتاب بشكل صحيح، تمييز الحروف والكلمات والمسافات، تخمين القصة من الصور)",
+              "outcomeEn": "Develop pre-reading strategies (holding a book correctly, distinguishing letters, words and spaces, guessing story from pictures)",
+              "indicators": [
+                "Hold a book correctly",
+                "Distinguish pictures from print",
+                "Establish left-to-right, top-to-bottom direction of reading",
+                "Recognize spaces between words",
+                "Distinguish between spaces, letters and words",
+                "Use pictures and other visual cues to better understand simple written material",
+                "Remember songs, music and movement related to certain letters, sounds, syllables and words"
+              ]
+            },
+            {
+              "outcomeAr": "تطوير التعرف على حروف الأبجدية الإنجليزية ومقابلاتها الصوتية وتركيباتها في الكلمات الأساسية",
+              "outcomeEn": "Develop recognition of the letters of the English alphabet, their phonic counterpart(s) and their combinations in basic words",
+              "indicators": [
+                "Identify the letters of the English alphabet by their names, sounds and shapes",
+                "Distinguish between small and capital letters",
+                "Learn alphabet rhymes and songs with visual aids and actions",
+                "Use letter-sound knowledge of single consonants (hard and soft sounds), consonant blends and digraphs.",
+                "Decode phonetically regular words (e.g., cat, go, black), independent of context",
+                "Identify simple familiar sight words with correct pronunciation and relate them to familiar objects from the environment."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المكتوبة في سياقات موجهة بسيطة",
+          "nameEn": "Respond to written English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير الإلمام بالكلمات البسيطة",
+              "outcomeEn": "Develop familiarity with simple words",
+              "indicators": [
+                "Recognize one's own name",
+                "Match simple words with pictures",
+                "Match words that begin or end with the same letter or sound",
+                "Distinguish reading-related vocabulary (book, page, line, word, title, next, turn over)",
+                "Demonstrate understanding of words through participation in games (I Spy, Bingo)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الكتابة",
+      "nameEn": "Writing",
+      "standards": [
+        {
+          "nameAr": "الكتابة في سياقات موجهة بسيطة",
+          "nameEn": "Write in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير الوعي باتجاه النص",
+              "outcomeEn": "Develop awareness of text direction",
+              "indicators": [
+                "Establish left-to-right, top-to-bottom direction of writing",
+                "Develop a comfortable grip of pencils and crayons"
+              ]
+            },
+            {
+              "outcomeAr": "البدء بكتابة الأبجدية",
+              "outcomeEn": "Begin to write the alphabet",
+              "indicators": [
+                "Write letters of the English alphabet, both capital and small",
+                "Participate in simple writing activities with teacher and peers (e.g., trace the letter or the shape)",
+                "Write his/her name"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المشاهدة والعرض",
+      "nameEn": "Viewing and Presenting",
+      "standards": [
+        {
+          "nameAr": "التعرف على النصوص المرئية في سياقات موجهة بسيطة واستخدام الموسيقى والأغاني والحركة للمساعدة في الفهم",
+          "nameEn": "Recognize visual texts in basic and simple guided contexts and using music, songs and movement to aid comprehension",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "البدء بالتعرف على أن اللغة المرئية تنقل معنى",
+              "outcomeEn": "Begin to recognize that visual language conveys meaning",
+              "indicators": [
+                "Recognize own name identify colors, shapes, symbols and images in visual texts",
+                "Look at books independently",
+                "Begin to attend to visual information showing understanding through play, gestures and facial expressions",
+                "View picture books and talk about what they see"
+              ]
+            },
+            {
+              "outcomeAr": "البدء بتفسير النصوص المرئية والاستجابة لها",
+              "outcomeEn": "Begin to interpret and respond to visual texts",
+              "indicators": [
+                "Repeat/Echo single words"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

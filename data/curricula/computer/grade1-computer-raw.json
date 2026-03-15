@@ -1,0 +1,280 @@
+{
+  "gradeLevel": 1,
+  "subject": "الحاسوب والمهارات الرقمية",
+  "subjectEn": "Computer & Digital Skills",
+  "sourcePages": "45-50",
+  "domains": [
+    {
+      "nameAr": "أنظمة الحوسبة",
+      "nameEn": "Computing Systems",
+      "standards": [
+        {
+          "nameAr": "مكونات الحاسوب المادية والبرمجية",
+          "nameEn": "Hardware & Software Components",
+          "axis": "مكونات الحاسوب المادية والبرمجية",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تمييز مكونات الحاسوب المادية والبرمجية.",
+              "indicators": [
+                "يعدد مكونات الحاسوب المادية والبرمجية."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "أنظمة التشغيل",
+          "nameEn": "Operating Systems",
+          "axis": "أنظمة التشغيل",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تمييز أهمية نظام التشغيل.",
+              "indicators": [
+                "يشغل جهاز الحاسوب ويغلقه.",
+                "يشغل تطبيقًا (مثل الرسام) ويغلقه."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "أثر الحوسبة",
+      "nameEn": "Impacts of Computing",
+      "standards": [
+        {
+          "nameAr": "الحوسبة والحياة",
+          "nameEn": "Computing & Life",
+          "axis": "الحوسبة والحياة",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تعرف إيجابيات وسلبيات الألعاب الإلكترونية.",
+              "indicators": [
+                "يبين إيجابيات وسلبيات الألعاب الإلكترونية."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستخدام المتوازن للحاسوب وأدواته وتطبيقاته",
+          "nameEn": "Balanced Use of Computer & Its Tools",
+          "axis": "الاستخدام المتوازن للحاسوب وأدواته وتطبيقاته",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "استخدام معدات الحاسوب والأجهزة الإلكترونية بطريقة أمنة على الصحة.",
+              "indicators": [
+                "يستخدم لوحة المفاتيح والفأرة والشاشة بطريقة آمنة."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "تحليل البيانات",
+      "nameEn": "Data Analysis",
+      "standards": [
+        {
+          "nameAr": "البيانات والمعلومات",
+          "nameEn": "Data & Information",
+          "axis": "البيانات والمعلومات",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التعرف على المعلومات.",
+              "indicators": [
+                "يتعرف المعلومات (معدل تحصيله الدراسي، مجموع رقمين، قائمة أسماء طلبة الصف)."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "تمثيل البيانات",
+          "nameEn": "Data Representation",
+          "axis": "تمثيل البيانات",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تحويل البيانات والمعلومات من شكل إلى آخر.",
+              "indicators": [
+                "يحول بيانات إلى رموز."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الشبكات والإنترنت",
+      "nameEn": "Networks & Internet",
+      "standards": [
+        {
+          "nameAr": "تنظيم الشبكات",
+          "nameEn": "Network Organization",
+          "axis": "تنظيم الشبكات",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "البحث باستخدام الإنترنت.",
+              "indicators": [
+                "يتعرف مفهوم البحث."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الأمن السيبراني",
+          "nameEn": "Cybersecurity",
+          "axis": "الأمن السيبراني",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تعرف خصوصية البيانات.",
+              "indicators": [
+                "يتعرف أهمية الحفاظ على خصوصيته وخصوصية ممتلكاته."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "إنترنت الأشياء",
+      "nameEn": "IoT",
+      "standards": [
+        {
+          "nameAr": "أدوات وأجهزة في إنترنت الأشياء",
+          "nameEn": "IoT Devices & Tools",
+          "axis": "أدوات وأجهزة في إنترنت الأشياء",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "استخدام أشياء متحركة تحمل حساسًا لقراءة قيم وقياسها.",
+              "indicators": [
+                "يتعرف الحساسات.",
+                "يسمى أشياء متحركة تحمل حساسات."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الحوسبة السحابية",
+      "nameEn": "Cloud Computing",
+      "standards": [
+        {
+          "nameAr": "الأنظمة والخدمات",
+          "nameEn": "Systems & Services",
+          "axis": "الأنظمة والخدمات",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تعرف التخزين البيانات على الحاسوب والتخزين السحابي.",
+              "indicators": [
+                "يفتح ملفًا مخزنًا على منصة تعليمية."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "تطبيقات الحوسبة السحابية وخدماتها",
+          "nameEn": "Cloud Computing Applications & Services",
+          "axis": "تطبيقات الحوسبة السحابية وخدماتها",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "استخدام بعض تطبيقات الحوسبة السحابية الإنترنت.",
+              "indicators": [
+                "يشغل لعبة تعليمية من الإنترنت."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "أثر الحوسبة السحابية",
+          "nameEn": "Cloud Computing Impact",
+          "axis": "أثر الحوسبة السحابية",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إدراك أهمية التخزين السحابي.",
+              "indicators": [
+                "يتعرف أهمية تخزين البيانات."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الخوارزميات والبرمجة",
+      "nameEn": "Algorithms & Programming",
+      "standards": [
+        {
+          "nameAr": "التفكير الحاسوبي",
+          "nameEn": "Computational Thinking",
+          "axis": "التفكير الحاسوبي",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "استخدام مصادر وأدوات تكنولوجية لحل مشكلات بسيطة.",
+              "indicators": [
+                "يحل متاهة بسيطة باتباع نمط الحل خطوة بخطوة.",
+                "يلعب مع الزملاء ألعاب التخمين لتطوير استراتيجية التخمين."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الذكاء الاصطناعي",
+      "nameEn": "Artificial Intelligence",
+      "standards": [
+        {
+          "nameAr": "مقدمة إلى الذكاء الاصطناعي",
+          "nameEn": "Introduction to AI",
+          "axis": "مقدمة إلى الذكاء الاصطناعي",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تعرف المواقف والأفعال التي تتصف بالذكاء من غيرها عن طريق استخدام الحاسوب الألعاب الحاسوبية.",
+              "indicators": [
+                "يحدد المواقف والأفعال التي تتصف بالذكاء من بين ما مجموعه 10 مواقف باستخدام الحاسوب من دون إعطاء تفسير."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "تمثيل المعرفة والمنطق",
+          "nameEn": "Knowledge Representation & Logic",
+          "axis": "تمثيل المعرفة والمنطق",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تمثيل معلومات عن أشياء ذات النمط الواحد باستخدام تطبيق حاسوبي.",
+              "indicators": [
+                "يختار التمثيل المناسب لأشياء ذات نمط محدد دون اعطاء تفسير باستخدام لعبة بصرية بسيطة."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "البحث",
+          "nameEn": "Search",
+          "axis": "البحث",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "استخدام استراتيجيات للبحث عن أشياء ذات نمط محدد باستخدام الحاسوب.",
+              "indicators": [
+                "يبحث عن الأشياء ذات النمط الواحد من بين 10 أشياء باستخدام لعبة حاسوبية."
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "تطبيقات الذكاء الاصطناعي",
+          "nameEn": "AI Applications",
+          "axis": "تطبيقات الذكاء الاصطناعي",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "استخدام ألعاب ذكاء اصطناعي بسيطة المستوى لتمييز الأرقام والحروف.",
+              "indicators": [
+                "يميز الأرقام باستخدام لعبة حاسوبية."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

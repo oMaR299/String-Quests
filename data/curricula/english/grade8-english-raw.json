@@ -1,0 +1,206 @@
+{
+  "gradeLevel": 8,
+  "gradeName": "Grade 8",
+  "subject": "اللغة الإنجليزية",
+  "subjectEn": "English Language",
+  "sourcePages": "77-81",
+  "domains": [
+    {
+      "nameAr": "الاستماع",
+      "nameEn": "Listening",
+      "standards": [
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المنطوقة في مجموعة متنوعة من الأشكال والسياقات الأصيلة البسيطة",
+          "nameEn": "Respond to spoken English in a variety of simple authentic formats and contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "الاستجابة للغة الإنجليزية المنطوقة في مجموعة متنوعة من العروض والتعليمات والأسئلة والمحادثات الأصيلة البسيطة",
+              "outcomeEn": "Respond to spoken English in a variety of simple authentic presentations, instructions, questions and conversations",
+              "indicators": [
+                "Analyze the main ideas and supporting details",
+                "Identify the gist of short to medium-length passages, presentations and messages",
+                "Distinguish facts from opinions",
+                "Analyze the purpose of presentation and evaluate motives behind it (social, commercial, political)",
+                "Follow detailed instructions or directions, answer a variety of questions, or perform an appropriate social act (expressing gratitude or agreement) in response to an oral text",
+                "Respond to critical thinking questions before, during and after listening",
+                "Make a variety of simple inferences (setting, relationship between speakers, speaker's feelings or motivation)",
+                "Assess audio material",
+                "Make suggestions for the improvement of his/her own and peers' presentations"
+              ]
+            },
+            {
+              "outcomeAr": "تطوير استراتيجيات الاستماع النشط للفهم والتفاعل في المناقشات والعروض البسيطة",
+              "outcomeEn": "Develop strategies of active listening to comprehend and interact in simple discussions and presentations",
+              "indicators": [
+                "Guess the meaning of unknown vocabulary words and phrases from context",
+                "Use resources (dictionaries, online search engines) to help construct meaning",
+                "Use word parts (suffixes, prefixes, roots) to help construct meaning",
+                "Ask and answer questions about what a speaker says in order to demonstrate comprehension, collect additional information or enhance understanding of a topic or issue",
+                "Begin to identify common organizational patterns (logical or chronological presentation of ideas, comparison and contrast) and rhetorical structures (main ideas tend to come at the beginning and end of passages; problems come before solutions) to help understand meaning",
+                "Use prior knowledge and social cues (body language, facial expressions) and visual imagery to help construct meaning and make inferences",
+                "Tell the intention of the speaker"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المحادثة",
+      "nameEn": "Speaking",
+      "standards": [
+        {
+          "nameAr": "تطوير استراتيجيات المحادثة لإظهار المعرفة بالاختلافات في نطق الصوتيات",
+          "nameEn": "Develop speaking strategies to demonstrate knowledge of differences in the pronunciation of phonemes",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إظهار المعرفة بالاختلافات في نطق الصوتيات الشائعة الإشكالية",
+              "outcomeEn": "Demonstrate the knowledge of the differences in pronouncing common problematic phonemes",
+              "indicators": [
+                "Correctly show the difference between affricates and fricatives that are part of them(/ʃ/, /tʃ/, /z/, /d z /)",
+                "Use proper intonation patterns, vowel reductions, elision, contractions and changes in the shape of the morpheme",
+                "Recognize and use features of word or sentence stress such as pitch (high or low), length (long or short), loudness (loud or soft) and quality (weak or strong)"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "التواصل والتفاعل مع مجموعة من المحادثات والنصوص بشكل متماسك ومتسق",
+          "nameEn": "Communicate and interact with a range of conversations and texts by cohesively and coherently summarizing main ideas and partaking in effective, accurate exchanges, dialogues and discussions",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير القدرة على التحدث بشكل متماسك ومتسق في سياقات رسمية",
+              "outcomeEn": "Develop the ability to cohesively and coherently speak in formal settings",
+              "indicators": [
+                "Orally summarize main ideas of a variety of texts (read, heard, seen)",
+                "Retell and describe events using reported speech",
+                "Voice an opinion or point of view in meaningful, connected sentences",
+                "Paraphrase what was said by other students in class",
+                "Converse in a variety of social situations",
+                "Partake in formal exchanges and dialogues using appropriate expressions",
+                "Articulate evidence-based and sound table-topic discussions",
+                "Present information, findings and supporting evidence conveying a clear and distinct perspective"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "القراءة",
+      "nameEn": "Reading",
+      "standards": [
+        {
+          "nameAr": "القراءة لفهم مجموعة متنوعة من السرد الواقعي والنصوص المعلوماتية والأدبية",
+          "nameEn": "Read to understand a variety of factual recounts and informational and literary texts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير واستخدام استراتيجيات القراءة لفهم مجموعة متنوعة من النصوص الواقعية والمعلوماتية والأدبية",
+              "outcomeEn": "Develop and use reading strategies to understand a variety of factual, informational and literary texts",
+              "indicators": [
+                "Use contextual clues and metalinguistic knowledge to infer meaning of new words and phrases",
+                "Capitalize discourse markers to process relationship",
+                "Use note-taking strategies to record key ideas and specific information in a text (T-chart)"
+              ]
+            },
+            {
+              "outcomeAr": "إظهار فهم السرد الواقعي والنصوص المعلوماتية والأدبية",
+              "outcomeEn": "Demonstrate understanding of factual recounts, and informational and literary texts",
+              "indicators": [
+                "Summarize the main ideas of a reading text",
+                "Explain what the text says or conveys explicitly by quoting accurately from the text",
+                "Determine two or more main ideas of a text and explain how they are supported by key details",
+                "Explain the relationship between characters, events, ideas or concepts in a reading text",
+                "Differentiate between various genres of poetry: ballad, limerick, lyrics and odes",
+                "Identifying forms of figures of speech",
+                "Summarize short stories",
+                "Read for pleasure"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة لمجموعة متنوعة من السرد الواقعي والنصوص المعلوماتية والأدبية",
+          "nameEn": "Respond to a variety of factual recounts and informational and literary texts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "دمج المعرفة السابقة مع المعلومات الجديدة في النصوص الواقعية والمعلوماتية والأدبية",
+              "outcomeEn": "Integrate prior knowledge with new information in factual, informational, and literary texts",
+              "indicators": [
+                "Explain how an author uses reasons and evidence to support particular points in a text, identifying which reason(s) and evidence support which point(s)",
+                "Integrate information from two texts on the same topic to write on or speak about it",
+                "Use fix up reading comprehension strategies to improve their understanding",
+                "Close read a literary text"
+              ]
+            },
+            {
+              "outcomeAr": "إظهار إتقان اصطلاحات القواعد والاستخدام والمفردات عند قراءة نص",
+              "outcomeEn": "Demonstrate command of the conventions of grammar and usage as well as vocabulary when reading a text",
+              "indicators": [
+                "Determine the referent of a pronoun used in the text",
+                "Identify the word in a text whose meaning or opposite is given",
+                "Find words in the text that show the writer's viewpoint",
+                "Identify words and phrases in stories, poems or songs that relate to feelings or senses"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الكتابة",
+      "nameEn": "Writing",
+      "standards": [
+        {
+          "nameAr": "تأليف نصوص متماسكة باستخدام جمل بسيطة ومركبة",
+          "nameEn": "Compose coherent texts using simple and compound sentences",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إظهار المعرفة باستراتيجيات الكتابة ومكونات الفقرة",
+              "outcomeEn": "Demonstrate knowledge of writing strategies and paragraph components",
+              "indicators": [
+                "Use different ways to capture ideas and plan for writing (e.g., concept maps, flow charts)",
+                "Use reference materials and electronic resources (Internet) to locate specific information",
+                "Use coordinating and subordinating conjunctions and transitional phrases",
+                "Identify misspelled words and mistakes in grammar",
+                "Reorder clauses in sentences using a variety of coordinating, subordinating, correlative and adverbial conjunctions"
+              ]
+            },
+            {
+              "outcomeAr": "كتابة فقرات وصفية وسردية لجمهور مختلف",
+              "outcomeEn": "Write descriptive and narrative paragraphs for different audiences",
+              "indicators": [
+                "Use the writing strategies of brainstorming, outlining, drafting, revising, editing and redrafting",
+                "Use coordinating, subordinating, correlative and adverbial conjunctions to link clauses, sentences and paragraphs",
+                "Revise written texts for clarity, correctness and coherence",
+                "Compose a coherent text of 2-3 paragraphs considering purpose and audience",
+                "Write diaries and personal journals"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المشاهدة والعرض",
+      "nameEn": "Viewing and Presenting",
+      "standards": [
+        {
+          "nameAr": "عرض لفهم والبدء في تحليل مجموعة متنوعة من النصوص المرئية",
+          "nameEn": "View to understand and begin to analyze a variety of visual texts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "فهم أن استخدام مجموعة من موارد النص المرئي يمكن أن يوفر معلومات ويؤثر على الجمهور",
+              "outcomeEn": "Understand that the use of a range of visual text resources can provide information and influence the audience",
+              "indicators": [
+                "Demonstrate understanding of visual information by asking relevant questions and discussing intended meaning",
+                "Realize that visual presentations have been created to reach out to a particular audience and influence it in some way, and discuss the effects used and how they might influence the audience",
+                "Interpret posters and media images using high-tech tools in presentation"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

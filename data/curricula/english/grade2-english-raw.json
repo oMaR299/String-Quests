@@ -1,0 +1,200 @@
+{
+  "gradeLevel": 2,
+  "gradeName": "Grade 2",
+  "subject": "اللغة الإنجليزية",
+  "subjectEn": "English Language",
+  "sourcePages": "46-50",
+  "domains": [
+    {
+      "nameAr": "الاستماع",
+      "nameEn": "Listening",
+      "standards": [
+        {
+          "nameAr": "الاستجابة للغة الإنجليزية المنطوقة في سياقات موجهة بسيطة",
+          "nameEn": "Respond to spoken English in basic and simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "التفاعل مع اللغة الإنجليزية المنطوقة في عروض قصيرة بسيطة وتعليمات وأسئلة ومحادثات موجهة",
+              "outcomeEn": "Interact with spoken English in short, simple presentations, instructions, questions and guided conversations",
+              "indicators": [
+                "Follow simple instructions in activities and games",
+                "Identify people and objects based on oral description (She wears a blue jacket.)",
+                "Respond to simple questions before, during and after listening",
+                "Listen to, join in and recite simple chants and songs"
+              ]
+            },
+            {
+              "outcomeAr": "فهم الكلمات والعبارات والجمل المنطوقة البسيطة",
+              "outcomeEn": "Comprehend simple spoken words, phrases and sentences",
+              "indicators": [
+                "Identify words in an utterance",
+                "Draw, select or write simple words in response to questions on oral material",
+                "Recognize basic stress and intonation patterns",
+                "Segment words into syllables",
+                "Use pictures, illustrations and visual aids to understand unfamiliar words",
+                "Use words (e.g., Excuse/Pardon me) or body language (facial expressions) to demonstrate lack of understanding",
+                "Practice social (communicative) skills such as nodding, smiling and giving feedback"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المحادثة",
+      "nameEn": "Speaking",
+      "standards": [
+        {
+          "nameAr": "تطوير استراتيجيات المحادثة من خلال إنتاج كلمات ثنائية المقاطع وعبارات نمطية بسيطة",
+          "nameEn": "Develop speaking strategies by producing two-syllable words and simple formulaic utterances",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "نطق الكلمات والتعبيرات بالنبر والتنغيم الصحيح",
+              "outcomeEn": "Pronounce words and expressions with correct stress and intonation",
+              "indicators": [
+                "Pronounce two-syllable words and expressions using the correct stress and intonation with teacher guidance",
+                "Recite rhymes and songs, individually and in groups with correct stress and intonation"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "التحدث للتواصل والتفاعل من خلال إنتاج تبادلات قصيرة باستخدام تراكيب مختلفة",
+          "nameEn": "Speak to communicate and interact by producing short exchanges using different structures",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير استراتيجيات المحادثة للتواصل بدقة أساسية",
+              "outcomeEn": "Develop speaking strategies to communicate with basic accuracy",
+              "indicators": [
+                "Participate in exchanges following a model",
+                "Express habits and facts in positive and negative statements using the simple present tense (I eat an apple every day. I do not eat fish.)",
+                "Express past events in positive and negative statements using the simple past (I played football yesterday; I did not study.)",
+                "Express likes and dislikes in positive and negative statements (I like football; I do not like swimming.)",
+                "Express ability using can and cannot (can't)",
+                "Politely respond to invitations or requests",
+                "Partake in short formulaic exchanges using the vocabulary introduced (A: What is your name? B: My name is Ahmad? A: How old are you? B: I am six years old. A: How many brothers and sisters do you have? B: I have two sisters and one brother.)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "القراءة",
+      "nameEn": "Reading",
+      "standards": [
+        {
+          "nameAr": "القراءة لفهم المواد المكتوبة في سياقات موجهة بسيطة",
+          "nameEn": "Read to comprehend written materials in basic simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تطوير استراتيجيات القراءة لفهم مواد القراءة الأصيلة البسيطة",
+              "outcomeEn": "Develop reading strategies to understand simple authentic reading materials",
+              "indicators": [
+                "Identify and read sight words using prior lexical knowledge, phonic knowledge, context and sound-letter correspondences",
+                "Identify elements of a short story (e.g., setting, characters, plot) using wh-questions",
+                "Demonstrate use of decoding skills and context when reading new words in a text",
+                "Use pictures and other visual clues to predict the meaning of simple words and phrases",
+                "Distinguish print lines from sentences",
+                "Identify basic sentence punctuation: capital letters, full stops and question marks",
+                "Read short simple or compound sentences with, and, or, but",
+                "Read phonetically regular words having the same letters with different sounds (e.g., hard and soft /c/ and /g/ as in city/cat and gem, gold)",
+                "Decode simple messages in simple reading texts",
+                "Refer to certain lines when relating content of a text",
+                "Expand vocabulary to include new ones in reading texts",
+                "Relate main idea in a simple text with the help of the teacher",
+                "Break up longer words into syllables while reading"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة للمواد المكتوبة في سياقات موجهة بسيطة",
+          "nameEn": "Respond to written materials in basic simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "إظهار فهم مواد القراءة اليومية القصيرة البسيطة من خلال الاستجابة للتعليمات المكتوبة",
+              "outcomeEn": "Demonstrate understanding of short simple everyday reading materials by responding to written instructions",
+              "indicators": [
+                "Use newly acquired words in the right context",
+                "Follow and respond to two-step written instructions",
+                "Make connections between instructions and short simple written materials",
+                "Answer simple questions about written materials",
+                "Read texts aloud with expression at an appropriate and reasonable speed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "الكتابة",
+      "nameEn": "Writing",
+      "standards": [
+        {
+          "nameAr": "التعرف على أن الكتابة يمكن أن تكون منظمة بطرق للتعبير عن أغراض مختلفة",
+          "nameEn": "Recognize that writing can be structured in ways to express different purposes",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "سرد قصة أو وصف شيء أو مكان باستخدام جمل بسيطة من 4-6 كلمات",
+              "outcomeEn": "Narrate a story or describe an object or place using simple sentences of 4-6 words",
+              "indicators": [
+                "Spell simple words and phrases correctly",
+                "Write basic phrases to describe objects and pictures",
+                "Write simple sentences",
+                "Use the stages of the writing process to develop, organize and present ideas in writing",
+                "Write a one-paragraph story using simple sentences",
+                "Write a description of a certain object or place using simple sentences",
+                "Revise written task based on teacher's feedback"
+              ]
+            },
+            {
+              "outcomeAr": "مراجعة العمل المكتوب بمساعدة الأقران",
+              "outcomeEn": "Revise written work with the assistance of the peers",
+              "indicators": [
+                "Learn to accept peer review and objectively discuss criticism",
+                "Revise written task based on peer feedback"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nameAr": "المشاهدة والعرض",
+      "nameEn": "Viewing and Presenting",
+      "standards": [
+        {
+          "nameAr": "عرض المواد المرئية في سياقات موجهة بسيطة",
+          "nameEn": "View visual materials in basic simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "البدء بتحديد مجموعة من النصوص المرئية",
+              "outcomeEn": "Begin to identify a range of visual texts",
+              "indicators": [
+                "Realize that shapes, symbols and colors have meaning and begin to include them in short oral presentations",
+                "Observe visual images and begin to appreciate that they have been created for particular purposes"
+              ]
+            }
+          ]
+        },
+        {
+          "nameAr": "الاستجابة للمواد المرئية في سياقات موجهة بسيطة",
+          "nameEn": "Respond to visual materials in basic simple guided contexts",
+          "learningOutcomes": [
+            {
+              "outcomeAr": "تفسير والاستجابة لمجموعة من محفزات النص المرئي",
+              "outcomeEn": "Interpret and respond to a range of visual text prompts",
+              "indicators": [
+                "Deduce the purpose of visual texts relating it to his/her personal experiences",
+                "Discuss his/her own feelings by showing empathy for the way others might feel",
+                "Discuss the information being conveyed in illustrations in picture books and simple reference books use body language in a variety of ways such as mime and role play to visually communicate ideas and feelings",
+                "Use new vocabulary acquired in reading texts and appropriate terms and expressions to discuss visual texts"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
