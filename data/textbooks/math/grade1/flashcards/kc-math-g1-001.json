@@ -1,0 +1,90 @@
+{
+  "kcId": "kc-math-g1-001",
+  "kcNameAr": "يتعرّف العشرات ويقرؤها",
+  "cards": [
+    {
+      "id": "fc-001-01",
+      "type": "concept",
+      "front": "ما معنى العشرة؟",
+      "back": "العشرة هي مجموعة من ١٠ واحدات",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-001-02",
+      "type": "text",
+      "front": "كم تساوي ٣ عشرات؟",
+      "back": "٣٠",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-001-03",
+      "type": "text",
+      "front": "كم تساوي ٥ عشرات؟",
+      "back": "٥٠",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-001-04",
+      "type": "text",
+      "front": "كم تساوي ٧ عشرات؟",
+      "back": "٧٠",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-001-05",
+      "type": "reverse",
+      "front": "العدد ٤٠ يتكوّن من كم عشرة؟",
+      "back": "٤ عشرات",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-001-06",
+      "type": "reverse",
+      "front": "العدد ٩٠ يتكوّن من كم عشرة؟",
+      "back": "٩ عشرات",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-001-07",
+      "type": "visual",
+      "front": "تخيّل ٦ حزم من أعواد العشرة. كم عوداً في المجموع؟",
+      "back": "٦٠ عوداً",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-001-08",
+      "type": "text",
+      "front": "اقرأ العدد: ٢٠",
+      "back": "عشرون",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-001-09",
+      "type": "text",
+      "front": "اقرأ العدد: ٨٠",
+      "back": "ثمانون",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-001-10",
+      "type": "concept",
+      "front": "ما هي العشرات من ١٠ إلى ٩٠؟",
+      "back": "١٠، ٢٠، ٣٠، ٤٠، ٥٠، ٦٠، ٧٠، ٨٠، ٩٠",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-001-11",
+      "type": "visual",
+      "front": "تخيّل حزمة واحدة من ١٠ أقلام. كم قلماً فيها؟",
+      "back": "١٠ أقلام = عشرة واحدة",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-001-12",
+      "type": "text",
+      "front": "كم عشرة في العدد ١٠٠؟",
+      "back": "١٠ عشرات",
+      "difficulty": 3
+    }
+  ]
+}

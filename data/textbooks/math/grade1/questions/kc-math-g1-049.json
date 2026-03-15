@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-049",
+  "kcNameAr": "يطرح ذهنياً العشرات من عدد مكوّن من منزلتين",
+  "domain": "الحساب الذهني",
+  "standard": "يطرح ذهنياً العشرات من عدد مكوّن من منزلتين",
+  "questions": [
+    {
+      "id": 10961,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٥٧ - ٢٠ ذهنياً؟",
+      "options": ["٣٥", "٣٧", "٤٧", "٥٥"],
+      "correctAnswer": "٣٧",
+      "points": 10,
+      "hint": "اطرح العشرات فقط: ٥-٢=٣"
+    },
+    {
+      "id": 10962,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٧٤ - ٣٠ ذهنياً؟",
+      "options": ["٤٤", "٤٣", "٤١", "٣٤"],
+      "correctAnswer": "٤٤",
+      "points": 10,
+      "hint": "٧-٣=٤ في العشرات"
+    },
+    {
+      "id": 10963,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٨٩ - ٥٠ ذهنياً؟",
+      "options": ["٣٤", "٣٩", "٤٩", "٨٤"],
+      "correctAnswer": "٣٩",
+      "points": 15,
+      "hint": "٨-٥=٣ في العشرات"
+    },
+    {
+      "id": 10964,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٦٣ - ٤٠ ذهنياً؟",
+      "options": ["٢٣", "٢٧", "٣٣", "٤٣"],
+      "correctAnswer": "٢٣",
+      "points": 15,
+      "hint": "٦-٤=٢ في العشرات"
+    },
+    {
+      "id": 10965,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٩٥ - ٦٠ ذهنياً؟",
+      "options": ["٣٥", "٣٩", "٢٥", "٤٥"],
+      "correctAnswer": "٣٥",
+      "points": 15,
+      "hint": "٩-٦=٣"
+    },
+    {
+      "id": 10966,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٤٨ - ١٠ ذهنياً؟",
+      "options": ["٣٧", "٣٨", "٤٧", "٤٦"],
+      "correctAnswer": "٣٨",
+      "points": 10,
+      "hint": "٤-١=٣ في العشرات"
+    },
+    {
+      "id": 10967,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٨١ - ٧٠ ذهنياً؟",
+      "options": ["٧٤", "١١", "١١٠", "١٧"],
+      "correctAnswer": "١١",
+      "points": 15,
+      "hint": "٨-٧=١ في العشرات"
+    },
+    {
+      "id": 10968,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٩٢ - ٢٠ ذهنياً؟",
+      "options": ["٧٠", "٧٢", "٧٩", "٢٧"],
+      "correctAnswer": "٧٢",
+      "points": 15,
+      "hint": "٩-٢=٧"
+    },
+    {
+      "id": 10969,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٦٦ - ٣٠ ذهنياً؟",
+      "correctAnswer": "٣٦",
+      "points": 10,
+      "hint": "٦-٣=٣"
+    },
+    {
+      "id": 10970,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٧٥ - ٤٠ ذهنياً؟",
+      "correctAnswer": "٣٥",
+      "points": 15,
+      "hint": "٧-٤=٣"
+    },
+    {
+      "id": 10971,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٩٨ - ٧٠ ذهنياً؟",
+      "correctAnswer": "٢٨",
+      "points": 20,
+      "hint": "٩-٧=٢"
+    },
+    {
+      "id": 10972,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٥٣ - ١٠ ذهنياً؟",
+      "correctAnswer": "٤٣",
+      "points": 10,
+      "hint": "٥-١=٤"
+    },
+    {
+      "id": 10973,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٨٧ - ٦٠ ذهنياً؟",
+      "correctAnswer": "٢٧",
+      "points": 15,
+      "hint": "٨-٦=٢"
+    },
+    {
+      "id": 10974,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ٧٦-٢٠ ، ٥٤-٣٠ ، ٩٩-٨٠",
+      "options": ["٧٦-٢٠", "٥٤-٣٠", "٩٩-٨٠"],
+      "correctAnswer": "٩٩-٨٠ ، ٥٤-٣٠ ، ٧٦-٢٠",
+      "points": 15,
+      "hint": "١٩ ، ٢٤ ، ٥٦"
+    },
+    {
+      "id": 10975,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "reorder",
+      "questionText": "رتّب خطوات الطرح الذهني ٨٤ - ٥٠:",
+      "options": ["أحتفظ بالآحاد ٤", "أطرح العشرات: ٨-٥=٣", "الناتج = ٣٤"],
+      "correctAnswer": "أحتفظ بالآحاد ٤ ، أطرح العشرات: ٨-٥=٣ ، الناتج = ٣٤",
+      "points": 15,
+      "hint": "الآحاد لا تتغيّر"
+    },
+    {
+      "id": 10976,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "reorder",
+      "questionText": "رتّب النواتج تنازلياً: ٤٢-١٠ ، ٨٦-٤٠ ، ٦٧-٣٠",
+      "options": ["٤٢-١٠", "٨٦-٤٠", "٦٧-٣٠"],
+      "correctAnswer": "٨٦-٤٠ ، ٦٧-٣٠ ، ٤٢-١٠",
+      "points": 20,
+      "hint": "٣٢ ، ٤٦ ، ٣٧"
+    },
+    {
+      "id": 10977,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "matching",
+      "questionText": "صِل كل جملة طرح ذهني بناتجها",
+      "pairs": [
+        { "left": "٤٥ - ٢٠", "right": "٢٥" },
+        { "left": "٧٨ - ٣٠", "right": "٤٨" },
+        { "left": "٩١ - ٦٠", "right": "٣١" },
+        { "left": "٦٣ - ١٠", "right": "٥٣" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "اطرح العشرات فقط"
+    },
+    {
+      "id": 10978,
+      "subject": "رياضيات",
+      "lesson": "الطرح الذهني: منزلتين - عشرات",
+      "type": "matching",
+      "questionText": "صِل كل عملية طرح بناتجها",
+      "pairs": [
+        { "left": "٥٦ - ٤٠", "right": "١٦" },
+        { "left": "٨٣ - ٥٠", "right": "٣٣" },
+        { "left": "٩٧ - ٣٠", "right": "٦٧" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "الآحاد تبقى والعشرات تتغيّر"
+    }
+  ]
+}

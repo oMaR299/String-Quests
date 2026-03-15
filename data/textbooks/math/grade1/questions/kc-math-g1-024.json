@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-024",
+  "kcNameAr": "يقارن بين عددين كل منهما مكوّن من منزلتين",
+  "domain": "Numbers & Operations",
+  "standard": "Comparison & Ordering",
+  "questions": [
+    {
+      "id": 10461,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "multiple-choice",
+      "questionText": "أيّ العددين أكبر: ٤٥ أم ٥٤؟",
+      "options": ["٤٥", "٥٤", "متساويان", "لا يمكن المقارنة"],
+      "correctAnswer": "٥٤",
+      "points": 10,
+      "hint": "قارن العشرات: ٤ و ٥"
+    },
+    {
+      "id": 10462,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "multiple-choice",
+      "questionText": "قارن: ٧٣ ___ ٣٧. ما الإشارة المناسبة؟",
+      "options": ["<", ">", "=", "لا يمكن"],
+      "correctAnswer": ">",
+      "points": 10,
+      "hint": "٧ عشرات أكبر من ٣ عشرات"
+    },
+    {
+      "id": 10463,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "multiple-choice",
+      "questionText": "أيّ العددين أصغر: ٨٦ أم ٨٩؟",
+      "options": ["٨٦", "٨٩", "متساويان", "لا يمكن"],
+      "correctAnswer": "٨٦",
+      "points": 10,
+      "hint": "العشرات متساوية (٨)، قارن الآحاد: ٦ و ٩"
+    },
+    {
+      "id": 10464,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "multiple-choice",
+      "questionText": "قارن: ٥٥ ___ ٥٥. ما الإشارة المناسبة؟",
+      "options": ["<", ">", "=", "لا يمكن"],
+      "correctAnswer": "=",
+      "points": 10,
+      "hint": "العددان متماثلان"
+    },
+    {
+      "id": 10465,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "multiple-choice",
+      "questionText": "أيّ العددين أكبر: ٣٩ أم ٤١؟",
+      "options": ["٣٩", "٤١", "متساويان", "لا يمكن"],
+      "correctAnswer": "٤١",
+      "points": 15,
+      "hint": "٤ عشرات أكبر من ٣ عشرات"
+    },
+    {
+      "id": 10466,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "multiple-choice",
+      "questionText": "قارن: ٦٨ ___ ٧٢. ما الإشارة المناسبة؟",
+      "options": ["<", ">", "=", "لا يمكن"],
+      "correctAnswer": "<",
+      "points": 15,
+      "hint": "٦ عشرات أقل من ٧ عشرات"
+    },
+    {
+      "id": 10467,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "multiple-choice",
+      "questionText": "أيّ العددين أصغر: ٩١ أم ١٩؟",
+      "options": ["٩١", "١٩", "متساويان", "لا يمكن"],
+      "correctAnswer": "١٩",
+      "points": 10,
+      "hint": "١ عشرة أقل من ٩ عشرات"
+    },
+    {
+      "id": 10468,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "multiple-choice",
+      "questionText": "قارن: ٤٧ ___ ٤٣. ما الإشارة المناسبة؟",
+      "options": ["<", ">", "=", "لا يمكن"],
+      "correctAnswer": ">",
+      "points": 15,
+      "hint": "العشرات متساوية، ٧ آحاد > ٣ آحاد"
+    },
+    {
+      "id": 10469,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "input",
+      "questionText": "ضع الإشارة المناسبة (<، >، =): ٣٥ ___ ٥٣",
+      "correctAnswer": "<",
+      "points": 10,
+      "hint": "٣ عشرات أقل من ٥ عشرات"
+    },
+    {
+      "id": 10470,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "input",
+      "questionText": "ضع الإشارة المناسبة: ٨٧ ___ ٧٨",
+      "correctAnswer": ">",
+      "points": 10,
+      "hint": "٨ عشرات > ٧ عشرات"
+    },
+    {
+      "id": 10471,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "input",
+      "questionText": "ضع الإشارة المناسبة: ٦٤ ___ ٦٤",
+      "correctAnswer": "=",
+      "points": 10,
+      "hint": "العددان نفسهما"
+    },
+    {
+      "id": 10472,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "input",
+      "questionText": "ضع الإشارة المناسبة: ٢٩ ___ ٣٠",
+      "correctAnswer": "<",
+      "points": 15,
+      "hint": "٢ عشرات < ٣ عشرات"
+    },
+    {
+      "id": 10473,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "input",
+      "questionText": "ضع الإشارة المناسبة: ٩٩ ___ ٩١",
+      "correctAnswer": ">",
+      "points": 15,
+      "hint": "العشرات متساوية، ٩ > ١"
+    },
+    {
+      "id": 10474,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تصاعدياً:",
+      "options": ["٧٢", "٢٧", "٥٠", "٣٨"],
+      "correctAnswer": "٢٧,٣٨,٥٠,٧٢",
+      "points": 15,
+      "hint": "قارن العشرات أولاً"
+    },
+    {
+      "id": 10475,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تنازلياً:",
+      "options": ["٤٤", "٩٣", "٦١", "١٨"],
+      "correctAnswer": "٩٣,٦١,٤٤,١٨",
+      "points": 20,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10476,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "matching",
+      "questionText": "طابق المقارنة بالإشارة الصحيحة:",
+      "pairs": [
+        { "left": "٣٦ ___ ٦٣", "right": "<" },
+        { "left": "٨٥ ___ ٥٨", "right": ">" },
+        { "left": "٤٤ ___ ٤٤", "right": "=" },
+        { "left": "٧١ ___ ٧٩", "right": "<" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "قارن العشرات أولاً ثم الآحاد"
+    },
+    {
+      "id": 10477,
+      "subject": "رياضيات",
+      "lesson": "مقارنة الأعداد",
+      "type": "matching",
+      "questionText": "طابق كل زوج بالعدد الأكبر:",
+      "pairs": [
+        { "left": "٢٥ و ٥٢", "right": "٥٢" },
+        { "left": "٩٣ و ٣٩", "right": "٩٣" },
+        { "left": "٦٧ و ٧٦", "right": "٧٦" },
+        { "left": "٨١ و ٨٨", "right": "٨٨" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "العدد الأكبر هو الذي عشراته أكثر"
+    }
+  ]
+}

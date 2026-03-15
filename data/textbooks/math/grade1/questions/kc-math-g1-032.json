@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-032",
+  "kcNameAr": "يجد العدد المفقود في جملة طرح",
+  "domain": "خصائص الجمع والطرح",
+  "standard": "يجد العدد المفقود في جملة طرح",
+  "questions": [
+    {
+      "id": 10621,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "multiple-choice",
+      "questionText": "١٠ - ؟ = ٤. ما العدد المفقود؟",
+      "options": ["٤", "٥", "٦", "١٠"],
+      "correctAnswer": "٦",
+      "points": 10,
+      "hint": "١٠ - ٤ = ؟"
+    },
+    {
+      "id": 10622,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "multiple-choice",
+      "questionText": "؟ - ٣ = ٩. ما العدد المفقود؟",
+      "options": ["٩", "١٠", "١١", "١٢"],
+      "correctAnswer": "١٢",
+      "points": 15,
+      "hint": "اجمع ٩ + ٣"
+    },
+    {
+      "id": 10623,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "multiple-choice",
+      "questionText": "١٥ - ؟ = ٨. ما العدد المفقود؟",
+      "options": ["٥", "٦", "٧", "٨"],
+      "correctAnswer": "٧",
+      "points": 15,
+      "hint": "١٥ - ٨ = ؟"
+    },
+    {
+      "id": 10624,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "multiple-choice",
+      "questionText": "لدى خالد ١٣ بالوناً. طار بعضها وبقي ٥ بالونات. كم بالوناً طار؟",
+      "options": ["٥", "٦", "٧", "٨"],
+      "correctAnswer": "٨",
+      "points": 15,
+      "hint": "١٣ - ؟ = ٥"
+    },
+    {
+      "id": 10625,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "multiple-choice",
+      "questionText": "؟ - ٧ = ١١. ما العدد المفقود؟",
+      "options": ["١٥", "١٦", "١٧", "١٨"],
+      "correctAnswer": "١٨",
+      "points": 15,
+      "hint": "اجمع ١١ + ٧"
+    },
+    {
+      "id": 10626,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "multiple-choice",
+      "questionText": "١٤ - ؟ = ١٤. ما العدد المفقود؟",
+      "options": ["٠", "١", "١٤", "٧"],
+      "correctAnswer": "٠",
+      "points": 10,
+      "hint": "أي عدد ناقص صفر = نفس العدد"
+    },
+    {
+      "id": 10627,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "multiple-choice",
+      "questionText": "؟ - ٥ = ٧. ما العدد المفقود؟",
+      "options": ["٢", "٧", "١٢", "١٣"],
+      "correctAnswer": "١٢",
+      "points": 15,
+      "hint": "اجمع ٧ + ٥"
+    },
+    {
+      "id": 10628,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "multiple-choice",
+      "questionText": "٢٠ - ؟ = ١١. ما العدد المفقود؟",
+      "options": ["٧", "٨", "٩", "١٠"],
+      "correctAnswer": "٩",
+      "points": 20,
+      "hint": "٢٠ - ١١ = ؟"
+    },
+    {
+      "id": 10629,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "input",
+      "questionText": "٨ - ؟ = ٣. اكتب العدد المفقود.",
+      "correctAnswer": "٥",
+      "points": 10,
+      "hint": "٨ - ٣ = ؟"
+    },
+    {
+      "id": 10630,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "input",
+      "questionText": "؟ - ٤ = ١٣. اكتب العدد المفقود.",
+      "correctAnswer": "١٧",
+      "points": 15,
+      "hint": "اجمع ١٣ + ٤"
+    },
+    {
+      "id": 10631,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "input",
+      "questionText": "١٦ - ؟ = ٩. اكتب العدد المفقود.",
+      "correctAnswer": "٧",
+      "points": 15,
+      "hint": "١٦ - ٩ = ؟"
+    },
+    {
+      "id": 10632,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "input",
+      "questionText": "؟ - ٩ = ٨. اكتب العدد المفقود.",
+      "correctAnswer": "١٧",
+      "points": 20,
+      "hint": "اجمع ٨ + ٩"
+    },
+    {
+      "id": 10633,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "input",
+      "questionText": "١١ - ؟ = ٦. اكتب العدد المفقود.",
+      "correctAnswer": "٥",
+      "points": 10,
+      "hint": "١١ - ٦ = ؟"
+    },
+    {
+      "id": 10634,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "reorder",
+      "questionText": "رتّب لتكوّن جملة طرح صحيحة: ١٩ ، - ، ٦ ، = ، ١٣",
+      "options": ["١٩", "-", "٦", "=", "١٣"],
+      "correctAnswer": "١٩ ، - ، ٦ ، = ، ١٣",
+      "points": 10,
+      "hint": "ابدأ بالعدد الأكبر"
+    },
+    {
+      "id": 10635,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "reorder",
+      "questionText": "رتّب لتكوّن جملة طرح صحيحة: ١٧ ، - ، ٨ ، = ، ٩",
+      "options": ["١٧", "-", "٨", "=", "٩"],
+      "correctAnswer": "١٧ ، - ، ٨ ، = ، ٩",
+      "points": 15,
+      "hint": "العدد الأكبر يأتي أولاً في الطرح"
+    },
+    {
+      "id": 10636,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "reorder",
+      "questionText": "رتّب لتكوّن جملة طرح ناتجها ٥: ١٢ ، - ، ٧ ، = ، ٥",
+      "options": ["١٢", "-", "٧", "=", "٥"],
+      "correctAnswer": "١٢ ، - ، ٧ ، = ، ٥",
+      "points": 15,
+      "hint": "١٢ - ٧ = ٥"
+    },
+    {
+      "id": 10637,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "matching",
+      "questionText": "صِل كل جملة طرح بالعدد المفقود فيها",
+      "pairs": [
+        { "left": "١٢ - ؟ = ٥", "right": "٧" },
+        { "left": "؟ - ٦ = ٨", "right": "١٤" },
+        { "left": "١٨ - ؟ = ٩", "right": "٩" },
+        { "left": "؟ - ٢ = ١٦", "right": "١٨" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "استخدم الجمع أو الطرح لإيجاد المفقود"
+    },
+    {
+      "id": 10638,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الطرح",
+      "type": "matching",
+      "questionText": "صِل كل جملة طرح بالعدد المفقود",
+      "pairs": [
+        { "left": "٩ - ؟ = ٣", "right": "٦" },
+        { "left": "؟ - ١ = ٧", "right": "٨" },
+        { "left": "١١ - ؟ = ٤", "right": "٧" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "فكّر في العلاقة بين الجمع والطرح"
+    }
+  ]
+}

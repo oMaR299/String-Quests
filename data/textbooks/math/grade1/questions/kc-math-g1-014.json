@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-014",
+  "kcNameAr": "يميّز العدد الفردي",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10261,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "multiple-choice",
+      "questionText": "أيّ من هذه الأعداد فردي؟",
+      "options": ["٤", "٦", "٩", "٢"],
+      "correctAnswer": "٩",
+      "points": 10,
+      "hint": "العدد الفردي لا يمكن تقسيمه إلى مجموعتين متساويتين"
+    },
+    {
+      "id": 10262,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد من التالية فردي؟",
+      "options": ["١٠", "٢٢", "٣٧", "٤٨"],
+      "correctAnswer": "٣٧",
+      "points": 10,
+      "hint": "العدد الفردي ينتهي بـ ١ أو ٣ أو ٥ أو ٧ أو ٩"
+    },
+    {
+      "id": 10263,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد ليس فردياً؟",
+      "options": ["١٣", "٢١", "٤٢", "٥٥"],
+      "correctAnswer": "٤٢",
+      "points": 10,
+      "hint": "العدد الذي ينتهي بـ ٠ أو ٢ أو ٤ أو ٦ أو ٨ ليس فردياً"
+    },
+    {
+      "id": 10264,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "multiple-choice",
+      "questionText": "إذا كان لدينا ٧ كرات، هل يمكن تقسيمها إلى مجموعتين متساويتين؟",
+      "options": ["نعم", "لا", "أحياناً", "لا أعرف"],
+      "correctAnswer": "لا",
+      "points": 10,
+      "hint": "٧ عدد فردي، يبقى واحد بدون زوج"
+    },
+    {
+      "id": 10265,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "multiple-choice",
+      "questionText": "أيّ من هذه الأعداد فردي؟",
+      "options": ["٢٤", "٦٠", "٧١", "٨٦"],
+      "correctAnswer": "٧١",
+      "points": 15,
+      "hint": "انظر إلى الرقم الأخير"
+    },
+    {
+      "id": 10266,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الفردي الذي يأتي بعد ١٥؟",
+      "options": ["١٦", "١٤", "١٧", "١٣"],
+      "correctAnswer": "١٧",
+      "points": 15,
+      "hint": "أضف ٢ إلى العدد الفردي"
+    },
+    {
+      "id": 10267,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "multiple-choice",
+      "questionText": "هل العدد ٤٥ فردي؟",
+      "options": ["نعم", "لا", "أحياناً", "غير محدد"],
+      "correctAnswer": "نعم",
+      "points": 10,
+      "hint": "٤٥ ينتهي بـ ٥، والخمسة فردي"
+    },
+    {
+      "id": 10268,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "multiple-choice",
+      "questionText": "كم عدداً فردياً بين ١ و ١٠؟",
+      "options": ["٣", "٤", "٥", "٦"],
+      "correctAnswer": "٥",
+      "points": 15,
+      "hint": "الأعداد الفردية: ١، ٣، ٥، ٧، ٩"
+    },
+    {
+      "id": 10269,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "input",
+      "questionText": "اكتب أصغر عدد فردي من منزلتين.",
+      "correctAnswer": "١١",
+      "points": 10,
+      "hint": "أصغر عدد من منزلتين هو ١٠، لكنه زوجي"
+    },
+    {
+      "id": 10270,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "input",
+      "questionText": "ما العدد الفردي الذي يأتي بعد ٤٩؟",
+      "correctAnswer": "٥١",
+      "points": 15,
+      "hint": "أضف ٢ إلى ٤٩"
+    },
+    {
+      "id": 10271,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "input",
+      "questionText": "ما العدد الفردي الذي يسبق ٣٣؟",
+      "correctAnswer": "٣١",
+      "points": 15,
+      "hint": "اطرح ٢ من ٣٣"
+    },
+    {
+      "id": 10272,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "input",
+      "questionText": "ما أكبر عدد فردي ضمن ٩٩؟",
+      "correctAnswer": "٩٩",
+      "points": 10,
+      "hint": "٩٩ ينتهي بـ ٩"
+    },
+    {
+      "id": 10273,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "input",
+      "questionText": "ما العدد الفردي بين ٦٠ و ٦٤؟",
+      "correctAnswer": "٦١",
+      "points": 15,
+      "hint": "ابحث عن عدد فردي في هذا النطاق"
+    },
+    {
+      "id": 10274,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد الفردية تصاعدياً:",
+      "options": ["١٧", "٥", "١١", "٣"],
+      "correctAnswer": "٣,٥,١١,١٧",
+      "points": 15,
+      "hint": "ابدأ بالأصغر"
+    },
+    {
+      "id": 10275,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد الفردية تنازلياً:",
+      "options": ["٣٣", "٧٧", "٥٥", "١١"],
+      "correctAnswer": "٧٧,٥٥,٣٣,١١",
+      "points": 20,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10276,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "matching",
+      "questionText": "طابق العدد بنوعه:",
+      "pairs": [
+        { "left": "٢٧", "right": "فردي" },
+        { "left": "٣٨", "right": "زوجي" },
+        { "left": "٥١", "right": "فردي" },
+        { "left": "٦٤", "right": "زوجي" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "انظر إلى رقم الآحاد في كل عدد"
+    },
+    {
+      "id": 10277,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الفردية",
+      "type": "matching",
+      "questionText": "طابق كل عدد فردي بالعدد الفردي التالي له:",
+      "pairs": [
+        { "left": "١١", "right": "١٣" },
+        { "left": "٢٥", "right": "٢٧" },
+        { "left": "٤٩", "right": "٥١" },
+        { "left": "٧٣", "right": "٧٥" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أضف ٢ لكل عدد فردي"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-022",
+  "kcNameAr": "يحدّد القيمة المنزلية لرقم في عدد ضمن منزلتين",
+  "domain": "Numbers & Operations",
+  "standard": "Place Value",
+  "questions": [
+    {
+      "id": 10421,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "multiple-choice",
+      "questionText": "ما القيمة المنزلية للرقم ٥ في العدد ٥٣؟",
+      "options": ["٥", "٥٠", "٣", "٥٣"],
+      "correctAnswer": "٥٠",
+      "points": 10,
+      "hint": "الرقم ٥ في خانة العشرات، فقيمته ٥٠"
+    },
+    {
+      "id": 10422,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "multiple-choice",
+      "questionText": "ما القيمة المنزلية للرقم ٧ في العدد ٤٧؟",
+      "options": ["٧٠", "٧", "٤", "٤٧"],
+      "correctAnswer": "٧",
+      "points": 10,
+      "hint": "الرقم ٧ في خانة الآحاد، فقيمته ٧"
+    },
+    {
+      "id": 10423,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "multiple-choice",
+      "questionText": "ما القيمة المنزلية للرقم ٣ في العدد ٣٨؟",
+      "options": ["٣", "٣٠", "٨", "٣٨"],
+      "correctAnswer": "٣٠",
+      "points": 10,
+      "hint": "٣ في خانة العشرات"
+    },
+    {
+      "id": 10424,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "multiple-choice",
+      "questionText": "ما القيمة المنزلية للرقم ٩ في العدد ٩٢؟",
+      "options": ["٩", "٩٠", "٢", "٩٢"],
+      "correctAnswer": "٩٠",
+      "points": 10,
+      "hint": "٩ في خانة العشرات"
+    },
+    {
+      "id": 10425,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "multiple-choice",
+      "questionText": "ما القيمة المنزلية للرقم ٦ في العدد ١٦؟",
+      "options": ["٦٠", "٦", "١٦", "١٠"],
+      "correctAnswer": "٦",
+      "points": 10,
+      "hint": "٦ في خانة الآحاد"
+    },
+    {
+      "id": 10426,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "multiple-choice",
+      "questionText": "في العدد ٧٤، الرقم ٤ في خانة:",
+      "options": ["العشرات", "الآحاد", "المئات", "لا شيء"],
+      "correctAnswer": "الآحاد",
+      "points": 15,
+      "hint": "الرقم على اليمين في خانة الآحاد"
+    },
+    {
+      "id": 10427,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "multiple-choice",
+      "questionText": "في العدد ٨٥، الرقم ٨ في خانة:",
+      "options": ["الآحاد", "العشرات", "المئات", "لا شيء"],
+      "correctAnswer": "العشرات",
+      "points": 15,
+      "hint": "الرقم على اليسار في خانة العشرات"
+    },
+    {
+      "id": 10428,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "multiple-choice",
+      "questionText": "ما القيمة المنزلية للرقم ٢ في العدد ٢٢؟ (في خانة العشرات)",
+      "options": ["٢", "٢٠", "٢٢", "٤"],
+      "correctAnswer": "٢٠",
+      "points": 15,
+      "hint": "الرقم ٢ في خانة العشرات = ٢٠"
+    },
+    {
+      "id": 10429,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "input",
+      "questionText": "ما القيمة المنزلية للرقم ٤ في العدد ٤١؟",
+      "correctAnswer": "٤٠",
+      "points": 10,
+      "hint": "٤ في خانة العشرات"
+    },
+    {
+      "id": 10430,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "input",
+      "questionText": "ما القيمة المنزلية للرقم ٨ في العدد ٥٨؟",
+      "correctAnswer": "٨",
+      "points": 10,
+      "hint": "٨ في خانة الآحاد"
+    },
+    {
+      "id": 10431,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "input",
+      "questionText": "ما القيمة المنزلية للرقم ٦ في العدد ٦٣؟",
+      "correctAnswer": "٦٠",
+      "points": 15,
+      "hint": "٦ في خانة العشرات"
+    },
+    {
+      "id": 10432,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "input",
+      "questionText": "ما القيمة المنزلية للرقم ١ في العدد ٧١؟",
+      "correctAnswer": "١",
+      "points": 10,
+      "hint": "١ في خانة الآحاد"
+    },
+    {
+      "id": 10433,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "input",
+      "questionText": "ما القيمة المنزلية للرقم ٩ في العدد ١٩؟",
+      "correctAnswer": "٩",
+      "points": 15,
+      "hint": "٩ في خانة الآحاد"
+    },
+    {
+      "id": 10434,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "reorder",
+      "questionText": "رتّب القيم المنزلية من الأصغر إلى الأكبر:",
+      "options": ["٤٠", "٧", "٢٠", "٣"],
+      "correctAnswer": "٣,٧,٢٠,٤٠",
+      "points": 15,
+      "hint": "رتّب الأعداد تصاعدياً"
+    },
+    {
+      "id": 10435,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "reorder",
+      "questionText": "رتّب تنازلياً:",
+      "options": ["٩", "٦٠", "٣٠", "٥"],
+      "correctAnswer": "٦٠,٣٠,٩,٥",
+      "points": 20,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10436,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "matching",
+      "questionText": "طابق الرقم في العدد بقيمته المنزلية:",
+      "pairs": [
+        { "left": "٣ في العدد ٣٧", "right": "٣٠" },
+        { "left": "٧ في العدد ٣٧", "right": "٧" },
+        { "left": "٥ في العدد ٥٢", "right": "٥٠" },
+        { "left": "٢ في العدد ٥٢", "right": "٢" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "الرقم في خانة العشرات قيمته × ١٠"
+    },
+    {
+      "id": 10437,
+      "subject": "رياضيات",
+      "lesson": "القيمة المنزلية",
+      "type": "matching",
+      "questionText": "طابق القيمة المنزلية بالخانة:",
+      "pairs": [
+        { "left": "٨ في العدد ٨٣", "right": "خانة العشرات" },
+        { "left": "٣ في العدد ٨٣", "right": "خانة الآحاد" },
+        { "left": "٤ في العدد ٤٠", "right": "خانة العشرات" },
+        { "left": "٦ في العدد ٢٦", "right": "خانة الآحاد" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اليسار = عشرات، اليمين = آحاد"
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-045",
+  "kcNameAr": "يطرح عددين كل منهما مكوّن من منزلتين دون إعادة التجميع",
+  "domain": "عمليات العشرات",
+  "standard": "يطرح عددين كل منهما مكوّن من منزلتين دون إعادة التجميع",
+  "questions": [
+    {
+      "id": 10881,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٤٨ - ٢٣؟",
+      "options": ["٢٣", "٢٤", "٢٥", "٢٦"],
+      "correctAnswer": "٢٥",
+      "points": 10,
+      "hint": "اطرح الآحاد: ٨-٣=٥، واطرح العشرات: ٤-٢=٢"
+    },
+    {
+      "id": 10882,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٥٧ - ٣٤؟",
+      "options": ["٢١", "٢٢", "٢٣", "٢٤"],
+      "correctAnswer": "٢٣",
+      "points": 10,
+      "hint": "٧-٤=٣ ، ٥-٣=٢"
+    },
+    {
+      "id": 10883,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٦٩ - ٤٥؟",
+      "options": ["٢٢", "٢٣", "٢٤", "٢٥"],
+      "correctAnswer": "٢٤",
+      "points": 15,
+      "hint": "٩-٥=٤ ، ٦-٤=٢"
+    },
+    {
+      "id": 10884,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٨٧ - ٦٣؟",
+      "options": ["٢٢", "٢٣", "٢٤", "٢٥"],
+      "correctAnswer": "٢٤",
+      "points": 15,
+      "hint": "٧-٣=٤ ، ٨-٦=٢"
+    },
+    {
+      "id": 10885,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٩٦ - ٥١؟",
+      "options": ["٤٣", "٤٤", "٤٥", "٤٦"],
+      "correctAnswer": "٤٥",
+      "points": 15,
+      "hint": "٦-١=٥ ، ٩-٥=٤"
+    },
+    {
+      "id": 10886,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٧٥ - ٤٢؟",
+      "options": ["٣١", "٣٢", "٣٣", "٣٤"],
+      "correctAnswer": "٣٣",
+      "points": 15,
+      "hint": "٥-٢=٣ ، ٧-٤=٣"
+    },
+    {
+      "id": 10887,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٩٩ - ٣٣؟",
+      "options": ["٦٤", "٦٥", "٦٦", "٦٧"],
+      "correctAnswer": "٦٦",
+      "points": 15,
+      "hint": "٩-٣=٦ في كلتا المنزلتين"
+    },
+    {
+      "id": 10888,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٣٨ - ١٦؟",
+      "options": ["٢٠", "٢١", "٢٢", "٢٣"],
+      "correctAnswer": "٢٢",
+      "points": 10,
+      "hint": "٨-٦=٢ ، ٣-١=٢"
+    },
+    {
+      "id": 10889,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "input",
+      "questionText": "ما ناتج ٥٩ - ٢٧؟",
+      "correctAnswer": "٣٢",
+      "points": 15,
+      "hint": "٩-٧=٢ ، ٥-٢=٣"
+    },
+    {
+      "id": 10890,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "input",
+      "questionText": "ما ناتج ٧٦ - ٣١؟",
+      "correctAnswer": "٤٥",
+      "points": 10,
+      "hint": "٦-١=٥ ، ٧-٣=٤"
+    },
+    {
+      "id": 10891,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "input",
+      "questionText": "ما ناتج ٨٤ - ٦٢؟",
+      "correctAnswer": "٢٢",
+      "points": 15,
+      "hint": "٤-٢=٢ ، ٨-٦=٢"
+    },
+    {
+      "id": 10892,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "input",
+      "questionText": "ما ناتج ٩٨ - ٥٦؟",
+      "correctAnswer": "٤٢",
+      "points": 20,
+      "hint": "٨-٦=٢ ، ٩-٥=٤"
+    },
+    {
+      "id": 10893,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "input",
+      "questionText": "ما ناتج ٦٧ - ٤٥؟",
+      "correctAnswer": "٢٢",
+      "points": 15,
+      "hint": "٧-٥=٢ ، ٦-٤=٢"
+    },
+    {
+      "id": 10894,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "reorder",
+      "questionText": "رتّب خطوات طرح ٥٧ - ٢٤:",
+      "options": ["اطرح الآحاد: ٧-٤=٣", "اطرح العشرات: ٥-٢=٣", "الناتج = ٣٣"],
+      "correctAnswer": "اطرح الآحاد: ٧-٤=٣ ، اطرح العشرات: ٥-٢=٣ ، الناتج = ٣٣",
+      "points": 15,
+      "hint": "ابدأ بمنزلة الآحاد"
+    },
+    {
+      "id": 10895,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ٨٩-٤٥ ، ٥٦-٣٢ ، ٧٨-١١",
+      "options": ["٨٩-٤٥", "٥٦-٣٢", "٧٨-١١"],
+      "correctAnswer": "٥٦-٣٢ ، ٨٩-٤٥ ، ٧٨-١١",
+      "points": 20,
+      "hint": "٢٤ ، ٤٤ ، ٦٧"
+    },
+    {
+      "id": 10896,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "reorder",
+      "questionText": "رتّب خطوات طرح ٩٦ - ٧٣:",
+      "options": ["اطرح الآحاد: ٦-٣=٣", "اطرح العشرات: ٩-٧=٢", "الناتج = ٢٣"],
+      "correctAnswer": "اطرح الآحاد: ٦-٣=٣ ، اطرح العشرات: ٩-٧=٢ ، الناتج = ٢٣",
+      "points": 15,
+      "hint": "ابدأ من الآحاد"
+    },
+    {
+      "id": 10897,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "matching",
+      "questionText": "صِل كل جملة طرح بناتجها",
+      "pairs": [
+        { "left": "٤٨ - ٢٦", "right": "٢٢" },
+        { "left": "٧٩ - ٣٤", "right": "٤٥" },
+        { "left": "٩٥ - ٦١", "right": "٣٤" },
+        { "left": "٦٧ - ٢٣", "right": "٤٤" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "اطرح كل منزلة على حدة"
+    },
+    {
+      "id": 10898,
+      "subject": "رياضيات",
+      "lesson": "طرح عددين من منزلتين دون إعادة تجميع",
+      "type": "matching",
+      "questionText": "صِل كل جملة طرح بناتجها الصحيح",
+      "pairs": [
+        { "left": "٨٨ - ٤٤", "right": "٤٤" },
+        { "left": "٥٥ - ٢٢", "right": "٣٣" },
+        { "left": "٩٩ - ١١", "right": "٨٨" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اطرح الآحاد ثم العشرات"
+    }
+  ]
+}

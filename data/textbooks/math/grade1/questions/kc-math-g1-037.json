@@ -1,0 +1,211 @@
+{
+  "kcId": "kc-math-g1-037",
+  "kcNameAr": "يجد ضعف عدد حتى ١٠",
+  "domain": "عمليات الجمع والطرح",
+  "standard": "يجد ضعف عدد حتى ١٠",
+  "questions": [
+    {
+      "id": 10721,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "multiple-choice",
+      "questionText": "ما ضعف العدد ٣؟",
+      "options": ["٣", "٥", "٦", "٩"],
+      "correctAnswer": "٦",
+      "points": 10,
+      "hint": "ضعف ٣ = ٣ + ٣"
+    },
+    {
+      "id": 10722,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "multiple-choice",
+      "questionText": "ما ضعف العدد ٥؟",
+      "options": ["٥", "١٠", "١٥", "٢٠"],
+      "correctAnswer": "١٠",
+      "points": 10,
+      "hint": "٥ + ٥ = ?"
+    },
+    {
+      "id": 10723,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "multiple-choice",
+      "questionText": "ما ضعف العدد ٧؟",
+      "options": ["١٢", "١٣", "١٤", "١٥"],
+      "correctAnswer": "١٤",
+      "points": 15,
+      "hint": "٧ + ٧ = ?"
+    },
+    {
+      "id": 10724,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "multiple-choice",
+      "questionText": "لدى علي ٤ كرات. إذا حصل على ضعفها، فكم كرة يملك؟",
+      "options": ["٤", "٦", "٨", "١٢"],
+      "correctAnswer": "٨",
+      "points": 10,
+      "hint": "ضعف ٤ = ٤ + ٤"
+    },
+    {
+      "id": 10725,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "multiple-choice",
+      "questionText": "ما ضعف العدد ٩؟",
+      "options": ["١٦", "١٧", "١٨", "١٩"],
+      "correctAnswer": "١٨",
+      "points": 15,
+      "hint": "٩ + ٩ = ?"
+    },
+    {
+      "id": 10726,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "multiple-choice",
+      "questionText": "ما ضعف العدد ١٠؟",
+      "options": ["١٠", "١٥", "٢٠", "٣٠"],
+      "correctAnswer": "٢٠",
+      "points": 15,
+      "hint": "١٠ + ١٠ = ?"
+    },
+    {
+      "id": 10727,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "multiple-choice",
+      "questionText": "ما ضعف العدد ١؟",
+      "options": ["٠", "١", "٢", "٣"],
+      "correctAnswer": "٢",
+      "points": 10,
+      "hint": "١ + ١ = ?"
+    },
+    {
+      "id": 10728,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد ضعفه ١٢؟",
+      "options": ["٤", "٥", "٦", "٧"],
+      "correctAnswer": "٦",
+      "points": 15,
+      "hint": "ما العدد الذي إذا جمعته مع نفسه يعطي ١٢؟"
+    },
+    {
+      "id": 10729,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "input",
+      "questionText": "ما ضعف العدد ٢؟",
+      "correctAnswer": "٤",
+      "points": 10,
+      "hint": "٢ + ٢ = ?"
+    },
+    {
+      "id": 10730,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "input",
+      "questionText": "ما ضعف العدد ٨؟",
+      "correctAnswer": "١٦",
+      "points": 15,
+      "hint": "٨ + ٨ = ?"
+    },
+    {
+      "id": 10731,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "input",
+      "questionText": "ما ضعف العدد ٦؟",
+      "correctAnswer": "١٢",
+      "points": 10,
+      "hint": "٦ + ٦ = ?"
+    },
+    {
+      "id": 10732,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "input",
+      "questionText": "ما ضعف العدد ٠؟",
+      "correctAnswer": "٠",
+      "points": 10,
+      "hint": "٠ + ٠ = ?"
+    },
+    {
+      "id": 10733,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "input",
+      "questionText": "لدى سلمى ٧ أقلام. كم قلماً تحتاج ليصبح لديها ضعف ما لديها؟",
+      "correctAnswer": "٧",
+      "points": 20,
+      "hint": "ضعف ٧ = ١٤، تحتاج ١٤ - ٧ = ?"
+    },
+    {
+      "id": 10734,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "reorder",
+      "questionText": "رتّب الأضعاف من الأصغر إلى الأكبر: ضعف ٥ ، ضعف ٢ ، ضعف ٨",
+      "options": ["ضعف ٥", "ضعف ٢", "ضعف ٨"],
+      "correctAnswer": "ضعف ٢ ، ضعف ٥ ، ضعف ٨",
+      "points": 15,
+      "hint": "٤ ، ١٠ ، ١٦"
+    },
+    {
+      "id": 10735,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "reorder",
+      "questionText": "رتّب الأضعاف من الأكبر إلى الأصغر: ضعف ٣ ، ضعف ١٠ ، ضعف ٧",
+      "options": ["ضعف ٣", "ضعف ١٠", "ضعف ٧"],
+      "correctAnswer": "ضعف ١٠ ، ضعف ٧ ، ضعف ٣",
+      "points": 15,
+      "hint": "٢٠ ، ١٤ ، ٦"
+    },
+    {
+      "id": 10736,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد التي أضعافها: ٨ ، ١٤ ، ٤. من الأصغر إلى الأكبر:",
+      "options": ["العدد ٤ (ضعفه ٨)", "العدد ٧ (ضعفه ١٤)", "العدد ٢ (ضعفه ٤)"],
+      "correctAnswer": "العدد ٢ (ضعفه ٤) ، العدد ٤ (ضعفه ٨) ، العدد ٧ (ضعفه ١٤)",
+      "points": 20,
+      "hint": "٢ ، ٤ ، ٧"
+    },
+    {
+      "id": 10737,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "matching",
+      "questionText": "صِل كل عدد بضعفه",
+      "pairs": [
+        { "left": "٣", "right": "٦" },
+        { "left": "٥", "right": "١٠" },
+        { "left": "٨", "right": "١٦" },
+        { "left": "١٠", "right": "٢٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 10,
+      "hint": "الضعف = العدد + العدد"
+    },
+    {
+      "id": 10738,
+      "subject": "رياضيات",
+      "lesson": "ضعف العدد",
+      "type": "matching",
+      "questionText": "صِل كل ضعف بالعدد الأصلي",
+      "pairs": [
+        { "left": "ضعفه ٢", "right": "١" },
+        { "left": "ضعفه ١٢", "right": "٦" },
+        { "left": "ضعفه ١٨", "right": "٩" },
+        { "left": "ضعفه ٨", "right": "٤" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "ما العدد الذي إذا جمعته مع نفسه تحصل على هذا الضعف؟"
+    }
+  ]
+}

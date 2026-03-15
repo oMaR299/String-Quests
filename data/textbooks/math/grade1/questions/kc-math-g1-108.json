@@ -1,0 +1,207 @@
+{
+  "kcId": "kc-math-g1-108",
+  "kcNameAr": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+  "domain": "الوقت",
+  "standard": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+  "questions": [
+    {
+      "id": 12141,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Clock بالعربية؟",
+      "options": ["ساعة", "دقيقة", "يوم", "أسبوع"],
+      "correctAnswer": "ساعة",
+      "points": 10,
+      "hint": "Clock هي الأداة التي نعرف منها الوقت"
+    },
+    {
+      "id": 12142,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Hour بالعربية؟",
+      "options": ["ساعة (وحدة زمن)", "دقيقة", "ثانية", "يوم"],
+      "correctAnswer": "ساعة (وحدة زمن)",
+      "points": 10,
+      "hint": "Hour تعني ٦٠ دقيقة"
+    },
+    {
+      "id": 12143,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Minute بالعربية؟",
+      "options": ["دقيقة", "ساعة", "يوم", "شهر"],
+      "correctAnswer": "دقيقة",
+      "points": 10,
+      "hint": "Minute هي وحدة زمن أصغر من الساعة"
+    },
+    {
+      "id": 12144,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Morning بالعربية؟",
+      "options": ["صباح", "مساء", "ليل", "ظهر"],
+      "correctAnswer": "صباح",
+      "points": 10,
+      "hint": "نقول Good Morning في الصباح"
+    },
+    {
+      "id": 12145,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Night بالعربية؟",
+      "options": ["ليل", "صباح", "ظهر", "مساء"],
+      "correctAnswer": "ليل",
+      "points": 10,
+      "hint": "نقول Good Night عند النوم"
+    },
+    {
+      "id": 12146,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Week بالعربية؟",
+      "options": ["أسبوع", "يوم", "شهر", "سنة"],
+      "correctAnswer": "أسبوع",
+      "points": 10,
+      "hint": "Week = ٧ أيام"
+    },
+    {
+      "id": 12147,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Day بالعربية؟",
+      "options": ["يوم", "ليل", "ساعة", "أسبوع"],
+      "correctAnswer": "يوم",
+      "points": 10,
+      "hint": "Day تعني ٢٤ ساعة"
+    },
+    {
+      "id": 12148,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "multiple-choice",
+      "questionText": "ما معنى Half past بالعربية؟",
+      "options": ["والنصف", "تماماً", "وربع", "إلا ربع"],
+      "correctAnswer": "والنصف",
+      "points": 15,
+      "hint": "Half = نصف"
+    },
+    {
+      "id": 12149,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "input",
+      "questionText": "ما معنى كلمة Time بالعربية؟",
+      "correctAnswer": "وقت",
+      "points": 10,
+      "hint": "What time is it? = كم الوقت؟"
+    },
+    {
+      "id": 12150,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "input",
+      "questionText": "ما معنى كلمة Morning بالعربية؟",
+      "correctAnswer": "صباح",
+      "points": 10,
+      "hint": "Good Morning = صباح الخير"
+    },
+    {
+      "id": 12151,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "input",
+      "questionText": "ما معنى كلمة Night بالعربية؟",
+      "correctAnswer": "ليل",
+      "points": 10,
+      "hint": "Good Night = تصبح على خير"
+    },
+    {
+      "id": 12152,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "input",
+      "questionText": "ما معنى كلمة Hour بالعربية؟",
+      "correctAnswer": "ساعة",
+      "points": 10,
+      "hint": "Hour = ٦٠ دقيقة"
+    },
+    {
+      "id": 12153,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "input",
+      "questionText": "ما معنى كلمة Week بالعربية؟",
+      "correctAnswer": "أسبوع",
+      "points": 10,
+      "hint": "Week = ٧ أيام"
+    },
+    {
+      "id": 12154,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "reorder",
+      "questionText": "رتّب وحدات الوقت الإنجليزية من الأصغر إلى الأكبر: Week, Hour, Minute, Day",
+      "correctAnswer": "Minute,Hour,Day,Week",
+      "points": 15,
+      "hint": "دقيقة ثم ساعة ثم يوم ثم أسبوع"
+    },
+    {
+      "id": 12155,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "reorder",
+      "questionText": "رتّب أوقات اليوم بالإنجليزية: Night, Morning, Evening, Afternoon",
+      "correctAnswer": "Morning,Afternoon,Evening,Night",
+      "points": 15,
+      "hint": "ابدأ بالصباح وانتهِ بالليل"
+    },
+    {
+      "id": 12156,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "reorder",
+      "questionText": "رتّب من الأكبر إلى الأصغر: Minute, Day, Hour",
+      "correctAnswer": "Day,Hour,Minute",
+      "points": 15,
+      "hint": "اليوم أكبر من الساعة والساعة أكبر من الدقيقة"
+    },
+    {
+      "id": 12157,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "matching",
+      "questionText": "طابق بين الكلمة الإنجليزية ومعناها بالعربية",
+      "pairs": [
+        { "left": "Clock", "right": "ساعة (جهاز)" },
+        { "left": "Hour", "right": "ساعة (وحدة زمن)" },
+        { "left": "Minute", "right": "دقيقة" },
+        { "left": "Day", "right": "يوم" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "تذكّر معنى كلّ كلمة"
+    },
+    {
+      "id": 12158,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية المتعلقة بالوقت",
+      "type": "matching",
+      "questionText": "طابق بين الكلمة الإنجليزية ومعناها بالعربية",
+      "pairs": [
+        { "left": "Morning", "right": "صباح" },
+        { "left": "Night", "right": "ليل" },
+        { "left": "Week", "right": "أسبوع" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "Morning = بداية النهار، Night = الظلام"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "kcId": "kc-math-g1-080",
+  "kcNameAr": "يصف خصائص المجسمات",
+  "domain": "المجسمات",
+  "standard": "يصف خصائص المجسمات من حيث الأوجه والأحرف والرؤوس",
+  "questions": [
+    {"id": 11581, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "multiple-choice", "questionText": "كم عدد أوجه المكعب؟", "options": ["٦", "٤", "٨", "١٢"], "correctAnswer": "٦", "points": 10, "hint": "المكعب له ٦ أوجه مربعة"},
+    {"id": 11582, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "multiple-choice", "questionText": "كم عدد أحرف المكعب؟", "options": ["١٢", "٦", "٨", "٤"], "correctAnswer": "١٢", "points": 15, "hint": "الأحرف هي خطوط التقاء الأوجه"},
+    {"id": 11583, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "multiple-choice", "questionText": "كم عدد رؤوس المكعب؟", "options": ["٨", "٦", "١٢", "٤"], "correctAnswer": "٨", "points": 15, "hint": "الرؤوس هي نقاط التقاء الأحرف"},
+    {"id": 11584, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "multiple-choice", "questionText": "كم عدد أوجه الكرة المسطحة؟", "options": ["٠", "١", "٢", "٦"], "correctAnswer": "٠", "points": 10, "hint": "الكرة ليس لها أوجه مسطحة"},
+    {"id": 11585, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "multiple-choice", "questionText": "كم قاعدة للأسطوانة؟", "options": ["٢", "١", "٠", "٣"], "correctAnswer": "٢", "points": 10, "hint": "قاعدة في الأعلى وقاعدة في الأسفل"},
+    {"id": 11586, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "multiple-choice", "questionText": "كم رأساً للمخروط؟", "options": ["١", "٠", "٢", "٣"], "correctAnswer": "١", "points": 15, "hint": "المخروط له رأس واحد مدبب"},
+    {"id": 11587, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "multiple-choice", "questionText": "كم وجهاً مسطحاً للمخروط؟", "options": ["١", "٠", "٢", "٣"], "correctAnswer": "١", "points": 15, "hint": "المخروط له قاعدة واحدة دائرية"},
+    {"id": 11588, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "multiple-choice", "questionText": "كم رأساً للكرة؟", "options": ["٠", "١", "٢", "٤"], "correctAnswer": "٠", "points": 10, "hint": "الكرة مستديرة بلا رؤوس"},
+    {"id": 11589, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "input", "questionText": "كم وجهاً للمكعب؟", "correctAnswer": "٦", "points": 10, "hint": "عُدّ أوجه المكعب"},
+    {"id": 11590, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "input", "questionText": "كم رأساً للمكعب؟", "correctAnswer": "٨", "points": 15, "hint": "عُدّ نقاط الالتقاء"},
+    {"id": 11591, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "input", "questionText": "كم قاعدة دائرية للأسطوانة؟", "correctAnswer": "٢", "points": 10, "hint": "واحدة فوق وواحدة تحت"},
+    {"id": 11592, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "input", "questionText": "كم حرفاً للمكعب؟", "correctAnswer": "١٢", "points": 15, "hint": "خطوط التقاء الأوجه"},
+    {"id": 11593, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "input", "questionText": "ما اسم المجسم الذي له ٦ أوجه و١٢ حرفاً و٨ رؤوس وكل أوجهه مربعة؟", "correctAnswer": "مكعب", "points": 20, "hint": "كل أوجهه مربعات متساوية"},
+    {"id": 11594, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "reorder", "questionText": "رتّب المجسمات حسب عدد أوجهها المسطحة من الأقل إلى الأكثر:", "options": ["كرة (٠)", "مخروط (١)", "أسطوانة (٢)", "مكعب (٦)"], "correctAnswer": "كرة (٠),مخروط (١),أسطوانة (٢),مكعب (٦)", "points": 20, "hint": "رتّب من ٠ إلى ٦"},
+    {"id": 11595, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "reorder", "questionText": "رتّب المجسمات حسب عدد رؤوسها من الأقل إلى الأكثر:", "options": ["كرة (٠ رؤوس)", "مخروط (١ رأس)", "مكعب (٨ رؤوس)"], "correctAnswer": "كرة (٠ رؤوس),مخروط (١ رأس),مكعب (٨ رؤوس)", "points": 15, "hint": "ابدأ بالأقل رؤوساً"},
+    {"id": 11596, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "reorder", "questionText": "رتّب خطوات وصف مجسم:", "options": ["عُدّ الأوجه", "عُدّ الأحرف", "عُدّ الرؤوس"], "correctAnswer": "عُدّ الأوجه,عُدّ الأحرف,عُدّ الرؤوس", "points": 15, "hint": "أوجه ثم أحرف ثم رؤوس"},
+    {"id": 11597, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "matching", "questionText": "طابق كل مجسم مع عدد أوجهه:", "pairs": [{"left": "مكعب", "right": "٦ أوجه"}, {"left": "كرة", "right": "٠ أوجه مسطحة"}, {"left": "أسطوانة", "right": "٢ وجهان دائريان"}, {"left": "مخروط", "right": "١ وجه دائري"}], "correctAnswer": "MATCH_ALL", "points": 15, "hint": "عُدّ الأوجه المسطحة لكل مجسم"},
+    {"id": 11598, "subject": "رياضيات", "lesson": "يصف خصائص المجسمات", "type": "matching", "questionText": "طابق كل مجسم مع عدد رؤوسه:", "pairs": [{"left": "مكعب", "right": "٨"}, {"left": "كرة", "right": "٠"}, {"left": "مخروط", "right": "١"}, {"left": "هرم رباعي", "right": "٥"}], "correctAnswer": "MATCH_ALL", "points": 20, "hint": "الرؤوس = نقاط الالتقاء الحادة"}
+  ]
+}

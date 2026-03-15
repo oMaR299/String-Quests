@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-035",
+  "kcNameAr": "يجمع عددين ناتج جمعهما ضمن ٢٠ بالإكمال إلى الـ١٠",
+  "domain": "عمليات الجمع والطرح",
+  "standard": "يجمع عددين ناتج جمعهما ضمن ٢٠ بالإكمال إلى الـ١٠",
+  "questions": [
+    {
+      "id": 10681,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "multiple-choice",
+      "questionText": "لحل ٨ + ٥، أكمل ٨ إلى ١٠ ثم أضف الباقي. ما الناتج؟",
+      "options": ["١١", "١٢", "١٣", "١٤"],
+      "correctAnswer": "١٣",
+      "points": 10,
+      "hint": "٨ + ٢ = ١٠، يبقى ٣، فـ ١٠ + ٣ = ١٣"
+    },
+    {
+      "id": 10682,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "multiple-choice",
+      "questionText": "لحل ٩ + ٤، كم تحتاج لإكمال ٩ إلى ١٠؟",
+      "options": ["١", "٢", "٣", "٤"],
+      "correctAnswer": "١",
+      "points": 10,
+      "hint": "١٠ - ٩ = ؟"
+    },
+    {
+      "id": 10683,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "multiple-choice",
+      "questionText": "٩ + ٦ = ؟. أكمل إلى ١٠ ثم أضف الباقي.",
+      "options": ["١٣", "١٤", "١٥", "١٦"],
+      "correctAnswer": "١٥",
+      "points": 15,
+      "hint": "٩ + ١ = ١٠، يبقى ٥، فـ ١٠ + ٥ = ١٥"
+    },
+    {
+      "id": 10684,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "multiple-choice",
+      "questionText": "٧ + ٦ = ؟. أكمل إلى ١٠ أولاً.",
+      "options": ["١١", "١٢", "١٣", "١٤"],
+      "correctAnswer": "١٣",
+      "points": 15,
+      "hint": "٧ + ٣ = ١٠، يبقى ٣، فـ ١٠ + ٣ = ١٣"
+    },
+    {
+      "id": 10685,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "multiple-choice",
+      "questionText": "لحل ٦ + ٨، كم تحتاج لإكمال ٦ إلى ١٠؟",
+      "options": ["٢", "٣", "٤", "٥"],
+      "correctAnswer": "٤",
+      "points": 15,
+      "hint": "١٠ - ٦ = ؟"
+    },
+    {
+      "id": 10686,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "multiple-choice",
+      "questionText": "٨ + ٧ = ؟. استخدم الإكمال إلى ١٠.",
+      "options": ["١٣", "١٤", "١٥", "١٦"],
+      "correctAnswer": "١٥",
+      "points": 15,
+      "hint": "٨ + ٢ = ١٠، يبقى ٥، فـ ١٠ + ٥ = ١٥"
+    },
+    {
+      "id": 10687,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "multiple-choice",
+      "questionText": "٩ + ٨ = ؟. أكمل إلى ١٠.",
+      "options": ["١٥", "١٦", "١٧", "١٨"],
+      "correctAnswer": "١٧",
+      "points": 15,
+      "hint": "٩ + ١ = ١٠، يبقى ٧، فـ ١٠ + ٧ = ١٧"
+    },
+    {
+      "id": 10688,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "multiple-choice",
+      "questionText": "٧ + ٩ = ؟. أكمل ٧ إلى ١٠.",
+      "options": ["١٤", "١٥", "١٦", "١٧"],
+      "correctAnswer": "١٦",
+      "points": 15,
+      "hint": "٧ + ٣ = ١٠، يبقى ٦، فـ ١٠ + ٦ = ١٦"
+    },
+    {
+      "id": 10689,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "input",
+      "questionText": "٩ + ٣ = ؟. أكمل إلى ١٠ ثم أضف الباقي.",
+      "correctAnswer": "١٢",
+      "points": 10,
+      "hint": "٩ + ١ = ١٠، يبقى ٢"
+    },
+    {
+      "id": 10690,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "input",
+      "questionText": "٨ + ٦ = ؟. استخدم الإكمال إلى ١٠.",
+      "correctAnswer": "١٤",
+      "points": 15,
+      "hint": "٨ + ٢ = ١٠، يبقى ٤"
+    },
+    {
+      "id": 10691,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "input",
+      "questionText": "٧ + ٨ = ؟",
+      "correctAnswer": "١٥",
+      "points": 15,
+      "hint": "٧ + ٣ = ١٠، يبقى ٥"
+    },
+    {
+      "id": 10692,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "input",
+      "questionText": "٦ + ٩ = ؟",
+      "correctAnswer": "١٥",
+      "points": 15,
+      "hint": "أكمل ٩ إلى ١٠ بإضافة ١، يبقى ٥"
+    },
+    {
+      "id": 10693,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "input",
+      "questionText": "٥ + ٨ = ؟",
+      "correctAnswer": "١٣",
+      "points": 15,
+      "hint": "أكمل ٨ إلى ١٠ بإضافة ٢، يبقى ٣"
+    },
+    {
+      "id": 10694,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ٩ + ٧ بالإكمال إلى ١٠:",
+      "options": ["أكمل ٩ إلى ١٠ بإضافة ١", "يبقى ٦ من العدد ٧", "١٠ + ٦ = ١٦"],
+      "correctAnswer": "أكمل ٩ إلى ١٠ بإضافة ١ ، يبقى ٦ من العدد ٧ ، ١٠ + ٦ = ١٦",
+      "points": 15,
+      "hint": "ابدأ بإكمال العدد الأقرب إلى ١٠"
+    },
+    {
+      "id": 10695,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ٨ + ٤ بالإكمال إلى ١٠:",
+      "options": ["أكمل ٨ إلى ١٠ بإضافة ٢", "يبقى ٢ من العدد ٤", "١٠ + ٢ = ١٢"],
+      "correctAnswer": "أكمل ٨ إلى ١٠ بإضافة ٢ ، يبقى ٢ من العدد ٤ ، ١٠ + ٢ = ١٢",
+      "points": 15,
+      "hint": "٨ يحتاج ٢ ليصل إلى ١٠"
+    },
+    {
+      "id": 10696,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ٩+٤ ، ٨+٩ ، ٧+٥",
+      "options": ["٩+٤", "٨+٩", "٧+٥"],
+      "correctAnswer": "٧+٥ ، ٩+٤ ، ٨+٩",
+      "points": 20,
+      "hint": "١٢ ، ١٧ ، ١٣ → رتّبها"
+    },
+    {
+      "id": 10697,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "matching",
+      "questionText": "صِل كل عدد بما يحتاجه للإكمال إلى ١٠",
+      "pairs": [
+        { "left": "٨", "right": "٢" },
+        { "left": "٩", "right": "١" },
+        { "left": "٧", "right": "٣" },
+        { "left": "٦", "right": "٤" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 10,
+      "hint": "١٠ - العدد = ؟"
+    },
+    {
+      "id": 10698,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالإكمال إلى العشرة",
+      "type": "matching",
+      "questionText": "صِل كل جملة جمع بناتجها",
+      "pairs": [
+        { "left": "٩ + ٥", "right": "١٤" },
+        { "left": "٨ + ٣", "right": "١١" },
+        { "left": "٧ + ٧", "right": "١٤" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أكمل إلى ١٠ ثم أضف الباقي"
+    }
+  ]
+}

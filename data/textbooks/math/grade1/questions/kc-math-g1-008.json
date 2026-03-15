@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-008",
+  "kcNameAr": "يحدّد العدد السابق لعدد ما",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10141,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يسبق ٢٥؟",
+      "options": ["٢٣", "٢٤", "٢٦", "٢٠"],
+      "correctAnswer": "٢٤",
+      "points": 10,
+      "hint": "العدد السابق = العدد - ١"
+    },
+    {
+      "id": 10142,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يأتي قبل ٤٠؟",
+      "options": ["٤١", "٣٩", "٣٠", "٣٨"],
+      "correctAnswer": "٣٩",
+      "points": 10,
+      "hint": "اطرح ١ من ٤٠"
+    },
+    {
+      "id": 10143,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "multiple-choice",
+      "questionText": "ما العدد السابق للعدد ٥٠؟",
+      "options": ["٥١", "٤٩", "٤٠", "٤٨"],
+      "correctAnswer": "٤٩",
+      "points": 15,
+      "hint": "العدد الذي يقع قبل ٥٠ مباشرة"
+    },
+    {
+      "id": 10144,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يسبق ١٠؟",
+      "options": ["١١", "٨", "٩", "٠"],
+      "correctAnswer": "٩",
+      "points": 10,
+      "hint": "عُدّ: ٧، ٨، ٩، ١٠"
+    },
+    {
+      "id": 10145,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يسبق ٧٣؟",
+      "options": ["٧٤", "٧٢", "٧١", "٦٣"],
+      "correctAnswer": "٧٢",
+      "points": 10,
+      "hint": "اطرح ١ من ٧٣"
+    },
+    {
+      "id": 10146,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "multiple-choice",
+      "questionText": "ما العدد السابق للعدد ٩١؟",
+      "options": ["٩٠", "٩٢", "٨١", "٨٩"],
+      "correctAnswer": "٩٠",
+      "points": 15,
+      "hint": "٩١ - ١ = ؟"
+    },
+    {
+      "id": 10147,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يأتي قبل ٦١؟",
+      "options": ["٦٢", "٥٩", "٦٠", "٥١"],
+      "correctAnswer": "٦٠",
+      "points": 15,
+      "hint": "٦١ - ١ = ؟"
+    },
+    {
+      "id": 10148,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "multiple-choice",
+      "questionText": "ما العدد السابق للعدد ٣٠؟",
+      "options": ["٣١", "٢٠", "٢٩", "٢٨"],
+      "correctAnswer": "٢٩",
+      "points": 15,
+      "hint": "العدد الذي يأتي قبل ٣٠ ينتهي بـ ٩"
+    },
+    {
+      "id": 10149,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "input",
+      "questionText": "ما العدد السابق للعدد ٥٦؟",
+      "correctAnswer": "٥٥",
+      "points": 10,
+      "hint": "اطرح ١ من ٥٦"
+    },
+    {
+      "id": 10150,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "input",
+      "questionText": "ما العدد الذي يسبق ٨١؟",
+      "correctAnswer": "٨٠",
+      "points": 10,
+      "hint": "٨١ - ١"
+    },
+    {
+      "id": 10151,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "input",
+      "questionText": "ما العدد الذي يأتي قبل ٢٠؟",
+      "correctAnswer": "١٩",
+      "points": 15,
+      "hint": "٢٠ - ١ = ؟"
+    },
+    {
+      "id": 10152,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "input",
+      "questionText": "ما العدد السابق للعدد ٩٩؟",
+      "correctAnswer": "٩٨",
+      "points": 15,
+      "hint": "٩٩ - ١"
+    },
+    {
+      "id": 10153,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "input",
+      "questionText": "ما العدد الذي يأتي قبل ٤٥؟",
+      "correctAnswer": "٤٤",
+      "points": 10,
+      "hint": "٤٥ - ١"
+    },
+    {
+      "id": 10154,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تنازلياً (من الأكبر إلى الأصغر):",
+      "options": ["٤٢", "٤٥", "٤٣", "٤٤"],
+      "correctAnswer": "٤٥,٤٤,٤٣,٤٢",
+      "points": 15,
+      "hint": "ابدأ بالأكبر، كل عدد يسبق الذي قبله"
+    },
+    {
+      "id": 10155,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تنازلياً:",
+      "options": ["٧٠", "٦٩", "٧١", "٦٨"],
+      "correctAnswer": "٧١,٧٠,٦٩,٦٨",
+      "points": 20,
+      "hint": "كل عدد هو السابق للعدد الذي قبله"
+    },
+    {
+      "id": 10156,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "matching",
+      "questionText": "طابق كل عدد بالعدد السابق له:",
+      "pairs": [
+        { "left": "٣٠", "right": "٢٩" },
+        { "left": "٥٥", "right": "٥٤" },
+        { "left": "٨١", "right": "٨٠" },
+        { "left": "١٧", "right": "١٦" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اطرح ١ من كل عدد"
+    },
+    {
+      "id": 10157,
+      "subject": "رياضيات",
+      "lesson": "العدد السابق",
+      "type": "matching",
+      "questionText": "طابق العدد بالعدد الذي يسبقه:",
+      "pairs": [
+        { "left": "٦٠", "right": "٥٩" },
+        { "left": "٤٣", "right": "٤٢" },
+        { "left": "٩٠", "right": "٨٩" },
+        { "left": "٢١", "right": "٢٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "العدد السابق = العدد - ١"
+    }
+  ]
+}

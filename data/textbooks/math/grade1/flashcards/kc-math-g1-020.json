@@ -1,0 +1,76 @@
+{
+  "kcId": "kc-math-g1-020",
+  "kcNameAr": "يكتب عدداً عُلمت الصورة التحليلية له",
+  "cards": [
+    {
+      "id": "fc-020-01",
+      "type": "text",
+      "front": "٥٠ + ٣ = ؟",
+      "back": "٥٣",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-020-02",
+      "type": "text",
+      "front": "٢٠ + ٧ = ؟",
+      "back": "٢٧",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-020-03",
+      "type": "text",
+      "front": "٨٠ + ٤ = ؟",
+      "back": "٨٤",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-020-04",
+      "type": "text",
+      "front": "٣٠ + ٠ = ؟",
+      "back": "٣٠",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-020-05",
+      "type": "text",
+      "front": "٦٠ + ٩ = ؟",
+      "back": "٦٩",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-020-06",
+      "type": "text",
+      "front": "٤٠ + ٥ = ؟",
+      "back": "٤٥",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-020-07",
+      "type": "reverse",
+      "front": "العدد ٧٨ — ما صورته التحليلية؟",
+      "back": "٧٠ + ٨",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-020-08",
+      "type": "text",
+      "front": "٩٠ + ٦ = ؟",
+      "back": "٩٦",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-020-09",
+      "type": "concept",
+      "front": "كيف نكوّن عدداً من صورته التحليلية؟",
+      "back": "نجمع العشرات والواحدات معاً. مثال: ٤٠ + ٢ = ٤٢",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-020-10",
+      "type": "text",
+      "front": "١٠ + ٨ = ؟",
+      "back": "١٨",
+      "difficulty": 3
+    }
+  ]
+}

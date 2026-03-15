@@ -1,0 +1,189 @@
+{
+  "kcId": "kc-math-g1-021",
+  "kcNameAr": "يشكّل أعداداً من منزلتين بالمحسوس وشبه المحسوس",
+  "domain": "Numbers & Operations",
+  "standard": "Place Value",
+  "questions": [
+    {
+      "id": 10401,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "multiple-choice",
+      "questionText": "وضعت ٢ حزمة أعواد (كل حزمة ١٠) و ٦ أعواد منفردة. ما العدد؟",
+      "options": ["٢٦", "٦٢", "٢٠", "٨"],
+      "correctAnswer": "٢٦",
+      "points": 10,
+      "hint": "٢ حزم = ٢٠ + ٦ = ٢٦"
+    },
+    {
+      "id": 10402,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "multiple-choice",
+      "questionText": "رسم أحمد ٥ أعمدة طويلة (كل عمود = ١٠) و ٣ دوائر صغيرة. ما العدد؟",
+      "options": ["٣٥", "٥٣", "٥٠", "٨"],
+      "correctAnswer": "٥٣",
+      "points": 10,
+      "hint": "٥ أعمدة = ٥٠ + ٣ دوائر = ٣"
+    },
+    {
+      "id": 10403,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "multiple-choice",
+      "questionText": "لتشكيل العدد ٤١ بالمحسوس، كم حزمة عشرة تحتاج؟",
+      "options": ["١", "٤", "٤١", "٥"],
+      "correctAnswer": "٤",
+      "points": 10,
+      "hint": "رقم العشرات في ٤١ هو ٤"
+    },
+    {
+      "id": 10404,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "multiple-choice",
+      "questionText": "لتشكيل العدد ٣٧ بالرسم، كم دائرة صغيرة (آحاد) ترسم؟",
+      "options": ["٣", "٧", "٣٧", "١٠"],
+      "correctAnswer": "٧",
+      "points": 10,
+      "hint": "رقم الآحاد في ٣٧ هو ٧"
+    },
+    {
+      "id": 10405,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "multiple-choice",
+      "questionText": "أيّ تمثيل يمثّل العدد ٨٤؟",
+      "options": ["٤ أعمدة و ٨ نقاط", "٨ أعمدة و ٤ نقاط", "٨ نقاط و ٤ أعمدة", "٤ أعمدة و ٤ نقاط"],
+      "correctAnswer": "٨ أعمدة و ٤ نقاط",
+      "points": 15,
+      "hint": "٨ عشرات و ٤ آحاد"
+    },
+    {
+      "id": 10406,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "multiple-choice",
+      "questionText": "إذا كان لديك ٦ حزم عشرة و ٠ منفردات، ما العدد؟",
+      "options": ["٦", "٦٠", "٦٦", "١٦"],
+      "correctAnswer": "٦٠",
+      "points": 10,
+      "hint": "عشرات فقط بدون آحاد"
+    },
+    {
+      "id": 10407,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "multiple-choice",
+      "questionText": "٩ حزم عشرة و ٥ منفردات. ما العدد المشكّل؟",
+      "options": ["٥٩", "٩٥", "٩٠", "١٤"],
+      "correctAnswer": "٩٥",
+      "points": 15,
+      "hint": "٩٠ + ٥"
+    },
+    {
+      "id": 10408,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "input",
+      "questionText": "إذا رسمت ٣ أعمدة طويلة و ٩ نقاط، ما العدد؟",
+      "correctAnswer": "٣٩",
+      "points": 10,
+      "hint": "٣٠ + ٩"
+    },
+    {
+      "id": 10409,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "input",
+      "questionText": "لتشكيل العدد ٧٢، كم حزمة عشرة تحتاج؟",
+      "correctAnswer": "٧",
+      "points": 10,
+      "hint": "رقم العشرات في ٧٢"
+    },
+    {
+      "id": 10410,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "input",
+      "questionText": "لتشكيل العدد ٤٨، كم قطعة منفردة تحتاج؟",
+      "correctAnswer": "٨",
+      "points": 10,
+      "hint": "رقم الآحاد في ٤٨"
+    },
+    {
+      "id": 10411,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "input",
+      "questionText": "٧ أعمدة و ٧ نقاط = ما العدد؟",
+      "correctAnswer": "٧٧",
+      "points": 15,
+      "hint": "٧٠ + ٧"
+    },
+    {
+      "id": 10412,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "input",
+      "questionText": "١ عمود و ١ نقطة = ما العدد؟",
+      "correctAnswer": "١١",
+      "points": 10,
+      "hint": "١٠ + ١"
+    },
+    {
+      "id": 10413,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد المشكّلة تصاعدياً:",
+      "options": ["٨٢", "٢٥", "٤٣", "٦١"],
+      "correctAnswer": "٢٥,٤٣,٦١,٨٢",
+      "points": 15,
+      "hint": "قارن العشرات أولاً"
+    },
+    {
+      "id": 10414,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "reorder",
+      "questionText": "رتّب تنازلياً:",
+      "options": ["٥٥", "١٩", "٩٧", "٣٦"],
+      "correctAnswer": "٩٧,٥٥,٣٦,١٩",
+      "points": 20,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10415,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "matching",
+      "questionText": "طابق التمثيل بالعدد:",
+      "pairs": [
+        { "left": "٤ حزم و ٧ قطع", "right": "٤٧" },
+        { "left": "١ حزمة و ٥ قطع", "right": "١٥" },
+        { "left": "٨ حزم و ٠ قطع", "right": "٨٠" },
+        { "left": "٦ حزم و ٣ قطع", "right": "٦٣" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "حزم = عشرات، قطع = آحاد"
+    },
+    {
+      "id": 10416,
+      "subject": "رياضيات",
+      "lesson": "تشكيل أعداد من منزلتين",
+      "type": "matching",
+      "questionText": "طابق العدد بالتمثيل المناسب:",
+      "pairs": [
+        { "left": "٣٢", "right": "٣ أعمدة و ٢ نقاط" },
+        { "left": "٩١", "right": "٩ أعمدة و ١ نقطة" },
+        { "left": "٥٦", "right": "٥ أعمدة و ٦ نقاط" },
+        { "left": "٧٠", "right": "٧ أعمدة و ٠ نقاط" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أعمدة = عشرات، نقاط = آحاد"
+    }
+  ]
+}

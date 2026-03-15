@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-040",
+  "kcNameAr": "يطرح عددين ضمن ٢٠ باستخدام الضعف",
+  "domain": "عمليات الجمع والطرح",
+  "standard": "يطرح عددين ضمن ٢٠ باستخدام الضعف",
+  "questions": [
+    {
+      "id": 10781,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٤ هو ٨. ما ناتج ٨ - ٤؟",
+      "options": ["٢", "٣", "٤", "٥"],
+      "correctAnswer": "٤",
+      "points": 10,
+      "hint": "إذا كان ٤ + ٤ = ٨، فـ ٨ - ٤ = ٤"
+    },
+    {
+      "id": 10782,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٦ هو ١٢. ما ناتج ١٢ - ٦؟",
+      "options": ["٤", "٥", "٦", "٧"],
+      "correctAnswer": "٦",
+      "points": 10,
+      "hint": "٦ + ٦ = ١٢، فـ ١٢ - ٦ = ?"
+    },
+    {
+      "id": 10783,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٨ هو ١٦. ما ناتج ١٦ - ٨؟",
+      "options": ["٦", "٧", "٨", "٩"],
+      "correctAnswer": "٨",
+      "points": 15,
+      "hint": "٨ + ٨ = ١٦، فـ ١٦ - ٨ = ?"
+    },
+    {
+      "id": 10784,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٧ هو ١٤. ما ناتج ١٤ - ٧؟",
+      "options": ["٥", "٦", "٧", "٨"],
+      "correctAnswer": "٧",
+      "points": 15,
+      "hint": "٧ + ٧ = ١٤، فـ ١٤ - ٧ = ?"
+    },
+    {
+      "id": 10785,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٥ هو ١٠. ما ناتج ١٠ - ٥؟",
+      "options": ["٣", "٤", "٥", "٦"],
+      "correctAnswer": "٥",
+      "points": 10,
+      "hint": "٥ + ٥ = ١٠"
+    },
+    {
+      "id": 10786,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٩ هو ١٨. ما ناتج ١٨ - ٩؟",
+      "options": ["٧", "٨", "٩", "١٠"],
+      "correctAnswer": "٩",
+      "points": 15,
+      "hint": "٩ + ٩ = ١٨"
+    },
+    {
+      "id": 10787,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "multiple-choice",
+      "questionText": "١٣ - ٧ = ؟. لاحظ أن ٦ + ٧ = ١٣ (ضعف ٦ + ١)",
+      "options": ["٤", "٥", "٦", "٧"],
+      "correctAnswer": "٦",
+      "points": 20,
+      "hint": "استخدم حقيقة الضعف: ٦ + ٧ = ١٣"
+    },
+    {
+      "id": 10788,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "multiple-choice",
+      "questionText": "لدى سعاد ٢٠ حبة حلوى. أعطت نصفها لصديقتها. كم حبة بقيت؟",
+      "options": ["٨", "٩", "١٠", "١١"],
+      "correctAnswer": "١٠",
+      "points": 15,
+      "hint": "ضعف ١٠ = ٢٠، فـ ٢٠ - ١٠ = ?"
+    },
+    {
+      "id": 10789,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "input",
+      "questionText": "ضعف ٣ هو ٦. ما ناتج ٦ - ٣؟",
+      "correctAnswer": "٣",
+      "points": 10,
+      "hint": "٣ + ٣ = ٦"
+    },
+    {
+      "id": 10790,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "input",
+      "questionText": "ضعف ١٠ هو ٢٠. ما ناتج ٢٠ - ١٠؟",
+      "correctAnswer": "١٠",
+      "points": 15,
+      "hint": "١٠ + ١٠ = ٢٠"
+    },
+    {
+      "id": 10791,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "input",
+      "questionText": "١٥ - ٨ = ؟. لاحظ أن ٧ + ٨ = ١٥ (ضعف ٧ + ١)",
+      "correctAnswer": "٧",
+      "points": 20,
+      "hint": "فكّر في الضعف: ٧ + ٧ = ١٤، و ٧ + ٨ = ١٥"
+    },
+    {
+      "id": 10792,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "input",
+      "questionText": "ضعف ٢ هو ٤. ما ناتج ٤ - ٢؟",
+      "correctAnswer": "٢",
+      "points": 10,
+      "hint": "٢ + ٢ = ٤"
+    },
+    {
+      "id": 10793,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "input",
+      "questionText": "١١ - ٦ = ؟. لاحظ أن ٥ + ٦ = ١١",
+      "correctAnswer": "٥",
+      "points": 15,
+      "hint": "ضعف ٥ = ١٠، وَ ٥ + ٦ = ١١"
+    },
+    {
+      "id": 10794,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ١٤ - ٧ باستخدام الضعف:",
+      "options": ["أعرف أن ضعف ٧ = ١٤", "٧ + ٧ = ١٤", "إذن ١٤ - ٧ = ٧"],
+      "correctAnswer": "أعرف أن ضعف ٧ = ١٤ ، ٧ + ٧ = ١٤ ، إذن ١٤ - ٧ = ٧",
+      "points": 15,
+      "hint": "استخدم حقيقة الضعف"
+    },
+    {
+      "id": 10795,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "reorder",
+      "questionText": "رتّب نواتج الطرح من الأصغر إلى الأكبر: ١٢-٦ ، ٤-٢ ، ١٨-٩",
+      "options": ["١٢-٦", "٤-٢", "١٨-٩"],
+      "correctAnswer": "٤-٢ ، ١٢-٦ ، ١٨-٩",
+      "points": 15,
+      "hint": "احسب: ٦ ، ٢ ، ٩"
+    },
+    {
+      "id": 10796,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ١٦ - ٨:",
+      "options": ["أعرف أن ٨ + ٨ = ١٦", "إذن ١٦ - ٨ = ٨", "الناتج هو ٨"],
+      "correctAnswer": "أعرف أن ٨ + ٨ = ١٦ ، إذن ١٦ - ٨ = ٨ ، الناتج هو ٨",
+      "points": 15,
+      "hint": "ضعف ٨ = ١٦"
+    },
+    {
+      "id": 10797,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "matching",
+      "questionText": "صِل كل جملة طرح بناتجها باستخدام الأضعاف",
+      "pairs": [
+        { "left": "٦ - ٣", "right": "٣" },
+        { "left": "١٠ - ٥", "right": "٥" },
+        { "left": "١٤ - ٧", "right": "٧" },
+        { "left": "٢٠ - ١٠", "right": "١٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 10,
+      "hint": "الضعف مقسوم على اثنين"
+    },
+    {
+      "id": 10798,
+      "subject": "رياضيات",
+      "lesson": "الطرح باستخدام الضعف",
+      "type": "matching",
+      "questionText": "صِل كل حقيقة ضعف بجملة الطرح المرتبطة بها",
+      "pairs": [
+        { "left": "٣ + ٣ = ٦", "right": "٦ - ٣ = ٣" },
+        { "left": "٥ + ٥ = ١٠", "right": "١٠ - ٥ = ٥" },
+        { "left": "٩ + ٩ = ١٨", "right": "١٨ - ٩ = ٩" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "جملة الطرح هي عكس الجمع"
+    }
+  ]
+}

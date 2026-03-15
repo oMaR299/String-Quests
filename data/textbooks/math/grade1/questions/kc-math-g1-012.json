@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-012",
+  "kcNameAr": "يعدّ تنازلياً بدءاً من أي عدد ضمن 99",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10221,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل العدّ تنازلياً: ٣٥، ٣٤، ٣٣، ___",
+      "options": ["٣٢", "٣٤", "٣٦", "٣٠"],
+      "correctAnswer": "٣٢",
+      "points": 10,
+      "hint": "اطرح ١ من ٣٣"
+    },
+    {
+      "id": 10222,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل: ٥١، ٥٠، ٤٩، ___",
+      "options": ["٥٠", "٥٢", "٤٨", "٤٧"],
+      "correctAnswer": "٤٨",
+      "points": 15,
+      "hint": "اطرح ١ من ٤٩"
+    },
+    {
+      "id": 10223,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل العدّ تنازلياً: ٧٠، ٦٩، ___، ٦٧",
+      "options": ["٧١", "٦٨", "٦٦", "٧٠"],
+      "correctAnswer": "٦٨",
+      "points": 10,
+      "hint": "العدد بين ٦٩ و ٦٧"
+    },
+    {
+      "id": 10224,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "multiple-choice",
+      "questionText": "ما العدد التالي في العدّ التنازلي: ٤٢، ٤١، ٤٠، ___؟",
+      "options": ["٤١", "٣٩", "٣٠", "٤٣"],
+      "correctAnswer": "٣٩",
+      "points": 15,
+      "hint": "٤٠ - ١ = ؟"
+    },
+    {
+      "id": 10225,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل: ٨٣، ٨٢، ___، ٨٠",
+      "options": ["٨٤", "٨١", "٧٩", "٨٣"],
+      "correctAnswer": "٨١",
+      "points": 10,
+      "hint": "العدد بين ٨٢ و ٨٠"
+    },
+    {
+      "id": 10226,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل العدّ تنازلياً: ٢٠، ١٩، ١٨، ___",
+      "options": ["٢١", "١٧", "١٩", "١٥"],
+      "correctAnswer": "١٧",
+      "points": 10,
+      "hint": "١٨ - ١"
+    },
+    {
+      "id": 10227,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل: ٦١، ٦٠، ___، ٥٨",
+      "options": ["٦٢", "٥٩", "٥٧", "٦٠"],
+      "correctAnswer": "٥٩",
+      "points": 15,
+      "hint": "العدد بين ٦٠ و ٥٨"
+    },
+    {
+      "id": 10228,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "input",
+      "questionText": "أكمل العدّ تنازلياً: ٩٥، ٩٤، ___",
+      "correctAnswer": "٩٣",
+      "points": 10,
+      "hint": "٩٤ - ١"
+    },
+    {
+      "id": 10229,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "input",
+      "questionText": "أكمل: ٣٠، ٢٩، ___",
+      "correctAnswer": "٢٨",
+      "points": 10,
+      "hint": "٢٩ - ١"
+    },
+    {
+      "id": 10230,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "input",
+      "questionText": "أكمل العدّ تنازلياً: ٥٠، ___, ٤٨",
+      "correctAnswer": "٤٩",
+      "points": 15,
+      "hint": "العدد بين ٥٠ و ٤٨"
+    },
+    {
+      "id": 10231,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "input",
+      "questionText": "أكمل: ٧٧، ٧٦، ٧٥، ___",
+      "correctAnswer": "٧٤",
+      "points": 10,
+      "hint": "٧٥ - ١"
+    },
+    {
+      "id": 10232,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "input",
+      "questionText": "أكمل العدّ: ٤١، ٤٠، ___",
+      "correctAnswer": "٣٩",
+      "points": 15,
+      "hint": "٤٠ - ١ ينتقل إلى العشرة السابقة"
+    },
+    {
+      "id": 10233,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تنازلياً:",
+      "options": ["٣١", "٣٣", "٣٤", "٣٢"],
+      "correctAnswer": "٣٤,٣٣,٣٢,٣١",
+      "points": 15,
+      "hint": "ابدأ بالأكبر وعُدّ للأسفل"
+    },
+    {
+      "id": 10234,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "reorder",
+      "questionText": "رتّب للعدّ التنازلي:",
+      "options": ["٧٩", "٨٢", "٨١", "٨٠"],
+      "correctAnswer": "٨٢,٨١,٨٠,٧٩",
+      "points": 20,
+      "hint": "ابدأ من ٨٢ وعُدّ تنازلياً"
+    },
+    {
+      "id": 10235,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "reorder",
+      "questionText": "رتّب تنازلياً:",
+      "options": ["٥٥", "٥٨", "٥٦", "٥٧"],
+      "correctAnswer": "٥٨,٥٧,٥٦,٥٥",
+      "points": 15,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10236,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "matching",
+      "questionText": "طابق العدد الناقص في كل تسلسل تنازلي:",
+      "pairs": [
+        { "left": "٤٣، __، ٤١", "right": "٤٢" },
+        { "left": "٦٠، __، ٥٨", "right": "٥٩" },
+        { "left": "٢٥، __، ٢٣", "right": "٢٤" },
+        { "left": "٩١، __، ٨٩", "right": "٩٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اطرح ١ من العدد الأول"
+    },
+    {
+      "id": 10237,
+      "subject": "رياضيات",
+      "lesson": "العدّ تنازلياً",
+      "type": "matching",
+      "questionText": "طابق البداية بالعدد التالي في العدّ التنازلي:",
+      "pairs": [
+        { "left": "٧٠، ٦٩، ___", "right": "٦٨" },
+        { "left": "٣٤، ٣٣، ___", "right": "٣٢" },
+        { "left": "٨١، ٨٠، ___", "right": "٧٩" },
+        { "left": "٥٠، ٤٩، ___", "right": "٤٨" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اطرح ١ من العدد الأخير"
+    }
+  ]
+}

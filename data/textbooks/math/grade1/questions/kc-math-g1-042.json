@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-042",
+  "kcNameAr": "يستعمل حقائق الجمع لجمع العشرات",
+  "domain": "عمليات العشرات",
+  "standard": "يستعمل حقائق الجمع لجمع العشرات",
+  "questions": [
+    {
+      "id": 10821,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "multiple-choice",
+      "questionText": "إذا كان ٢ + ٣ = ٥، فما ناتج ٢٠ + ٣٠؟",
+      "options": ["٥", "٥٠", "٢٣", "٣٢"],
+      "correctAnswer": "٥٠",
+      "points": 10,
+      "hint": "استخدم حقيقة الجمع وأضف صفراً"
+    },
+    {
+      "id": 10822,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "multiple-choice",
+      "questionText": "إذا كان ٤ + ٥ = ٩، فما ناتج ٤٠ + ٥٠؟",
+      "options": ["٤٥", "٥٤", "٩٠", "٩"],
+      "correctAnswer": "٩٠",
+      "points": 10,
+      "hint": "٤ عشرات + ٥ عشرات = ٩ عشرات"
+    },
+    {
+      "id": 10823,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ١٠ + ٤٠؟",
+      "options": ["١٤", "٤٠", "٥٠", "٥١"],
+      "correctAnswer": "٥٠",
+      "points": 10,
+      "hint": "١ عشرة + ٤ عشرات = ٥ عشرات"
+    },
+    {
+      "id": 10824,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "multiple-choice",
+      "questionText": "٣٠ + ٦٠ = ؟",
+      "options": ["٣٦", "٦٣", "٩", "٩٠"],
+      "correctAnswer": "٩٠",
+      "points": 10,
+      "hint": "٣ + ٦ = ٩، فـ ٣٠ + ٦٠ = ٩٠"
+    },
+    {
+      "id": 10825,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "multiple-choice",
+      "questionText": "٥٠ + ٢٠ = ؟",
+      "options": ["٥٢", "٢٥", "٧٠", "٧"],
+      "correctAnswer": "٧٠",
+      "points": 10,
+      "hint": "٥ + ٢ = ٧"
+    },
+    {
+      "id": 10826,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "multiple-choice",
+      "questionText": "إذا كان ٣ + ٤ = ٧، فما ناتج ٣٠ + ٤٠؟",
+      "options": ["٣٤", "٧", "٧٠", "٤٣"],
+      "correctAnswer": "٧٠",
+      "points": 15,
+      "hint": "أضف صفراً للناتج"
+    },
+    {
+      "id": 10827,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "multiple-choice",
+      "questionText": "٦٠ + ٣٠ = ؟",
+      "options": ["٦٣", "٣٦", "٩٠", "٩"],
+      "correctAnswer": "٩٠",
+      "points": 15,
+      "hint": "٦ + ٣ = ٩، أضف الصفر"
+    },
+    {
+      "id": 10828,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "multiple-choice",
+      "questionText": "١٠ + ٩٠ = ؟",
+      "options": ["١٩", "٩١", "١٠٠", "١٠"],
+      "correctAnswer": "١٠٠",
+      "points": 20,
+      "hint": "١ عشرة + ٩ عشرات = ١٠ عشرات"
+    },
+    {
+      "id": 10829,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "input",
+      "questionText": "٢٠ + ٦٠ = ؟",
+      "correctAnswer": "٨٠",
+      "points": 10,
+      "hint": "٢ + ٦ = ٨، أضف الصفر"
+    },
+    {
+      "id": 10830,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "input",
+      "questionText": "٤٠ + ٤٠ = ؟",
+      "correctAnswer": "٨٠",
+      "points": 15,
+      "hint": "٤ + ٤ = ٨"
+    },
+    {
+      "id": 10831,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "input",
+      "questionText": "٥٠ + ٣٠ = ؟",
+      "correctAnswer": "٨٠",
+      "points": 10,
+      "hint": "٥ + ٣ = ٨"
+    },
+    {
+      "id": 10832,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "input",
+      "questionText": "٧٠ + ٢٠ = ؟",
+      "correctAnswer": "٩٠",
+      "points": 15,
+      "hint": "٧ + ٢ = ٩"
+    },
+    {
+      "id": 10833,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "input",
+      "questionText": "١٠ + ٨٠ = ؟",
+      "correctAnswer": "٩٠",
+      "points": 10,
+      "hint": "١ + ٨ = ٩"
+    },
+    {
+      "id": 10834,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ٣٠+٤٠ ، ١٠+٢٠ ، ٥٠+٤٠",
+      "options": ["٣٠+٤٠", "١٠+٢٠", "٥٠+٤٠"],
+      "correctAnswer": "١٠+٢٠ ، ٣٠+٤٠ ، ٥٠+٤٠",
+      "points": 15,
+      "hint": "احسب: ٧٠ ، ٣٠ ، ٩٠"
+    },
+    {
+      "id": 10835,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "reorder",
+      "questionText": "رتّب حقائق جمع العشرات من الأصغر: ٢٠+٥٠ ، ٤٠+٣٠ ، ١٠+٣٠",
+      "options": ["٢٠+٥٠", "٤٠+٣٠", "١٠+٣٠"],
+      "correctAnswer": "١٠+٣٠ ، ٤٠+٣٠ ، ٢٠+٥٠",
+      "points": 15,
+      "hint": "٤٠ ، ٧٠ ، ٧٠ → ابدأ بالأصغر"
+    },
+    {
+      "id": 10836,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "reorder",
+      "questionText": "رتّب الخطوات لحل ٣٠ + ٥٠:",
+      "options": ["أعرف أن ٣ + ٥ = ٨", "أضف صفراً", "الناتج = ٨٠"],
+      "correctAnswer": "أعرف أن ٣ + ٥ = ٨ ، أضف صفراً ، الناتج = ٨٠",
+      "points": 15,
+      "hint": "استخدم حقيقة الجمع الأساسية"
+    },
+    {
+      "id": 10837,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "matching",
+      "questionText": "صِل كل حقيقة جمع بحقيقة جمع العشرات المرتبطة",
+      "pairs": [
+        { "left": "١ + ٤ = ٥", "right": "١٠ + ٤٠ = ٥٠" },
+        { "left": "٣ + ٦ = ٩", "right": "٣٠ + ٦٠ = ٩٠" },
+        { "left": "٢ + ٥ = ٧", "right": "٢٠ + ٥٠ = ٧٠" },
+        { "left": "٤ + ٤ = ٨", "right": "٤٠ + ٤٠ = ٨٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "أضف صفراً لكل عدد وللناتج"
+    },
+    {
+      "id": 10838,
+      "subject": "رياضيات",
+      "lesson": "جمع العشرات",
+      "type": "matching",
+      "questionText": "صِل كل جملة جمع عشرات بناتجها",
+      "pairs": [
+        { "left": "٢٠ + ٣٠", "right": "٥٠" },
+        { "left": "٤٠ + ٥٠", "right": "٩٠" },
+        { "left": "١٠ + ٧٠", "right": "٨٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اجمع العشرات"
+    }
+  ]
+}

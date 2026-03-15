@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-019",
+  "kcNameAr": "يكتب العدد بالصورة التحليلية",
+  "domain": "Numbers & Operations",
+  "standard": "Place Value",
+  "questions": [
+    {
+      "id": 10361,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة التحليلية للعدد ٤٥؟",
+      "options": ["٤ + ٥", "٤٠ + ٥", "٤٥ + ٠", "٥٠ + ٤"],
+      "correctAnswer": "٤٠ + ٥",
+      "points": 10,
+      "hint": "٤ عشرات = ٤٠ و ٥ آحاد = ٥"
+    },
+    {
+      "id": 10362,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة التحليلية للعدد ٧٣؟",
+      "options": ["٧ + ٣", "٣٠ + ٧", "٧٠ + ٣", "٧ + ٣٠"],
+      "correctAnswer": "٧٠ + ٣",
+      "points": 10,
+      "hint": "٧ عشرات = ٧٠ و ٣ آحاد = ٣"
+    },
+    {
+      "id": 10363,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة التحليلية للعدد ١٨؟",
+      "options": ["١ + ٨", "١٠ + ٨", "٨ + ١٠", "١٨ + ٠"],
+      "correctAnswer": "١٠ + ٨",
+      "points": 10,
+      "hint": "١ عشرة = ١٠ و ٨ آحاد = ٨"
+    },
+    {
+      "id": 10364,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة التحليلية للعدد ٩٠؟",
+      "options": ["٩ + ٠", "٩٠ + ٠", "٨٠ + ١٠", "٠ + ٩٠"],
+      "correctAnswer": "٩٠ + ٠",
+      "points": 10,
+      "hint": "٩ عشرات = ٩٠ و ٠ آحاد"
+    },
+    {
+      "id": 10365,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة التحليلية للعدد ٥٦؟",
+      "options": ["٥ + ٦", "٥٠ + ٦", "٦٠ + ٥", "٥٦ + ٠"],
+      "correctAnswer": "٥٠ + ٦",
+      "points": 15,
+      "hint": "حلّل العدد إلى عشرات + آحاد"
+    },
+    {
+      "id": 10366,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة التحليلية للعدد ٢٩؟",
+      "options": ["٢ + ٩", "٩ + ٢٠", "٢٠ + ٩", "٢٩ + ١"],
+      "correctAnswer": "٢٠ + ٩",
+      "points": 15,
+      "hint": "٢ عشرات = ٢٠"
+    },
+    {
+      "id": 10367,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة التحليلية للعدد ٨١؟",
+      "options": ["٨ + ١", "٨٠ + ١", "١٠ + ٨", "٨١ + ٠"],
+      "correctAnswer": "٨٠ + ١",
+      "points": 15,
+      "hint": "٨ عشرات = ٨٠ و ١ آحاد"
+    },
+    {
+      "id": 10368,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة التحليلية للعدد ٦٧؟",
+      "options": ["٦ + ٧", "٦٠ + ٧", "٧٠ + ٦", "٦٧ + ٠"],
+      "correctAnswer": "٦٠ + ٧",
+      "points": 15,
+      "hint": "٦ عشرات = ٦٠"
+    },
+    {
+      "id": 10369,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب الصورة التحليلية للعدد ٣٤. (استخدم الصيغة: عدد + عدد)",
+      "correctAnswer": "٣٠ + ٤",
+      "points": 10,
+      "hint": "٣ عشرات = ٣٠ و ٤ آحاد = ٤"
+    },
+    {
+      "id": 10370,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب الصورة التحليلية للعدد ٩٢.",
+      "correctAnswer": "٩٠ + ٢",
+      "points": 15,
+      "hint": "٩ عشرات + ٢ آحاد"
+    },
+    {
+      "id": 10371,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب الصورة التحليلية للعدد ١١.",
+      "correctAnswer": "١٠ + ١",
+      "points": 10,
+      "hint": "١ عشرة + ١ آحاد"
+    },
+    {
+      "id": 10372,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب الصورة التحليلية للعدد ٧٨.",
+      "correctAnswer": "٧٠ + ٨",
+      "points": 15,
+      "hint": "٧ عشرات + ٨ آحاد"
+    },
+    {
+      "id": 10373,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب الصورة التحليلية للعدد ٥٠.",
+      "correctAnswer": "٥٠ + ٠",
+      "points": 10,
+      "hint": "٥ عشرات و ٠ آحاد"
+    },
+    {
+      "id": 10374,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "reorder",
+      "questionText": "رتّب لتكوين الصورة التحليلية الصحيحة للعدد ٤٦:",
+      "options": ["+", "٤٠", "٦"],
+      "correctAnswer": "٤٠,+,٦",
+      "points": 15,
+      "hint": "ابدأ بالعشرات ثم + ثم الآحاد"
+    },
+    {
+      "id": 10375,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "reorder",
+      "questionText": "رتّب لتكوين الصورة التحليلية للعدد ٨٣:",
+      "options": ["٣", "+", "٨٠"],
+      "correctAnswer": "٨٠,+,٣",
+      "points": 20,
+      "hint": "العشرات أولاً"
+    },
+    {
+      "id": 10376,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "matching",
+      "questionText": "طابق كل عدد بصورته التحليلية:",
+      "pairs": [
+        { "left": "٢٧", "right": "٢٠ + ٧" },
+        { "left": "٦١", "right": "٦٠ + ١" },
+        { "left": "٩٤", "right": "٩٠ + ٤" },
+        { "left": "٣٨", "right": "٣٠ + ٨" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "حلّل كل عدد إلى عشرات + آحاد"
+    },
+    {
+      "id": 10377,
+      "subject": "رياضيات",
+      "lesson": "الصورة التحليلية",
+      "type": "matching",
+      "questionText": "طابق الصورة التحليلية بالعدد:",
+      "pairs": [
+        { "left": "٤٠ + ٩", "right": "٤٩" },
+        { "left": "١٠ + ٦", "right": "١٦" },
+        { "left": "٧٠ + ٢", "right": "٧٢" },
+        { "left": "٥٠ + ٠", "right": "٥٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اجمع العشرات + الآحاد"
+    }
+  ]
+}

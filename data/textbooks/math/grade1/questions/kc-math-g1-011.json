@@ -1,0 +1,184 @@
+{
+  "kcId": "kc-math-g1-011",
+  "kcNameAr": "يعدّ تصاعدياً بدءاً من أي عدد ضمن 99",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10201,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل العدّ تصاعدياً: ٢٣، ٢٤، ٢٥، ___",
+      "options": ["٢٢", "٢٦", "٣٠", "٢٧"],
+      "correctAnswer": "٢٦",
+      "points": 10,
+      "hint": "أضف ١ إلى ٢٥"
+    },
+    {
+      "id": 10202,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل: ٤٧، ٤٨، ٤٩، ___",
+      "options": ["٤٦", "٥٠", "٥٩", "٤٠"],
+      "correctAnswer": "٥٠",
+      "points": 15,
+      "hint": "بعد ٤٩ يأتي عدد جديد من العشرات"
+    },
+    {
+      "id": 10203,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "multiple-choice",
+      "questionText": "ما العدد التالي في العدّ التصاعدي: ٧٠، ٧١، ٧٢، ___؟",
+      "options": ["٧٣", "٦٩", "٨٠", "٧٠"],
+      "correctAnswer": "٧٣",
+      "points": 10,
+      "hint": "أضف ١"
+    },
+    {
+      "id": 10204,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل العدّ: ٨٨، ٨٩، ___, ٩١",
+      "options": ["٨٧", "٩٠", "٩٢", "٨٠"],
+      "correctAnswer": "٩٠",
+      "points": 15,
+      "hint": "العدد بين ٨٩ و ٩١"
+    },
+    {
+      "id": 10205,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل: ٥٥، ٥٦، ___, ٥٨",
+      "options": ["٥٤", "٥٧", "٥٩", "٦٠"],
+      "correctAnswer": "٥٧",
+      "points": 10,
+      "hint": "العدد بين ٥٦ و ٥٨"
+    },
+    {
+      "id": 10206,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل العدّ تصاعدياً: ٣٥، ___, ٣٧، ٣٨",
+      "options": ["٣٤", "٣٦", "٣٩", "٤٠"],
+      "correctAnswer": "٣٦",
+      "points": 10,
+      "hint": "العدد بين ٣٥ و ٣٧"
+    },
+    {
+      "id": 10207,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "multiple-choice",
+      "questionText": "أكمل: ٩٦، ٩٧، ٩٨، ___",
+      "options": ["٩٥", "٩٩", "١٠٠", "٩٠"],
+      "correctAnswer": "٩٩",
+      "points": 15,
+      "hint": "أضف ١ إلى ٩٨"
+    },
+    {
+      "id": 10208,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "input",
+      "questionText": "أكمل العدّ تصاعدياً: ٦١، ٦٢، ___",
+      "correctAnswer": "٦٣",
+      "points": 10,
+      "hint": "٦٢ + ١"
+    },
+    {
+      "id": 10209,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "input",
+      "questionText": "أكمل: ١٧، ١٨، ١٩، ___",
+      "correctAnswer": "٢٠",
+      "points": 15,
+      "hint": "بعد ١٩ تنتقل إلى العشرة التالية"
+    },
+    {
+      "id": 10210,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "input",
+      "questionText": "أكمل العدّ: ٨٢، ٨٣، ٨٤، ___",
+      "correctAnswer": "٨٥",
+      "points": 10,
+      "hint": "أضف ١ إلى ٨٤"
+    },
+    {
+      "id": 10211,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "input",
+      "questionText": "أكمل: ٣٩، ___ ، ٤١",
+      "correctAnswer": "٤٠",
+      "points": 15,
+      "hint": "العدد بين ٣٩ و ٤١"
+    },
+    {
+      "id": 10212,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "input",
+      "questionText": "أكمل: ٧٤، ٧٥، ___",
+      "correctAnswer": "٧٦",
+      "points": 10,
+      "hint": "٧٥ + ١"
+    },
+    {
+      "id": 10213,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تصاعدياً:",
+      "options": ["٤٤", "٤١", "٤٣", "٤٢"],
+      "correctAnswer": "٤١,٤٢,٤٣,٤٤",
+      "points": 15,
+      "hint": "ابدأ بالأصغر وعُدّ للأعلى"
+    },
+    {
+      "id": 10214,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد بالترتيب الصحيح للعدّ التصاعدي:",
+      "options": ["٥٩", "٦١", "٦٠", "٥٨"],
+      "correctAnswer": "٥٨,٥٩,٦٠,٦١",
+      "points": 20,
+      "hint": "أعداد متتالية تعبر حدّ العشرات"
+    },
+    {
+      "id": 10215,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "reorder",
+      "questionText": "رتّب للعدّ التصاعدي:",
+      "options": ["٩٣", "٩٥", "٩٢", "٩٤"],
+      "correctAnswer": "٩٢,٩٣,٩٤,٩٥",
+      "points": 15,
+      "hint": "ابدأ من ٩٢"
+    },
+    {
+      "id": 10216,
+      "subject": "رياضيات",
+      "lesson": "العدّ تصاعدياً",
+      "type": "matching",
+      "questionText": "طابق العدد الناقص في كل تسلسل:",
+      "pairs": [
+        { "left": "٢٣، __، ٢٥", "right": "٢٤" },
+        { "left": "٦٦، __، ٦٨", "right": "٦٧" },
+        { "left": "٤٩، __، ٥١", "right": "٥٠" },
+        { "left": "٧٧، __، ٧٩", "right": "٧٨" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أضف ١ إلى العدد الأول"
+    }
+  ]
+}

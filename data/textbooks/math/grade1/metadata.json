@@ -1,0 +1,48 @@
+{
+  "subject": "رياضيات",
+  "subjectEn": "Mathematics",
+  "grade": 1,
+  "gradeLabel": "الصف الأول",
+  "curriculum": "Jordanian NCCD 2024-2025",
+  "books": [
+    {
+      "id": "s1",
+      "type": "student",
+      "nameAr": "كتاب الطالب - الفصل الأول",
+      "nameEn": "Student Book - Semester 1",
+      "sourceFile": "semester1-student.pdf",
+      "pageCount": 115,
+      "imagePrefix": "s1"
+    },
+    {
+      "id": "s1ex",
+      "type": "exercises",
+      "nameAr": "كتاب التمارين - الفصل الأول",
+      "nameEn": "Exercises - Semester 1",
+      "sourceFile": "semester1-exercises.pdf",
+      "pageCount": 65,
+      "imagePrefix": "s1ex"
+    },
+    {
+      "id": "s2",
+      "type": "student",
+      "nameAr": "كتاب الطالب - الفصل الثاني",
+      "nameEn": "Student Book - Semester 2",
+      "sourceFile": "semester2-student.pdf",
+      "pageCount": 53,
+      "imagePrefix": "s2"
+    },
+    {
+      "id": "s2ex",
+      "type": "exercises",
+      "nameAr": "كتاب التمارين - الفصل الثاني",
+      "nameEn": "Exercises - Semester 2",
+      "sourceFile": "semester2-exercises.pdf",
+      "pageCount": 41,
+      "imagePrefix": "s2ex"
+    }
+  ],
+  "totalPages": 274,
+  "digitizedPages": 274,
+  "status": "digitized"
+}

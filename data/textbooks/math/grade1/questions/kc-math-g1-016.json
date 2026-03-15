@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-016",
+  "kcNameAr": "يستعمل لوحة الأعداد لإيجاد عدد يقل 10 أو يزيد 10",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10301,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "multiple-choice",
+      "questionText": "في لوحة الأعداد، ما العدد الذي يزيد ١٠ عن ٢٣؟",
+      "options": ["٢٤", "١٣", "٣٣", "٢٠"],
+      "correctAnswer": "٣٣",
+      "points": 10,
+      "hint": "تحرّك صفاً واحداً للأسفل في لوحة الأعداد"
+    },
+    {
+      "id": 10302,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "multiple-choice",
+      "questionText": "في لوحة الأعداد، ما العدد الذي يقل ١٠ عن ٥٧؟",
+      "options": ["٥٦", "٦٧", "٤٧", "٥٠"],
+      "correctAnswer": "٤٧",
+      "points": 10,
+      "hint": "تحرّك صفاً واحداً للأعلى"
+    },
+    {
+      "id": 10303,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يزيد ١٠ عن ١٥؟",
+      "options": ["٥", "١٦", "٢٥", "٣٥"],
+      "correctAnswer": "٢٥",
+      "points": 10,
+      "hint": "١٥ + ١٠"
+    },
+    {
+      "id": 10304,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يقل ١٠ عن ٨٢؟",
+      "options": ["٨١", "٩٢", "٧٢", "٨٠"],
+      "correctAnswer": "٧٢",
+      "points": 10,
+      "hint": "٨٢ - ١٠"
+    },
+    {
+      "id": 10305,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "multiple-choice",
+      "questionText": "في لوحة الأعداد، ما العدد الذي يزيد ١٠ عن ٤٦؟",
+      "options": ["٣٦", "٥٦", "٤٧", "٤٠"],
+      "correctAnswer": "٥٦",
+      "points": 10,
+      "hint": "أضف عشرة واحدة"
+    },
+    {
+      "id": 10306,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يقل ١٠ عن ٣٤؟",
+      "options": ["٤٤", "٣٣", "٢٤", "٣٠"],
+      "correctAnswer": "٢٤",
+      "points": 15,
+      "hint": "٣٤ - ١٠"
+    },
+    {
+      "id": 10307,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يزيد ١٠ عن ٨٩؟",
+      "options": ["٧٩", "٩٩", "٩٠", "٨٠"],
+      "correctAnswer": "٩٩",
+      "points": 15,
+      "hint": "٨٩ + ١٠"
+    },
+    {
+      "id": 10308,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يقل ١٠ عن ١٠؟",
+      "options": ["٢٠", "٠", "١", "٩"],
+      "correctAnswer": "٠",
+      "points": 15,
+      "hint": "١٠ - ١٠ = ؟"
+    },
+    {
+      "id": 10309,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "input",
+      "questionText": "ما العدد الذي يزيد ١٠ عن ٦١ في لوحة الأعداد؟",
+      "correctAnswer": "٧١",
+      "points": 10,
+      "hint": "٦١ + ١٠"
+    },
+    {
+      "id": 10310,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "input",
+      "questionText": "ما العدد الذي يقل ١٠ عن ٩٥؟",
+      "correctAnswer": "٨٥",
+      "points": 10,
+      "hint": "٩٥ - ١٠"
+    },
+    {
+      "id": 10311,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "input",
+      "questionText": "ما العدد الذي يزيد ١٠ عن ٣٨؟",
+      "correctAnswer": "٤٨",
+      "points": 10,
+      "hint": "٣٨ + ١٠"
+    },
+    {
+      "id": 10312,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "input",
+      "questionText": "ما العدد الذي يقل ١٠ عن ٧٣؟",
+      "correctAnswer": "٦٣",
+      "points": 15,
+      "hint": "٧٣ - ١٠"
+    },
+    {
+      "id": 10313,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "input",
+      "questionText": "ما العدد الذي يزيد ١٠ عن ٥٥؟",
+      "correctAnswer": "٦٥",
+      "points": 15,
+      "hint": "٥٥ + ١٠ = ؟"
+    },
+    {
+      "id": 10314,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد التالية تصاعدياً (تزيد ١٠ عن بعضها):",
+      "options": ["٤٧", "١٧", "٢٧", "٣٧"],
+      "correctAnswer": "١٧,٢٧,٣٧,٤٧",
+      "points": 15,
+      "hint": "كل عدد يزيد ١٠ عن الذي قبله"
+    },
+    {
+      "id": 10315,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "reorder",
+      "questionText": "رتّب تنازلياً:",
+      "options": ["٣٢", "٦٢", "٥٢", "٤٢"],
+      "correctAnswer": "٦٢,٥٢,٤٢,٣٢",
+      "points": 20,
+      "hint": "كل عدد يقل ١٠ عن الذي قبله"
+    },
+    {
+      "id": 10316,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "matching",
+      "questionText": "طابق كل عملية بالنتيجة:",
+      "pairs": [
+        { "left": "٢٥ + ١٠", "right": "٣٥" },
+        { "left": "٦٨ - ١٠", "right": "٥٨" },
+        { "left": "٤١ + ١٠", "right": "٥١" },
+        { "left": "٩٣ - ١٠", "right": "٨٣" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أضف أو اطرح ١٠"
+    },
+    {
+      "id": 10317,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١٠ و -١٠)",
+      "type": "matching",
+      "questionText": "طابق العدد بالعدد الذي يزيد ١٠ عنه:",
+      "pairs": [
+        { "left": "١٤", "right": "٢٤" },
+        { "left": "٣٧", "right": "٤٧" },
+        { "left": "٥٩", "right": "٦٩" },
+        { "left": "٧٦", "right": "٨٦" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أضف ١٠ لكل عدد"
+    }
+  ]
+}

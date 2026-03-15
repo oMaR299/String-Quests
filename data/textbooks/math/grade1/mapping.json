@@ -1,0 +1,4998 @@
+{
+  "pages": {
+    "s1-page-001": {
+      "kcIds": [],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "cover"
+    },
+    "s1-page-002": {
+      "kcIds": [],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "copyright"
+    },
+    "s1-page-003": {
+      "kcIds": [],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "preface"
+    },
+    "s1-page-004": {
+      "kcIds": [],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "toc"
+    },
+    "s1-page-005": {
+      "kcIds": [],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "toc"
+    },
+    "s1-page-006": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "unit-intro"
+    },
+    "s1-page-007": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-008": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003"
+      ],
+      "unit": 0,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-009": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003"
+      ],
+      "unit": 0,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-010": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-011": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-012": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-013": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-014": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-015": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-016": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-017": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-018": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 6,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-019": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 0,
+      "lesson": 6,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-020": {
+      "kcIds": [
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 0,
+      "lesson": 7,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-021": {
+      "kcIds": [
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 0,
+      "lesson": 7,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-022": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-023": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-024": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-025": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 0,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-026": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-013",
+        "kc-math-g1-014",
+        "kc-math-g1-015",
+        "kc-math-g1-016",
+        "kc-math-g1-017",
+        "kc-math-g1-018",
+        "kc-math-g1-019",
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 1,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "unit-intro"
+    },
+    "s1-page-027": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-013",
+        "kc-math-g1-014",
+        "kc-math-g1-015",
+        "kc-math-g1-016",
+        "kc-math-g1-017",
+        "kc-math-g1-018",
+        "kc-math-g1-019",
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 1,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-028": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-017"
+      ],
+      "unit": 1,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-029": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-017"
+      ],
+      "unit": 1,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-030": {
+      "kcIds": [
+        "kc-math-g1-017",
+        "kc-math-g1-018"
+      ],
+      "unit": 1,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-031": {
+      "kcIds": [
+        "kc-math-g1-017",
+        "kc-math-g1-018"
+      ],
+      "unit": 1,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-032": {
+      "kcIds": [
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007"
+      ],
+      "unit": 1,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-033": {
+      "kcIds": [
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007"
+      ],
+      "unit": 1,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-034": {
+      "kcIds": [
+        "kc-math-g1-019",
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 1,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-035": {
+      "kcIds": [
+        "kc-math-g1-019",
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 1,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-036": {
+      "kcIds": [
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 1,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-037": {
+      "kcIds": [
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 1,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-038": {
+      "kcIds": [
+        "kc-math-g1-013",
+        "kc-math-g1-014"
+      ],
+      "unit": 1,
+      "lesson": 6,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-039": {
+      "kcIds": [
+        "kc-math-g1-013",
+        "kc-math-g1-014"
+      ],
+      "unit": 1,
+      "lesson": 6,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-040": {
+      "kcIds": [
+        "kc-math-g1-015",
+        "kc-math-g1-016"
+      ],
+      "unit": 1,
+      "lesson": 7,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-041": {
+      "kcIds": [
+        "kc-math-g1-015",
+        "kc-math-g1-016"
+      ],
+      "unit": 1,
+      "lesson": 7,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-042": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-013",
+        "kc-math-g1-014",
+        "kc-math-g1-015",
+        "kc-math-g1-016",
+        "kc-math-g1-017",
+        "kc-math-g1-018",
+        "kc-math-g1-019",
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 1,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-043": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-013",
+        "kc-math-g1-014",
+        "kc-math-g1-015",
+        "kc-math-g1-016",
+        "kc-math-g1-017",
+        "kc-math-g1-018",
+        "kc-math-g1-019",
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 1,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-044": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-013",
+        "kc-math-g1-014",
+        "kc-math-g1-015",
+        "kc-math-g1-016",
+        "kc-math-g1-017",
+        "kc-math-g1-018",
+        "kc-math-g1-019",
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 1,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-045": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004",
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007",
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-013",
+        "kc-math-g1-014",
+        "kc-math-g1-015",
+        "kc-math-g1-016",
+        "kc-math-g1-017",
+        "kc-math-g1-018",
+        "kc-math-g1-019",
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 1,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-046": {
+      "kcIds": [
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-023",
+        "kc-math-g1-024",
+        "kc-math-g1-025",
+        "kc-math-g1-026",
+        "kc-math-g1-027",
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 2,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "unit-intro"
+    },
+    "s1-page-047": {
+      "kcIds": [
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-023",
+        "kc-math-g1-024",
+        "kc-math-g1-025",
+        "kc-math-g1-026",
+        "kc-math-g1-027",
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 2,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-048": {
+      "kcIds": [
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 2,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-049": {
+      "kcIds": [
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 2,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-050": {
+      "kcIds": [
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 2,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-051": {
+      "kcIds": [
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 2,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-052": {
+      "kcIds": [
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010"
+      ],
+      "unit": 2,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-053": {
+      "kcIds": [
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010"
+      ],
+      "unit": 2,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-054": {
+      "kcIds": [
+        "kc-math-g1-023",
+        "kc-math-g1-024"
+      ],
+      "unit": 2,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-055": {
+      "kcIds": [
+        "kc-math-g1-023",
+        "kc-math-g1-024"
+      ],
+      "unit": 2,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-056": {
+      "kcIds": [
+        "kc-math-g1-025",
+        "kc-math-g1-026"
+      ],
+      "unit": 2,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-057": {
+      "kcIds": [
+        "kc-math-g1-025",
+        "kc-math-g1-026"
+      ],
+      "unit": 2,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-058": {
+      "kcIds": [
+        "kc-math-g1-027"
+      ],
+      "unit": 2,
+      "lesson": 6,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-059": {
+      "kcIds": [
+        "kc-math-g1-027"
+      ],
+      "unit": 2,
+      "lesson": 6,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-060": {
+      "kcIds": [
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-023",
+        "kc-math-g1-024",
+        "kc-math-g1-025",
+        "kc-math-g1-026",
+        "kc-math-g1-027",
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 2,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-061": {
+      "kcIds": [
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-023",
+        "kc-math-g1-024",
+        "kc-math-g1-025",
+        "kc-math-g1-026",
+        "kc-math-g1-027",
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 2,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-062": {
+      "kcIds": [
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-023",
+        "kc-math-g1-024",
+        "kc-math-g1-025",
+        "kc-math-g1-026",
+        "kc-math-g1-027",
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 2,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-063": {
+      "kcIds": [
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010",
+        "kc-math-g1-011",
+        "kc-math-g1-012",
+        "kc-math-g1-023",
+        "kc-math-g1-024",
+        "kc-math-g1-025",
+        "kc-math-g1-026",
+        "kc-math-g1-027",
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 2,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-064": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029",
+        "kc-math-g1-033",
+        "kc-math-g1-034",
+        "kc-math-g1-035",
+        "kc-math-g1-036",
+        "kc-math-g1-037",
+        "kc-math-g1-038"
+      ],
+      "unit": 3,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "unit-intro"
+    },
+    "s1-page-065": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029",
+        "kc-math-g1-033",
+        "kc-math-g1-034",
+        "kc-math-g1-035",
+        "kc-math-g1-036",
+        "kc-math-g1-037",
+        "kc-math-g1-038"
+      ],
+      "unit": 3,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-066": {
+      "kcIds": [
+        "kc-math-g1-033"
+      ],
+      "unit": 3,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-067": {
+      "kcIds": [
+        "kc-math-g1-033"
+      ],
+      "unit": 3,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-068": {
+      "kcIds": [
+        "kc-math-g1-037"
+      ],
+      "unit": 3,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-069": {
+      "kcIds": [
+        "kc-math-g1-037"
+      ],
+      "unit": 3,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-070": {
+      "kcIds": [
+        "kc-math-g1-034"
+      ],
+      "unit": 3,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-071": {
+      "kcIds": [
+        "kc-math-g1-034"
+      ],
+      "unit": 3,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-072": {
+      "kcIds": [
+        "kc-math-g1-038"
+      ],
+      "unit": 3,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-073": {
+      "kcIds": [
+        "kc-math-g1-038"
+      ],
+      "unit": 3,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-074": {
+      "kcIds": [
+        "kc-math-g1-035"
+      ],
+      "unit": 3,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-075": {
+      "kcIds": [
+        "kc-math-g1-035"
+      ],
+      "unit": 3,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-076": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029"
+      ],
+      "unit": 3,
+      "lesson": 6,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-077": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029"
+      ],
+      "unit": 3,
+      "lesson": 6,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-078": {
+      "kcIds": [
+        "kc-math-g1-036"
+      ],
+      "unit": 3,
+      "lesson": 7,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-079": {
+      "kcIds": [
+        "kc-math-g1-036"
+      ],
+      "unit": 3,
+      "lesson": 7,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-080": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029",
+        "kc-math-g1-033",
+        "kc-math-g1-034",
+        "kc-math-g1-035",
+        "kc-math-g1-036",
+        "kc-math-g1-037",
+        "kc-math-g1-038"
+      ],
+      "unit": 3,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-081": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029",
+        "kc-math-g1-033",
+        "kc-math-g1-034",
+        "kc-math-g1-035",
+        "kc-math-g1-036",
+        "kc-math-g1-037",
+        "kc-math-g1-038"
+      ],
+      "unit": 3,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-082": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029",
+        "kc-math-g1-033",
+        "kc-math-g1-034",
+        "kc-math-g1-035",
+        "kc-math-g1-036",
+        "kc-math-g1-037",
+        "kc-math-g1-038"
+      ],
+      "unit": 3,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-083": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029",
+        "kc-math-g1-033",
+        "kc-math-g1-034",
+        "kc-math-g1-035",
+        "kc-math-g1-036",
+        "kc-math-g1-037",
+        "kc-math-g1-038"
+      ],
+      "unit": 3,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-084": {
+      "kcIds": [
+        "kc-math-g1-030",
+        "kc-math-g1-031",
+        "kc-math-g1-032",
+        "kc-math-g1-039",
+        "kc-math-g1-040",
+        "kc-math-g1-041"
+      ],
+      "unit": 4,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "unit-intro"
+    },
+    "s1-page-085": {
+      "kcIds": [
+        "kc-math-g1-030",
+        "kc-math-g1-031",
+        "kc-math-g1-032",
+        "kc-math-g1-039",
+        "kc-math-g1-040",
+        "kc-math-g1-041"
+      ],
+      "unit": 4,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "project"
+    },
+    "s1-page-086": {
+      "kcIds": [
+        "kc-math-g1-039"
+      ],
+      "unit": 4,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-087": {
+      "kcIds": [
+        "kc-math-g1-039"
+      ],
+      "unit": 4,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-088": {
+      "kcIds": [
+        "kc-math-g1-040"
+      ],
+      "unit": 4,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-089": {
+      "kcIds": [
+        "kc-math-g1-040"
+      ],
+      "unit": 4,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-090": {
+      "kcIds": [
+        "kc-math-g1-041"
+      ],
+      "unit": 4,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-091": {
+      "kcIds": [
+        "kc-math-g1-041"
+      ],
+      "unit": 4,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-092": {
+      "kcIds": [
+        "kc-math-g1-030"
+      ],
+      "unit": 4,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-093": {
+      "kcIds": [
+        "kc-math-g1-030"
+      ],
+      "unit": 4,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-094": {
+      "kcIds": [
+        "kc-math-g1-031",
+        "kc-math-g1-032"
+      ],
+      "unit": 4,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-095": {
+      "kcIds": [
+        "kc-math-g1-031",
+        "kc-math-g1-032"
+      ],
+      "unit": 4,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-096": {
+      "kcIds": [
+        "kc-math-g1-030",
+        "kc-math-g1-031",
+        "kc-math-g1-032",
+        "kc-math-g1-039",
+        "kc-math-g1-040",
+        "kc-math-g1-041"
+      ],
+      "unit": 4,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-097": {
+      "kcIds": [
+        "kc-math-g1-030",
+        "kc-math-g1-031",
+        "kc-math-g1-032",
+        "kc-math-g1-039",
+        "kc-math-g1-040",
+        "kc-math-g1-041"
+      ],
+      "unit": 4,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-098": {
+      "kcIds": [
+        "kc-math-g1-030",
+        "kc-math-g1-031",
+        "kc-math-g1-032",
+        "kc-math-g1-039",
+        "kc-math-g1-040",
+        "kc-math-g1-041"
+      ],
+      "unit": 4,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-099": {
+      "kcIds": [
+        "kc-math-g1-030",
+        "kc-math-g1-031",
+        "kc-math-g1-032",
+        "kc-math-g1-039",
+        "kc-math-g1-040",
+        "kc-math-g1-041"
+      ],
+      "unit": 4,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-100": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110",
+        "kc-math-g1-111",
+        "kc-math-g1-112",
+        "kc-math-g1-113",
+        "kc-math-g1-114",
+        "kc-math-g1-115",
+        "kc-math-g1-116"
+      ],
+      "unit": 5,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "unit-intro"
+    },
+    "s1-page-101": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110",
+        "kc-math-g1-111",
+        "kc-math-g1-112",
+        "kc-math-g1-113",
+        "kc-math-g1-114",
+        "kc-math-g1-115",
+        "kc-math-g1-116"
+      ],
+      "unit": 5,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "project"
+    },
+    "s1-page-102": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110"
+      ],
+      "unit": 5,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-103": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110"
+      ],
+      "unit": 5,
+      "lesson": 1,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-104": {
+      "kcIds": [
+        "kc-math-g1-111",
+        "kc-math-g1-112"
+      ],
+      "unit": 5,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-105": {
+      "kcIds": [
+        "kc-math-g1-111",
+        "kc-math-g1-112"
+      ],
+      "unit": 5,
+      "lesson": 2,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-106": {
+      "kcIds": [
+        "kc-math-g1-114",
+        "kc-math-g1-115"
+      ],
+      "unit": 5,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-107": {
+      "kcIds": [
+        "kc-math-g1-114",
+        "kc-math-g1-115"
+      ],
+      "unit": 5,
+      "lesson": 3,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-108": {
+      "kcIds": [
+        "kc-math-g1-113"
+      ],
+      "unit": 5,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-109": {
+      "kcIds": [
+        "kc-math-g1-113"
+      ],
+      "unit": 5,
+      "lesson": 4,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-110": {
+      "kcIds": [
+        "kc-math-g1-116"
+      ],
+      "unit": 5,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "content"
+    },
+    "s1-page-111": {
+      "kcIds": [
+        "kc-math-g1-116"
+      ],
+      "unit": 5,
+      "lesson": 5,
+      "book": "s1",
+      "pageType": "exercise"
+    },
+    "s1-page-112": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110",
+        "kc-math-g1-111",
+        "kc-math-g1-112",
+        "kc-math-g1-113",
+        "kc-math-g1-114",
+        "kc-math-g1-115",
+        "kc-math-g1-116"
+      ],
+      "unit": 5,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-113": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110",
+        "kc-math-g1-111",
+        "kc-math-g1-112",
+        "kc-math-g1-113",
+        "kc-math-g1-114",
+        "kc-math-g1-115",
+        "kc-math-g1-116"
+      ],
+      "unit": 5,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "game"
+    },
+    "s1-page-114": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110",
+        "kc-math-g1-111",
+        "kc-math-g1-112",
+        "kc-math-g1-113",
+        "kc-math-g1-114",
+        "kc-math-g1-115",
+        "kc-math-g1-116"
+      ],
+      "unit": 5,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1-page-115": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110",
+        "kc-math-g1-111",
+        "kc-math-g1-112",
+        "kc-math-g1-113",
+        "kc-math-g1-114",
+        "kc-math-g1-115",
+        "kc-math-g1-116"
+      ],
+      "unit": 5,
+      "lesson": null,
+      "book": "s1",
+      "pageType": "review"
+    },
+    "s1ex-page-001": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "cover"
+    },
+    "s1ex-page-002": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "cover"
+    },
+    "s1ex-page-003": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "cover"
+    },
+    "s1ex-page-004": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "cover"
+    },
+    "s1ex-page-005": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "toc"
+    },
+    "s1ex-page-006": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "toc"
+    },
+    "s1ex-page-007": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "toc"
+    },
+    "s1ex-page-008": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "toc"
+    },
+    "s1ex-page-009": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 1,
+      "lesson": 1,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-010": {
+      "kcIds": [
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 1,
+      "lesson": 2,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-011": {
+      "kcIds": [
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007"
+      ],
+      "unit": 1,
+      "lesson": 3,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-012": {
+      "kcIds": [
+        "kc-math-g1-015",
+        "kc-math-g1-016"
+      ],
+      "unit": 1,
+      "lesson": 4,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-013": {
+      "kcIds": [
+        "kc-math-g1-008",
+        "kc-math-g1-009",
+        "kc-math-g1-010"
+      ],
+      "unit": 1,
+      "lesson": 5,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-014": {
+      "kcIds": [
+        "kc-math-g1-027"
+      ],
+      "unit": 1,
+      "lesson": 6,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-015": {
+      "kcIds": [
+        "kc-math-g1-011",
+        "kc-math-g1-012"
+      ],
+      "unit": 1,
+      "lesson": 7,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-016": {
+      "kcIds": [
+        "kc-math-g1-013",
+        "kc-math-g1-014"
+      ],
+      "unit": 1,
+      "lesson": 8,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-017": {
+      "kcIds": [
+        "kc-math-g1-005",
+        "kc-math-g1-006",
+        "kc-math-g1-007"
+      ],
+      "unit": 2,
+      "lesson": 1,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-018": {
+      "kcIds": [
+        "kc-math-g1-017",
+        "kc-math-g1-018",
+        "kc-math-g1-019"
+      ],
+      "unit": 2,
+      "lesson": 2,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-019": {
+      "kcIds": [
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 2,
+      "lesson": 3,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-020": {
+      "kcIds": [
+        "kc-math-g1-023",
+        "kc-math-g1-024"
+      ],
+      "unit": 2,
+      "lesson": 4,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-021": {
+      "kcIds": [
+        "kc-math-g1-025",
+        "kc-math-g1-026"
+      ],
+      "unit": 2,
+      "lesson": 5,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-022": {
+      "kcIds": [
+        "kc-math-g1-027"
+      ],
+      "unit": 2,
+      "lesson": 6,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-023": {
+      "kcIds": [
+        "kc-math-g1-027"
+      ],
+      "unit": 2,
+      "lesson": 7,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-024": {
+      "kcIds": [
+        "kc-math-g1-023",
+        "kc-math-g1-024",
+        "kc-math-g1-025",
+        "kc-math-g1-026"
+      ],
+      "unit": 2,
+      "lesson": 8,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-025": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 2,
+      "lesson": 9,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-026": {
+      "kcIds": [
+        "kc-math-g1-001",
+        "kc-math-g1-002",
+        "kc-math-g1-003",
+        "kc-math-g1-004"
+      ],
+      "unit": 2,
+      "lesson": 9,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-027": {
+      "kcIds": [
+        "kc-math-g1-067",
+        "kc-math-g1-071"
+      ],
+      "unit": 3,
+      "lesson": 1,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-028": {
+      "kcIds": [
+        "kc-math-g1-017",
+        "kc-math-g1-018",
+        "kc-math-g1-019",
+        "kc-math-g1-020",
+        "kc-math-g1-021",
+        "kc-math-g1-022"
+      ],
+      "unit": 3,
+      "lesson": 2,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-029": {
+      "kcIds": [
+        "kc-math-g1-023",
+        "kc-math-g1-024",
+        "kc-math-g1-025",
+        "kc-math-g1-026"
+      ],
+      "unit": 3,
+      "lesson": 3,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-030": {
+      "kcIds": [
+        "kc-math-g1-052",
+        "kc-math-g1-053",
+        "kc-math-g1-054",
+        "kc-math-g1-055",
+        "kc-math-g1-056"
+      ],
+      "unit": 4,
+      "lesson": 1,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-031": {
+      "kcIds": [
+        "kc-math-g1-052",
+        "kc-math-g1-053",
+        "kc-math-g1-054",
+        "kc-math-g1-055",
+        "kc-math-g1-056",
+        "kc-math-g1-057",
+        "kc-math-g1-058"
+      ],
+      "unit": 4,
+      "lesson": 2,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-032": {
+      "kcIds": [
+        "kc-math-g1-059",
+        "kc-math-g1-060",
+        "kc-math-g1-061",
+        "kc-math-g1-062"
+      ],
+      "unit": 4,
+      "lesson": 3,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-033": {
+      "kcIds": [
+        "kc-math-g1-038"
+      ],
+      "unit": 5,
+      "lesson": 1,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-034": {
+      "kcIds": [
+        "kc-math-g1-030"
+      ],
+      "unit": 5,
+      "lesson": 2,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-035": {
+      "kcIds": [
+        "kc-math-g1-042"
+      ],
+      "unit": 5,
+      "lesson": 3,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-036": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029"
+      ],
+      "unit": 5,
+      "lesson": 4,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-037": {
+      "kcIds": [
+        "kc-math-g1-033",
+        "kc-math-g1-034",
+        "kc-math-g1-035"
+      ],
+      "unit": 5,
+      "lesson": 5,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-038": {
+      "kcIds": [
+        "kc-math-g1-036",
+        "kc-math-g1-037"
+      ],
+      "unit": 5,
+      "lesson": 6,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-039": {
+      "kcIds": [
+        "kc-math-g1-039",
+        "kc-math-g1-040",
+        "kc-math-g1-041"
+      ],
+      "unit": 5,
+      "lesson": 7,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-040": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029"
+      ],
+      "unit": 5,
+      "lesson": 8,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-041": {
+      "kcIds": [
+        "kc-math-g1-030",
+        "kc-math-g1-038"
+      ],
+      "unit": 6,
+      "lesson": 1,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-042": {
+      "kcIds": [
+        "kc-math-g1-043",
+        "kc-math-g1-044"
+      ],
+      "unit": 6,
+      "lesson": 2,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-043": {
+      "kcIds": [
+        "kc-math-g1-042",
+        "kc-math-g1-043"
+      ],
+      "unit": 6,
+      "lesson": 3,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-044": {
+      "kcIds": [
+        "kc-math-g1-050",
+        "kc-math-g1-051"
+      ],
+      "unit": 6,
+      "lesson": 4,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-045": {
+      "kcIds": [
+        "kc-math-g1-039",
+        "kc-math-g1-040",
+        "kc-math-g1-041"
+      ],
+      "unit": 6,
+      "lesson": 5,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-046": {
+      "kcIds": [
+        "kc-math-g1-044",
+        "kc-math-g1-045"
+      ],
+      "unit": 6,
+      "lesson": 6,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-047": {
+      "kcIds": [
+        "kc-math-g1-044",
+        "kc-math-g1-045"
+      ],
+      "unit": 6,
+      "lesson": 7,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-048": {
+      "kcIds": [
+        "kc-math-g1-050",
+        "kc-math-g1-051"
+      ],
+      "unit": 6,
+      "lesson": 8,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-049": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029",
+        "kc-math-g1-030",
+        "kc-math-g1-031",
+        "kc-math-g1-032"
+      ],
+      "unit": 6,
+      "lesson": 9,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-050": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029",
+        "kc-math-g1-030",
+        "kc-math-g1-031",
+        "kc-math-g1-032"
+      ],
+      "unit": 6,
+      "lesson": 9,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-051": {
+      "kcIds": [
+        "kc-math-g1-072",
+        "kc-math-g1-068"
+      ],
+      "unit": 7,
+      "lesson": 1,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-052": {
+      "kcIds": [
+        "kc-math-g1-072",
+        "kc-math-g1-069"
+      ],
+      "unit": 7,
+      "lesson": 2,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-053": {
+      "kcIds": [
+        "kc-math-g1-072",
+        "kc-math-g1-070"
+      ],
+      "unit": 7,
+      "lesson": 3,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-054": {
+      "kcIds": [
+        "kc-math-g1-072",
+        "kc-math-g1-073",
+        "kc-math-g1-074",
+        "kc-math-g1-068",
+        "kc-math-g1-069",
+        "kc-math-g1-070"
+      ],
+      "unit": 7,
+      "lesson": 4,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-055": {
+      "kcIds": [
+        "kc-math-g1-072",
+        "kc-math-g1-073",
+        "kc-math-g1-074",
+        "kc-math-g1-068",
+        "kc-math-g1-069",
+        "kc-math-g1-070"
+      ],
+      "unit": 7,
+      "lesson": 4,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-056": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110",
+        "kc-math-g1-111",
+        "kc-math-g1-112"
+      ],
+      "unit": 8,
+      "lesson": 1,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-057": {
+      "kcIds": [
+        "kc-math-g1-114",
+        "kc-math-g1-115"
+      ],
+      "unit": 8,
+      "lesson": 2,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-058": {
+      "kcIds": [
+        "kc-math-g1-113"
+      ],
+      "unit": 8,
+      "lesson": 3,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-059": {
+      "kcIds": [
+        "kc-math-g1-113"
+      ],
+      "unit": 8,
+      "lesson": 4,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-060": {
+      "kcIds": [
+        "kc-math-g1-114",
+        "kc-math-g1-115",
+        "kc-math-g1-116"
+      ],
+      "unit": 8,
+      "lesson": 5,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-061": {
+      "kcIds": [
+        "kc-math-g1-109",
+        "kc-math-g1-110",
+        "kc-math-g1-111",
+        "kc-math-g1-112"
+      ],
+      "unit": 8,
+      "lesson": 6,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-062": {
+      "kcIds": [
+        "kc-math-g1-113",
+        "kc-math-g1-114",
+        "kc-math-g1-115",
+        "kc-math-g1-116"
+      ],
+      "unit": 8,
+      "lesson": 7,
+      "book": "s1ex",
+      "pageType": "exercise"
+    },
+    "s1ex-page-063": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "blank"
+    },
+    "s1ex-page-064": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "blank"
+    },
+    "s1ex-page-065": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s1ex",
+      "pageType": "blank"
+    },
+    "s2-page-001": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "cover"
+    },
+    "s2-page-002": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "cover"
+    },
+    "s2-page-003": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "copyright"
+    },
+    "s2-page-004": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "royal-quote"
+    },
+    "s2-page-005": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "toc"
+    },
+    "s2-page-006": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "toc"
+    },
+    "s2-page-007": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "blank"
+    },
+    "s2-page-008": {
+      "kcIds": [
+        "kc-math-g1-028",
+        "kc-math-g1-029",
+        "kc-math-g1-030",
+        "kc-math-g1-031",
+        "kc-math-g1-032",
+        "kc-math-g1-033",
+        "kc-math-g1-034",
+        "kc-math-g1-035",
+        "kc-math-g1-036",
+        "kc-math-g1-037",
+        "kc-math-g1-038",
+        "kc-math-g1-039",
+        "kc-math-g1-040",
+        "kc-math-g1-041",
+        "kc-math-g1-042",
+        "kc-math-g1-043",
+        "kc-math-g1-044",
+        "kc-math-g1-045",
+        "kc-math-g1-046",
+        "kc-math-g1-047",
+        "kc-math-g1-048",
+        "kc-math-g1-049",
+        "kc-math-g1-050",
+        "kc-math-g1-051"
+      ],
+      "unit": 9,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "unit-intro"
+    },
+    "s2-page-009": {
+      "kcIds": [
+        "kc-math-g1-038",
+        "kc-math-g1-030"
+      ],
+      "unit": 9,
+      "lesson": 1,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-010": {
+      "kcIds": [
+        "kc-math-g1-046",
+        "kc-math-g1-047"
+      ],
+      "unit": 9,
+      "lesson": 2,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-011": {
+      "kcIds": [
+        "kc-math-g1-048",
+        "kc-math-g1-049"
+      ],
+      "unit": 9,
+      "lesson": 3,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-012": {
+      "kcIds": [
+        "kc-math-g1-031"
+      ],
+      "unit": 9,
+      "lesson": 4,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-013": {
+      "kcIds": [
+        "kc-math-g1-032"
+      ],
+      "unit": 9,
+      "lesson": 5,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-014": {
+      "kcIds": [
+        "kc-math-g1-044",
+        "kc-math-g1-051"
+      ],
+      "unit": 9,
+      "lesson": 6,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-015": {
+      "kcIds": [
+        "kc-math-g1-042",
+        "kc-math-g1-043"
+      ],
+      "unit": 9,
+      "lesson": 7,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-016": {
+      "kcIds": [
+        "kc-math-g1-044",
+        "kc-math-g1-045"
+      ],
+      "unit": 9,
+      "lesson": 8,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-017": {
+      "kcIds": [
+        "kc-math-g1-050",
+        "kc-math-g1-051"
+      ],
+      "unit": 9,
+      "lesson": 9,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-018": {
+      "kcIds": [
+        "kc-math-g1-072",
+        "kc-math-g1-073",
+        "kc-math-g1-074",
+        "kc-math-g1-075",
+        "kc-math-g1-076",
+        "kc-math-g1-077",
+        "kc-math-g1-078"
+      ],
+      "unit": 10,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "unit-intro"
+    },
+    "s2-page-019": {
+      "kcIds": [
+        "kc-math-g1-072",
+        "kc-math-g1-073",
+        "kc-math-g1-074",
+        "kc-math-g1-075",
+        "kc-math-g1-076"
+      ],
+      "unit": 10,
+      "lesson": 1,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-020": {
+      "kcIds": [
+        "kc-math-g1-077",
+        "kc-math-g1-078"
+      ],
+      "unit": 10,
+      "lesson": 2,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-021": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "blank"
+    },
+    "s2-page-022": {
+      "kcIds": [
+        "kc-math-g1-079",
+        "kc-math-g1-080",
+        "kc-math-g1-081"
+      ],
+      "unit": 11,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "unit-intro"
+    },
+    "s2-page-023": {
+      "kcIds": [
+        "kc-math-g1-079"
+      ],
+      "unit": 11,
+      "lesson": 1,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-024": {
+      "kcIds": [
+        "kc-math-g1-080",
+        "kc-math-g1-081"
+      ],
+      "unit": 11,
+      "lesson": 2,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-025": {
+      "kcIds": [
+        "kc-math-g1-079",
+        "kc-math-g1-080",
+        "kc-math-g1-081"
+      ],
+      "unit": 11,
+      "lesson": 3,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-026": {
+      "kcIds": [
+        "kc-math-g1-079",
+        "kc-math-g1-080",
+        "kc-math-g1-081"
+      ],
+      "unit": 11,
+      "lesson": 4,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-027": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "blank"
+    },
+    "s2-page-028": {
+      "kcIds": [
+        "kc-math-g1-082",
+        "kc-math-g1-083",
+        "kc-math-g1-084",
+        "kc-math-g1-085",
+        "kc-math-g1-086"
+      ],
+      "unit": 12,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "unit-intro"
+    },
+    "s2-page-029": {
+      "kcIds": [
+        "kc-math-g1-082",
+        "kc-math-g1-083",
+        "kc-math-g1-084"
+      ],
+      "unit": 12,
+      "lesson": 1,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-030": {
+      "kcIds": [
+        "kc-math-g1-085",
+        "kc-math-g1-086"
+      ],
+      "unit": 12,
+      "lesson": 2,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-031": {
+      "kcIds": [
+        "kc-math-g1-082",
+        "kc-math-g1-083"
+      ],
+      "unit": 12,
+      "lesson": 3,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-032": {
+      "kcIds": [
+        "kc-math-g1-087",
+        "kc-math-g1-088",
+        "kc-math-g1-089",
+        "kc-math-g1-090"
+      ],
+      "unit": 13,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "unit-intro"
+    },
+    "s2-page-033": {
+      "kcIds": [
+        "kc-math-g1-087",
+        "kc-math-g1-088",
+        "kc-math-g1-089"
+      ],
+      "unit": 13,
+      "lesson": 1,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-034": {
+      "kcIds": [
+        "kc-math-g1-090"
+      ],
+      "unit": 13,
+      "lesson": 2,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-035": {
+      "kcIds": [
+        "kc-math-g1-087",
+        "kc-math-g1-088"
+      ],
+      "unit": 13,
+      "lesson": 3,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-036": {
+      "kcIds": [
+        "kc-math-g1-091",
+        "kc-math-g1-092",
+        "kc-math-g1-093",
+        "kc-math-g1-094"
+      ],
+      "unit": 14,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "unit-intro"
+    },
+    "s2-page-037": {
+      "kcIds": [
+        "kc-math-g1-091",
+        "kc-math-g1-092"
+      ],
+      "unit": 14,
+      "lesson": 1,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-038": {
+      "kcIds": [
+        "kc-math-g1-093"
+      ],
+      "unit": 14,
+      "lesson": 2,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-039": {
+      "kcIds": [
+        "kc-math-g1-094"
+      ],
+      "unit": 14,
+      "lesson": 3,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-040": {
+      "kcIds": [
+        "kc-math-g1-095",
+        "kc-math-g1-096",
+        "kc-math-g1-097",
+        "kc-math-g1-098",
+        "kc-math-g1-099",
+        "kc-math-g1-100",
+        "kc-math-g1-101",
+        "kc-math-g1-102",
+        "kc-math-g1-103",
+        "kc-math-g1-104",
+        "kc-math-g1-105",
+        "kc-math-g1-106",
+        "kc-math-g1-107",
+        "kc-math-g1-108"
+      ],
+      "unit": 15,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "unit-intro"
+    },
+    "s2-page-041": {
+      "kcIds": [
+        "kc-math-g1-104",
+        "kc-math-g1-105",
+        "kc-math-g1-106"
+      ],
+      "unit": 15,
+      "lesson": 1,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-042": {
+      "kcIds": [
+        "kc-math-g1-107"
+      ],
+      "unit": 15,
+      "lesson": 2,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-043": {
+      "kcIds": [
+        "kc-math-g1-095",
+        "kc-math-g1-096",
+        "kc-math-g1-097",
+        "kc-math-g1-098"
+      ],
+      "unit": 15,
+      "lesson": 3,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-044": {
+      "kcIds": [
+        "kc-math-g1-099",
+        "kc-math-g1-100",
+        "kc-math-g1-101",
+        "kc-math-g1-102",
+        "kc-math-g1-103"
+      ],
+      "unit": 15,
+      "lesson": 4,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-045": {
+      "kcIds": [
+        "kc-math-g1-108"
+      ],
+      "unit": 15,
+      "lesson": 5,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-046": {
+      "kcIds": [
+        "kc-math-g1-095",
+        "kc-math-g1-096",
+        "kc-math-g1-097",
+        "kc-math-g1-098",
+        "kc-math-g1-099",
+        "kc-math-g1-100",
+        "kc-math-g1-101",
+        "kc-math-g1-102",
+        "kc-math-g1-103",
+        "kc-math-g1-104",
+        "kc-math-g1-105",
+        "kc-math-g1-106",
+        "kc-math-g1-107",
+        "kc-math-g1-108"
+      ],
+      "unit": 15,
+      "lesson": 6,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-047": {
+      "kcIds": [],
+      "unit": 15,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "blank"
+    },
+    "s2-page-048": {
+      "kcIds": [
+        "kc-math-g1-063",
+        "kc-math-g1-064",
+        "kc-math-g1-065",
+        "kc-math-g1-066"
+      ],
+      "unit": 16,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "unit-intro"
+    },
+    "s2-page-049": {
+      "kcIds": [
+        "kc-math-g1-063",
+        "kc-math-g1-064"
+      ],
+      "unit": 16,
+      "lesson": 1,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-050": {
+      "kcIds": [
+        "kc-math-g1-065",
+        "kc-math-g1-066"
+      ],
+      "unit": 16,
+      "lesson": 2,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-051": {
+      "kcIds": [
+        "kc-math-g1-063",
+        "kc-math-g1-064",
+        "kc-math-g1-065",
+        "kc-math-g1-066"
+      ],
+      "unit": 16,
+      "lesson": 3,
+      "book": "s2",
+      "pageType": "content"
+    },
+    "s2-page-052": {
+      "kcIds": [],
+      "unit": 16,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "blank"
+    },
+    "s2-page-053": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2",
+      "pageType": "blank"
+    },
+    "s2ex-page-001": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2ex",
+      "pageType": "cover"
+    },
+    "s2ex-page-002": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2ex",
+      "pageType": "cover"
+    },
+    "s2ex-page-003": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2ex",
+      "pageType": "copyright"
+    },
+    "s2ex-page-004": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2ex",
+      "pageType": "dedication"
+    },
+    "s2ex-page-005": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2ex",
+      "pageType": "toc"
+    },
+    "s2ex-page-006": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2ex",
+      "pageType": "toc"
+    },
+    "s2ex-page-007": {
+      "kcIds": [
+        "kc-math-g1-038",
+        "kc-math-g1-030"
+      ],
+      "unit": 9,
+      "lesson": 1,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-008": {
+      "kcIds": [
+        "kc-math-g1-046",
+        "kc-math-g1-047"
+      ],
+      "unit": 9,
+      "lesson": 2,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-009": {
+      "kcIds": [
+        "kc-math-g1-048",
+        "kc-math-g1-049"
+      ],
+      "unit": 9,
+      "lesson": 3,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-010": {
+      "kcIds": [
+        "kc-math-g1-031"
+      ],
+      "unit": 9,
+      "lesson": 4,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-011": {
+      "kcIds": [
+        "kc-math-g1-032"
+      ],
+      "unit": 9,
+      "lesson": 5,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-012": {
+      "kcIds": [
+        "kc-math-g1-044",
+        "kc-math-g1-051"
+      ],
+      "unit": 9,
+      "lesson": 6,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-013": {
+      "kcIds": [
+        "kc-math-g1-042",
+        "kc-math-g1-043"
+      ],
+      "unit": 9,
+      "lesson": 7,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-014": {
+      "kcIds": [
+        "kc-math-g1-044",
+        "kc-math-g1-045"
+      ],
+      "unit": 9,
+      "lesson": 8,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-015": {
+      "kcIds": [
+        "kc-math-g1-050",
+        "kc-math-g1-051"
+      ],
+      "unit": 9,
+      "lesson": 9,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-016": {
+      "kcIds": [
+        "kc-math-g1-072",
+        "kc-math-g1-073",
+        "kc-math-g1-074",
+        "kc-math-g1-075",
+        "kc-math-g1-076"
+      ],
+      "unit": 10,
+      "lesson": 1,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-017": {
+      "kcIds": [
+        "kc-math-g1-077",
+        "kc-math-g1-078"
+      ],
+      "unit": 10,
+      "lesson": 2,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-018": {
+      "kcIds": [
+        "kc-math-g1-079"
+      ],
+      "unit": 11,
+      "lesson": 1,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-019": {
+      "kcIds": [
+        "kc-math-g1-080",
+        "kc-math-g1-081"
+      ],
+      "unit": 11,
+      "lesson": 2,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-020": {
+      "kcIds": [
+        "kc-math-g1-079",
+        "kc-math-g1-080",
+        "kc-math-g1-081"
+      ],
+      "unit": 11,
+      "lesson": 3,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-021": {
+      "kcIds": [
+        "kc-math-g1-079",
+        "kc-math-g1-080",
+        "kc-math-g1-081"
+      ],
+      "unit": 11,
+      "lesson": 4,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-022": {
+      "kcIds": [
+        "kc-math-g1-082",
+        "kc-math-g1-083",
+        "kc-math-g1-084"
+      ],
+      "unit": 12,
+      "lesson": 1,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-023": {
+      "kcIds": [
+        "kc-math-g1-085",
+        "kc-math-g1-086"
+      ],
+      "unit": 12,
+      "lesson": 2,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-024": {
+      "kcIds": [
+        "kc-math-g1-082",
+        "kc-math-g1-083"
+      ],
+      "unit": 12,
+      "lesson": 3,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-025": {
+      "kcIds": [
+        "kc-math-g1-087",
+        "kc-math-g1-088",
+        "kc-math-g1-089"
+      ],
+      "unit": 13,
+      "lesson": 1,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-026": {
+      "kcIds": [
+        "kc-math-g1-090"
+      ],
+      "unit": 13,
+      "lesson": 2,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-027": {
+      "kcIds": [
+        "kc-math-g1-087",
+        "kc-math-g1-088"
+      ],
+      "unit": 13,
+      "lesson": 3,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-028": {
+      "kcIds": [
+        "kc-math-g1-091",
+        "kc-math-g1-092"
+      ],
+      "unit": 14,
+      "lesson": 1,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-029": {
+      "kcIds": [
+        "kc-math-g1-093"
+      ],
+      "unit": 14,
+      "lesson": 2,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-030": {
+      "kcIds": [
+        "kc-math-g1-094"
+      ],
+      "unit": 14,
+      "lesson": 3,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-031": {
+      "kcIds": [
+        "kc-math-g1-104",
+        "kc-math-g1-105",
+        "kc-math-g1-106"
+      ],
+      "unit": 15,
+      "lesson": 1,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-032": {
+      "kcIds": [
+        "kc-math-g1-107"
+      ],
+      "unit": 15,
+      "lesson": 2,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-033": {
+      "kcIds": [
+        "kc-math-g1-095",
+        "kc-math-g1-096",
+        "kc-math-g1-097",
+        "kc-math-g1-098"
+      ],
+      "unit": 15,
+      "lesson": 3,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-034": {
+      "kcIds": [
+        "kc-math-g1-099",
+        "kc-math-g1-100",
+        "kc-math-g1-101",
+        "kc-math-g1-102",
+        "kc-math-g1-103"
+      ],
+      "unit": 15,
+      "lesson": 4,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-035": {
+      "kcIds": [
+        "kc-math-g1-108"
+      ],
+      "unit": 15,
+      "lesson": 5,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-036": {
+      "kcIds": [
+        "kc-math-g1-095",
+        "kc-math-g1-096",
+        "kc-math-g1-097",
+        "kc-math-g1-098",
+        "kc-math-g1-099",
+        "kc-math-g1-100",
+        "kc-math-g1-101",
+        "kc-math-g1-102",
+        "kc-math-g1-103",
+        "kc-math-g1-104",
+        "kc-math-g1-105",
+        "kc-math-g1-106",
+        "kc-math-g1-107",
+        "kc-math-g1-108"
+      ],
+      "unit": 15,
+      "lesson": 6,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-037": {
+      "kcIds": [
+        "kc-math-g1-063",
+        "kc-math-g1-064"
+      ],
+      "unit": 16,
+      "lesson": 1,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-038": {
+      "kcIds": [
+        "kc-math-g1-065",
+        "kc-math-g1-066"
+      ],
+      "unit": 16,
+      "lesson": 2,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-039": {
+      "kcIds": [
+        "kc-math-g1-063",
+        "kc-math-g1-064",
+        "kc-math-g1-065",
+        "kc-math-g1-066"
+      ],
+      "unit": 16,
+      "lesson": 3,
+      "book": "s2ex",
+      "pageType": "exercise"
+    },
+    "s2ex-page-040": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2ex",
+      "pageType": "blank"
+    },
+    "s2ex-page-041": {
+      "kcIds": [],
+      "unit": null,
+      "lesson": null,
+      "book": "s2ex",
+      "pageType": "back-cover"
+    }
+  },
+  "kcs": {
+    "kc-math-g1-001": {
+      "nameAr": "يتعرّف العشرات ويقرؤها",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-008",
+        "s1-page-009",
+        "s1-page-010",
+        "s1-page-011",
+        "s1-page-012",
+        "s1-page-013",
+        "s1-page-014",
+        "s1-page-015",
+        "s1-page-016",
+        "s1-page-017",
+        "s1-page-018",
+        "s1-page-019",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-028",
+        "s1-page-029",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-009",
+        "s1ex-page-025",
+        "s1ex-page-026"
+      ],
+      "totalPages": 29
+    },
+    "kc-math-g1-002": {
+      "nameAr": "يقرأ الأعداد حتى 99 بالكلمات",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-008",
+        "s1-page-009",
+        "s1-page-010",
+        "s1-page-011",
+        "s1-page-012",
+        "s1-page-013",
+        "s1-page-014",
+        "s1-page-015",
+        "s1-page-016",
+        "s1-page-017",
+        "s1-page-018",
+        "s1-page-019",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-036",
+        "s1-page-037",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-009",
+        "s1ex-page-025",
+        "s1ex-page-026"
+      ],
+      "totalPages": 29
+    },
+    "kc-math-g1-003": {
+      "nameAr": "يقرأ الأعداد حتى 99 بالرموز",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-008",
+        "s1-page-009",
+        "s1-page-010",
+        "s1-page-011",
+        "s1-page-012",
+        "s1-page-013",
+        "s1-page-014",
+        "s1-page-015",
+        "s1-page-016",
+        "s1-page-017",
+        "s1-page-018",
+        "s1-page-019",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-036",
+        "s1-page-037",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-009",
+        "s1ex-page-025",
+        "s1ex-page-026"
+      ],
+      "totalPages": 29
+    },
+    "kc-math-g1-004": {
+      "nameAr": "يكتب الأعداد حتى 99 بالصورة الرمزية",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-010",
+        "s1-page-011",
+        "s1-page-012",
+        "s1-page-013",
+        "s1-page-014",
+        "s1-page-015",
+        "s1-page-016",
+        "s1-page-017",
+        "s1-page-018",
+        "s1-page-019",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-036",
+        "s1-page-037",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-009",
+        "s1ex-page-025",
+        "s1ex-page-026"
+      ],
+      "totalPages": 27
+    },
+    "kc-math-g1-005": {
+      "nameAr": "يكتب العدد الكلي ضمن 99 لمجموعات أشياء كل منها مكوّنة من عدد من حزم العشرة، وعدد من الأشياء أقل من عشرة",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-032",
+        "s1-page-033",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-011",
+        "s1ex-page-017"
+      ],
+      "totalPages": 16
+    },
+    "kc-math-g1-006": {
+      "nameAr": "يمثّل الأعداد حتى 99 باستخدام المحسوس",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-032",
+        "s1-page-033",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-011",
+        "s1ex-page-017"
+      ],
+      "totalPages": 16
+    },
+    "kc-math-g1-007": {
+      "nameAr": "يمثّل الأعداد حتى 99 باستخدام شبه المحسوس",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-032",
+        "s1-page-033",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-011",
+        "s1ex-page-017"
+      ],
+      "totalPages": 16
+    },
+    "kc-math-g1-008": {
+      "nameAr": "يحدّد العدد السابق لعدد ما",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-052",
+        "s1-page-053",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-013"
+      ],
+      "totalPages": 21
+    },
+    "kc-math-g1-009": {
+      "nameAr": "يحدّد العدد التالي لعدد ما",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-052",
+        "s1-page-053",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-013"
+      ],
+      "totalPages": 21
+    },
+    "kc-math-g1-010": {
+      "nameAr": "يحدّد العدد البيني بين عددين",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-052",
+        "s1-page-053",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-013"
+      ],
+      "totalPages": 21
+    },
+    "kc-math-g1-011": {
+      "nameAr": "يعدّ تصاعدياً بدءاً من أي عدد ضمن 99",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-020",
+        "s1-page-021",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-048",
+        "s1-page-049",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-015"
+      ],
+      "totalPages": 23
+    },
+    "kc-math-g1-012": {
+      "nameAr": "يعدّ تنازلياً بدءاً من أي عدد ضمن 99",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-006",
+        "s1-page-007",
+        "s1-page-020",
+        "s1-page-021",
+        "s1-page-022",
+        "s1-page-023",
+        "s1-page-024",
+        "s1-page-025",
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-048",
+        "s1-page-049",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-015"
+      ],
+      "totalPages": 23
+    },
+    "kc-math-g1-013": {
+      "nameAr": "يميّز العدد الزوجي بتشكيل أزواج من أشياء تمثل العدد",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-038",
+        "s1-page-039",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-016"
+      ],
+      "totalPages": 9
+    },
+    "kc-math-g1-014": {
+      "nameAr": "يميّز العدد الفردي بتشكيل أزواج من أشياء تمثل العدد",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-038",
+        "s1-page-039",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-016"
+      ],
+      "totalPages": 9
+    },
+    "kc-math-g1-015": {
+      "nameAr": "يستعمل لوحة الأعداد لإيجاد عدد يقل 1 عن عدد آخر أو يزيد 1 عليه",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-040",
+        "s1-page-041",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-012"
+      ],
+      "totalPages": 9
+    },
+    "kc-math-g1-016": {
+      "nameAr": "يستعمل لوحة الأعداد لإيجاد عدد يقل 10 عن عدد آخر أو يزيد 10 عليه",
+      "domain": "Numbers & Operations",
+      "standard": "Whole Numbers",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-040",
+        "s1-page-041",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-012"
+      ],
+      "totalPages": 9
+    },
+    "kc-math-g1-017": {
+      "nameAr": "يذكر عدد العشرات المكوّنة لعدد مُعطى (10، 20، 30، ...، 90)",
+      "domain": "Numbers & Operations",
+      "standard": "Place Value",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-028",
+        "s1-page-029",
+        "s1-page-030",
+        "s1-page-031",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-018",
+        "s1ex-page-028"
+      ],
+      "totalPages": 12
+    },
+    "kc-math-g1-018": {
+      "nameAr": "يستكشف أن كل عدد من منزلتين يتكوّن من عدد من العشرات وعدد من الواحدات يقل عن 10",
+      "domain": "Numbers & Operations",
+      "standard": "Place Value",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-030",
+        "s1-page-031",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-018",
+        "s1ex-page-028"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-019": {
+      "nameAr": "يكتب العدد بالصورة التحليلية",
+      "domain": "Numbers & Operations",
+      "standard": "Place Value",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-034",
+        "s1-page-035",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-018",
+        "s1ex-page-028"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-020": {
+      "nameAr": "يكتب عدداً عُلمت الصورة التحليلية له",
+      "domain": "Numbers & Operations",
+      "standard": "Place Value",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-034",
+        "s1-page-035",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-019",
+        "s1ex-page-028"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-021": {
+      "nameAr": "يشكّل أعداداً من منزلتين بالمحسوس وشبه المحسوس",
+      "domain": "Numbers & Operations",
+      "standard": "Place Value",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-034",
+        "s1-page-035",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-019",
+        "s1ex-page-028"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-022": {
+      "nameAr": "يحدّد القيمة المنزلية لرقم في عدد ضمن منزلتين",
+      "domain": "Numbers & Operations",
+      "standard": "Place Value",
+      "pageIds": [
+        "s1-page-026",
+        "s1-page-027",
+        "s1-page-034",
+        "s1-page-035",
+        "s1-page-042",
+        "s1-page-043",
+        "s1-page-044",
+        "s1-page-045",
+        "s1ex-page-019",
+        "s1ex-page-028"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-023": {
+      "nameAr": "يقارن بصرياً بين عددي عناصر مجموعتين تحتوي كل منهما على عدد من العشرات وعدد من الواحدات",
+      "domain": "Numbers & Operations",
+      "standard": "Comparison & Ordering",
+      "pageIds": [
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-054",
+        "s1-page-055",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-020",
+        "s1ex-page-024",
+        "s1ex-page-029"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-024": {
+      "nameAr": "يقارن بين عددين كل منهما مكوّن من منزلتين على الأكثر",
+      "domain": "Numbers & Operations",
+      "standard": "Comparison & Ordering",
+      "pageIds": [
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-054",
+        "s1-page-055",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-020",
+        "s1ex-page-024",
+        "s1ex-page-029"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-025": {
+      "nameAr": "يرتّب ثلاثة أعداد ضمن 99 تصاعدياً",
+      "domain": "Numbers & Operations",
+      "standard": "Comparison & Ordering",
+      "pageIds": [
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-056",
+        "s1-page-057",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-021",
+        "s1ex-page-024",
+        "s1ex-page-029"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-026": {
+      "nameAr": "يرتّب ثلاثة أعداد ضمن 99 تنازلياً",
+      "domain": "Numbers & Operations",
+      "standard": "Comparison & Ordering",
+      "pageIds": [
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-056",
+        "s1-page-057",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-021",
+        "s1ex-page-024",
+        "s1ex-page-029"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-027": {
+      "nameAr": "يقدّر مجموعة من الأشياء بتكوين عشرة ضمن 99",
+      "domain": "Numbers & Operations",
+      "standard": "Comparison & Ordering",
+      "pageIds": [
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-058",
+        "s1-page-059",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-014",
+        "s1ex-page-022",
+        "s1ex-page-023"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-028": {
+      "nameAr": "يتعرّف حقيقة أن الجمع بأي ترتيب لا يغيّر الناتج",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-064",
+        "s1-page-065",
+        "s1-page-076",
+        "s1-page-077",
+        "s1-page-080",
+        "s1-page-081",
+        "s1-page-082",
+        "s1-page-083",
+        "s1ex-page-036",
+        "s1ex-page-040",
+        "s1ex-page-049",
+        "s1ex-page-050",
+        "s2-page-008"
+      ],
+      "totalPages": 13
+    },
+    "kc-math-g1-029": {
+      "nameAr": "يتعرّف حقيقة أن ناتج جمع الصفر مع أي عدد هو العدد نفسه",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-064",
+        "s1-page-065",
+        "s1-page-076",
+        "s1-page-077",
+        "s1-page-080",
+        "s1-page-081",
+        "s1-page-082",
+        "s1-page-083",
+        "s1ex-page-036",
+        "s1ex-page-040",
+        "s1ex-page-049",
+        "s1ex-page-050",
+        "s2-page-008"
+      ],
+      "totalPages": 13
+    },
+    "kc-math-g1-030": {
+      "nameAr": "يكوّن حقائق الجمع والطرح المترابطة ضمن 20",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-084",
+        "s1-page-085",
+        "s1-page-092",
+        "s1-page-093",
+        "s1-page-096",
+        "s1-page-097",
+        "s1-page-098",
+        "s1-page-099",
+        "s1ex-page-034",
+        "s1ex-page-041",
+        "s1ex-page-049",
+        "s1ex-page-050",
+        "s2-page-008",
+        "s2-page-009",
+        "s2ex-page-007"
+      ],
+      "totalPages": 15
+    },
+    "kc-math-g1-031": {
+      "nameAr": "يجد العدد المفقود في جملة جمع",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-084",
+        "s1-page-085",
+        "s1-page-094",
+        "s1-page-095",
+        "s1-page-096",
+        "s1-page-097",
+        "s1-page-098",
+        "s1-page-099",
+        "s1ex-page-049",
+        "s1ex-page-050",
+        "s2-page-008",
+        "s2-page-012",
+        "s2ex-page-010"
+      ],
+      "totalPages": 13
+    },
+    "kc-math-g1-032": {
+      "nameAr": "يجد العدد المفقود في جملة طرح",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-084",
+        "s1-page-085",
+        "s1-page-094",
+        "s1-page-095",
+        "s1-page-096",
+        "s1-page-097",
+        "s1-page-098",
+        "s1-page-099",
+        "s1ex-page-049",
+        "s1ex-page-050",
+        "s2-page-008",
+        "s2-page-013",
+        "s2ex-page-011"
+      ],
+      "totalPages": 13
+    },
+    "kc-math-g1-033": {
+      "nameAr": "يجمع عددين ناتج جمعهما ضمن 20 باستخدام خط الأعداد",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-064",
+        "s1-page-065",
+        "s1-page-066",
+        "s1-page-067",
+        "s1-page-080",
+        "s1-page-081",
+        "s1-page-082",
+        "s1-page-083",
+        "s1ex-page-037",
+        "s2-page-008"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-034": {
+      "nameAr": "يجمع عددين ناتج جمعهما ضمن 20 باستخدام الضعف مضافاً إليه 1",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-064",
+        "s1-page-065",
+        "s1-page-070",
+        "s1-page-071",
+        "s1-page-080",
+        "s1-page-081",
+        "s1-page-082",
+        "s1-page-083",
+        "s1ex-page-037",
+        "s2-page-008"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-035": {
+      "nameAr": "يجمع عددين ناتج جمعهما ضمن 20 بالإكمال إلى الـ10",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-064",
+        "s1-page-065",
+        "s1-page-074",
+        "s1-page-075",
+        "s1-page-080",
+        "s1-page-081",
+        "s1-page-082",
+        "s1-page-083",
+        "s1ex-page-037",
+        "s2-page-008"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-036": {
+      "nameAr": "يجد ناتج جمع ثلاثة أعداد ضمن 20 بإيجاد مكوّنات العدد 10 أولاً",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-064",
+        "s1-page-065",
+        "s1-page-078",
+        "s1-page-079",
+        "s1-page-080",
+        "s1-page-081",
+        "s1-page-082",
+        "s1-page-083",
+        "s1ex-page-038",
+        "s2-page-008"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-037": {
+      "nameAr": "يجد ضعف عدد حتى 10",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-064",
+        "s1-page-065",
+        "s1-page-068",
+        "s1-page-069",
+        "s1-page-080",
+        "s1-page-081",
+        "s1-page-082",
+        "s1-page-083",
+        "s1ex-page-038",
+        "s2-page-008"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-038": {
+      "nameAr": "يجد أزواج الأعداد التي تكوّن العدد 10",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-064",
+        "s1-page-065",
+        "s1-page-072",
+        "s1-page-073",
+        "s1-page-080",
+        "s1-page-081",
+        "s1-page-082",
+        "s1-page-083",
+        "s1ex-page-033",
+        "s1ex-page-041",
+        "s2-page-008",
+        "s2-page-009",
+        "s2ex-page-007"
+      ],
+      "totalPages": 13
+    },
+    "kc-math-g1-039": {
+      "nameAr": "يطرح عددين ضمن 20 باستخدام خط الأعداد",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-084",
+        "s1-page-085",
+        "s1-page-086",
+        "s1-page-087",
+        "s1-page-096",
+        "s1-page-097",
+        "s1-page-098",
+        "s1-page-099",
+        "s1ex-page-039",
+        "s1ex-page-045",
+        "s2-page-008"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-040": {
+      "nameAr": "يطرح عددين ضمن 20 باستخدام الضعف",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-084",
+        "s1-page-085",
+        "s1-page-088",
+        "s1-page-089",
+        "s1-page-096",
+        "s1-page-097",
+        "s1-page-098",
+        "s1-page-099",
+        "s1ex-page-039",
+        "s1ex-page-045",
+        "s2-page-008"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-041": {
+      "nameAr": "يطرح عددين ضمن 20 بإيجاد 10",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1-page-084",
+        "s1-page-085",
+        "s1-page-090",
+        "s1-page-091",
+        "s1-page-096",
+        "s1-page-097",
+        "s1-page-098",
+        "s1-page-099",
+        "s1ex-page-039",
+        "s1ex-page-045",
+        "s2-page-008"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-042": {
+      "nameAr": "يستعمل حقائق الجمع لجمع العشرات",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1ex-page-035",
+        "s1ex-page-043",
+        "s2-page-008",
+        "s2-page-015",
+        "s2ex-page-013"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-043": {
+      "nameAr": "يجمع عددين كل منهما مكوّن من منزلتين دون إعادة التجميع",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1ex-page-042",
+        "s1ex-page-043",
+        "s2-page-008",
+        "s2-page-015",
+        "s2ex-page-013"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-044": {
+      "nameAr": "يستعمل حقائق الطرح لطرح العشرات",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1ex-page-042",
+        "s1ex-page-046",
+        "s1ex-page-047",
+        "s2-page-008",
+        "s2-page-014",
+        "s2-page-016",
+        "s2ex-page-012",
+        "s2ex-page-014"
+      ],
+      "totalPages": 8
+    },
+    "kc-math-g1-045": {
+      "nameAr": "يطرح عددين كل منهما مكوّن من منزلتين دون إعادة التجميع",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1ex-page-046",
+        "s1ex-page-047",
+        "s2-page-008",
+        "s2-page-016",
+        "s2ex-page-014"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-046": {
+      "nameAr": "يجمع ذهنياً عدداً مكوّناً من منزلتين مع عدد مكوّن من منزلة واحدة",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s2-page-008",
+        "s2-page-010",
+        "s2ex-page-008"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-047": {
+      "nameAr": "يجمع ذهنياً عدداً مكوّناً من منزلتين مع العشرات",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s2-page-008",
+        "s2-page-010",
+        "s2ex-page-008"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-048": {
+      "nameAr": "يطرح ذهنياً عدداً مكوّناً من منزلة واحدة من عدد مكوّن من منزلتين",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s2-page-008",
+        "s2-page-011",
+        "s2ex-page-009"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-049": {
+      "nameAr": "يطرح ذهنياً العشرات من عدد مكوّن من منزلتين",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s2-page-008",
+        "s2-page-011",
+        "s2ex-page-009"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-050": {
+      "nameAr": "يحل مسائل حياتية على جمع عددين كل منهما مكوّن من منزلتين باستعمال خطة التخمين والتحقق",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1ex-page-044",
+        "s1ex-page-048",
+        "s2-page-008",
+        "s2-page-017",
+        "s2ex-page-015"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-051": {
+      "nameAr": "يحل مسائل حياتية باستعمال مهارة اختيار العملية المناسبة من بين عمليتي الجمع أو الطرح",
+      "domain": "Numbers & Operations",
+      "standard": "Addition & Subtraction",
+      "pageIds": [
+        "s1ex-page-044",
+        "s1ex-page-048",
+        "s2-page-008",
+        "s2-page-014",
+        "s2-page-017",
+        "s2ex-page-012",
+        "s2ex-page-015"
+      ],
+      "totalPages": 7
+    },
+    "kc-math-g1-052": {
+      "nameAr": "يميّز الأشكال المقسّمة إلى أجزاء متطابقة",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-030",
+        "s1ex-page-031"
+      ],
+      "totalPages": 2
+    },
+    "kc-math-g1-053": {
+      "nameAr": "يحدّد عدد الأجزاء المتطابقة من الكل في شكل هندسي",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-030",
+        "s1ex-page-031"
+      ],
+      "totalPages": 2
+    },
+    "kc-math-g1-054": {
+      "nameAr": "يصف الكسر بوصفه جزءاً من كل من خلال المحسوسات",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-030",
+        "s1ex-page-031"
+      ],
+      "totalPages": 2
+    },
+    "kc-math-g1-055": {
+      "nameAr": "يمثل الكسر عن طريق النماذج",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-030",
+        "s1ex-page-031"
+      ],
+      "totalPages": 2
+    },
+    "kc-math-g1-056": {
+      "nameAr": "يتعرّف مفهوم النصف",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-030",
+        "s1ex-page-031"
+      ],
+      "totalPages": 2
+    },
+    "kc-math-g1-057": {
+      "nameAr": "يكتب الكسر الدال على نصف شكل",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-031"
+      ],
+      "totalPages": 1
+    },
+    "kc-math-g1-058": {
+      "nameAr": "يتعرّف مفهوم الربع",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-031"
+      ],
+      "totalPages": 1
+    },
+    "kc-math-g1-059": {
+      "nameAr": "يكتب الكسر الدال على ربع شكل",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-032"
+      ],
+      "totalPages": 1
+    },
+    "kc-math-g1-060": {
+      "nameAr": "يتعرّف مفهوم الكسر بوصفه جزءاً من مجموعة",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-032"
+      ],
+      "totalPages": 1
+    },
+    "kc-math-g1-061": {
+      "nameAr": "يكتب الكسر الدال على نصف مجموعة",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-032"
+      ],
+      "totalPages": 1
+    },
+    "kc-math-g1-062": {
+      "nameAr": "يكتب الكسر الدال على ربع مجموعة",
+      "domain": "Numbers & Operations",
+      "standard": "Fractions",
+      "pageIds": [
+        "s1ex-page-032"
+      ],
+      "totalPages": 1
+    },
+    "kc-math-g1-063": {
+      "nameAr": "يميّز قطع النقود المعدنية المحلية (قرش، وخمسة قروش، وعشرة قروش، و25 قرشاً، و50 قرشاً)",
+      "domain": "Numbers & Operations",
+      "standard": "Money & Currency Exchange",
+      "pageIds": [
+        "s2-page-048",
+        "s2-page-049",
+        "s2-page-051",
+        "s2ex-page-037",
+        "s2ex-page-039"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-064": {
+      "nameAr": "يجد المبلغ المتكوّن من عدد من النقود المعدنية من فئات مختلفة ضمن العدد 99",
+      "domain": "Numbers & Operations",
+      "standard": "Money & Currency Exchange",
+      "pageIds": [
+        "s2-page-048",
+        "s2-page-049",
+        "s2-page-051",
+        "s2ex-page-037",
+        "s2ex-page-039"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-065": {
+      "nameAr": "يمثّل مبلغاً من النقود بطرائق مختلفة",
+      "domain": "Numbers & Operations",
+      "standard": "Money & Currency Exchange",
+      "pageIds": [
+        "s2-page-048",
+        "s2-page-050",
+        "s2-page-051",
+        "s2ex-page-038",
+        "s2ex-page-039"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-066": {
+      "nameAr": "يجد قيمة مجموعة من القطع النقدية لتحديد إمكانية شراء شيء ما",
+      "domain": "Numbers & Operations",
+      "standard": "Money & Currency Exchange",
+      "pageIds": [
+        "s2-page-048",
+        "s2-page-050",
+        "s2-page-051",
+        "s2ex-page-038",
+        "s2ex-page-039"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-067": {
+      "nameAr": "يميّز مفهوم النمط",
+      "domain": "Patterns, Algebra & Functions",
+      "standard": "Number & Shape Patterns",
+      "pageIds": [
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-050",
+        "s1-page-051",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-010",
+        "s1ex-page-027"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-068": {
+      "nameAr": "يجد وحدة نمط هندسي وفق خاصية واحدة (الشكل أو اللون)",
+      "domain": "Patterns, Algebra & Functions",
+      "standard": "Number & Shape Patterns",
+      "pageIds": [
+        "s1ex-page-051",
+        "s1ex-page-054",
+        "s1ex-page-055"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-069": {
+      "nameAr": "يكمل نمطاً هندسياً مُعطى وفق خاصية واحدة (الشكل أو اللون)",
+      "domain": "Patterns, Algebra & Functions",
+      "standard": "Number & Shape Patterns",
+      "pageIds": [
+        "s1ex-page-052",
+        "s1ex-page-054",
+        "s1ex-page-055"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-070": {
+      "nameAr": "يحدّد العناصر المجهولة في نمط هندسي وفق خاصية واحدة (الشكل أو اللون)",
+      "domain": "Patterns, Algebra & Functions",
+      "standard": "Number & Shape Patterns",
+      "pageIds": [
+        "s1ex-page-053",
+        "s1ex-page-054",
+        "s1ex-page-055"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-071": {
+      "nameAr": "يعدّ قفزياً بدءاً من أي عدد ضمن 99 (اثنينات، أو خمسات، أو عشرات)",
+      "domain": "Patterns, Algebra & Functions",
+      "standard": "Number & Shape Patterns",
+      "pageIds": [
+        "s1-page-046",
+        "s1-page-047",
+        "s1-page-050",
+        "s1-page-051",
+        "s1-page-060",
+        "s1-page-061",
+        "s1-page-062",
+        "s1-page-063",
+        "s1ex-page-010",
+        "s1ex-page-027"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-072": {
+      "nameAr": "يميّز الأشكال المستوية، مثل: المثلث، والمربع، والمستطيل، والدائرة",
+      "domain": "Geometry & Measurement",
+      "standard": "Polygons & Circle",
+      "pageIds": [
+        "s1ex-page-051",
+        "s1ex-page-052",
+        "s1ex-page-053",
+        "s1ex-page-054",
+        "s1ex-page-055",
+        "s2-page-018",
+        "s2-page-019",
+        "s2ex-page-016"
+      ],
+      "totalPages": 8
+    },
+    "kc-math-g1-073": {
+      "nameAr": "يعطي أمثلة على أشكال مستوية من البيئة المحيطة",
+      "domain": "Geometry & Measurement",
+      "standard": "Polygons & Circle",
+      "pageIds": [
+        "s1ex-page-054",
+        "s1ex-page-055",
+        "s2-page-018",
+        "s2-page-019",
+        "s2ex-page-016"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-074": {
+      "nameAr": "يحدّد عدد الأضلاع والرؤوس في أشكال مستوية",
+      "domain": "Geometry & Measurement",
+      "standard": "Polygons & Circle",
+      "pageIds": [
+        "s1ex-page-054",
+        "s1ex-page-055",
+        "s2-page-018",
+        "s2-page-019",
+        "s2ex-page-016"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-075": {
+      "nameAr": "يقسم دائرة أو مربعاً أو مستطيلاً إلى جزأين أو أربعة أجزاء متساوية",
+      "domain": "Geometry & Measurement",
+      "standard": "Polygons & Circle",
+      "pageIds": [
+        "s2-page-018",
+        "s2-page-019",
+        "s2ex-page-016"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-076": {
+      "nameAr": "يصف الشكل/الأشكال الناتجة من تركيب أشكال مستوية (المثلث، والمربع، والمستطيل، والدائرة)",
+      "domain": "Geometry & Measurement",
+      "standard": "Polygons & Circle",
+      "pageIds": [
+        "s2-page-018",
+        "s2-page-019",
+        "s2ex-page-016"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-077": {
+      "nameAr": "يرسم مثلثاً على شبكة منقّطة",
+      "domain": "Geometry & Measurement",
+      "standard": "Polygons & Circle",
+      "pageIds": [
+        "s2-page-018",
+        "s2-page-020",
+        "s2ex-page-017"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-078": {
+      "nameAr": "يرسم مستطيلاً أو مربعاً رسماً تقريبياً على شبكة منقّطة",
+      "domain": "Geometry & Measurement",
+      "standard": "Polygons & Circle",
+      "pageIds": [
+        "s2-page-018",
+        "s2-page-020",
+        "s2ex-page-017"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-079": {
+      "nameAr": "يميّز المجسمات (الكرة، والأسطوانة، والمخروط، والمكعب، ومتوازي المستطيلات (الصندوق)، والهرم)",
+      "domain": "Geometry & Measurement",
+      "standard": "Solids & Nets",
+      "pageIds": [
+        "s2-page-022",
+        "s2-page-023",
+        "s2-page-025",
+        "s2-page-026",
+        "s2ex-page-018",
+        "s2ex-page-020",
+        "s2ex-page-021"
+      ],
+      "totalPages": 7
+    },
+    "kc-math-g1-080": {
+      "nameAr": "يعطي أمثلة على مجسّم من البيئة المحيطة",
+      "domain": "Geometry & Measurement",
+      "standard": "Solids & Nets",
+      "pageIds": [
+        "s2-page-022",
+        "s2-page-024",
+        "s2-page-025",
+        "s2-page-026",
+        "s2ex-page-019",
+        "s2ex-page-020",
+        "s2ex-page-021"
+      ],
+      "totalPages": 7
+    },
+    "kc-math-g1-081": {
+      "nameAr": "يصنّف مجسّماً بقياسات وأوضاع مختلفة بحسب شكله",
+      "domain": "Geometry & Measurement",
+      "standard": "Solids & Nets",
+      "pageIds": [
+        "s2-page-022",
+        "s2-page-024",
+        "s2-page-025",
+        "s2-page-026",
+        "s2ex-page-019",
+        "s2ex-page-020",
+        "s2ex-page-021"
+      ],
+      "totalPages": 7
+    },
+    "kc-math-g1-082": {
+      "nameAr": "يميّز مفهوم الطول",
+      "domain": "Geometry & Measurement",
+      "standard": "Lengths",
+      "pageIds": [
+        "s2-page-028",
+        "s2-page-029",
+        "s2-page-031",
+        "s2ex-page-022",
+        "s2ex-page-024"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-083": {
+      "nameAr": "يقيس أطوال أشياء في محيطه باستخدام وحدات غير قياسية (مثل: المشبك، والمكعب، والمحاة)",
+      "domain": "Geometry & Measurement",
+      "standard": "Lengths",
+      "pageIds": [
+        "s2-page-028",
+        "s2-page-029",
+        "s2-page-031",
+        "s2ex-page-022",
+        "s2ex-page-024"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-084": {
+      "nameAr": "يستخدم العبارات (طويل، أطول، الأطول) للمقارنة بين أطوال أشياء محسوسة",
+      "domain": "Geometry & Measurement",
+      "standard": "Lengths",
+      "pageIds": [
+        "s2-page-028",
+        "s2-page-029",
+        "s2ex-page-022"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-085": {
+      "nameAr": "يستخدم العبارات (قصير، أقصر، الأقصر) للمقارنة بين أطوال أشياء محسوسة",
+      "domain": "Geometry & Measurement",
+      "standard": "Lengths",
+      "pageIds": [
+        "s2-page-028",
+        "s2-page-030",
+        "s2ex-page-023"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-086": {
+      "nameAr": "يرتّب ثلاثة أشياء تصاعدياً أو تنازلياً بحسب أطوالها",
+      "domain": "Geometry & Measurement",
+      "standard": "Lengths",
+      "pageIds": [
+        "s2-page-028",
+        "s2-page-030",
+        "s2ex-page-023"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-087": {
+      "nameAr": "يميّز مفهوم الكتلة",
+      "domain": "Geometry & Measurement",
+      "standard": "Mass",
+      "pageIds": [
+        "s2-page-032",
+        "s2-page-033",
+        "s2-page-035",
+        "s2ex-page-025",
+        "s2ex-page-027"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-088": {
+      "nameAr": "يقيس كتل أشياء في محيطه باستخدام وحدات غير قياسية (مثل: المكعب، وعلبة أقلام تلوين)",
+      "domain": "Geometry & Measurement",
+      "standard": "Mass",
+      "pageIds": [
+        "s2-page-032",
+        "s2-page-033",
+        "s2-page-035",
+        "s2ex-page-025",
+        "s2ex-page-027"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-089": {
+      "nameAr": "يقارن بين كتل أشياء محسوسة باستخدام الكلمات (ثقيل، أثقل، الأثقل)",
+      "domain": "Geometry & Measurement",
+      "standard": "Mass",
+      "pageIds": [
+        "s2-page-032",
+        "s2-page-033",
+        "s2ex-page-025"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-090": {
+      "nameAr": "يرتّب ثلاثة أشياء تصاعدياً أو تنازلياً بحسب كتلها",
+      "domain": "Geometry & Measurement",
+      "standard": "Mass",
+      "pageIds": [
+        "s2-page-032",
+        "s2-page-034",
+        "s2ex-page-026"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-091": {
+      "nameAr": "يميّز مفهوم السعة",
+      "domain": "Geometry & Measurement",
+      "standard": "Capacity",
+      "pageIds": [
+        "s2-page-036",
+        "s2-page-037",
+        "s2ex-page-028"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-092": {
+      "nameAr": "يقارن بين سعات أشياء محسوسة باستخدام التركيبين (الأكثر سعة، والأقل سعة)",
+      "domain": "Geometry & Measurement",
+      "standard": "Capacity",
+      "pageIds": [
+        "s2-page-036",
+        "s2-page-037",
+        "s2ex-page-028"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-093": {
+      "nameAr": "يرتّب ثلاثة أوعية تصاعدياً أو تنازلياً بحسب سعاتها",
+      "domain": "Geometry & Measurement",
+      "standard": "Capacity",
+      "pageIds": [
+        "s2-page-036",
+        "s2-page-038",
+        "s2ex-page-029"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-094": {
+      "nameAr": "يقيس سعات أشياء في محيطه باستخدام وحدات غير قياسية (مثل كوب ماء)",
+      "domain": "Geometry & Measurement",
+      "standard": "Capacity",
+      "pageIds": [
+        "s2-page-036",
+        "s2-page-039",
+        "s2ex-page-030"
+      ],
+      "totalPages": 3
+    },
+    "kc-math-g1-095": {
+      "nameAr": "يقرأ الوقت بالساعات الكاملة من ساعة رقمية",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-043",
+        "s2-page-046",
+        "s2ex-page-033",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-096": {
+      "nameAr": "يقرأ الوقت بالساعات الكاملة من ساعة ذات عقارب",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-043",
+        "s2-page-046",
+        "s2ex-page-033",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-097": {
+      "nameAr": "يكتب الوقت بالساعات الكاملة من ساعة رقمية",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-043",
+        "s2-page-046",
+        "s2ex-page-033",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-098": {
+      "nameAr": "يرسم عقربي ساعة لتحديد الوقت عليها بالساعات الكاملة",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-043",
+        "s2-page-046",
+        "s2ex-page-033",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-099": {
+      "nameAr": "يقرأ الوقت بنصف الساعة من ساعة ذات عقارب",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-044",
+        "s2-page-046",
+        "s2ex-page-034",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-100": {
+      "nameAr": "يقرأ الوقت بنصف الساعة من ساعة رقمية",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-044",
+        "s2-page-046",
+        "s2ex-page-034",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-101": {
+      "nameAr": "يكتب الوقت بنصف الساعة من ساعة ذات عقارب",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-044",
+        "s2-page-046",
+        "s2ex-page-034",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-102": {
+      "nameAr": "يكتب الوقت بنصف الساعة من ساعة رقمية",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-044",
+        "s2-page-046",
+        "s2ex-page-034",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-103": {
+      "nameAr": "يرسم عقربي ساعة لتحديد الوقت عليها بنصف الساعة",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-044",
+        "s2-page-046",
+        "s2ex-page-034",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-104": {
+      "nameAr": "يسمّي أيام الأسبوع",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-041",
+        "s2-page-046",
+        "s2ex-page-031",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-105": {
+      "nameAr": "يرتّب أيام الأسبوع بدءاً من أحدها",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-041",
+        "s2-page-046",
+        "s2ex-page-031",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-106": {
+      "nameAr": "يتعرّف المفاهيم الآتية: اليوم، وغداً، وأمس",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-041",
+        "s2-page-046",
+        "s2ex-page-031",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-107": {
+      "nameAr": "يتعرّف المفاهيم الآتية: الصباح، والظهر، والمساء",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-042",
+        "s2-page-046",
+        "s2ex-page-032",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-108": {
+      "nameAr": "يرتّب أحداثاً يومية وفقاً لأوقات حدوثها",
+      "domain": "Geometry & Measurement",
+      "standard": "Time",
+      "pageIds": [
+        "s2-page-040",
+        "s2-page-045",
+        "s2-page-046",
+        "s2ex-page-035",
+        "s2ex-page-036"
+      ],
+      "totalPages": 5
+    },
+    "kc-math-g1-109": {
+      "nameAr": "يصنّف أشياء بناء على اللون",
+      "domain": "Data Analysis & Probability",
+      "standard": "Classifying Data",
+      "pageIds": [
+        "s1-page-100",
+        "s1-page-101",
+        "s1-page-102",
+        "s1-page-103",
+        "s1-page-112",
+        "s1-page-113",
+        "s1-page-114",
+        "s1-page-115",
+        "s1ex-page-056",
+        "s1ex-page-061"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-110": {
+      "nameAr": "يصنّف أشياء بناء على الشكل",
+      "domain": "Data Analysis & Probability",
+      "standard": "Classifying Data",
+      "pageIds": [
+        "s1-page-100",
+        "s1-page-101",
+        "s1-page-102",
+        "s1-page-103",
+        "s1-page-112",
+        "s1-page-113",
+        "s1-page-114",
+        "s1-page-115",
+        "s1ex-page-056",
+        "s1ex-page-061"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-111": {
+      "nameAr": "يصنّف أشياء بناء على المقاس",
+      "domain": "Data Analysis & Probability",
+      "standard": "Classifying Data",
+      "pageIds": [
+        "s1-page-100",
+        "s1-page-101",
+        "s1-page-104",
+        "s1-page-105",
+        "s1-page-112",
+        "s1-page-113",
+        "s1-page-114",
+        "s1-page-115",
+        "s1ex-page-056",
+        "s1ex-page-061"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-112": {
+      "nameAr": "يصنّف الأشياء وفق أكثر من خاصية",
+      "domain": "Data Analysis & Probability",
+      "standard": "Classifying Data",
+      "pageIds": [
+        "s1-page-100",
+        "s1-page-101",
+        "s1-page-104",
+        "s1-page-105",
+        "s1-page-112",
+        "s1-page-113",
+        "s1-page-114",
+        "s1-page-115",
+        "s1ex-page-056",
+        "s1ex-page-061"
+      ],
+      "totalPages": 10
+    },
+    "kc-math-g1-113": {
+      "nameAr": "يمثل بيانات مُعطاة بالصور",
+      "domain": "Data Analysis & Probability",
+      "standard": "Collecting, Organizing, Analyzing & Interpreting Data",
+      "pageIds": [
+        "s1-page-100",
+        "s1-page-101",
+        "s1-page-108",
+        "s1-page-109",
+        "s1-page-112",
+        "s1-page-113",
+        "s1-page-114",
+        "s1-page-115",
+        "s1ex-page-058",
+        "s1ex-page-059",
+        "s1ex-page-062"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-114": {
+      "nameAr": "ينظّم بيانات مُعطاة في جدول",
+      "domain": "Data Analysis & Probability",
+      "standard": "Collecting, Organizing, Analyzing & Interpreting Data",
+      "pageIds": [
+        "s1-page-100",
+        "s1-page-101",
+        "s1-page-106",
+        "s1-page-107",
+        "s1-page-112",
+        "s1-page-113",
+        "s1-page-114",
+        "s1-page-115",
+        "s1ex-page-057",
+        "s1ex-page-060",
+        "s1ex-page-062"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-115": {
+      "nameAr": "يقرأ بيانات منظّمة في جدول",
+      "domain": "Data Analysis & Probability",
+      "standard": "Collecting, Organizing, Analyzing & Interpreting Data",
+      "pageIds": [
+        "s1-page-100",
+        "s1-page-101",
+        "s1-page-106",
+        "s1-page-107",
+        "s1-page-112",
+        "s1-page-113",
+        "s1-page-114",
+        "s1-page-115",
+        "s1ex-page-057",
+        "s1ex-page-060",
+        "s1ex-page-062"
+      ],
+      "totalPages": 11
+    },
+    "kc-math-g1-116": {
+      "nameAr": "يفسّر تمثيلات بصور حيث تمثّل الصورة وحدة واحدة",
+      "domain": "Data Analysis & Probability",
+      "standard": "Collecting, Organizing, Analyzing & Interpreting Data",
+      "pageIds": [
+        "s1-page-100",
+        "s1-page-101",
+        "s1-page-110",
+        "s1-page-111",
+        "s1-page-112",
+        "s1-page-113",
+        "s1-page-114",
+        "s1-page-115",
+        "s1ex-page-060",
+        "s1ex-page-062"
+      ],
+      "totalPages": 10
+    }
+  },
+  "coverage": {
+    "totalKCs": 116,
+    "mappedKCs": 116,
+    "unmappedKCs": [],
+    "totalContentPages": 238,
+    "mappedPages": 238,
+    "unmappedPages": []
+  }
+}

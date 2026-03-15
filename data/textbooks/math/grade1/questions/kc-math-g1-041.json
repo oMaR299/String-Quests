@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-041",
+  "kcNameAr": "يطرح عددين ضمن ٢٠ بإيجاد ١٠",
+  "domain": "عمليات الجمع والطرح",
+  "standard": "يطرح عددين ضمن ٢٠ بإيجاد ١٠",
+  "questions": [
+    {
+      "id": 10801,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "multiple-choice",
+      "questionText": "لحل ١٣ - ٥، اطرح أولاً ٣ لتصل إلى ١٠، ثم اطرح ٢. ما الناتج؟",
+      "options": ["٦", "٧", "٨", "٩"],
+      "correctAnswer": "٨",
+      "points": 10,
+      "hint": "١٣ - ٣ = ١٠، ثم ١٠ - ٢ = ٨"
+    },
+    {
+      "id": 10802,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "multiple-choice",
+      "questionText": "لحل ١٥ - ٧، اطرح ٥ أولاً لتصل إلى ١٠. كم يتبقّى للطرح؟",
+      "options": ["١", "٢", "٣", "٤"],
+      "correctAnswer": "٢",
+      "points": 15,
+      "hint": "٧ = ٥ + ٢، اطرح ٥ أولاً ثم ٢"
+    },
+    {
+      "id": 10803,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "multiple-choice",
+      "questionText": "١٥ - ٧ = ؟. استخدم طريقة إيجاد ١٠.",
+      "options": ["٦", "٧", "٨", "٩"],
+      "correctAnswer": "٨",
+      "points": 15,
+      "hint": "١٥ - ٥ = ١٠، ثم ١٠ - ٢ = ٨"
+    },
+    {
+      "id": 10804,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "multiple-choice",
+      "questionText": "١٢ - ٤ = ؟. اطرح ٢ أولاً لتصل إلى ١٠.",
+      "options": ["٦", "٧", "٨", "٩"],
+      "correctAnswer": "٨",
+      "points": 10,
+      "hint": "١٢ - ٢ = ١٠، ثم ١٠ - ٢ = ٨"
+    },
+    {
+      "id": 10805,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "multiple-choice",
+      "questionText": "١٧ - ٩ = ؟. استخدم طريقة إيجاد ١٠.",
+      "options": ["٦", "٧", "٨", "٩"],
+      "correctAnswer": "٨",
+      "points": 15,
+      "hint": "١٧ - ٧ = ١٠، ثم ١٠ - ٢ = ٨"
+    },
+    {
+      "id": 10806,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "multiple-choice",
+      "questionText": "١٤ - ٦ = ؟. اطرح ٤ لتصل إلى ١٠ ثم اطرح الباقي.",
+      "options": ["٦", "٧", "٨", "٩"],
+      "correctAnswer": "٨",
+      "points": 15,
+      "hint": "١٤ - ٤ = ١٠، ثم ١٠ - ٢ = ٨"
+    },
+    {
+      "id": 10807,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "multiple-choice",
+      "questionText": "١٦ - ٩ = ؟. استخدم ١٠ كمحطة.",
+      "options": ["٥", "٦", "٧", "٨"],
+      "correctAnswer": "٧",
+      "points": 15,
+      "hint": "١٦ - ٦ = ١٠، ثم ١٠ - ٣ = ٧"
+    },
+    {
+      "id": 10808,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "multiple-choice",
+      "questionText": "١١ - ٤ = ؟. اطرح ١ أولاً لتصل إلى ١٠.",
+      "options": ["٥", "٦", "٧", "٨"],
+      "correctAnswer": "٧",
+      "points": 10,
+      "hint": "١١ - ١ = ١٠، ثم ١٠ - ٣ = ٧"
+    },
+    {
+      "id": 10809,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "input",
+      "questionText": "١٣ - ٦ = ؟. استخدم ١٠ كمحطة.",
+      "correctAnswer": "٧",
+      "points": 15,
+      "hint": "١٣ - ٣ = ١٠، ثم ١٠ - ٣ = ٧"
+    },
+    {
+      "id": 10810,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "input",
+      "questionText": "١٨ - ٩ = ؟",
+      "correctAnswer": "٩",
+      "points": 15,
+      "hint": "١٨ - ٨ = ١٠، ثم ١٠ - ١ = ٩"
+    },
+    {
+      "id": 10811,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "input",
+      "questionText": "١٤ - ٨ = ؟",
+      "correctAnswer": "٦",
+      "points": 15,
+      "hint": "١٤ - ٤ = ١٠، ثم ١٠ - ٤ = ٦"
+    },
+    {
+      "id": 10812,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "input",
+      "questionText": "٢٠ - ٧ = ؟",
+      "correctAnswer": "١٣",
+      "points": 20,
+      "hint": "٢٠ - ٧: أنت على ٢٠ فاطرح ١٠ - ٧ = ٣، فالناتج ١٣"
+    },
+    {
+      "id": 10813,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "input",
+      "questionText": "١٩ - ٦ = ؟",
+      "correctAnswer": "١٣",
+      "points": 20,
+      "hint": "١٩ - ٩ = ١٠، لكن ٦ أقل فالناتج أكبر"
+    },
+    {
+      "id": 10814,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ١٥ - ٨ بإيجاد ١٠:",
+      "options": ["اطرح ٥ من ١٥ لتصل إلى ١٠", "اطرح ٣ من ١٠", "الناتج = ٧"],
+      "correctAnswer": "اطرح ٥ من ١٥ لتصل إلى ١٠ ، اطرح ٣ من ١٠ ، الناتج = ٧",
+      "points": 15,
+      "hint": "٨ = ٥ + ٣"
+    },
+    {
+      "id": 10815,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ١٢ - ٥ بإيجاد ١٠:",
+      "options": ["اطرح ٢ من ١٢ لتصل إلى ١٠", "اطرح ٣ من ١٠", "الناتج = ٧"],
+      "correctAnswer": "اطرح ٢ من ١٢ لتصل إلى ١٠ ، اطرح ٣ من ١٠ ، الناتج = ٧",
+      "points": 15,
+      "hint": "٥ = ٢ + ٣"
+    },
+    {
+      "id": 10816,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ١٣-٧ ، ١٨-٩ ، ١١-٥",
+      "options": ["١٣-٧", "١٨-٩", "١١-٥"],
+      "correctAnswer": "١٣-٧ ، ١١-٥ ، ١٨-٩",
+      "points": 20,
+      "hint": "احسب: ٦ ، ٩ ، ٦"
+    },
+    {
+      "id": 10817,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "matching",
+      "questionText": "صِل كل جملة طرح بناتجها باستخدام إيجاد ١٠",
+      "pairs": [
+        { "left": "١١ - ٣", "right": "٨" },
+        { "left": "١٣ - ٤", "right": "٩" },
+        { "left": "١٥ - ٩", "right": "٦" },
+        { "left": "١٧ - ٨", "right": "٩" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "اطرح حتى تصل إلى ١٠ ثم أكمل"
+    },
+    {
+      "id": 10818,
+      "subject": "رياضيات",
+      "lesson": "الطرح بإيجاد ١٠",
+      "type": "matching",
+      "questionText": "صِل كل عملية طرح بتجزئة العدد المطروح",
+      "pairs": [
+        { "left": "١٣ - ٥", "right": "٣ + ٢" },
+        { "left": "١٢ - ٧", "right": "٢ + ٥" },
+        { "left": "١٤ - ٩", "right": "٤ + ٥" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "جزّئ العدد المطروح إلى جزأين: الأول يوصلك إلى ١٠"
+    }
+  ]
+}

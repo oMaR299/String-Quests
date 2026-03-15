@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-013",
+  "kcNameAr": "يميّز العدد الزوجي",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10241,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "multiple-choice",
+      "questionText": "أيّ من هذه الأعداد زوجي؟",
+      "options": ["٣", "٧", "٨", "٥"],
+      "correctAnswer": "٨",
+      "points": 10,
+      "hint": "العدد الزوجي يمكن تقسيمه إلى مجموعتين متساويتين"
+    },
+    {
+      "id": 10242,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد من التالية زوجي؟",
+      "options": ["١١", "١٣", "١٤", "١٧"],
+      "correctAnswer": "١٤",
+      "points": 10,
+      "hint": "العدد الزوجي ينتهي بـ ٠ أو ٢ أو ٤ أو ٦ أو ٨"
+    },
+    {
+      "id": 10243,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد ليس زوجياً؟",
+      "options": ["١٢", "٢٠", "٣٥", "٤٦"],
+      "correctAnswer": "٣٥",
+      "points": 10,
+      "hint": "العدد الذي ينتهي بـ ١ أو ٣ أو ٥ أو ٧ أو ٩ ليس زوجياً"
+    },
+    {
+      "id": 10244,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "multiple-choice",
+      "questionText": "إذا كان لدينا ٦ تفاحات، هل يمكن تقسيمها إلى مجموعتين متساويتين؟",
+      "options": ["نعم", "لا", "أحياناً", "لا أعرف"],
+      "correctAnswer": "نعم",
+      "points": 10,
+      "hint": "٦ ÷ ٢ = ٣ لكل مجموعة"
+    },
+    {
+      "id": 10245,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "multiple-choice",
+      "questionText": "أيّ من هذه الأعداد زوجي؟",
+      "options": ["٢٣", "٤١", "٥٢", "٦٧"],
+      "correctAnswer": "٥٢",
+      "points": 15,
+      "hint": "انظر إلى الرقم الأخير (الآحاد)"
+    },
+    {
+      "id": 10246,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "multiple-choice",
+      "questionText": "كم عدداً زوجياً بين ١ و ١٠؟",
+      "options": ["٣", "٤", "٥", "٦"],
+      "correctAnswer": "٥",
+      "points": 15,
+      "hint": "الأعداد الزوجية: ٢، ٤، ٦، ٨، ١٠"
+    },
+    {
+      "id": 10247,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد زوجي يأتي بعد ٢٤؟",
+      "options": ["٢٥", "٢٣", "٢٦", "٢٢"],
+      "correctAnswer": "٢٦",
+      "points": 15,
+      "hint": "أضف ٢ إلى ٢٤"
+    },
+    {
+      "id": 10248,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "multiple-choice",
+      "questionText": "هل العدد ٣٠ زوجي؟",
+      "options": ["نعم", "لا", "أحياناً", "غير محدد"],
+      "correctAnswer": "نعم",
+      "points": 10,
+      "hint": "٣٠ ينتهي بصفر، والصفر زوجي"
+    },
+    {
+      "id": 10249,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "input",
+      "questionText": "اكتب أصغر عدد زوجي من منزلتين.",
+      "correctAnswer": "١٠",
+      "points": 10,
+      "hint": "أصغر عدد من منزلتين هو ١٠"
+    },
+    {
+      "id": 10250,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "input",
+      "questionText": "ما العدد الزوجي الذي يأتي بعد ٣٦؟",
+      "correctAnswer": "٣٨",
+      "points": 10,
+      "hint": "أضف ٢ إلى ٣٦"
+    },
+    {
+      "id": 10251,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "input",
+      "questionText": "ما العدد الزوجي الذي يسبق ٥٠؟",
+      "correctAnswer": "٤٨",
+      "points": 15,
+      "hint": "اطرح ٢ من ٥٠"
+    },
+    {
+      "id": 10252,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "input",
+      "questionText": "ما أكبر عدد زوجي ضمن ٩٩؟",
+      "correctAnswer": "٩٨",
+      "points": 15,
+      "hint": "أكبر عدد ضمن ٩٩ ينتهي بـ ٨"
+    },
+    {
+      "id": 10253,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "input",
+      "questionText": "ما العدد الزوجي بين ٧٢ و ٧٦؟",
+      "correctAnswer": "٧٤",
+      "points": 15,
+      "hint": "عُدّ: ٧٢، ٧٤، ٧٦"
+    },
+    {
+      "id": 10254,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد الزوجية تصاعدياً:",
+      "options": ["١٨", "٦", "١٢", "٤"],
+      "correctAnswer": "٤,٦,١٢,١٨",
+      "points": 15,
+      "hint": "ابدأ بالأصغر"
+    },
+    {
+      "id": 10255,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد الزوجية تنازلياً:",
+      "options": ["٤٤", "٨٨", "٦٦", "٢٢"],
+      "correctAnswer": "٨٨,٦٦,٤٤,٢٢",
+      "points": 20,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10256,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "matching",
+      "questionText": "طابق العدد بنوعه (زوجي أو فردي):",
+      "pairs": [
+        { "left": "١٦", "right": "زوجي" },
+        { "left": "٢٥", "right": "فردي" },
+        { "left": "٣٤", "right": "زوجي" },
+        { "left": "٤٣", "right": "فردي" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "انظر إلى رقم الآحاد"
+    },
+    {
+      "id": 10257,
+      "subject": "رياضيات",
+      "lesson": "الأعداد الزوجية",
+      "type": "matching",
+      "questionText": "طابق كل عدد بالعدد الزوجي التالي له:",
+      "pairs": [
+        { "left": "١٠", "right": "١٢" },
+        { "left": "٣٤", "right": "٣٦" },
+        { "left": "٥٦", "right": "٥٨" },
+        { "left": "٧٨", "right": "٨٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أضف ٢ لكل عدد"
+    }
+  ]
+}

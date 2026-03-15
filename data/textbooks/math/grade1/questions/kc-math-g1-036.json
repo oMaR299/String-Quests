@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-036",
+  "kcNameAr": "يجد ناتج جمع ثلاثة أعداد ضمن ٢٠",
+  "domain": "عمليات الجمع والطرح",
+  "standard": "يجد ناتج جمع ثلاثة أعداد ضمن ٢٠",
+  "questions": [
+    {
+      "id": 10701,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٢ + ٣ + ٤؟",
+      "options": ["٧", "٨", "٩", "١٠"],
+      "correctAnswer": "٩",
+      "points": 10,
+      "hint": "اجمع عددين أولاً ثم أضف الثالث"
+    },
+    {
+      "id": 10702,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٥ + ٣ + ٢؟",
+      "options": ["٨", "٩", "١٠", "١١"],
+      "correctAnswer": "١٠",
+      "points": 10,
+      "hint": "٥ + ٣ = ٨، ثم ٨ + ٢ = ?"
+    },
+    {
+      "id": 10703,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٤ + ٦ + ٣؟",
+      "options": ["١١", "١٢", "١٣", "١٤"],
+      "correctAnswer": "١٣",
+      "points": 15,
+      "hint": "٤ + ٦ = ١٠، ثم ١٠ + ٣ = ?"
+    },
+    {
+      "id": 10704,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٧ + ٣ + ٥؟",
+      "options": ["١٣", "١٤", "١٥", "١٦"],
+      "correctAnswer": "١٥",
+      "points": 15,
+      "hint": "٧ + ٣ = ١٠، ثم أضف ٥"
+    },
+    {
+      "id": 10705,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "multiple-choice",
+      "questionText": "لدى ريم ٣ دمى وأختها لديها ٥ دمى ووالدتها أعطتهما ٤ دمى. كم دمية لديهم؟",
+      "options": ["١٠", "١١", "١٢", "١٣"],
+      "correctAnswer": "١٢",
+      "points": 15,
+      "hint": "٣ + ٥ + ٤ = ?"
+    },
+    {
+      "id": 10706,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٦ + ٤ + ٨؟",
+      "options": ["١٦", "١٧", "١٨", "١٩"],
+      "correctAnswer": "١٨",
+      "points": 15,
+      "hint": "٦ + ٤ = ١٠، ثم ١٠ + ٨ = ?"
+    },
+    {
+      "id": 10707,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٣ + ٧ + ٩؟",
+      "options": ["١٧", "١٨", "١٩", "٢٠"],
+      "correctAnswer": "١٩",
+      "points": 20,
+      "hint": "٣ + ٧ = ١٠، ثم ١٠ + ٩ = ?"
+    },
+    {
+      "id": 10708,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٥ + ٥ + ٥؟",
+      "options": ["١٠", "١٥", "٢٠", "٢٥"],
+      "correctAnswer": "١٥",
+      "points": 10,
+      "hint": "٥ + ٥ = ١٠، ثم ١٠ + ٥ = ?"
+    },
+    {
+      "id": 10709,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "input",
+      "questionText": "ما ناتج ١ + ٨ + ٢؟",
+      "correctAnswer": "١١",
+      "points": 10,
+      "hint": "٨ + ٢ = ١٠، ثم ١٠ + ١ = ?"
+    },
+    {
+      "id": 10710,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "input",
+      "questionText": "ما ناتج ٦ + ٢ + ٧؟",
+      "correctAnswer": "١٥",
+      "points": 15,
+      "hint": "٦ + ٢ = ٨، ثم ٨ + ٧ = ?"
+    },
+    {
+      "id": 10711,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "input",
+      "questionText": "ما ناتج ٤ + ٤ + ٤؟",
+      "correctAnswer": "١٢",
+      "points": 10,
+      "hint": "٤ + ٤ = ٨، ثم ٨ + ٤ = ?"
+    },
+    {
+      "id": 10712,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "input",
+      "questionText": "ما ناتج ٨ + ٢ + ٩؟",
+      "correctAnswer": "١٩",
+      "points": 20,
+      "hint": "٨ + ٢ = ١٠، ثم ١٠ + ٩ = ?"
+    },
+    {
+      "id": 10713,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "input",
+      "questionText": "ما ناتج ٣ + ٣ + ٦؟",
+      "correctAnswer": "١٢",
+      "points": 15,
+      "hint": "٣ + ٣ = ٦، ثم ٦ + ٦ = ?"
+    },
+    {
+      "id": 10714,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد لتكوّن جملة جمع ناتجها ٢٠: ١٠ ، + ، ٣ ، + ، ٧",
+      "options": ["١٠", "+", "٣", "+", "٧"],
+      "correctAnswer": "١٠ ، + ، ٣ ، + ، ٧",
+      "points": 20,
+      "hint": "١٠ + ٣ + ٧ = ٢٠"
+    },
+    {
+      "id": 10715,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ٢+٣+١ ، ٥+٤+٣ ، ٦+٦+٦",
+      "options": ["٢+٣+١", "٥+٤+٣", "٦+٦+٦"],
+      "correctAnswer": "٢+٣+١ ، ٥+٤+٣ ، ٦+٦+٦",
+      "points": 20,
+      "hint": "احسب: ٦ ، ١٢ ، ١٨"
+    },
+    {
+      "id": 10716,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ٩ + ١ + ٧:",
+      "options": ["أجمع ٩ + ١ = ١٠", "أضيف ٧", "الناتج = ١٧"],
+      "correctAnswer": "أجمع ٩ + ١ = ١٠ ، أضيف ٧ ، الناتج = ١٧",
+      "points": 15,
+      "hint": "ابحث عن عددين يكوّنان ١٠"
+    },
+    {
+      "id": 10717,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "matching",
+      "questionText": "صِل كل جملة جمع بناتجها",
+      "pairs": [
+        { "left": "٢ + ٥ + ٣", "right": "١٠" },
+        { "left": "٤ + ١ + ٨", "right": "١٣" },
+        { "left": "٦ + ٤ + ٧", "right": "١٧" },
+        { "left": "٣ + ٣ + ٣", "right": "٩" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "اجمع عددين أولاً ثم أضف الثالث"
+    },
+    {
+      "id": 10718,
+      "subject": "رياضيات",
+      "lesson": "جمع ثلاثة أعداد",
+      "type": "matching",
+      "questionText": "صِل كل مجموعة أعداد بالناتج الصحيح",
+      "pairs": [
+        { "left": "٧ + ٣ + ٦", "right": "١٦" },
+        { "left": "٥ + ٥ + ٨", "right": "١٨" },
+        { "left": "١ + ٩ + ٤", "right": "١٤" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "ابحث عن أعداد تكوّن ١٠ أولاً"
+    }
+  ]
+}

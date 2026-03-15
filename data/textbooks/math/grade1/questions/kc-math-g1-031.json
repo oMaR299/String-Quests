@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-031",
+  "kcNameAr": "يجد العدد المفقود في جملة جمع",
+  "domain": "خصائص الجمع والطرح",
+  "standard": "يجد العدد المفقود في جملة جمع",
+  "questions": [
+    {
+      "id": 10601,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "multiple-choice",
+      "questionText": "٣ + ؟ = ٧. ما العدد المفقود؟",
+      "options": ["٣", "٤", "٥", "٧"],
+      "correctAnswer": "٤",
+      "points": 10,
+      "hint": "اطرح ٣ من ٧"
+    },
+    {
+      "id": 10602,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "multiple-choice",
+      "questionText": "؟ + ٦ = ١٤. ما العدد المفقود؟",
+      "options": ["٦", "٧", "٨", "٩"],
+      "correctAnswer": "٨",
+      "points": 15,
+      "hint": "اطرح ٦ من ١٤"
+    },
+    {
+      "id": 10603,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "multiple-choice",
+      "questionText": "٥ + ؟ = ١٢. ما العدد المفقود؟",
+      "options": ["٥", "٦", "٧", "٨"],
+      "correctAnswer": "٧",
+      "points": 15,
+      "hint": "١٢ - ٥ = ؟"
+    },
+    {
+      "id": 10604,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "multiple-choice",
+      "questionText": "٩ + ؟ = ١٥. ما العدد المفقود؟",
+      "options": ["٤", "٥", "٦", "٧"],
+      "correctAnswer": "٦",
+      "points": 15,
+      "hint": "اطرح ٩ من ١٥"
+    },
+    {
+      "id": 10605,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "multiple-choice",
+      "questionText": "لدى فاطمة ٤ دمى واشترت عدداً آخر فأصبح لديها ١٠ دمى. كم دمية اشترت؟",
+      "options": ["٤", "٥", "٦", "١٠"],
+      "correctAnswer": "٦",
+      "points": 15,
+      "hint": "٤ + ؟ = ١٠"
+    },
+    {
+      "id": 10606,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "multiple-choice",
+      "questionText": "؟ + ٥ = ٥. ما العدد المفقود؟",
+      "options": ["٠", "١", "٥", "١٠"],
+      "correctAnswer": "٠",
+      "points": 10,
+      "hint": "ما العدد الذي إذا أضفته لـ ٥ لا يتغيّر؟"
+    },
+    {
+      "id": 10607,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "multiple-choice",
+      "questionText": "٧ + ؟ = ١٦. ما العدد المفقود؟",
+      "options": ["٧", "٨", "٩", "١٠"],
+      "correctAnswer": "٩",
+      "points": 15,
+      "hint": "١٦ - ٧ = ؟"
+    },
+    {
+      "id": 10608,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "multiple-choice",
+      "questionText": "؟ + ٣ = ١١. ما العدد المفقود؟",
+      "options": ["٦", "٧", "٨", "٩"],
+      "correctAnswer": "٨",
+      "points": 15,
+      "hint": "١١ - ٣ = ؟"
+    },
+    {
+      "id": 10609,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "input",
+      "questionText": "٢ + ؟ = ٩. اكتب العدد المفقود.",
+      "correctAnswer": "٧",
+      "points": 10,
+      "hint": "٩ - ٢ = ؟"
+    },
+    {
+      "id": 10610,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "input",
+      "questionText": "؟ + ٨ = ١٧. اكتب العدد المفقود.",
+      "correctAnswer": "٩",
+      "points": 15,
+      "hint": "١٧ - ٨ = ؟"
+    },
+    {
+      "id": 10611,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "input",
+      "questionText": "٦ + ؟ = ١٣. اكتب العدد المفقود.",
+      "correctAnswer": "٧",
+      "points": 15,
+      "hint": "١٣ - ٦ = ؟"
+    },
+    {
+      "id": 10612,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "input",
+      "questionText": "؟ + ٧ = ٢٠. اكتب العدد المفقود.",
+      "correctAnswer": "١٣",
+      "points": 20,
+      "hint": "٢٠ - ٧ = ؟"
+    },
+    {
+      "id": 10613,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "input",
+      "questionText": "٤ + ؟ = ٤. اكتب العدد المفقود.",
+      "correctAnswer": "٠",
+      "points": 10,
+      "hint": "ما العدد الذي لا يغيّر ٤؟"
+    },
+    {
+      "id": 10614,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "reorder",
+      "questionText": "رتّب لتكوّن جملة الجمع الصحيحة: ٨ ، + ، ٣ ، = ، ١١",
+      "options": ["٨", "+", "٣", "=", "١١"],
+      "correctAnswer": "٨ ، + ، ٣ ، = ، ١١",
+      "points": 10,
+      "hint": "ابدأ بالعدد الأول ثم + ثم العدد الثاني = الناتج"
+    },
+    {
+      "id": 10615,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "reorder",
+      "questionText": "رتّب لتكوّن جملة جمع ناتجها ١٨: ٩ ، + ، ٩ ، = ، ١٨",
+      "options": ["٩", "+", "٩", "=", "١٨"],
+      "correctAnswer": "٩ ، + ، ٩ ، = ، ١٨",
+      "points": 15,
+      "hint": "ضعف ٩ = ١٨"
+    },
+    {
+      "id": 10616,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "reorder",
+      "questionText": "رتّب لتجد العدد المفقود: ٥ ، + ، ؟ ، = ، ١٤. الأعداد المتاحة: ٩ ، ٥ ، ١٤",
+      "options": ["٥", "+", "٩", "=", "١٤"],
+      "correctAnswer": "٥ ، + ، ٩ ، = ، ١٤",
+      "points": 15,
+      "hint": "١٤ - ٥ = ٩"
+    },
+    {
+      "id": 10617,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "matching",
+      "questionText": "صِل كل جملة جمع بالعدد المفقود فيها",
+      "pairs": [
+        { "left": "٢ + ؟ = ١٠", "right": "٨" },
+        { "left": "؟ + ٤ = ١٣", "right": "٩" },
+        { "left": "٦ + ؟ = ١١", "right": "٥" },
+        { "left": "؟ + ٧ = ١٥", "right": "٨" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اطرح العدد المعروف من الناتج"
+    },
+    {
+      "id": 10618,
+      "subject": "رياضيات",
+      "lesson": "العدد المفقود في جملة الجمع",
+      "type": "matching",
+      "questionText": "صِل كل جملة جمع بالعدد المفقود",
+      "pairs": [
+        { "left": "١ + ؟ = ٨", "right": "٧" },
+        { "left": "؟ + ٢ = ٦", "right": "٤" },
+        { "left": "٣ + ؟ = ٩", "right": "٦" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "استخدم الطرح لإيجاد العدد المفقود"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-017",
+  "kcNameAr": "يذكر عدد العشرات المكوّنة لعدد مُعطى",
+  "domain": "Numbers & Operations",
+  "standard": "Place Value",
+  "questions": [
+    {
+      "id": 10321,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "multiple-choice",
+      "questionText": "كم عشرة يتكوّن منها العدد ٣٠؟",
+      "options": ["٢", "٣", "٤", "٥"],
+      "correctAnswer": "٣",
+      "points": 10,
+      "hint": "٣٠ ÷ ١٠ = ٣"
+    },
+    {
+      "id": 10322,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "multiple-choice",
+      "questionText": "كم عشرة في العدد ٧٠؟",
+      "options": ["٥", "٦", "٧", "٨"],
+      "correctAnswer": "٧",
+      "points": 10,
+      "hint": "٧٠ ÷ ١٠ = ؟"
+    },
+    {
+      "id": 10323,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "multiple-choice",
+      "questionText": "كم عشرة يتكوّن منها العدد ٥٠؟",
+      "options": ["٤", "٥", "٦", "١٠"],
+      "correctAnswer": "٥",
+      "points": 10,
+      "hint": "كل عشرة = ١٠"
+    },
+    {
+      "id": 10324,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "multiple-choice",
+      "questionText": "كم عشرة في العدد ٩٠؟",
+      "options": ["٨", "٩", "١٠", "٧"],
+      "correctAnswer": "٩",
+      "points": 10,
+      "hint": "٩ × ١٠ = ٩٠"
+    },
+    {
+      "id": 10325,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "multiple-choice",
+      "questionText": "كم عشرة في العدد ٢٠؟",
+      "options": ["١", "٢", "٣", "٢٠"],
+      "correctAnswer": "٢",
+      "points": 10,
+      "hint": "٢٠ = عشرتان"
+    },
+    {
+      "id": 10326,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يتكوّن من ٦ عشرات؟",
+      "options": ["٦", "١٦", "٦٠", "٦٦"],
+      "correctAnswer": "٦٠",
+      "points": 10,
+      "hint": "٦ × ١٠ = ؟"
+    },
+    {
+      "id": 10327,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "multiple-choice",
+      "questionText": "كم عشرة في العدد ١٠؟",
+      "options": ["٠", "١", "٢", "١٠"],
+      "correctAnswer": "١",
+      "points": 10,
+      "hint": "١٠ = عشرة واحدة"
+    },
+    {
+      "id": 10328,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد يتكوّن من ٤ عشرات؟",
+      "options": ["٤", "١٤", "٤٠", "٤٤"],
+      "correctAnswer": "٤٠",
+      "points": 15,
+      "hint": "٤ عشرات = ٤ × ١٠"
+    },
+    {
+      "id": 10329,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "input",
+      "questionText": "كم عشرة في العدد ٨٠؟",
+      "correctAnswer": "٨",
+      "points": 10,
+      "hint": "٨٠ ÷ ١٠"
+    },
+    {
+      "id": 10330,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "input",
+      "questionText": "كم عشرة في العدد ٤٠؟",
+      "correctAnswer": "٤",
+      "points": 10,
+      "hint": "٤٠ ÷ ١٠"
+    },
+    {
+      "id": 10331,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "input",
+      "questionText": "ما العدد المكوّن من ٨ عشرات؟",
+      "correctAnswer": "٨٠",
+      "points": 10,
+      "hint": "٨ × ١٠"
+    },
+    {
+      "id": 10332,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "input",
+      "questionText": "كم عشرة في العدد ٦٠؟",
+      "correctAnswer": "٦",
+      "points": 15,
+      "hint": "٦٠ ÷ ١٠"
+    },
+    {
+      "id": 10333,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "input",
+      "questionText": "ما العدد الذي يتكوّن من ٣ عشرات؟",
+      "correctAnswer": "٣٠",
+      "points": 15,
+      "hint": "٣ × ١٠"
+    },
+    {
+      "id": 10334,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "reorder",
+      "questionText": "رتّب العشرات من الأصغر إلى الأكبر:",
+      "options": ["٦٠", "٢٠", "٩٠", "٤٠"],
+      "correctAnswer": "٢٠,٤٠,٦٠,٩٠",
+      "points": 15,
+      "hint": "قارن عدد العشرات"
+    },
+    {
+      "id": 10335,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "reorder",
+      "questionText": "رتّب تنازلياً:",
+      "options": ["٣٠", "٧٠", "١٠", "٥٠"],
+      "correctAnswer": "٧٠,٥٠,٣٠,١٠",
+      "points": 20,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10336,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "matching",
+      "questionText": "طابق عدد العشرات بالعدد:",
+      "pairs": [
+        { "left": "٢ عشرتان", "right": "٢٠" },
+        { "left": "٥ عشرات", "right": "٥٠" },
+        { "left": "٨ عشرات", "right": "٨٠" },
+        { "left": "١ عشرة", "right": "١٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اضرب عدد العشرات في ١٠"
+    },
+    {
+      "id": 10337,
+      "subject": "رياضيات",
+      "lesson": "عدد العشرات في عدد",
+      "type": "matching",
+      "questionText": "طابق العدد بعدد العشرات فيه:",
+      "pairs": [
+        { "left": "٤٠", "right": "٤ عشرات" },
+        { "left": "٩٠", "right": "٩ عشرات" },
+        { "left": "٣٠", "right": "٣ عشرات" },
+        { "left": "٧٠", "right": "٧ عشرات" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اقسم العدد على ١٠"
+    }
+  ]
+}

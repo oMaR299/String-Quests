@@ -1,0 +1,76 @@
+{
+  "kcId": "kc-math-g1-048",
+  "kcNameAr": "يطرح ذهنياً عدداً مكوّناً من منزلة واحدة من عدد مكوّن من منزلتين",
+  "cards": [
+    {
+      "id": "fc-048-01",
+      "type": "concept",
+      "front": "كيف نطرح ذهنياً عدداً من منزلة واحدة من عدد من منزلتين؟",
+      "back": "نطرح من الآحاد فقط والعشرات تبقى كما هي. مثلاً: ٣٨ - ٥ = ٣٣",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-048-02",
+      "type": "text",
+      "front": "٤٩ - ٣ = ؟",
+      "back": "٤٦",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-048-03",
+      "type": "text",
+      "front": "٥٧ - ٤ = ؟",
+      "back": "٥٣",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-048-04",
+      "type": "text",
+      "front": "٧٨ - ٦ = ؟",
+      "back": "٧٢",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-048-05",
+      "type": "text",
+      "front": "٨٥ - ٥ = ؟",
+      "back": "٨٠",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-048-06",
+      "type": "visual",
+      "front": "تخيّل ٣ حزم عشرة و٩ مكعبات (٣٩). أزل ٧ مكعبات. كم يبقى؟",
+      "back": "٣ حزم و٢ مكعبات = ٣٢ (٣٩ - ٧ = ٣٢)",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-048-07",
+      "type": "reverse",
+      "front": "عدد - ٦ = ٥١. ما هو العدد؟",
+      "back": "٥٧ لأن ٥٧ - ٦ = ٥١",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-048-08",
+      "type": "text",
+      "front": "٩٦ - ٣ = ؟",
+      "back": "٩٣",
+      "difficulty": 1
+    },
+    {
+      "id": "fc-048-09",
+      "type": "text",
+      "front": "٦٤ - ٤ = ؟",
+      "back": "٦٠",
+      "difficulty": 2
+    },
+    {
+      "id": "fc-048-10",
+      "type": "text",
+      "front": "٢٧ - ٧ = ؟",
+      "back": "٢٠",
+      "difficulty": 2
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-003",
+  "kcNameAr": "يقرأ الأعداد حتى 99 بالرموز",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10041,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي تمثّله الرموز: ٢ عشرات و ٣ آحاد؟",
+      "options": ["٣٢", "٢٣", "٥", "٢٠"],
+      "correctAnswer": "٢٣",
+      "points": 10,
+      "hint": "العشرات في خانة العشرات والآحاد في خانة الآحاد"
+    },
+    {
+      "id": 10042,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "اقرأ العدد: ٤٥. ما هو هذا العدد؟",
+      "options": ["خمسة وأربعون", "أربعة وخمسون", "أربعة عشر", "خمسة وعشرون"],
+      "correctAnswer": "خمسة وأربعون",
+      "points": 10,
+      "hint": "٤ في خانة العشرات و ٥ في خانة الآحاد"
+    },
+    {
+      "id": 10043,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "أيّ رمز يمثّل العدد ثمانية وعشرون؟",
+      "options": ["٨٢", "٢٨", "٨٠", "٢٠"],
+      "correctAnswer": "٢٨",
+      "points": 10,
+      "hint": "ثمانية = آحاد، عشرون = عشرات"
+    },
+    {
+      "id": 10044,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "ما العدد المكتوب: ٦١؟",
+      "options": ["ستة وعشرون", "واحد وستون", "ستة عشر", "واحد وعشرون"],
+      "correctAnswer": "واحد وستون",
+      "points": 10,
+      "hint": "٦ عشرات و ١ آحاد"
+    },
+    {
+      "id": 10045,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد من هؤلاء يساوي تسعة وسبعون؟",
+      "options": ["٩٧", "٧٩", "٧٧", "٩٩"],
+      "correctAnswer": "٧٩",
+      "points": 15,
+      "hint": "تسعة آحاد وسبعون عشرات"
+    },
+    {
+      "id": 10046,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يأتي بين ٥٤ و ٥٦؟",
+      "options": ["٥٣", "٥٧", "٥٥", "٥٠"],
+      "correctAnswer": "٥٥",
+      "points": 10,
+      "hint": "العدد الذي يقع بين عددين متتاليين"
+    },
+    {
+      "id": 10047,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "ما قراءة الرمز ٨٤؟",
+      "options": ["ثمانون وأربعة", "أربعة وثمانون", "ثمانية وأربعون", "أربعون وثمانية"],
+      "correctAnswer": "أربعة وثمانون",
+      "points": 15,
+      "hint": "اقرأ الآحاد أولاً ثم العشرات"
+    },
+    {
+      "id": 10048,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "أيّ رمز يمثّل العدد اثنا عشر؟",
+      "options": ["٢١", "١٢", "٢٠", "٢٢"],
+      "correctAnswer": "١٢",
+      "points": 10,
+      "hint": "اثنا عشر = ١٢"
+    },
+    {
+      "id": 10049,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد ستة وثلاثون بالرموز.",
+      "correctAnswer": "٣٦",
+      "points": 10,
+      "hint": "ثلاثون = ٣ عشرات، ستة = ٦ آحاد"
+    },
+    {
+      "id": 10050,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد سبعة وتسعون بالرموز.",
+      "correctAnswer": "٩٧",
+      "points": 15,
+      "hint": "تسعون = ٩ عشرات، سبعة = ٧ آحاد"
+    },
+    {
+      "id": 10051,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد أحد عشر بالرموز.",
+      "correctAnswer": "١١",
+      "points": 10,
+      "hint": "عشرة + واحد"
+    },
+    {
+      "id": 10052,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد خمسة وستون بالرموز.",
+      "correctAnswer": "٦٥",
+      "points": 15,
+      "hint": "ستون = ٦ عشرات، خمسة = ٥ آحاد"
+    },
+    {
+      "id": 10053,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد تسعة وأربعون بالرموز.",
+      "correctAnswer": "٤٩",
+      "points": 15,
+      "hint": "أربعون = ٤ عشرات، تسعة = ٩ آحاد"
+    },
+    {
+      "id": 10054,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد التالية من الأصغر إلى الأكبر:",
+      "options": ["٧٣", "٣٧", "٥٠", "١٩"],
+      "correctAnswer": "١٩,٣٧,٥٠,٧٣",
+      "points": 15,
+      "hint": "قارن العشرات أولاً"
+    },
+    {
+      "id": 10055,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تنازلياً:",
+      "options": ["٢٢", "٨٨", "٤٤", "٦٦"],
+      "correctAnswer": "٨٨,٦٦,٤٤,٢٢",
+      "points": 20,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10056,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "matching",
+      "questionText": "طابق كل قراءة بالعدد المناسب:",
+      "pairs": [
+        { "left": "خمسة وعشرون", "right": "٢٥" },
+        { "left": "واحد وسبعون", "right": "٧١" },
+        { "left": "أربعة عشر", "right": "١٤" },
+        { "left": "ستون", "right": "٦٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اقرأ الكلمات وحوّلها إلى أرقام"
+    },
+    {
+      "id": 10057,
+      "subject": "رياضيات",
+      "lesson": "قراءة الأعداد بالرموز",
+      "type": "matching",
+      "questionText": "طابق العدد بقراءته:",
+      "pairs": [
+        { "left": "٣٣", "right": "ثلاثة وثلاثون" },
+        { "left": "١٨", "right": "ثمانية عشر" },
+        { "left": "٤٦", "right": "ستة وأربعون" },
+        { "left": "٩٠", "right": "تسعون" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اقرأ كل عدد بعناية"
+    }
+  ]
+}

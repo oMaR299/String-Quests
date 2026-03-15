@@ -1,0 +1,211 @@
+{
+  "kcId": "kc-math-g1-001",
+  "kcNameAr": "يتعرّف العشرات ويقرؤها",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10001,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "multiple-choice",
+      "questionText": "كم عشرة في العدد ٣٠؟",
+      "options": ["٢", "٣", "٤", "٥"],
+      "correctAnswer": "٣",
+      "points": 10,
+      "hint": "كل عشرة تساوي ١٠، عُدّ: ١٠، ٢٠، ٣٠"
+    },
+    {
+      "id": 10002,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يمثّل ٥ عشرات؟",
+      "options": ["٥", "١٥", "٥٠", "٥٥"],
+      "correctAnswer": "٥٠",
+      "points": 10,
+      "hint": "٥ عشرات = ٥ × ١٠"
+    },
+    {
+      "id": 10003,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "multiple-choice",
+      "questionText": "أيّ من هذه الأعداد يمثّل عشرات فقط؟",
+      "options": ["٢٣", "٤٠", "١٥", "٧٨"],
+      "correctAnswer": "٤٠",
+      "points": 10,
+      "hint": "العشرات هي: ١٠، ٢٠، ٣٠، ٤٠، ..."
+    },
+    {
+      "id": 10004,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "multiple-choice",
+      "questionText": "٧ عشرات تساوي:",
+      "options": ["٧", "١٧", "٧٠", "٧٧"],
+      "correctAnswer": "٧٠",
+      "points": 10,
+      "hint": "اضرب ٧ في ١٠"
+    },
+    {
+      "id": 10005,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "multiple-choice",
+      "questionText": "كم عشرة في العدد ٩٠؟",
+      "options": ["٧", "٨", "٩", "١٠"],
+      "correctAnswer": "٩",
+      "points": 10,
+      "hint": "٩٠ ÷ ١٠ = ؟"
+    },
+    {
+      "id": 10006,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "multiple-choice",
+      "questionText": "ما هو العدد الذي يأتي بعد ٢٠ عند العدّ بالعشرات؟",
+      "options": ["٢١", "٢٥", "٣٠", "٤٠"],
+      "correctAnswer": "٣٠",
+      "points": 10,
+      "hint": "عُدّ بالعشرات: ١٠، ٢٠، ..."
+    },
+    {
+      "id": 10007,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد لا يمثّل عشرات كاملة؟",
+      "options": ["٢٠", "٣٥", "٦٠", "٨٠"],
+      "correctAnswer": "٣٥",
+      "points": 15,
+      "hint": "العشرات الكاملة تنتهي بصفر"
+    },
+    {
+      "id": 10008,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "multiple-choice",
+      "questionText": "٢ عشرة تساوي:",
+      "options": ["٢", "١٢", "٢٠", "٢٢"],
+      "correctAnswer": "٢٠",
+      "points": 10,
+      "hint": "عشرة واحدة = ١٠، فكم تساوي عشرتان؟"
+    },
+    {
+      "id": 10009,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "input",
+      "questionText": "كم عشرة في العدد ٦٠؟",
+      "correctAnswer": "٦",
+      "points": 10,
+      "hint": "اقسم العدد على ١٠"
+    },
+    {
+      "id": 10010,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "input",
+      "questionText": "٤ عشرات = كم؟",
+      "correctAnswer": "٤٠",
+      "points": 10,
+      "hint": "اضرب عدد العشرات في ١٠"
+    },
+    {
+      "id": 10011,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "input",
+      "questionText": "كم عشرة في العدد ٨٠؟",
+      "correctAnswer": "٨",
+      "points": 15,
+      "hint": "٨٠ = ؟ عشرات"
+    },
+    {
+      "id": 10012,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "input",
+      "questionText": "اكتب العدد الذي يساوي ١ عشرة.",
+      "correctAnswer": "١٠",
+      "points": 10,
+      "hint": "عشرة واحدة = ١٠"
+    },
+    {
+      "id": 10013,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "input",
+      "questionText": "اكتب عدد العشرات في العدد ٥٠.",
+      "correctAnswer": "٥",
+      "points": 15,
+      "hint": "كم مرّة يتكرر العدد ١٠ في ٥٠؟"
+    },
+    {
+      "id": 10014,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "reorder",
+      "questionText": "رتّب العشرات التالية من الأصغر إلى الأكبر:",
+      "options": ["٤٠", "١٠", "٣٠", "٢٠"],
+      "correctAnswer": "١٠,٢٠,٣٠,٤٠",
+      "points": 15,
+      "hint": "ابدأ بأصغر عدد"
+    },
+    {
+      "id": 10015,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد التالية تصاعدياً:",
+      "options": ["٧٠", "٥٠", "٩٠", "٦٠"],
+      "correctAnswer": "٥٠,٦٠,٧٠,٩٠",
+      "points": 15,
+      "hint": "ابدأ بالعدد الأصغر وانتهِ بالأكبر"
+    },
+    {
+      "id": 10016,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "reorder",
+      "questionText": "رتّب العشرات تنازلياً:",
+      "options": ["٢٠", "٨٠", "٥٠", "٣٠"],
+      "correctAnswer": "٨٠,٥٠,٣٠,٢٠",
+      "points": 20,
+      "hint": "ابدأ بالعدد الأكبر"
+    },
+    {
+      "id": 10017,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "matching",
+      "questionText": "طابق كل عدد بعدد العشرات فيه:",
+      "pairs": [
+        { "left": "٣٠", "right": "٣ عشرات" },
+        { "left": "٦٠", "right": "٦ عشرات" },
+        { "left": "٢٠", "right": "٢ عشرتان" },
+        { "left": "٩٠", "right": "٩ عشرات" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "كل عشرة = ١٠"
+    },
+    {
+      "id": 10018,
+      "subject": "رياضيات",
+      "lesson": "العشرات",
+      "type": "matching",
+      "questionText": "طابق عدد العشرات بالعدد الصحيح:",
+      "pairs": [
+        { "left": "١ عشرة", "right": "١٠" },
+        { "left": "٤ عشرات", "right": "٤٠" },
+        { "left": "٧ عشرات", "right": "٧٠" },
+        { "left": "٥ عشرات", "right": "٥٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اضرب عدد العشرات في ١٠"
+    }
+  ]
+}

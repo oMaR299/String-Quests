@@ -1,0 +1,211 @@
+{
+  "kcId": "kc-math-g1-038",
+  "kcNameAr": "يجد أزواج الأعداد التي تكوّن العدد ١٠",
+  "domain": "عمليات الجمع والطرح",
+  "standard": "يجد أزواج الأعداد التي تكوّن العدد ١٠",
+  "questions": [
+    {
+      "id": 10741,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "multiple-choice",
+      "questionText": "٧ + ؟ = ١٠",
+      "options": ["١", "٢", "٣", "٤"],
+      "correctAnswer": "٣",
+      "points": 10,
+      "hint": "١٠ - ٧ = ?"
+    },
+    {
+      "id": 10742,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "multiple-choice",
+      "questionText": "٤ + ؟ = ١٠",
+      "options": ["٤", "٥", "٦", "٧"],
+      "correctAnswer": "٦",
+      "points": 10,
+      "hint": "١٠ - ٤ = ?"
+    },
+    {
+      "id": 10743,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "multiple-choice",
+      "questionText": "أيّ زوج يكوّن العدد ١٠؟",
+      "options": ["٣ و ٦", "٢ و ٨", "٤ و ٧", "١ و ٨"],
+      "correctAnswer": "٢ و ٨",
+      "points": 10,
+      "hint": "اجمع كل زوج وتحقق أيّهم يساوي ١٠"
+    },
+    {
+      "id": 10744,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "multiple-choice",
+      "questionText": "٩ + ؟ = ١٠",
+      "options": ["٠", "١", "٢", "٩"],
+      "correctAnswer": "١",
+      "points": 10,
+      "hint": "١٠ - ٩ = ?"
+    },
+    {
+      "id": 10745,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "multiple-choice",
+      "questionText": "٥ + ؟ = ١٠",
+      "options": ["٣", "٤", "٥", "٦"],
+      "correctAnswer": "٥",
+      "points": 10,
+      "hint": "١٠ - ٥ = ?"
+    },
+    {
+      "id": 10746,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "multiple-choice",
+      "questionText": "لدى هند ٦ تفاحات. كم تفاحة تحتاج ليصبح لديها ١٠؟",
+      "options": ["٢", "٣", "٤", "٥"],
+      "correctAnswer": "٤",
+      "points": 15,
+      "hint": "١٠ - ٦ = ?"
+    },
+    {
+      "id": 10747,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "multiple-choice",
+      "questionText": "أيّ زوج لا يكوّن العدد ١٠؟",
+      "options": ["٣ و ٧", "٥ و ٥", "٤ و ٦", "٢ و ٧"],
+      "correctAnswer": "٢ و ٧",
+      "points": 15,
+      "hint": "اجمع كل زوج واختر الذي لا يساوي ١٠"
+    },
+    {
+      "id": 10748,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "multiple-choice",
+      "questionText": "١٠ + ؟ = ١٠",
+      "options": ["٠", "١", "١٠", "٢٠"],
+      "correctAnswer": "٠",
+      "points": 10,
+      "hint": "ما العدد الذي لا يغيّر ١٠؟"
+    },
+    {
+      "id": 10749,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "input",
+      "questionText": "٨ + ؟ = ١٠. ما العدد المفقود؟",
+      "correctAnswer": "٢",
+      "points": 10,
+      "hint": "١٠ - ٨ = ?"
+    },
+    {
+      "id": 10750,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "input",
+      "questionText": "١ + ؟ = ١٠. ما العدد المفقود؟",
+      "correctAnswer": "٩",
+      "points": 10,
+      "hint": "١٠ - ١ = ?"
+    },
+    {
+      "id": 10751,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "input",
+      "questionText": "٣ + ؟ = ١٠. ما العدد المفقود؟",
+      "correctAnswer": "٧",
+      "points": 10,
+      "hint": "١٠ - ٣ = ?"
+    },
+    {
+      "id": 10752,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "input",
+      "questionText": "كم عدد أزواج الأعداد المختلفة التي تكوّن ١٠ (بما فيها ٠ + ١٠)؟",
+      "correctAnswer": "٦",
+      "points": 20,
+      "hint": "عُدّ: ٠+١٠ ، ١+٩ ، ٢+٨ ، ٣+٧ ، ٤+٦ ، ٥+٥"
+    },
+    {
+      "id": 10753,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "input",
+      "questionText": "٠ + ؟ = ١٠. ما العدد المفقود؟",
+      "correctAnswer": "١٠",
+      "points": 10,
+      "hint": "١٠ - ٠ = ?"
+    },
+    {
+      "id": 10754,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "reorder",
+      "questionText": "رتّب أزواج العدد ١٠ حسب العدد الأول من الأصغر إلى الأكبر:",
+      "options": ["٤ و ٦", "١ و ٩", "٧ و ٣"],
+      "correctAnswer": "١ و ٩ ، ٤ و ٦ ، ٧ و ٣",
+      "points": 15,
+      "hint": "رتّب حسب العدد الأول: ١ ، ٤ ، ٧"
+    },
+    {
+      "id": 10755,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "reorder",
+      "questionText": "رتّب لتكوّن جملة جمع تساوي ١٠: ٣ ، + ، ٧ ، = ، ١٠",
+      "options": ["٣", "+", "٧", "=", "١٠"],
+      "correctAnswer": "٣ ، + ، ٧ ، = ، ١٠",
+      "points": 10,
+      "hint": "٣ + ٧ = ١٠"
+    },
+    {
+      "id": 10756,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "reorder",
+      "questionText": "رتّب أزواج العدد ١٠ من الأكبر إلى الأصغر حسب العدد الأول:",
+      "options": ["٩ و ١", "٢ و ٨", "٦ و ٤"],
+      "correctAnswer": "٩ و ١ ، ٦ و ٤ ، ٢ و ٨",
+      "points": 15,
+      "hint": "رتّب حسب العدد الأول: ٩ ، ٦ ، ٢"
+    },
+    {
+      "id": 10757,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "matching",
+      "questionText": "صِل كل عدد بالعدد الذي يكمله إلى ١٠",
+      "pairs": [
+        { "left": "٣", "right": "٧" },
+        { "left": "٨", "right": "٢" },
+        { "left": "٥", "right": "٥" },
+        { "left": "١", "right": "٩" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 10,
+      "hint": "١٠ - العدد = المكمّل"
+    },
+    {
+      "id": 10758,
+      "subject": "رياضيات",
+      "lesson": "أزواج العدد ١٠",
+      "type": "matching",
+      "questionText": "صِل كل عدد بما يكمله إلى ١٠",
+      "pairs": [
+        { "left": "٤", "right": "٦" },
+        { "left": "٩", "right": "١" },
+        { "left": "٢", "right": "٨" },
+        { "left": "٦", "right": "٤" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "كل زوج يجب أن يكون مجموعه ١٠"
+    }
+  ]
+}

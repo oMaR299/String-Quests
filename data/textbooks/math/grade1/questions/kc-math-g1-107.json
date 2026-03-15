@@ -1,0 +1,207 @@
+{
+  "kcId": "kc-math-g1-107",
+  "kcNameAr": "يتعرّف الكلمات الإنجليزية للأيام",
+  "domain": "الوقت",
+  "standard": "يتعرّف الكلمات الإنجليزية للأيام",
+  "questions": [
+    {
+      "id": 12121,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Sunday بالعربية؟",
+      "options": ["الأحد", "الإثنين", "السبت", "الجمعة"],
+      "correctAnswer": "الأحد",
+      "points": 10,
+      "hint": "Sunday هو أول يوم في الأسبوع"
+    },
+    {
+      "id": 12122,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Friday بالعربية؟",
+      "options": ["الجمعة", "الخميس", "السبت", "الأحد"],
+      "correctAnswer": "الجمعة",
+      "points": 10,
+      "hint": "Friday هو يوم صلاة الجمعة"
+    },
+    {
+      "id": 12123,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "multiple-choice",
+      "questionText": "ما الكلمة الإنجليزية ليوم الإثنين؟",
+      "options": ["Monday", "Tuesday", "Sunday", "Wednesday"],
+      "correctAnswer": "Monday",
+      "points": 10,
+      "hint": "الإثنين بالإنجليزية يبدأ بحرف M"
+    },
+    {
+      "id": 12124,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Wednesday بالعربية؟",
+      "options": ["الأربعاء", "الثلاثاء", "الخميس", "الإثنين"],
+      "correctAnswer": "الأربعاء",
+      "points": 15,
+      "hint": "Wednesday هو اليوم الرابع"
+    },
+    {
+      "id": 12125,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "multiple-choice",
+      "questionText": "ما الكلمة الإنجليزية ليوم السبت؟",
+      "options": ["Saturday", "Sunday", "Friday", "Thursday"],
+      "correctAnswer": "Saturday",
+      "points": 10,
+      "hint": "السبت بالإنجليزية يبدأ بحرف S"
+    },
+    {
+      "id": 12126,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Thursday بالعربية؟",
+      "options": ["الخميس", "الثلاثاء", "الأربعاء", "الجمعة"],
+      "correctAnswer": "الخميس",
+      "points": 15,
+      "hint": "Thursday هو اليوم الخامس"
+    },
+    {
+      "id": 12127,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "multiple-choice",
+      "questionText": "ما معنى كلمة Tuesday بالعربية؟",
+      "options": ["الثلاثاء", "الإثنين", "الأربعاء", "الخميس"],
+      "correctAnswer": "الثلاثاء",
+      "points": 10,
+      "hint": "Tuesday هو اليوم الثالث"
+    },
+    {
+      "id": 12128,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "multiple-choice",
+      "questionText": "ما الكلمة الإنجليزية ليوم الأحد؟",
+      "options": ["Sunday", "Saturday", "Monday", "Friday"],
+      "correctAnswer": "Sunday",
+      "points": 10,
+      "hint": "الأحد هو أول يوم ويبدأ بـ Sun"
+    },
+    {
+      "id": 12129,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "input",
+      "questionText": "ما معنى Monday بالعربية؟",
+      "correctAnswer": "الإثنين",
+      "points": 10,
+      "hint": "Monday هو ثاني أيام الأسبوع"
+    },
+    {
+      "id": 12130,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "input",
+      "questionText": "ما معنى Saturday بالعربية؟",
+      "correctAnswer": "السبت",
+      "points": 10,
+      "hint": "Saturday هو آخر يوم في الأسبوع"
+    },
+    {
+      "id": 12131,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "input",
+      "questionText": "ما معنى Friday بالعربية؟",
+      "correctAnswer": "الجمعة",
+      "points": 10,
+      "hint": "يوم العطلة والصلاة"
+    },
+    {
+      "id": 12132,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "input",
+      "questionText": "ما معنى Sunday بالعربية؟",
+      "correctAnswer": "الأحد",
+      "points": 10,
+      "hint": "أول يوم في الأسبوع"
+    },
+    {
+      "id": 12133,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "input",
+      "questionText": "ما معنى Wednesday بالعربية؟",
+      "correctAnswer": "الأربعاء",
+      "points": 15,
+      "hint": "اليوم الرابع في الأسبوع"
+    },
+    {
+      "id": 12134,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "reorder",
+      "questionText": "رتّب الأيام بالإنجليزية بالترتيب الصحيح: Wednesday, Sunday, Monday, Tuesday",
+      "correctAnswer": "Sunday,Monday,Tuesday,Wednesday",
+      "points": 15,
+      "hint": "ابدأ بـ Sunday"
+    },
+    {
+      "id": 12135,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "reorder",
+      "questionText": "رتّب بالترتيب: Saturday, Thursday, Friday",
+      "correctAnswer": "Thursday,Friday,Saturday",
+      "points": 15,
+      "hint": "الخميس ثم الجمعة ثم السبت"
+    },
+    {
+      "id": 12136,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "reorder",
+      "questionText": "رتّب كلّ أيام الأسبوع بالإنجليزية: Thursday, Monday, Saturday, Wednesday, Friday, Sunday, Tuesday",
+      "correctAnswer": "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",
+      "points": 20,
+      "hint": "ابدأ بـ Sunday وانتهِ بـ Saturday"
+    },
+    {
+      "id": 12137,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "matching",
+      "questionText": "طابق بين اليوم بالعربية والإنجليزية",
+      "pairs": [
+        { "left": "الأحد", "right": "Sunday" },
+        { "left": "الإثنين", "right": "Monday" },
+        { "left": "الثلاثاء", "right": "Tuesday" },
+        { "left": "الأربعاء", "right": "Wednesday" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "تذكّر الكلمات الإنجليزية لكلّ يوم"
+    },
+    {
+      "id": 12138,
+      "subject": "رياضيات",
+      "lesson": "يتعرّف الكلمات الإنجليزية للأيام",
+      "type": "matching",
+      "questionText": "طابق بين اليوم بالعربية والإنجليزية",
+      "pairs": [
+        { "left": "الخميس", "right": "Thursday" },
+        { "left": "الجمعة", "right": "Friday" },
+        { "left": "السبت", "right": "Saturday" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "الأيام الأخيرة في الأسبوع"
+    }
+  ]
+}

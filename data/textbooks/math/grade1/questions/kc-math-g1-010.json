@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-010",
+  "kcNameAr": "يحدّد العدد البيني بين عددين",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10181,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يقع بين ١٤ و ١٦؟",
+      "options": ["١٣", "١٥", "١٧", "١٤"],
+      "correctAnswer": "١٥",
+      "points": 10,
+      "hint": "ابحث عن العدد بين العددين"
+    },
+    {
+      "id": 10182,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "multiple-choice",
+      "questionText": "ما العدد البيني بين ٣٨ و ٤٠؟",
+      "options": ["٣٧", "٤١", "٣٩", "٣٨"],
+      "correctAnswer": "٣٩",
+      "points": 10,
+      "hint": "العدد الذي يأتي بعد ٣٨ وقبل ٤٠"
+    },
+    {
+      "id": 10183,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد يقع بين ٧٠ و ٧٢؟",
+      "options": ["٦٩", "٧٣", "٧١", "٧٠"],
+      "correctAnswer": "٧١",
+      "points": 10,
+      "hint": "عُدّ: ٧٠، ؟، ٧٢"
+    },
+    {
+      "id": 10184,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يقع بين ٤٩ و ٥١؟",
+      "options": ["٤٨", "٥٢", "٥٠", "٤٩"],
+      "correctAnswer": "٥٠",
+      "points": 15,
+      "hint": "هذا العدد يقع عند حد العشرات"
+    },
+    {
+      "id": 10185,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "multiple-choice",
+      "questionText": "ما العدد البيني بين ٢٢ و ٢٤؟",
+      "options": ["٢١", "٢٥", "٢٣", "٢٠"],
+      "correctAnswer": "٢٣",
+      "points": 10,
+      "hint": "٢٢، ؟، ٢٤"
+    },
+    {
+      "id": 10186,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "multiple-choice",
+      "questionText": "أيّ عدد يقع بين ٨٥ و ٨٧؟",
+      "options": ["٨٤", "٨٨", "٨٦", "٩٠"],
+      "correctAnswer": "٨٦",
+      "points": 10,
+      "hint": "٨٥، ؟، ٨٧"
+    },
+    {
+      "id": 10187,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يقع بين ٥٩ و ٦١؟",
+      "options": ["٥٨", "٦٢", "٦٠", "٥٩"],
+      "correctAnswer": "٦٠",
+      "points": 15,
+      "hint": "العدد بين ٥٩ و ٦١"
+    },
+    {
+      "id": 10188,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "multiple-choice",
+      "questionText": "ما العدد البيني بين ٩٧ و ٩٩؟",
+      "options": ["٩٦", "٩٨", "٩٥", "١٠٠"],
+      "correctAnswer": "٩٨",
+      "points": 15,
+      "hint": "٩٧، ؟، ٩٩"
+    },
+    {
+      "id": 10189,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "input",
+      "questionText": "ما العدد الذي يقع بين ٣٣ و ٣٥؟",
+      "correctAnswer": "٣٤",
+      "points": 10,
+      "hint": "٣٣ + ١ = ؟"
+    },
+    {
+      "id": 10190,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "input",
+      "questionText": "ما العدد البيني بين ٦٦ و ٦٨؟",
+      "correctAnswer": "٦٧",
+      "points": 10,
+      "hint": "٦٦، ؟، ٦٨"
+    },
+    {
+      "id": 10191,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "input",
+      "questionText": "ما العدد الذي يقع بين ٢٩ و ٣١؟",
+      "correctAnswer": "٣٠",
+      "points": 15,
+      "hint": "ينتقل من العشرينيات إلى الثلاثينيات"
+    },
+    {
+      "id": 10192,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "input",
+      "questionText": "ما العدد البيني بين ٧٩ و ٨١؟",
+      "correctAnswer": "٨٠",
+      "points": 15,
+      "hint": "٧٩، ؟، ٨١"
+    },
+    {
+      "id": 10193,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "input",
+      "questionText": "ما العدد الذي يقع بين ٤٤ و ٤٦؟",
+      "correctAnswer": "٤٥",
+      "points": 10,
+      "hint": "٤٤ + ١"
+    },
+    {
+      "id": 10194,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تصاعدياً:",
+      "options": ["٥٣", "٥١", "٥٤", "٥٢"],
+      "correctAnswer": "٥١,٥٢,٥٣,٥٤",
+      "points": 15,
+      "hint": "أعداد متتالية، ابدأ بالأصغر"
+    },
+    {
+      "id": 10195,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تصاعدياً:",
+      "options": ["٨٩", "٩١", "٩٠", "٨٨"],
+      "correctAnswer": "٨٨,٨٩,٩٠,٩١",
+      "points": 20,
+      "hint": "هذه أعداد متتالية تعبر حد العشرات"
+    },
+    {
+      "id": 10196,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "matching",
+      "questionText": "طابق كل زوج من الأعداد بالعدد البيني بينهما:",
+      "pairs": [
+        { "left": "بين ٢٠ و ٢٢", "right": "٢١" },
+        { "left": "بين ٤٥ و ٤٧", "right": "٤٦" },
+        { "left": "بين ٧١ و ٧٣", "right": "٧٢" },
+        { "left": "بين ٩٣ و ٩٥", "right": "٩٤" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أضف ١ إلى العدد الأصغر"
+    },
+    {
+      "id": 10197,
+      "subject": "رياضيات",
+      "lesson": "العدد البيني",
+      "type": "matching",
+      "questionText": "طابق العدد البيني مع الزوج المناسب:",
+      "pairs": [
+        { "left": "٥٠", "right": "بين ٤٩ و ٥١" },
+        { "left": "٣٥", "right": "بين ٣٤ و ٣٦" },
+        { "left": "٨٠", "right": "بين ٧٩ و ٨١" },
+        { "left": "١٥", "right": "بين ١٤ و ١٦" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "تحقق أن العدد يقع بين العددين"
+    }
+  ]
+}

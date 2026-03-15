@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-020",
+  "kcNameAr": "يكتب عدداً عُلمت الصورة التحليلية له",
+  "domain": "Numbers & Operations",
+  "standard": "Place Value",
+  "questions": [
+    {
+      "id": 10381,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي صورته التحليلية ٣٠ + ٧؟",
+      "options": ["٧٣", "٣٧", "٣٠", "٧"],
+      "correctAnswer": "٣٧",
+      "points": 10,
+      "hint": "اجمع العشرات والآحاد"
+    },
+    {
+      "id": 10382,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي صورته التحليلية ٦٠ + ٤؟",
+      "options": ["٤٦", "٦٤", "٦٠", "٤٠"],
+      "correctAnswer": "٦٤",
+      "points": 10,
+      "hint": "٦ عشرات و ٤ آحاد"
+    },
+    {
+      "id": 10383,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما العدد: ٢٠ + ١ = ؟",
+      "options": ["٢١", "١٢", "٢٠", "٣"],
+      "correctAnswer": "٢١",
+      "points": 10,
+      "hint": "٢ عشرات + ١ آحاد"
+    },
+    {
+      "id": 10384,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما العدد: ٨٠ + ٩ = ؟",
+      "options": ["٨٩", "٩٨", "٨٠", "٩٠"],
+      "correctAnswer": "٨٩",
+      "points": 10,
+      "hint": "٨ عشرات + ٩ آحاد"
+    },
+    {
+      "id": 10385,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما العدد: ٥٠ + ٠ = ؟",
+      "options": ["٥", "٥٠", "٥٥", "٠"],
+      "correctAnswer": "٥٠",
+      "points": 10,
+      "hint": "٥ عشرات + ٠ آحاد = عشرات فقط"
+    },
+    {
+      "id": 10386,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما العدد: ٤٠ + ٢ = ؟",
+      "options": ["٢٤", "٤٢", "٤٠", "٦"],
+      "correctAnswer": "٤٢",
+      "points": 15,
+      "hint": "٤ عشرات + ٢ آحاد"
+    },
+    {
+      "id": 10387,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما العدد: ١٠ + ٣ = ؟",
+      "options": ["٣١", "١٣", "١٠", "٣"],
+      "correctAnswer": "١٣",
+      "points": 10,
+      "hint": "عشرة واحدة + ٣ آحاد"
+    },
+    {
+      "id": 10388,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "multiple-choice",
+      "questionText": "ما العدد: ٩٠ + ٥ = ؟",
+      "options": ["٥٩", "٩٥", "٩٠", "٥٠"],
+      "correctAnswer": "٩٥",
+      "points": 15,
+      "hint": "٩ عشرات + ٥ آحاد"
+    },
+    {
+      "id": 10389,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب العدد: ٧٠ + ٦ = ؟",
+      "correctAnswer": "٧٦",
+      "points": 10,
+      "hint": "٧ عشرات + ٦ آحاد"
+    },
+    {
+      "id": 10390,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب العدد: ٣٠ + ٢ = ؟",
+      "correctAnswer": "٣٢",
+      "points": 10,
+      "hint": "٣ عشرات + ٢ آحاد"
+    },
+    {
+      "id": 10391,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب العدد: ٥٠ + ٨ = ؟",
+      "correctAnswer": "٥٨",
+      "points": 15,
+      "hint": "٥ عشرات + ٨ آحاد"
+    },
+    {
+      "id": 10392,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب العدد: ١٠ + ٩ = ؟",
+      "correctAnswer": "١٩",
+      "points": 10,
+      "hint": "عشرة + ٩"
+    },
+    {
+      "id": 10393,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "input",
+      "questionText": "اكتب العدد: ٤٠ + ٧ = ؟",
+      "correctAnswer": "٤٧",
+      "points": 15,
+      "hint": "٤ عشرات + ٧ آحاد"
+    },
+    {
+      "id": 10394,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد الناتجة تصاعدياً: (٢٠+٥)، (٦٠+١)، (١٠+٤)، (٤٠+٣)",
+      "options": ["٢٥", "٦١", "١٤", "٤٣"],
+      "correctAnswer": "١٤,٢٥,٤٣,٦١",
+      "points": 15,
+      "hint": "احسب كل صورة تحليلية أولاً ثم رتّب"
+    },
+    {
+      "id": 10395,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "reorder",
+      "questionText": "رتّب تنازلياً: (٩٠+٢)، (٣٠+٨)، (٧٠+٥)، (٥٠+١)",
+      "options": ["٩٢", "٣٨", "٧٥", "٥١"],
+      "correctAnswer": "٩٢,٧٥,٥١,٣٨",
+      "points": 20,
+      "hint": "احسب ثم رتّب من الأكبر"
+    },
+    {
+      "id": 10396,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "matching",
+      "questionText": "طابق الصورة التحليلية بالعدد:",
+      "pairs": [
+        { "left": "٢٠ + ٨", "right": "٢٨" },
+        { "left": "٧٠ + ٣", "right": "٧٣" },
+        { "left": "٤٠ + ١", "right": "٤١" },
+        { "left": "٩٠ + ٦", "right": "٩٦" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اجمع العشرات والآحاد"
+    },
+    {
+      "id": 10397,
+      "subject": "رياضيات",
+      "lesson": "كتابة العدد من الصورة التحليلية",
+      "type": "matching",
+      "questionText": "طابق العدد بصورته التحليلية:",
+      "pairs": [
+        { "left": "١٥", "right": "١٠ + ٥" },
+        { "left": "٨٧", "right": "٨٠ + ٧" },
+        { "left": "٣٠", "right": "٣٠ + ٠" },
+        { "left": "٦٩", "right": "٦٠ + ٩" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "حلّل كل عدد"
+    }
+  ]
+}

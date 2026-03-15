@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-009",
+  "kcNameAr": "يحدّد العدد التالي لعدد ما",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10161,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يأتي بعد ٣٤؟",
+      "options": ["٣٣", "٣٥", "٤٤", "٣٠"],
+      "correctAnswer": "٣٥",
+      "points": 10,
+      "hint": "العدد التالي = العدد + ١"
+    },
+    {
+      "id": 10162,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "multiple-choice",
+      "questionText": "ما العدد التالي للعدد ٤٩؟",
+      "options": ["٤٨", "٥٠", "٥٩", "٤٠"],
+      "correctAnswer": "٥٠",
+      "points": 15,
+      "hint": "٤٩ + ١ = ؟"
+    },
+    {
+      "id": 10163,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يأتي بعد ٧٨؟",
+      "options": ["٧٧", "٧٩", "٨٨", "٧٠"],
+      "correctAnswer": "٧٩",
+      "points": 10,
+      "hint": "أضف ١ إلى ٧٨"
+    },
+    {
+      "id": 10164,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "multiple-choice",
+      "questionText": "ما العدد التالي للعدد ٩٩؟",
+      "options": ["٩٨", "١٠٠", "٩٠", "٨٩"],
+      "correctAnswer": "١٠٠",
+      "points": 20,
+      "hint": "٩٩ + ١ = ؟"
+    },
+    {
+      "id": 10165,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يأتي بعد ١٩؟",
+      "options": ["١٨", "٢٠", "٢٩", "١٠"],
+      "correctAnswer": "٢٠",
+      "points": 15,
+      "hint": "١٩ + ١ = عدد جديد من العشرات"
+    },
+    {
+      "id": 10166,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "multiple-choice",
+      "questionText": "ما العدد التالي للعدد ٥٦؟",
+      "options": ["٥٥", "٥٧", "٦٦", "٤٦"],
+      "correctAnswer": "٥٧",
+      "points": 10,
+      "hint": "٥٦ + ١"
+    },
+    {
+      "id": 10167,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يأتي بعد ٨٩؟",
+      "options": ["٨٨", "٩٩", "٩٠", "٨٠"],
+      "correctAnswer": "٩٠",
+      "points": 15,
+      "hint": "٨٩ + ١ = ؟"
+    },
+    {
+      "id": 10168,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "multiple-choice",
+      "questionText": "ما العدد التالي للعدد ٦٠؟",
+      "options": ["٦١", "٥٩", "٧٠", "٥٠"],
+      "correctAnswer": "٦١",
+      "points": 10,
+      "hint": "٦٠ + ١"
+    },
+    {
+      "id": 10169,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "input",
+      "questionText": "ما العدد التالي للعدد ٤٢؟",
+      "correctAnswer": "٤٣",
+      "points": 10,
+      "hint": "أضف ١"
+    },
+    {
+      "id": 10170,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "input",
+      "questionText": "ما العدد الذي يأتي بعد ٢٩؟",
+      "correctAnswer": "٣٠",
+      "points": 15,
+      "hint": "٢٩ + ١ ينتقل إلى العشرة التالية"
+    },
+    {
+      "id": 10171,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "input",
+      "questionText": "ما العدد التالي للعدد ٧٥؟",
+      "correctAnswer": "٧٦",
+      "points": 10,
+      "hint": "٧٥ + ١"
+    },
+    {
+      "id": 10172,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "input",
+      "questionText": "ما العدد الذي يأتي بعد ٥٩؟",
+      "correctAnswer": "٦٠",
+      "points": 15,
+      "hint": "٥٩ + ١ = ؟"
+    },
+    {
+      "id": 10173,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "input",
+      "questionText": "ما العدد التالي للعدد ٩٣؟",
+      "correctAnswer": "٩٤",
+      "points": 10,
+      "hint": "٩٣ + ١"
+    },
+    {
+      "id": 10174,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تصاعدياً:",
+      "options": ["٥٨", "٥٦", "٥٧", "٥٥"],
+      "correctAnswer": "٥٥,٥٦,٥٧,٥٨",
+      "points": 15,
+      "hint": "كل عدد هو التالي للذي قبله"
+    },
+    {
+      "id": 10175,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تصاعدياً:",
+      "options": ["٣٩", "٤١", "٤٠", "٣٨"],
+      "correctAnswer": "٣٨,٣٩,٤٠,٤١",
+      "points": 20,
+      "hint": "هذه أعداد متتالية تعبر حد العشرات"
+    },
+    {
+      "id": 10176,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "matching",
+      "questionText": "طابق كل عدد بالعدد التالي له:",
+      "pairs": [
+        { "left": "٤٩", "right": "٥٠" },
+        { "left": "٧٧", "right": "٧٨" },
+        { "left": "٣٥", "right": "٣٦" },
+        { "left": "٦٩", "right": "٧٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أضف ١ لكل عدد"
+    },
+    {
+      "id": 10177,
+      "subject": "رياضيات",
+      "lesson": "العدد التالي",
+      "type": "matching",
+      "questionText": "طابق العدد بالعدد الذي يليه:",
+      "pairs": [
+        { "left": "١٩", "right": "٢٠" },
+        { "left": "٨٤", "right": "٨٥" },
+        { "left": "٥٩", "right": "٦٠" },
+        { "left": "٩١", "right": "٩٢" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "العدد التالي = العدد + ١"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-005",
+  "kcNameAr": "يكتب العدد الكلي ضمن 99",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10081,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "multiple-choice",
+      "questionText": "٣ حزم من العشرة و ٥ أشياء = كم؟",
+      "options": ["٣٥", "٥٣", "٣٠", "١٥"],
+      "correctAnswer": "٣٥",
+      "points": 10,
+      "hint": "٣ عشرات = ٣٠، أضف ٥ آحاد"
+    },
+    {
+      "id": 10082,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "multiple-choice",
+      "questionText": "٦ حزم من العشرة و ٢ أشياء = كم؟",
+      "options": ["٢٦", "٦٢", "٦٠", "٨"],
+      "correctAnswer": "٦٢",
+      "points": 10,
+      "hint": "٦ عشرات = ٦٠ + ٢ آحاد"
+    },
+    {
+      "id": 10083,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "multiple-choice",
+      "questionText": "٤ حزم من العشرة و ٠ أشياء = كم؟",
+      "options": ["٤", "٤٠", "١٤", "٤٤"],
+      "correctAnswer": "٤٠",
+      "points": 10,
+      "hint": "عندما لا توجد آحاد، العدد هو العشرات فقط"
+    },
+    {
+      "id": 10084,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "multiple-choice",
+      "questionText": "٨ حزم من العشرة و ٧ أشياء = كم؟",
+      "options": ["٧٨", "٨٧", "٨٠", "١٥"],
+      "correctAnswer": "٨٧",
+      "points": 10,
+      "hint": "٨ عشرات = ٨٠ + ٧ آحاد"
+    },
+    {
+      "id": 10085,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "multiple-choice",
+      "questionText": "١ حزمة من العشرة و ٩ أشياء = كم؟",
+      "options": ["٩١", "١٩", "٩", "١٠"],
+      "correctAnswer": "١٩",
+      "points": 10,
+      "hint": "عشرة واحدة = ١٠ + ٩"
+    },
+    {
+      "id": 10086,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "multiple-choice",
+      "questionText": "٥ حزم من العشرة و ٤ أشياء = كم؟",
+      "options": ["٤٥", "٥٤", "٩", "٥٠"],
+      "correctAnswer": "٥٤",
+      "points": 15,
+      "hint": "٥٠ + ٤ = ؟"
+    },
+    {
+      "id": 10087,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "multiple-choice",
+      "questionText": "٩ حزم من العشرة و ٩ أشياء = كم؟",
+      "options": ["٩٠", "٩٩", "٩", "١٨"],
+      "correctAnswer": "٩٩",
+      "points": 15,
+      "hint": "٩٠ + ٩ = ؟"
+    },
+    {
+      "id": 10088,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "multiple-choice",
+      "questionText": "٢ حزمة من العشرة و ٨ أشياء. ما العدد الكلي؟",
+      "options": ["٨٢", "٢٨", "١٠", "٢٠"],
+      "correctAnswer": "٢٨",
+      "points": 10,
+      "hint": "٢٠ + ٨ = ٢٨"
+    },
+    {
+      "id": 10089,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "input",
+      "questionText": "٧ حزم من العشرة و ٣ أشياء = كم؟",
+      "correctAnswer": "٧٣",
+      "points": 10,
+      "hint": "٧٠ + ٣"
+    },
+    {
+      "id": 10090,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "input",
+      "questionText": "٤ حزم من العشرة و ٦ أشياء = كم؟",
+      "correctAnswer": "٤٦",
+      "points": 10,
+      "hint": "٤٠ + ٦"
+    },
+    {
+      "id": 10091,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "input",
+      "questionText": "٣ حزم من العشرة و ١ شيء = كم؟",
+      "correctAnswer": "٣١",
+      "points": 10,
+      "hint": "٣٠ + ١"
+    },
+    {
+      "id": 10092,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "input",
+      "questionText": "٦ حزم من العشرة و ٨ أشياء = كم؟",
+      "correctAnswer": "٦٨",
+      "points": 15,
+      "hint": "٦٠ + ٨"
+    },
+    {
+      "id": 10093,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "input",
+      "questionText": "٩ حزم من العشرة و ٤ أشياء = كم؟",
+      "correctAnswer": "٩٤",
+      "points": 15,
+      "hint": "٩٠ + ٤"
+    },
+    {
+      "id": 10094,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد من الأصغر إلى الأكبر:",
+      "options": ["٦٣", "٣٦", "٩٠", "١٥"],
+      "correctAnswer": "١٥,٣٦,٦٣,٩٠",
+      "points": 15,
+      "hint": "قارن العشرات أولاً"
+    },
+    {
+      "id": 10095,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "reorder",
+      "questionText": "رتّب تنازلياً:",
+      "options": ["٤٧", "٧٤", "٢١", "٥٨"],
+      "correctAnswer": "٧٤,٥٨,٤٧,٢١",
+      "points": 20,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10096,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "matching",
+      "questionText": "طابق عدد الحزم والأشياء بالعدد الكلي:",
+      "pairs": [
+        { "left": "٢ حزم و ٥ أشياء", "right": "٢٥" },
+        { "left": "٧ حزم و ١ شيء", "right": "٧١" },
+        { "left": "٤ حزم و ٣ أشياء", "right": "٤٣" },
+        { "left": "٨ حزم و ٠ أشياء", "right": "٨٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "كل حزمة = ١٠"
+    },
+    {
+      "id": 10097,
+      "subject": "رياضيات",
+      "lesson": "العدد الكلي من العشرات والآحاد",
+      "type": "matching",
+      "questionText": "طابق العدد بالحزم والأشياء:",
+      "pairs": [
+        { "left": "٥٩", "right": "٥ حزم و ٩ أشياء" },
+        { "left": "٣٤", "right": "٣ حزم و ٤ أشياء" },
+        { "left": "١٦", "right": "١ حزمة و ٦ أشياء" },
+        { "left": "٩٠", "right": "٩ حزم و ٠ أشياء" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "رقم العشرات = عدد الحزم، رقم الآحاد = عدد الأشياء"
+    }
+  ]
+}

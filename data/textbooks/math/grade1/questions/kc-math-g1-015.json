@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-015",
+  "kcNameAr": "يستعمل لوحة الأعداد لإيجاد عدد يقل 1 أو يزيد 1",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10281,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "multiple-choice",
+      "questionText": "في لوحة الأعداد، ما العدد الذي يزيد ١ عن ٤٣؟",
+      "options": ["٤٢", "٤٤", "٥٣", "٣٣"],
+      "correctAnswer": "٤٤",
+      "points": 10,
+      "hint": "تحرّك خطوة واحدة إلى اليمين في لوحة الأعداد"
+    },
+    {
+      "id": 10282,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "multiple-choice",
+      "questionText": "في لوحة الأعداد، ما العدد الذي يقل ١ عن ٥٧؟",
+      "options": ["٥٨", "٥٦", "٤٧", "٦٧"],
+      "correctAnswer": "٥٦",
+      "points": 10,
+      "hint": "تحرّك خطوة واحدة إلى اليسار"
+    },
+    {
+      "id": 10283,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يزيد ١ عن ٢٩ في لوحة الأعداد؟",
+      "options": ["٢٨", "٣٠", "٣٩", "٢٠"],
+      "correctAnswer": "٣٠",
+      "points": 15,
+      "hint": "٢٩ + ١ ينتقل إلى صفّ جديد"
+    },
+    {
+      "id": 10284,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يقل ١ عن ٦٠ في لوحة الأعداد؟",
+      "options": ["٦١", "٥٩", "٥٠", "٧٠"],
+      "correctAnswer": "٥٩",
+      "points": 15,
+      "hint": "٦٠ - ١ يعود إلى الصف السابق"
+    },
+    {
+      "id": 10285,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "multiple-choice",
+      "questionText": "في لوحة الأعداد، ما العدد الذي يزيد ١ عن ٧٥؟",
+      "options": ["٧٤", "٧٦", "٨٥", "٦٥"],
+      "correctAnswer": "٧٦",
+      "points": 10,
+      "hint": "تحرّك خطوة إلى اليمين"
+    },
+    {
+      "id": 10286,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يقل ١ عن ٣١ في لوحة الأعداد؟",
+      "options": ["٣٢", "٢١", "٣٠", "٤١"],
+      "correctAnswer": "٣٠",
+      "points": 15,
+      "hint": "٣١ - ١"
+    },
+    {
+      "id": 10287,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "multiple-choice",
+      "questionText": "في لوحة الأعداد، ما العدد الذي يزيد ١ عن ٩٨؟",
+      "options": ["٩٧", "٩٩", "٨٨", "١٠٠"],
+      "correctAnswer": "٩٩",
+      "points": 10,
+      "hint": "٩٨ + ١"
+    },
+    {
+      "id": 10288,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "multiple-choice",
+      "questionText": "ما العدد الذي يقل ١ عن ٨٥؟",
+      "options": ["٨٦", "٨٤", "٧٥", "٩٥"],
+      "correctAnswer": "٨٤",
+      "points": 10,
+      "hint": "٨٥ - ١"
+    },
+    {
+      "id": 10289,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "input",
+      "questionText": "في لوحة الأعداد، ما العدد الذي يزيد ١ عن ٦٦؟",
+      "correctAnswer": "٦٧",
+      "points": 10,
+      "hint": "٦٦ + ١"
+    },
+    {
+      "id": 10290,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "input",
+      "questionText": "ما العدد الذي يقل ١ عن ٤٠ في لوحة الأعداد؟",
+      "correctAnswer": "٣٩",
+      "points": 15,
+      "hint": "٤٠ - ١"
+    },
+    {
+      "id": 10291,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "input",
+      "questionText": "ما العدد الذي يزيد ١ عن ٨٩ في لوحة الأعداد؟",
+      "correctAnswer": "٩٠",
+      "points": 15,
+      "hint": "٨٩ + ١ ينتقل إلى العشرة التالية"
+    },
+    {
+      "id": 10292,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "input",
+      "questionText": "ما العدد الذي يقل ١ عن ٧١؟",
+      "correctAnswer": "٧٠",
+      "points": 15,
+      "hint": "٧١ - ١"
+    },
+    {
+      "id": 10293,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "input",
+      "questionText": "ما العدد الذي يزيد ١ عن ٥٤؟",
+      "correctAnswer": "٥٥",
+      "points": 10,
+      "hint": "٥٤ + ١"
+    },
+    {
+      "id": 10294,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تصاعدياً كما تظهر في لوحة الأعداد:",
+      "options": ["٤٩", "٤٧", "٥٠", "٤٨"],
+      "correctAnswer": "٤٧,٤٨,٤٩,٥٠",
+      "points": 15,
+      "hint": "كل عدد يزيد ١ عن الذي قبله"
+    },
+    {
+      "id": 10295,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "reorder",
+      "questionText": "رتّب تنازلياً كما في لوحة الأعداد:",
+      "options": ["٧٠", "٧٢", "٦٩", "٧١"],
+      "correctAnswer": "٧٢,٧١,٧٠,٦٩",
+      "points": 20,
+      "hint": "كل عدد يقل ١ عن الذي قبله"
+    },
+    {
+      "id": 10296,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "matching",
+      "questionText": "طابق كل عملية بالنتيجة:",
+      "pairs": [
+        { "left": "٣٥ + ١", "right": "٣٦" },
+        { "left": "٥٠ - ١", "right": "٤٩" },
+        { "left": "٧٩ + ١", "right": "٨٠" },
+        { "left": "٦١ - ١", "right": "٦٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أضف أو اطرح ١"
+    },
+    {
+      "id": 10297,
+      "subject": "رياضيات",
+      "lesson": "لوحة الأعداد (+١ و -١)",
+      "type": "matching",
+      "questionText": "طابق العدد بالعدد الذي يزيد ١ عنه:",
+      "pairs": [
+        { "left": "٢٨", "right": "٢٩" },
+        { "left": "٩٩", "right": "١٠٠" },
+        { "left": "٤٤", "right": "٤٥" },
+        { "left": "١٩", "right": "٢٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "أضف ١ لكل عدد"
+    }
+  ]
+}

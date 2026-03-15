@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-044",
+  "kcNameAr": "يستعمل حقائق الطرح لطرح العشرات",
+  "domain": "عمليات العشرات",
+  "standard": "يستعمل حقائق الطرح لطرح العشرات",
+  "questions": [
+    {
+      "id": 10861,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "multiple-choice",
+      "questionText": "إذا كان ٩ - ٣ = ٦، فما ناتج ٩٠ - ٣٠؟",
+      "options": ["٦", "٣٦", "٦٠", "٩٣"],
+      "correctAnswer": "٦٠",
+      "points": 10,
+      "hint": "استخدم حقيقة الطرح وأضف صفراً"
+    },
+    {
+      "id": 10862,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "multiple-choice",
+      "questionText": "إذا كان ٧ - ٢ = ٥، فما ناتج ٧٠ - ٢٠؟",
+      "options": ["٥", "٥٠", "٧٢", "٢٧"],
+      "correctAnswer": "٥٠",
+      "points": 10,
+      "hint": "٧ عشرات - ٢ عشرتان = ٥ عشرات"
+    },
+    {
+      "id": 10863,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "multiple-choice",
+      "questionText": "٨٠ - ٥٠ = ؟",
+      "options": ["٣", "٣٠", "٥٣", "٨٥"],
+      "correctAnswer": "٣٠",
+      "points": 10,
+      "hint": "٨ - ٥ = ٣"
+    },
+    {
+      "id": 10864,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "multiple-choice",
+      "questionText": "٥٠ - ١٠ = ؟",
+      "options": ["٣٠", "٤٠", "٥١", "١٥"],
+      "correctAnswer": "٤٠",
+      "points": 10,
+      "hint": "٥ - ١ = ٤"
+    },
+    {
+      "id": 10865,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "multiple-choice",
+      "questionText": "٦٠ - ٤٠ = ؟",
+      "options": ["١٠", "٢٠", "٤٦", "٦٤"],
+      "correctAnswer": "٢٠",
+      "points": 10,
+      "hint": "٦ - ٤ = ٢"
+    },
+    {
+      "id": 10866,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "multiple-choice",
+      "questionText": "إذا كان ٨ - ٣ = ٥، فما ناتج ٨٠ - ٣٠؟",
+      "options": ["٣٥", "٥٣", "٥٠", "٥"],
+      "correctAnswer": "٥٠",
+      "points": 15,
+      "hint": "نفس الحقيقة مع العشرات"
+    },
+    {
+      "id": 10867,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "multiple-choice",
+      "questionText": "٩٠ - ٧٠ = ؟",
+      "options": ["٢", "٢٠", "٧٩", "٩٧"],
+      "correctAnswer": "٢٠",
+      "points": 15,
+      "hint": "٩ - ٧ = ٢"
+    },
+    {
+      "id": 10868,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "multiple-choice",
+      "questionText": "٤٠ - ٤٠ = ؟",
+      "options": ["٠", "٤", "٤٠", "٨٠"],
+      "correctAnswer": "٠",
+      "points": 10,
+      "hint": "أي عدد ناقص نفسه = ٠"
+    },
+    {
+      "id": 10869,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "input",
+      "questionText": "٧٠ - ٣٠ = ؟",
+      "correctAnswer": "٤٠",
+      "points": 10,
+      "hint": "٧ - ٣ = ٤"
+    },
+    {
+      "id": 10870,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "input",
+      "questionText": "٦٠ - ١٠ = ؟",
+      "correctAnswer": "٥٠",
+      "points": 10,
+      "hint": "٦ - ١ = ٥"
+    },
+    {
+      "id": 10871,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "input",
+      "questionText": "٩٠ - ٦٠ = ؟",
+      "correctAnswer": "٣٠",
+      "points": 15,
+      "hint": "٩ - ٦ = ٣"
+    },
+    {
+      "id": 10872,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "input",
+      "questionText": "٨٠ - ٢٠ = ؟",
+      "correctAnswer": "٦٠",
+      "points": 15,
+      "hint": "٨ - ٢ = ٦"
+    },
+    {
+      "id": 10873,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "input",
+      "questionText": "٥٠ - ٥٠ = ؟",
+      "correctAnswer": "٠",
+      "points": 10,
+      "hint": "العدد ناقص نفسه = ٠"
+    },
+    {
+      "id": 10874,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ٧٠-٢٠ ، ٩٠-٦٠ ، ٨٠-١٠",
+      "options": ["٧٠-٢٠", "٩٠-٦٠", "٨٠-١٠"],
+      "correctAnswer": "٩٠-٦٠ ، ٧٠-٢٠ ، ٨٠-١٠",
+      "points": 15,
+      "hint": "٣٠ ، ٥٠ ، ٧٠"
+    },
+    {
+      "id": 10875,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ٦٠ - ٢٠:",
+      "options": ["أعرف أن ٦ - ٢ = ٤", "أضيف صفراً", "الناتج = ٤٠"],
+      "correctAnswer": "أعرف أن ٦ - ٢ = ٤ ، أضيف صفراً ، الناتج = ٤٠",
+      "points": 15,
+      "hint": "استخدم حقيقة الطرح الأساسية"
+    },
+    {
+      "id": 10876,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأكبر إلى الأصغر: ٥٠-٣٠ ، ٨٠-٤٠ ، ٣٠-١٠",
+      "options": ["٥٠-٣٠", "٨٠-٤٠", "٣٠-١٠"],
+      "correctAnswer": "٨٠-٤٠ ، ٥٠-٣٠ ، ٣٠-١٠",
+      "points": 15,
+      "hint": "٢٠ ، ٤٠ ، ٢٠"
+    },
+    {
+      "id": 10877,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "matching",
+      "questionText": "صِل كل حقيقة طرح بحقيقة طرح العشرات المرتبطة",
+      "pairs": [
+        { "left": "٨ - ٥ = ٣", "right": "٨٠ - ٥٠ = ٣٠" },
+        { "left": "٦ - ٢ = ٤", "right": "٦٠ - ٢٠ = ٤٠" },
+        { "left": "٩ - ١ = ٨", "right": "٩٠ - ١٠ = ٨٠" },
+        { "left": "٧ - ٤ = ٣", "right": "٧٠ - ٤٠ = ٣٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "أضف صفراً لكل عدد"
+    },
+    {
+      "id": 10878,
+      "subject": "رياضيات",
+      "lesson": "طرح العشرات",
+      "type": "matching",
+      "questionText": "صِل كل جملة طرح عشرات بناتجها",
+      "pairs": [
+        { "left": "٥٠ - ٢٠", "right": "٣٠" },
+        { "left": "٩٠ - ٥٠", "right": "٤٠" },
+        { "left": "٧٠ - ٦٠", "right": "١٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اطرح العشرات"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "kcId": "kc-math-g1-004",
+  "kcNameAr": "يكتب الأعداد حتى 99 بالصورة الرمزية",
+  "domain": "Numbers & Operations",
+  "standard": "Whole Numbers",
+  "questions": [
+    {
+      "id": 10061,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "اكتب العدد \"ثلاثة وعشرون\" بالصورة الرمزية:",
+      "options": ["٣٢", "٢٣", "٣٣", "١٣"],
+      "correctAnswer": "٢٣",
+      "points": 10,
+      "hint": "ثلاثة = ٣ آحاد، عشرون = ٢ عشرات"
+    },
+    {
+      "id": 10062,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة الرمزية للعدد \"خمسة وسبعون\"؟",
+      "options": ["٥٧", "٧٥", "٥٥", "٧٧"],
+      "correctAnswer": "٧٥",
+      "points": 10,
+      "hint": "سبعون = ٧ عشرات، خمسة = ٥ آحاد"
+    },
+    {
+      "id": 10063,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "اكتب العدد \"ثمانية عشر\" بالصورة الرمزية:",
+      "options": ["٨٠", "٨١", "١٨", "٨٨"],
+      "correctAnswer": "١٨",
+      "points": 10,
+      "hint": "ثمانية عشر = ١٨"
+    },
+    {
+      "id": 10064,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة الرمزية للعدد \"أربعة وستون\"؟",
+      "options": ["٤٦", "٦٤", "٤٤", "٦٦"],
+      "correctAnswer": "٦٤",
+      "points": 15,
+      "hint": "ستون = ٦ عشرات، أربعة = ٤ آحاد"
+    },
+    {
+      "id": 10065,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "اكتب \"واحد وتسعون\" بالصورة الرمزية:",
+      "options": ["١٩", "٩١", "١١", "٩٩"],
+      "correctAnswer": "٩١",
+      "points": 15,
+      "hint": "تسعون = ٩ عشرات، واحد = ١ آحاد"
+    },
+    {
+      "id": 10066,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "ما الصورة الرمزية للعدد \"ثلاثة عشر\"؟",
+      "options": ["٣٠", "٣١", "١٣", "٣٣"],
+      "correctAnswer": "١٣",
+      "points": 10,
+      "hint": "ثلاثة عشر = عشرة + ثلاثة"
+    },
+    {
+      "id": 10067,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "اكتب \"ستة وثمانون\" بالأرقام:",
+      "options": ["٦٨", "٨٦", "٦٠", "٨٠"],
+      "correctAnswer": "٨٦",
+      "points": 15,
+      "hint": "ثمانون = ٨ عشرات، ستة = ٦ آحاد"
+    },
+    {
+      "id": 10068,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "multiple-choice",
+      "questionText": "أيّ صورة رمزية صحيحة للعدد \"تسعة وتسعون\"؟",
+      "options": ["٩٠", "٩٩", "٩١", "١٩"],
+      "correctAnswer": "٩٩",
+      "points": 10,
+      "hint": "تسعة (آحاد) + تسعون (عشرات)"
+    },
+    {
+      "id": 10069,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد \"سبعة وأربعون\" بالأرقام.",
+      "correctAnswer": "٤٧",
+      "points": 10,
+      "hint": "أربعون = ٤ عشرات، سبعة = ٧ آحاد"
+    },
+    {
+      "id": 10070,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد \"اثنان وخمسون\" بالأرقام.",
+      "correctAnswer": "٥٢",
+      "points": 10,
+      "hint": "خمسون = ٥ عشرات، اثنان = ٢ آحاد"
+    },
+    {
+      "id": 10071,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد \"سبعة عشر\" بالأرقام.",
+      "correctAnswer": "١٧",
+      "points": 10,
+      "hint": "سبعة عشر = ١ عشرة + ٧ آحاد"
+    },
+    {
+      "id": 10072,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد \"ثمانية وثلاثون\" بالأرقام.",
+      "correctAnswer": "٣٨",
+      "points": 15,
+      "hint": "ثلاثون = ٣ عشرات، ثمانية = ٨ آحاد"
+    },
+    {
+      "id": 10073,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "input",
+      "questionText": "اكتب العدد \"أربعة وثمانون\" بالأرقام.",
+      "correctAnswer": "٨٤",
+      "points": 15,
+      "hint": "ثمانون = ٨ عشرات، أربعة = ٤ آحاد"
+    },
+    {
+      "id": 10074,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد التالية تصاعدياً:",
+      "options": ["٨١", "١٨", "٤٥", "٢٧"],
+      "correctAnswer": "١٨,٢٧,٤٥,٨١",
+      "points": 15,
+      "hint": "ابدأ بالأصغر"
+    },
+    {
+      "id": 10075,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "reorder",
+      "questionText": "رتّب الأعداد تنازلياً:",
+      "options": ["٣٩", "٩٣", "٥١", "٧٢"],
+      "correctAnswer": "٩٣,٧٢,٥١,٣٩",
+      "points": 20,
+      "hint": "ابدأ بالأكبر"
+    },
+    {
+      "id": 10076,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "matching",
+      "questionText": "طابق القراءة بالعدد الرمزي:",
+      "pairs": [
+        { "left": "واحد وأربعون", "right": "٤١" },
+        { "left": "تسعة وعشرون", "right": "٢٩" },
+        { "left": "ستة وخمسون", "right": "٥٦" },
+        { "left": "ثمانون", "right": "٨٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "حوّل الكلمات إلى أرقام"
+    },
+    {
+      "id": 10077,
+      "subject": "رياضيات",
+      "lesson": "كتابة الأعداد بالرموز",
+      "type": "matching",
+      "questionText": "طابق الكلمات بالأرقام:",
+      "pairs": [
+        { "left": "سبعة وستون", "right": "٦٧" },
+        { "left": "اثنا عشر", "right": "١٢" },
+        { "left": "خمسة وثمانون", "right": "٨٥" },
+        { "left": "عشرون", "right": "٢٠" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اقرأ بعناية وطابق"
+    }
+  ]
+}

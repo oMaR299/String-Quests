@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-046",
+  "kcNameAr": "يجمع ذهنياً عدداً مكوّناً من منزلتين مع عدد مكوّن من منزلة واحدة",
+  "domain": "الحساب الذهني",
+  "standard": "يجمع ذهنياً عدداً مكوّناً من منزلتين مع عدد مكوّن من منزلة واحدة",
+  "questions": [
+    {
+      "id": 10901,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٢٣ + ٥ ذهنياً؟",
+      "options": ["٢٧", "٢٨", "٢٩", "٣٣"],
+      "correctAnswer": "٢٨",
+      "points": 10,
+      "hint": "اجمع الآحاد فقط: ٣ + ٥ = ٨"
+    },
+    {
+      "id": 10902,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٤١ + ٧ ذهنياً؟",
+      "options": ["٤٧", "٤٨", "٥١", "٥٧"],
+      "correctAnswer": "٤٨",
+      "points": 10,
+      "hint": "١ + ٧ = ٨، العشرات تبقى ٤"
+    },
+    {
+      "id": 10903,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٥٤ + ٣ ذهنياً؟",
+      "options": ["٥٥", "٥٦", "٥٧", "٥٨"],
+      "correctAnswer": "٥٧",
+      "points": 10,
+      "hint": "٤ + ٣ = ٧"
+    },
+    {
+      "id": 10904,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٣٢ + ٦ ذهنياً؟",
+      "options": ["٣٦", "٣٧", "٣٨", "٣٩"],
+      "correctAnswer": "٣٨",
+      "points": 10,
+      "hint": "٢ + ٦ = ٨"
+    },
+    {
+      "id": 10905,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٧٠ + ٤ ذهنياً؟",
+      "options": ["٧٠", "٧٤", "٤٧", "٧٤٠"],
+      "correctAnswer": "٧٤",
+      "points": 10,
+      "hint": "٠ + ٤ = ٤"
+    },
+    {
+      "id": 10906,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٦٥ + ٤ ذهنياً؟",
+      "options": ["٦٧", "٦٨", "٦٩", "٧٥"],
+      "correctAnswer": "٦٩",
+      "points": 15,
+      "hint": "٥ + ٤ = ٩"
+    },
+    {
+      "id": 10907,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٨١ + ٨ ذهنياً؟",
+      "options": ["٨٧", "٨٨", "٨٩", "٩١"],
+      "correctAnswer": "٨٩",
+      "points": 15,
+      "hint": "١ + ٨ = ٩"
+    },
+    {
+      "id": 10908,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٩٠ + ٩ ذهنياً؟",
+      "options": ["٩٠", "٩٩", "٩٩٠", "١٠٠"],
+      "correctAnswer": "٩٩",
+      "points": 15,
+      "hint": "٠ + ٩ = ٩"
+    },
+    {
+      "id": 10909,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "input",
+      "questionText": "ما ناتج ١٣ + ٤ ذهنياً؟",
+      "correctAnswer": "١٧",
+      "points": 10,
+      "hint": "٣ + ٤ = ٧"
+    },
+    {
+      "id": 10910,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "input",
+      "questionText": "ما ناتج ٤٦ + ٢ ذهنياً؟",
+      "correctAnswer": "٤٨",
+      "points": 10,
+      "hint": "٦ + ٢ = ٨"
+    },
+    {
+      "id": 10911,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "input",
+      "questionText": "ما ناتج ٧٢ + ٧ ذهنياً؟",
+      "correctAnswer": "٧٩",
+      "points": 15,
+      "hint": "٢ + ٧ = ٩"
+    },
+    {
+      "id": 10912,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "input",
+      "questionText": "ما ناتج ٥٥ + ٤ ذهنياً؟",
+      "correctAnswer": "٥٩",
+      "points": 15,
+      "hint": "٥ + ٤ = ٩"
+    },
+    {
+      "id": 10913,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "input",
+      "questionText": "ما ناتج ٨٣ + ٦ ذهنياً؟",
+      "correctAnswer": "٨٩",
+      "points": 15,
+      "hint": "٣ + ٦ = ٩"
+    },
+    {
+      "id": 10914,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ٣٤+٥ ، ٧١+٨ ، ٢٠+٣",
+      "options": ["٣٤+٥", "٧١+٨", "٢٠+٣"],
+      "correctAnswer": "٢٠+٣ ، ٣٤+٥ ، ٧١+٨",
+      "points": 15,
+      "hint": "٢٣ ، ٣٩ ، ٧٩"
+    },
+    {
+      "id": 10915,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأكبر إلى الأصغر: ٥٠+٧ ، ٨٢+٥ ، ٤٤+٣",
+      "options": ["٥٠+٧", "٨٢+٥", "٤٤+٣"],
+      "correctAnswer": "٨٢+٥ ، ٥٠+٧ ، ٤٤+٣",
+      "points": 15,
+      "hint": "٥٧ ، ٨٧ ، ٤٧"
+    },
+    {
+      "id": 10916,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "reorder",
+      "questionText": "رتّب خطوات الجمع الذهني ٦١ + ٨:",
+      "options": ["أحتفظ بالعشرات ٦", "أجمع الآحاد: ١+٨=٩", "الناتج = ٦٩"],
+      "correctAnswer": "أحتفظ بالعشرات ٦ ، أجمع الآحاد: ١+٨=٩ ، الناتج = ٦٩",
+      "points": 15,
+      "hint": "العشرات لا تتغيّر"
+    },
+    {
+      "id": 10917,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "matching",
+      "questionText": "صِل كل جملة جمع ذهني بناتجها",
+      "pairs": [
+        { "left": "٢٤ + ٣", "right": "٢٧" },
+        { "left": "٥١ + ٦", "right": "٥٧" },
+        { "left": "٨٠ + ٩", "right": "٨٩" },
+        { "left": "٦٣ + ٤", "right": "٦٧" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "اجمع الآحاد فقط"
+    },
+    {
+      "id": 10918,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + منزلة",
+      "type": "matching",
+      "questionText": "صِل كل جملة جمع بناتجها الذهني",
+      "pairs": [
+        { "left": "٣٥ + ٢", "right": "٣٧" },
+        { "left": "٤٠ + ٨", "right": "٤٨" },
+        { "left": "٧١ + ٥", "right": "٧٦" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "اجمع الآحاد والعشرات تبقى كما هي"
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-034",
+  "kcNameAr": "يجمع عددين ناتج جمعهما ضمن ٢٠ باستخدام الضعف مضافاً إليه ١",
+  "domain": "عمليات الجمع والطرح",
+  "standard": "يجمع عددين ناتج جمعهما ضمن ٢٠ باستخدام الضعف مضافاً إليه ١",
+  "questions": [
+    {
+      "id": 10661,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٣ هو ٦. ما ناتج ٣ + ٤؟",
+      "options": ["٥", "٦", "٧", "٨"],
+      "correctAnswer": "٧",
+      "points": 10,
+      "hint": "٣ + ٤ = ٣ + ٣ + ١ = ٦ + ١"
+    },
+    {
+      "id": 10662,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٥ هو ١٠. ما ناتج ٥ + ٦؟",
+      "options": ["١٠", "١١", "١٢", "٩"],
+      "correctAnswer": "١١",
+      "points": 10,
+      "hint": "٥ + ٦ = ٥ + ٥ + ١ = ١٠ + ١"
+    },
+    {
+      "id": 10663,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٤ هو ٨. ما ناتج ٤ + ٥؟",
+      "options": ["٧", "٨", "٩", "١٠"],
+      "correctAnswer": "٩",
+      "points": 10,
+      "hint": "٤ + ٥ = ٤ + ٤ + ١ = ٨ + ١"
+    },
+    {
+      "id": 10664,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٧ هو ١٤. ما ناتج ٧ + ٨؟",
+      "options": ["١٣", "١٤", "١٥", "١٦"],
+      "correctAnswer": "١٥",
+      "points": 15,
+      "hint": "٧ + ٨ = ٧ + ٧ + ١ = ١٤ + ١"
+    },
+    {
+      "id": 10665,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "multiple-choice",
+      "questionText": "أيّ جملة جمع يمكن حلّها باستخدام الضعف + ١؟",
+      "options": ["٣ + ٧", "٦ + ٧", "٢ + ٨", "٤ + ٩"],
+      "correctAnswer": "٦ + ٧",
+      "points": 15,
+      "hint": "ابحث عن عددين متتاليين (الفرق بينهما ١)"
+    },
+    {
+      "id": 10666,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٨ هو ١٦. ما ناتج ٨ + ٩؟",
+      "options": ["١٥", "١٦", "١٧", "١٨"],
+      "correctAnswer": "١٧",
+      "points": 15,
+      "hint": "٨ + ٩ = ٨ + ٨ + ١ = ١٦ + ١"
+    },
+    {
+      "id": 10667,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٩ هو ١٨. ما ناتج ٩ + ١٠؟",
+      "options": ["١٧", "١٨", "١٩", "٢٠"],
+      "correctAnswer": "١٩",
+      "points": 15,
+      "hint": "٩ + ١٠ = ٩ + ٩ + ١ = ١٨ + ١"
+    },
+    {
+      "id": 10668,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "multiple-choice",
+      "questionText": "ضعف ٢ هو ٤. ما ناتج ٢ + ٣؟",
+      "options": ["٤", "٥", "٦", "٧"],
+      "correctAnswer": "٥",
+      "points": 10,
+      "hint": "٢ + ٣ = ٢ + ٢ + ١ = ٤ + ١"
+    },
+    {
+      "id": 10669,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "input",
+      "questionText": "ضعف ٦ هو ١٢. ما ناتج ٦ + ٧؟",
+      "correctAnswer": "١٣",
+      "points": 10,
+      "hint": "١٢ + ١ = ؟"
+    },
+    {
+      "id": 10670,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "input",
+      "questionText": "٤ + ٥ = ضعف ٤ + ١. ما الناتج؟",
+      "correctAnswer": "٩",
+      "points": 15,
+      "hint": "ضعف ٤ = ٨، ٨ + ١ = ؟"
+    },
+    {
+      "id": 10671,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "input",
+      "questionText": "٧ + ٨ = ؟. استخدم طريقة الضعف + ١.",
+      "correctAnswer": "١٥",
+      "points": 15,
+      "hint": "ضعف ٧ = ١٤، ١٤ + ١ = ؟"
+    },
+    {
+      "id": 10672,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "input",
+      "questionText": "٩ + ١٠ = ؟. استخدم طريقة الضعف + ١.",
+      "correctAnswer": "١٩",
+      "points": 20,
+      "hint": "ضعف ٩ = ١٨، ١٨ + ١ = ؟"
+    },
+    {
+      "id": 10673,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "input",
+      "questionText": "١ + ٢ = ؟. استخدم الضعف + ١.",
+      "correctAnswer": "٣",
+      "points": 10,
+      "hint": "ضعف ١ = ٢، ٢ + ١ = ؟"
+    },
+    {
+      "id": 10674,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ٥ + ٦ بطريقة الضعف + ١:",
+      "options": ["أجد ضعف ٥ = ١٠", "أضيف ١", "الناتج = ١١"],
+      "correctAnswer": "أجد ضعف ٥ = ١٠ ، أضيف ١ ، الناتج = ١١",
+      "points": 15,
+      "hint": "ابدأ بإيجاد الضعف ثم أضف ١"
+    },
+    {
+      "id": 10675,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ٣+٤ ، ٧+٨ ، ٥+٦",
+      "options": ["٣+٤", "٧+٨", "٥+٦"],
+      "correctAnswer": "٣+٤ ، ٥+٦ ، ٧+٨",
+      "points": 20,
+      "hint": "احسب: ٧ ، ١٥ ، ١١"
+    },
+    {
+      "id": 10676,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "reorder",
+      "questionText": "رتّب خطوات حل ٨ + ٩:",
+      "options": ["أجد ضعف ٨ = ١٦", "أضيف ١", "الناتج = ١٧"],
+      "correctAnswer": "أجد ضعف ٨ = ١٦ ، أضيف ١ ، الناتج = ١٧",
+      "points": 15,
+      "hint": "ابدأ بالضعف ثم أضف ١"
+    },
+    {
+      "id": 10677,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "matching",
+      "questionText": "صِل كل جملة جمع بناتجها باستخدام الضعف + ١",
+      "pairs": [
+        { "left": "٢ + ٣", "right": "٥" },
+        { "left": "٤ + ٥", "right": "٩" },
+        { "left": "٦ + ٧", "right": "١٣" },
+        { "left": "٨ + ٩", "right": "١٧" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "ضعف العدد الأصغر + ١"
+    },
+    {
+      "id": 10678,
+      "subject": "رياضيات",
+      "lesson": "الجمع بالضعف مضافاً إليه ١",
+      "type": "matching",
+      "questionText": "صِل كل ضعف بجملة الضعف + ١ المرتبطة به",
+      "pairs": [
+        { "left": "ضعف ٣ = ٦", "right": "٣ + ٤ = ٧" },
+        { "left": "ضعف ٥ = ١٠", "right": "٥ + ٦ = ١١" },
+        { "left": "ضعف ٧ = ١٤", "right": "٧ + ٨ = ١٥" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "الضعف + ١ يعني جمع عدد مع العدد التالي"
+    }
+  ]
+}

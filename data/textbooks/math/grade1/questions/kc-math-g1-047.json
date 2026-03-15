@@ -1,0 +1,210 @@
+{
+  "kcId": "kc-math-g1-047",
+  "kcNameAr": "يجمع ذهنياً عدداً مكوّناً من منزلتين مع العشرات",
+  "domain": "الحساب الذهني",
+  "standard": "يجمع ذهنياً عدداً مكوّناً من منزلتين مع العشرات",
+  "questions": [
+    {
+      "id": 10921,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٢٣ + ١٠ ذهنياً؟",
+      "options": ["٢٤", "٣٣", "١٣", "٤٣"],
+      "correctAnswer": "٣٣",
+      "points": 10,
+      "hint": "أضف ١ إلى العشرات فقط"
+    },
+    {
+      "id": 10922,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٤٥ + ٢٠ ذهنياً؟",
+      "options": ["٤٧", "٥٥", "٦٥", "٤٢"],
+      "correctAnswer": "٦٥",
+      "points": 10,
+      "hint": "أضف ٢ إلى العشرات: ٤+٢=٦"
+    },
+    {
+      "id": 10923,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ١٢ + ٣٠ ذهنياً؟",
+      "options": ["٣٢", "٤٢", "١٥", "٢٢"],
+      "correctAnswer": "٤٢",
+      "points": 10,
+      "hint": "١+٣=٤ في العشرات، الآحاد تبقى ٢"
+    },
+    {
+      "id": 10924,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٣٧ + ٤٠ ذهنياً؟",
+      "options": ["٤١", "٧٧", "٤٧", "٧٧"],
+      "correctAnswer": "٧٧",
+      "points": 15,
+      "hint": "٣+٤=٧ في العشرات"
+    },
+    {
+      "id": 10925,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٥٦ + ٣٠ ذهنياً؟",
+      "options": ["٥٩", "٨٦", "٦٦", "٧٦"],
+      "correctAnswer": "٨٦",
+      "points": 15,
+      "hint": "٥+٣=٨ في العشرات"
+    },
+    {
+      "id": 10926,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٦٤ + ٢٠ ذهنياً؟",
+      "options": ["٦٦", "٧٤", "٨٤", "٤٦"],
+      "correctAnswer": "٨٤",
+      "points": 15,
+      "hint": "٦+٢=٨ في العشرات"
+    },
+    {
+      "id": 10927,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ٧١ + ٢٠ ذهنياً؟",
+      "options": ["٧٣", "٨١", "٩١", "٢٧"],
+      "correctAnswer": "٩١",
+      "points": 15,
+      "hint": "٧+٢=٩"
+    },
+    {
+      "id": 10928,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "multiple-choice",
+      "questionText": "ما ناتج ١٨ + ٥٠ ذهنياً؟",
+      "options": ["٢٣", "٥١", "٥٨", "٦٨"],
+      "correctAnswer": "٦٨",
+      "points": 15,
+      "hint": "١+٥=٦ في العشرات"
+    },
+    {
+      "id": 10929,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٣٤ + ٣٠ ذهنياً؟",
+      "correctAnswer": "٦٤",
+      "points": 10,
+      "hint": "٣+٣=٦ في العشرات"
+    },
+    {
+      "id": 10930,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٢٩ + ٤٠ ذهنياً؟",
+      "correctAnswer": "٦٩",
+      "points": 15,
+      "hint": "٢+٤=٦ في العشرات"
+    },
+    {
+      "id": 10931,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٥٣ + ٤٠ ذهنياً؟",
+      "correctAnswer": "٩٣",
+      "points": 15,
+      "hint": "٥+٤=٩"
+    },
+    {
+      "id": 10932,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٤٧ + ٥٠ ذهنياً؟",
+      "correctAnswer": "٩٧",
+      "points": 20,
+      "hint": "٤+٥=٩"
+    },
+    {
+      "id": 10933,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "input",
+      "questionText": "ما ناتج ٨٢ + ١٠ ذهنياً؟",
+      "correctAnswer": "٩٢",
+      "points": 10,
+      "hint": "٨+١=٩"
+    },
+    {
+      "id": 10934,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "reorder",
+      "questionText": "رتّب النواتج من الأصغر إلى الأكبر: ٢٥+٣٠ ، ٦١+١٠ ، ٤٣+٢٠",
+      "options": ["٢٥+٣٠", "٦١+١٠", "٤٣+٢٠"],
+      "correctAnswer": "٢٥+٣٠ ، ٤٣+٢٠ ، ٦١+١٠",
+      "points": 15,
+      "hint": "٥٥ ، ٧١ ، ٦٣"
+    },
+    {
+      "id": 10935,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "reorder",
+      "questionText": "رتّب خطوات الجمع الذهني ٣٦ + ٤٠:",
+      "options": ["أحتفظ بالآحاد ٦", "أجمع العشرات: ٣+٤=٧", "الناتج = ٧٦"],
+      "correctAnswer": "أحتفظ بالآحاد ٦ ، أجمع العشرات: ٣+٤=٧ ، الناتج = ٧٦",
+      "points": 15,
+      "hint": "الآحاد لا تتغيّر عند جمع العشرات"
+    },
+    {
+      "id": 10936,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "reorder",
+      "questionText": "رتّب النواتج تنازلياً: ١١+٢٠ ، ٥٥+٢٠ ، ٣٣+٣٠",
+      "options": ["١١+٢٠", "٥٥+٢٠", "٣٣+٣٠"],
+      "correctAnswer": "٥٥+٢٠ ، ٣٣+٣٠ ، ١١+٢٠",
+      "points": 20,
+      "hint": "٣١ ، ٧٥ ، ٦٣"
+    },
+    {
+      "id": 10937,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "matching",
+      "questionText": "صِل كل جملة جمع ذهني بناتجها",
+      "pairs": [
+        { "left": "١٥ + ٢٠", "right": "٣٥" },
+        { "left": "٤٢ + ٣٠", "right": "٧٢" },
+        { "left": "٦٧ + ١٠", "right": "٧٧" },
+        { "left": "٣١ + ٥٠", "right": "٨١" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 15,
+      "hint": "اجمع العشرات فقط"
+    },
+    {
+      "id": 10938,
+      "subject": "رياضيات",
+      "lesson": "الجمع الذهني: منزلتين + عشرات",
+      "type": "matching",
+      "questionText": "صِل كل جملة بناتجها",
+      "pairs": [
+        { "left": "٢٦ + ٤٠", "right": "٦٦" },
+        { "left": "٥٨ + ٣٠", "right": "٨٨" },
+        { "left": "١٤ + ٦٠", "right": "٧٤" }
+      ],
+      "correctAnswer": "MATCH_ALL",
+      "points": 20,
+      "hint": "العشرات تتغيّر والآحاد تبقى"
+    }
+  ]
+}
