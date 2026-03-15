@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Textbook binary assets (too large for git)
+data/textbooks/math/grade1/images/
+data/textbooks/math/grade1/pdfs/
+*.pdf
+
+# Public directory junctions (local dev only)
+public/textbook-pages
+public/textbook-md
