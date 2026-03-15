@@ -91,7 +91,7 @@ export const TopicGrid: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-2 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
       >
         {topics.map(({ subjectAr, meta, progress, questionCount, totalPoints, slug }) => {
           const isNew = progress.answeredQuestions === 0;

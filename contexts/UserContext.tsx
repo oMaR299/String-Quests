@@ -27,25 +27,67 @@ export interface UserState {
 
 const getToday = () => new Date().toISOString().split('T')[0];
 
+// Demo mid-semester data: student has completed Foundation + Reading + most of Exploration
+const DEMO_GLOBAL_HISTORY: Record<number, number> = {
+  // ── Foundation (all perfect) ──
+  1: 10, 35: 10,   // math-addition (الجمع)
+  5: 15, 36: 15,   // math-subtraction (الطرح)
+  12: 10, 37: 10,  // math-numbers (الأعداد)
+  46: 10, 47: 15,  // math-multiplication (الضرب)
+  48: 15, 49: 15,  // math-division (القسمة)
+  2: 20, 38: 10,   // lang-vocab (مفردات عامة)
+  7: 20, 39: 10,   // lang-colors (الألوان)
+  50: 20, 51: 10,  // lang-verbs (الأفعال)
+  4: 15,           // ordering-sentences (الجمل المفيدة)
+  // ── Reading (completed, mixed scores) ──
+  31: 15, 32: 15, 33: 20, 34: 15,  // reading-languages → 87%
+  26: 10, 27: 15, 28: 18, 29: 15, 30: 15, // reading-coffee → 97%
+  52: 15,          // lang-sentences → 100%
+  // ── Exploration (partially done) ──
+  3: 10, 40: 10,   // general-culture → 100%
+  53: 10, 54: 10,  // general-space → 100%
+  6: 10, 41: 10,   // info-time → 100%
+  55: 8,           // info-science-facts → 80%
+  8: 15, 42: 10,   // animals-forest → 83%
+  56: 10, 57: 15,  // animals-sea → 83%
+  9: 10, 44: 7,    // science-env → 85%
+  59: 12,          // science-water → in progress (48%, current node)
+};
+
+const DEMO_COMPLETED_LESSONS = [
+  'math::addition', 'math::subtraction', 'math::numbers',
+  'math::multiplication', 'math::division',
+  'languages::general-vocab', 'languages::colors', 'languages::verbs',
+  'ordering::useful-sentences',
+  'languages::reading-languages', 'languages::reading-coffee', 'languages::sentences',
+  'general-knowledge::nature', 'general-knowledge::space',
+  'info::time', 'info::science-facts',
+  'animals::jungle-animals', 'animals::sea-animals',
+  'science::environment',
+];
+
 const DEFAULT_USER_STATE: UserState = {
-  xp: 0,
-  stats: { correct: 0, total: 0 },
-  totalBoosts: 0,
-  dailyCorrectAnswers: 0,
-  dailyXP: 0,
+  xp: 530,
+  stats: { correct: 35, total: 41 },
+  totalBoosts: 1,
+  dailyCorrectAnswers: 3,
+  dailyXP: 45,
   dailyGoalTier: 'regular',
-  currentStreak: 0,
-  longestStreak: 0,
-  lastActiveDate: '',
-  globalHistory: {},
-  hearts: 5,
+  currentStreak: 7,
+  longestStreak: 12,
+  lastActiveDate: getToday(),
+  globalHistory: DEMO_GLOBAL_HISTORY,
+  hearts: 4,
   maxHearts: 5,
   lastHeartLostAt: null,
-  gems: 100,
+  gems: 210,
   streakFreezes: 1,
-  completedLessons: [],
+  completedLessons: DEMO_COMPLETED_LESSONS,
   language: 'ar',
-  achievements: {},
+  achievements: {
+    'first-lesson': { unlocked: true, unlockedAt: '2026-02-01T10:00:00Z' },
+    'streak-7': { unlocked: true, unlockedAt: '2026-03-15T14:00:00Z' },
+  },
 };
 
 // ---- Actions ----

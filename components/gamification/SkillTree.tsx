@@ -8,6 +8,14 @@ import { useUser } from '../../contexts/UserContext';
 import { subjectToSlug, lessonToSlug } from '../../utils/slugify';
 import { useI18n } from '../../contexts/I18nContext';
 
+interface NodeInfo {
+  status: NodeStatus;
+  stars: 0 | 1 | 2 | 3;
+  scorePercent: number;
+  questionCount: number;
+  completionPercent: number;
+}
+
 // Compute node status from user progress
 function computeNodeStatus(
   nodeId: string,
@@ -16,7 +24,7 @@ function computeNodeStatus(
   lesson: string | null,
   globalHistory: Record<number, number>,
   completedNodes: Set<string>,
-): { status: NodeStatus; stars: 0 | 1 | 2 | 3; scorePercent: number } {
+): NodeInfo {
   // Get questions for this node
   const questions = QUESTIONS.filter(q => {
     if (q.subject !== subject) return false;
@@ -24,8 +32,10 @@ function computeNodeStatus(
     return true;
   });
 
-  if (questions.length === 0) {
-    return { status: 'locked', stars: 0, scorePercent: 0 };
+  const questionCount = questions.length;
+
+  if (questionCount === 0) {
+    return { status: 'locked', stars: 0, scorePercent: 0, questionCount: 0, completionPercent: 0 };
   }
 
   // Check if all prerequisites are completed
@@ -38,22 +48,39 @@ function computeNodeStatus(
   const scorePercent = totalMaxPoints > 0 ? (totalEarned / totalMaxPoints) * 100 : 0;
   const stars = getStars(scorePercent);
 
+  // Completion percentage: how many questions have been answered (any score)
+  const answeredCount = questions.filter(q => globalHistory[q.id] !== undefined).length;
+  const completionPercent = questionCount > 0 ? Math.round((answeredCount / questionCount) * 100) : 0;
+
   if (attempted && stars >= 1) {
-    if (stars === 3) return { status: 'perfect', stars, scorePercent };
-    return { status: 'completed', stars, scorePercent };
+    if (stars === 3) return { status: 'perfect', stars, scorePercent, questionCount, completionPercent };
+    return { status: 'completed', stars, scorePercent, questionCount, completionPercent };
   }
 
-  if (!prereqsMet) return { status: 'locked', stars: 0, scorePercent: 0 };
+  if (!prereqsMet) return { status: 'locked', stars: 0, scorePercent: 0, questionCount, completionPercent: 0 };
 
-  return { status: 'available', stars: 0, scorePercent: 0 };
+  // Available or partially attempted
+  return { status: 'available', stars: 0, scorePercent: 0, questionCount, completionPercent };
+}
+
+// Connector color based on node statuses
+function getConnectorColor(prevStatus: NodeStatus): { stroke: string; width: number; dash: string } {
+  switch (prevStatus) {
+    case 'perfect':
+      return { stroke: '#FFC800', width: 4, dash: 'none' };   // gold
+    case 'completed':
+      return { stroke: '#58CC02', width: 4, dash: 'none' };   // green
+    default:
+      return { stroke: '#e2e8f0', width: 3, dash: '8 6' };    // gray dashed
+  }
 }
 
 // SVG connector between two nodes
 const PathConnector: React.FC<{
   fromPos: 'left' | 'center' | 'right';
   toPos: 'left' | 'center' | 'right';
-  completed: boolean;
-}> = ({ fromPos, toPos, completed }) => {
+  prevStatus: NodeStatus;
+}> = ({ fromPos, toPos, prevStatus }) => {
   const offsetMap = { left: -64, center: 0, right: 64 };
   const x1 = 160 + offsetMap[fromPos];
   const x2 = 160 + offsetMap[toPos];
@@ -64,14 +91,16 @@ const PathConnector: React.FC<{
   const cy1 = y1 + 15;
   const cy2 = y2 - 15;
 
+  const { stroke, width, dash } = getConnectorColor(prevStatus);
+
   return (
     <svg width="320" height="40" className="mx-auto block" style={{ overflow: 'visible' }}>
       <path
         d={`M ${x1} ${y1} C ${x1} ${cy1}, ${x2} ${cy2}, ${x2} ${y2}`}
         fill="none"
-        stroke={completed ? '#58CC02' : '#e2e8f0'}
-        strokeWidth={completed ? 4 : 3}
-        strokeDasharray={completed ? 'none' : '8 6'}
+        stroke={stroke}
+        strokeWidth={width}
+        strokeDasharray={dash}
         strokeLinecap="round"
       />
     </svg>
@@ -111,7 +140,7 @@ export const SkillTree: React.FC = () => {
   // Pre-compute which nodes are completed
   const { nodeStatuses, currentNodeId } = useMemo(() => {
     const completedNodes = new Set<string>();
-    const statuses: Record<string, { status: NodeStatus; stars: 0 | 1 | 2 | 3; scorePercent: number }> = {};
+    const statuses: Record<string, NodeInfo> = {};
 
     // First pass: identify completed nodes
     for (const node of ALL_PATH_NODES) {
@@ -185,7 +214,13 @@ export const SkillTree: React.FC = () => {
           />
 
           {section.nodes.map((node, nIdx) => {
-            const nodeStatus = nodeStatuses[node.id] || { status: 'locked' as NodeStatus, stars: 0 as const, scorePercent: 0 };
+            const nodeStatus = nodeStatuses[node.id] || {
+              status: 'locked' as NodeStatus,
+              stars: 0 as const,
+              scorePercent: 0,
+              questionCount: 0,
+              completionPercent: 0,
+            };
             const isCurrent = node.id === currentNodeId;
 
             // Show connector before each node (except first in first section)
@@ -196,10 +231,9 @@ export const SkillTree: React.FC = () => {
               prevNode = prevSection.nodes[prevSection.nodes.length - 1];
             }
 
-            const prevStatus = prevNode ? nodeStatuses[prevNode.id] : null;
-            const connectorCompleted = prevStatus
-              ? (prevStatus.status === 'completed' || prevStatus.status === 'perfect')
-              : false;
+            const prevStatus = prevNode
+              ? (nodeStatuses[prevNode.id]?.status || 'locked')
+              : 'locked';
 
             return (
               <div key={node.id}>
@@ -207,7 +241,7 @@ export const SkillTree: React.FC = () => {
                   <PathConnector
                     fromPos={prevNode.position}
                     toPos={node.position}
-                    completed={connectorCompleted}
+                    prevStatus={prevStatus}
                   />
                 )}
                 <div ref={isCurrent ? currentNodeRef : undefined} className="flex justify-center">
@@ -221,6 +255,8 @@ export const SkillTree: React.FC = () => {
                     status={nodeStatus.status}
                     stars={nodeStatus.stars}
                     position={node.position}
+                    questionCount={nodeStatus.questionCount}
+                    completionPercent={nodeStatus.completionPercent}
                     onClick={() => handleNodeClick(node.id)}
                   />
                 </div>

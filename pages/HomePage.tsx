@@ -3,7 +3,7 @@ import StartScreen from '../components/StartScreen';
 
 const HomePage: React.FC = () => {
   return (
-    <div className="w-full flex justify-center px-4 py-6">
+    <div className="w-full">
       <StartScreen />
     </div>
   );

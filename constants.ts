@@ -443,7 +443,96 @@ export const QUESTIONS: Question[] = [
     correctAnswer: "11",
     points: 10,
     hint: "بما فيهم حارس المرمى."
-  }
+  },
+
+  // ═══════════════════════════════════════
+  // ADDITIONAL QUESTIONS FOR DEMO CONTENT
+  // ═══════════════════════════════════════
+
+  // --- Extra questions for existing lessons ---
+  { id: 35, subject: "رياضيات", lesson: "الجمع", type: "input", questionText: "كم يساوي: 7 + 8؟", correctAnswer: "15", points: 10, hint: "أقل من عشرين بخمسة." },
+  { id: 36, subject: "رياضيات", lesson: "الطرح", type: "input", questionText: "كم يساوي: 20 - 7؟", correctAnswer: "13", points: 15, hint: "عد تنازلياً من عشرين." },
+  { id: 37, subject: "رياضيات", lesson: "الأعداد", type: "multiple-choice", questionText: "ما هو العدد الزوجي؟", options: ["3", "7", "8", "11"], correctAnswer: "8", points: 10, hint: "يقبل القسمة على 2." },
+  { id: 38, subject: "لغات", lesson: "مفردات عامة", type: "multiple-choice", questionText: "ما معنى كلمة 'House' بالعربية؟", options: ["سيارة", "مدرسة", "منزل", "حديقة"], correctAnswer: "منزل", points: 10, hint: "المكان الذي نسكن فيه." },
+  { id: 39, subject: "لغات", lesson: "الألوان", type: "multiple-choice", questionText: "ما هو اللون الناتج عن خلط الأحمر والأزرق؟", options: ["أخضر", "بنفسجي", "برتقالي", "أسود"], correctAnswer: "بنفسجي", points: 10, hint: "لون الباذنجان." },
+  { id: 40, subject: "ثقافة عامة", lesson: "الطبيعة", type: "multiple-choice", questionText: "ما هو أطول نهر في العالم؟", options: ["دجلة", "النيل", "الأمازون", "الفرات"], correctAnswer: "النيل", points: 10, hint: "يمر بعدة دول أفريقية." },
+  { id: 41, subject: "معلومات", lesson: "الوقت", type: "input", questionText: "كم ساعة في اليوم الواحد؟", correctAnswer: "24", points: 10, hint: "12 ساعة نهار و12 ساعة ليل." },
+  { id: 42, subject: "حيوانات", lesson: "حيوانات الغابة", type: "multiple-choice", questionText: "أي حيوان يعيش في الغابة ويتسلق الأشجار؟", options: ["الحوت", "القرد", "السمكة", "البطريق"], correctAnswer: "القرد", points: 10, hint: "يحب الموز." },
+  { id: 43, subject: "جغرافيا", lesson: "العالم العربي", type: "multiple-choice", questionText: "ما هي عاصمة المملكة العربية السعودية؟", options: ["جدة", "الرياض", "مكة", "الدمام"], correctAnswer: "الرياض", points: 10, hint: "أكبر مدينة في المملكة." },
+  { id: 44, subject: "علوم", lesson: "البيئة", type: "multiple-choice", questionText: "ما هو الغاز الذي نتنفسه؟", options: ["الهيدروجين", "النيتروجين", "الأكسجين", "الهيليوم"], correctAnswer: "الأكسجين", points: 10, hint: "ضروري للحياة." },
+  { id: 45, subject: "تاريخ", lesson: "العلماء المسلمون", type: "multiple-choice", questionText: "من هو أبو الطب العربي؟", options: ["ابن خلدون", "ابن سينا", "الخوارزمي", "ابن بطوطة"], correctAnswer: "ابن سينا", points: 15, hint: "كتب القانون في الطب." },
+
+  // --- New lessons: رياضيات ---
+  { id: 46, subject: "رياضيات", lesson: "الضرب", type: "input", questionText: "كم يساوي: 3 × 4؟", correctAnswer: "12", points: 10, hint: "ثلاث مجموعات من أربعة." },
+  { id: 47, subject: "رياضيات", lesson: "الضرب", type: "input", questionText: "كم يساوي: 6 × 5؟", correctAnswer: "30", points: 15, hint: "نصف المئة تقريباً." },
+  { id: 48, subject: "رياضيات", lesson: "القسمة", type: "input", questionText: "كم يساوي: 12 ÷ 3؟", correctAnswer: "4", points: 15, hint: "وزع 12 على 3 مجموعات." },
+  { id: 49, subject: "رياضيات", lesson: "القسمة", type: "input", questionText: "كم يساوي: 20 ÷ 4؟", correctAnswer: "5", points: 15, hint: "عدد أصابع اليد الواحدة." },
+
+  // --- New lessons: لغات ---
+  { id: 50, subject: "لغات", lesson: "الأفعال", type: "matching", questionText: "صل الفعل الإنجليزي بمعناه العربي", correctAnswer: "MATCH_ALL", pairs: [{ left: "يأكل", right: "Eat" }, { left: "يشرب", right: "Drink" }, { left: "ينام", right: "Sleep" }, { left: "يلعب", right: "Play" }], points: 20, hint: "أفعال يومية بسيطة." },
+  { id: 51, subject: "لغات", lesson: "الأفعال", type: "multiple-choice", questionText: "ما معنى الفعل 'Run' بالعربية؟", options: ["يمشي", "يجري", "يقفز", "يسبح"], correctAnswer: "يجري", points: 10, hint: "أسرع من المشي." },
+  { id: 52, subject: "لغات", lesson: "الجمل", type: "reorder", questionText: "رتب الكلمات لتكوين جملة إنجليزية", options: ["apple", "I", "an", "eat"], correctAnswer: "I eat an apple", points: 15, hint: "ابدأ بالضمير." },
+
+  // --- New lessons: ثقافة عامة ---
+  { id: 53, subject: "ثقافة عامة", lesson: "الفضاء", type: "multiple-choice", questionText: "ما هو أقرب كوكب إلى الشمس؟", options: ["الأرض", "المريخ", "عطارد", "الزهرة"], correctAnswer: "عطارد", points: 10, hint: "أصغر كواكب المجموعة الشمسية." },
+  { id: 54, subject: "ثقافة عامة", lesson: "الفضاء", type: "multiple-choice", questionText: "كم كوكباً في المجموعة الشمسية؟", options: ["7", "8", "9", "10"], correctAnswer: "8", points: 10, hint: "بعد استبعاد بلوتو." },
+
+  // --- New lessons: معلومات ---
+  { id: 55, subject: "معلومات", lesson: "حقائق علمية", type: "multiple-choice", questionText: "ما هو أسرع حيوان بري في العالم؟", options: ["الأسد", "الحصان", "الفهد", "النعامة"], correctAnswer: "الفهد", points: 10, hint: "يمكنه الجري بسرعة 120 كم/س." },
+
+  // --- New lessons: حيوانات ---
+  { id: 56, subject: "حيوانات", lesson: "حيوانات البحر", type: "multiple-choice", questionText: "ما هو أكبر حيوان في البحر؟", options: ["القرش", "الحوت الأزرق", "الدلفين", "الأخطبوط"], correctAnswer: "الحوت الأزرق", points: 10, hint: "أكبر كائن حي على الأرض." },
+  { id: 57, subject: "حيوانات", lesson: "حيوانات البحر", type: "matching", questionText: "صل الحيوان البحري بصفته", correctAnswer: "MATCH_ALL", pairs: [{ left: "الدلفين", right: "ذكي" }, { left: "الأخطبوط", right: "8 أذرع" }, { left: "السلحفاة", right: "بطيئة" }, { left: "القرش", right: "مفترس" }], points: 20, hint: "فكر في صفات كل حيوان." },
+
+  // --- New lessons: جغرافيا ---
+  { id: 58, subject: "جغرافيا", lesson: "القارات", type: "reorder", questionText: "رتب القارات من الأكبر إلى الأصغر", options: ["أفريقيا", "آسيا", "أوروبا", "أستراليا"], correctAnswer: "آسيا أفريقيا أوروبا أستراليا", points: 15, hint: "آسيا هي الأكبر." },
+
+  // --- New lessons: علوم ---
+  { id: 59, subject: "علوم", lesson: "الماء", type: "multiple-choice", questionText: "عند أي درجة حرارة يغلي الماء؟", options: ["50°C", "75°C", "100°C", "150°C"], correctAnswer: "100°C", points: 15, hint: "مئة درجة مئوية." },
+  { id: 60, subject: "علوم", lesson: "الماء", type: "multiple-choice", questionText: "ما هي حالات الماء الثلاث؟", options: ["صلبة وسائلة وغازية", "ساخنة وباردة ودافئة", "حلوة ومالحة ومرة", "نظيفة ومتسخة ومعقمة"], correctAnswer: "صلبة وسائلة وغازية", points: 10, hint: "الجليد والماء والبخار." },
+
+  // --- New lessons: تاريخ ---
+  { id: 61, subject: "تاريخ", lesson: "الحضارات القديمة", type: "multiple-choice", questionText: "أين بُنيت الأهرامات؟", options: ["العراق", "مصر", "سوريا", "الأردن"], correctAnswer: "مصر", points: 10, hint: "على ضفاف النيل." },
+  { id: 62, subject: "تاريخ", lesson: "الحضارات القديمة", type: "multiple-choice", questionText: "ما هي أقدم حضارة في العالم؟", options: ["الرومانية", "الفرعونية", "السومرية", "الصينية"], correctAnswer: "السومرية", points: 15, hint: "في بلاد ما بين النهرين." },
+
+  // --- New lessons: تربية إسلامية ---
+  { id: 63, subject: "تربية إسلامية", lesson: "أركان الإيمان", type: "multiple-choice", questionText: "كم عدد أركان الإيمان؟", options: ["4", "5", "6", "7"], correctAnswer: "6", points: 10, hint: "الإيمان بالله والملائكة والكتب والرسل واليوم الآخر والقدر." },
+  { id: 64, subject: "تربية إسلامية", lesson: "أركان الإيمان", type: "matching", questionText: "صل ركن الإيمان بمعناه", correctAnswer: "MATCH_ALL", pairs: [{ left: "الإيمان بالله", right: "التوحيد" }, { left: "الإيمان بالملائكة", right: "جبريل وميكائيل" }, { left: "الإيمان بالكتب", right: "القرآن والتوراة" }, { left: "الإيمان بالرسل", right: "محمد وعيسى" }], points: 20, hint: "الأصول الستة." },
+
+  // --- New lessons: لغة عربية ---
+  { id: 65, subject: "لغة عربية", lesson: "المترادفات", type: "matching", questionText: "صل الكلمة بمرادفها", correctAnswer: "MATCH_ALL", pairs: [{ left: "جميل", right: "حسن" }, { left: "كبير", right: "عظيم" }, { left: "سعيد", right: "فرح" }, { left: "شجاع", right: "جريء" }], points: 20, hint: "كلمات لها نفس المعنى." },
+  { id: 66, subject: "لغة عربية", lesson: "الأفعال", type: "multiple-choice", questionText: "ما هو الفعل الماضي من 'يكتب'؟", options: ["كتب", "كاتب", "مكتوب", "كتابة"], correctAnswer: "كتب", points: 10, hint: "فعل حدث وانتهى." },
+  { id: 67, subject: "لغة عربية", lesson: "الأفعال", type: "multiple-choice", questionText: "ما هو فعل الأمر من 'يقرأ'؟", options: ["قرأ", "قارئ", "اقرأ", "قراءة"], correctAnswer: "اقرأ", points: 10, hint: "أول كلمة نزلت في القرآن." },
+
+  // --- New lessons: فيزياء ---
+  { id: 68, subject: "فيزياء", lesson: "الطاقة", type: "multiple-choice", questionText: "ما نوع الطاقة التي نحصل عليها من الشمس؟", options: ["طاقة كهربائية", "طاقة شمسية", "طاقة نووية", "طاقة حركية"], correctAnswer: "طاقة شمسية", points: 10, hint: "اسمها من مصدرها." },
+
+  // --- New lessons: كيمياء ---
+  { id: 69, subject: "كيمياء", lesson: "الحالات", type: "multiple-choice", questionText: "في أي حالة يكون الجليد؟", options: ["سائلة", "غازية", "صلبة", "بلازما"], correctAnswer: "صلبة", points: 10, hint: "الماء المتجمد." },
+
+  // --- New lessons: أحياء ---
+  { id: 70, subject: "أحياء", lesson: "النباتات", type: "multiple-choice", questionText: "ما هي العملية التي تصنع بها النباتات غذاءها؟", options: ["التنفس", "البناء الضوئي", "الهضم", "الامتصاص"], correctAnswer: "البناء الضوئي", points: 15, hint: "تحتاج ضوء الشمس." },
+
+  // --- New lessons: حاسوب ---
+  { id: 71, subject: "حاسوب", lesson: "الإنترنت", type: "multiple-choice", questionText: "ما هو المتصفح؟", options: ["برنامج لتصفح الإنترنت", "نوع من الحاسوب", "لعبة إلكترونية", "نظام تشغيل"], correctAnswer: "برنامج لتصفح الإنترنت", points: 10, hint: "مثل Chrome أو Firefox." },
+
+  // --- New lessons: لغة إنجليزية ---
+  { id: 72, subject: "لغة إنجليزية", lesson: "المفردات", type: "matching", questionText: "Match the English word with its meaning", correctAnswer: "MATCH_ALL", pairs: [{ left: "School", right: "مدرسة" }, { left: "Teacher", right: "معلم" }, { left: "Book", right: "كتاب" }, { left: "Pen", right: "قلم" }], points: 20, hint: "Words related to school." },
+
+  // --- New lessons: لغة فرنسية ---
+  { id: 73, subject: "لغة فرنسية", lesson: "الأرقام الفرنسية", type: "matching", questionText: "صل الرقم الفرنسي بقيمته", correctAnswer: "MATCH_ALL", pairs: [{ left: "Un", right: "1" }, { left: "Deux", right: "2" }, { left: "Trois", right: "3" }, { left: "Quatre", right: "4" }], points: 20, hint: "الأرقام من 1 إلى 4." },
+
+  // --- New lessons: تربية رياضية ---
+  { id: 74, subject: "تربية رياضية", lesson: "الرياضات الأولمبية", type: "multiple-choice", questionText: "أين أُقيمت أول دورة ألعاب أولمبية حديثة؟", options: ["لندن", "باريس", "أثينا", "روما"], correctAnswer: "أثينا", points: 15, hint: "في اليونان عام 1896." },
+
+  // --- New lessons: تربية مالية ---
+  { id: 75, subject: "تربية مالية", lesson: "الادخار", type: "multiple-choice", questionText: "ما هو أفضل مكان لحفظ مصروفك؟", options: ["تحت الوسادة", "حصالة أو بنك", "إعطاؤه لصديق", "إنفاقه كله"], correctAnswer: "حصالة أو بنك", points: 10, hint: "مكان آمن للمال." },
+
+  // --- New lessons: فنون ---
+  { id: 76, subject: "فنون", lesson: "الرسم", type: "multiple-choice", questionText: "ما هو الشكل الذي له ثلاثة أضلاع؟", options: ["المربع", "المثلث", "الدائرة", "المستطيل"], correctAnswer: "المثلث", points: 10, hint: "اسمه يدل على عدد أضلاعه." },
+
+  // --- New lessons: علوم الأرض ---
+  { id: 77, subject: "علوم الأرض", lesson: "البراكين", type: "multiple-choice", questionText: "ماذا يخرج من البركان عند ثورانه؟", options: ["ماء", "حمم بركانية", "ثلج", "رمل"], correctAnswer: "حمم بركانية", points: 15, hint: "صخور منصهرة حارة جداً." }
 ];
 
 export const COLORS = {
