@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Grid3X3, Radar, Sparkles, TreePine, Dna, BookOpen, Clock } from 'lucide-react';
+import { Grid3X3, Radar, Sparkles, TreePine, Dna, BookOpen, Clock, GraduationCap } from 'lucide-react';
 
-export type VisualizationMode = 'heatmap' | 'radar' | 'galaxy' | 'tree' | 'dna' | 'textbook' | 'memory';
+export type VisualizationMode = 'heatmap' | 'radar' | 'galaxy' | 'tree' | 'dna' | 'textbook' | 'memory' | 'curriculum';
 
 interface ModeDef {
   id: VisualizationMode;
@@ -19,6 +19,7 @@ const MODES: ModeDef[] = [
   { id: 'dna', labelAr: 'حمض نووي', labelEn: 'DNA', icon: Dna },
   { id: 'textbook', labelAr: 'الكتاب المدرسي', labelEn: 'Textbook', icon: BookOpen },
   { id: 'memory', labelAr: 'الذاكرة', labelEn: 'Memory', icon: Clock },
+  { id: 'curriculum', labelAr: 'المنهاج', labelEn: 'Curriculum', icon: GraduationCap },
 ];
 
 interface Props {

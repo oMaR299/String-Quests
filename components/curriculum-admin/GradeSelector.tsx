@@ -6,22 +6,28 @@ interface GradeSelectorProps {
   grades: GradeCurriculum[];
   selectedIndex: number;
   onSelect: (index: number) => void;
+  subjectKey?: string;
 }
 
-function getGradeLabel(index: number): string {
-  if (index === 12) return 'الصف 12 تجاري';
-  return `الصف ${index + 1}`;
+function getGradeLabel(grade: GradeCurriculum): string {
+  const level = grade.gradeLevel;
+  if (level === -1) return 'KG1';
+  if (level === 0) return 'KG2';
+  return `الصف ${level}`;
 }
 
-function getDownloadFilename(index: number): string {
-  if (index === 12) return 'grade12b-math.json';
-  return `grade${index + 1}-math.json`;
+function getDownloadFilename(grade: GradeCurriculum, subjectKey: string): string {
+  const level = grade.gradeLevel;
+  if (level === -1) return `gradeKG1-${subjectKey}.json`;
+  if (level === 0) return `gradeKG2-${subjectKey}.json`;
+  return `grade${level}-${subjectKey}.json`;
 }
 
 export const GradeSelector: React.FC<GradeSelectorProps> = ({
   grades,
   selectedIndex,
   onSelect,
+  subjectKey = 'math',
 }) => {
   const handleDownload = () => {
     const grade = grades[selectedIndex];
@@ -30,7 +36,7 @@ export const GradeSelector: React.FC<GradeSelectorProps> = ({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = getDownloadFilename(selectedIndex);
+    a.download = getDownloadFilename(grade, subjectKey);
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -51,7 +57,7 @@ export const GradeSelector: React.FC<GradeSelectorProps> = ({
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {grades.map((_, index) => {
+        {grades.map((grade, index) => {
           const isSelected = index === selectedIndex;
           return (
             <button
@@ -65,7 +71,7 @@ export const GradeSelector: React.FC<GradeSelectorProps> = ({
                 }
               `}
             >
-              {getGradeLabel(index)}
+              {getGradeLabel(grade)}
             </button>
           );
         })}

@@ -26,6 +26,7 @@ import { SkillMastery } from '../../utils/masteryEngine';
 
 const TextbookExplorerView = React.lazy(() => import('./TextbookExplorerView').then(m => ({ default: m.TextbookExplorerView })));
 const MemoryTimelineView = React.lazy(() => import('./MemoryTimelineView').then(m => ({ default: m.MemoryTimelineView })));
+const CurriculumMapView = React.lazy(() => import('./CurriculumMapView').then(m => ({ default: m.CurriculumMapView })));
 
 export const SkillMapLayout: React.FC = () => {
   const { locale, t } = useI18n();
@@ -168,8 +169,8 @@ export const SkillMapLayout: React.FC = () => {
         <TimeSlider value={timeRange} onChange={setTimeRange} locale={locale} />
       </div>
 
-      {/* Empty State */}
-      {!hasAttempts && (
+      {/* Empty State - only for non-curriculum modes */}
+      {!hasAttempts && mode !== 'curriculum' && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -196,7 +197,7 @@ export const SkillMapLayout: React.FC = () => {
       )}
 
       {/* Visualization */}
-      {hasAttempts && (
+      {(hasAttempts || mode === 'curriculum') && (
         <div className="bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-100 shadow-sm p-4 md:p-6">
           {mode === 'heatmap' && (
             <HeatMapView masteries={masteries} locale={locale} onSelectSkill={setSelectedSkill} />
@@ -221,6 +222,11 @@ export const SkillMapLayout: React.FC = () => {
           {mode === 'memory' && (
             <Suspense fallback={<div className="flex items-center justify-center py-12"><div className="w-8 h-8 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin" /></div>}>
               <MemoryTimelineView masteries={masteries} locale={locale} onSelectSkill={setSelectedSkill} />
+            </Suspense>
+          )}
+          {mode === 'curriculum' && (
+            <Suspense fallback={<div className="flex items-center justify-center py-12"><div className="w-8 h-8 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin" /></div>}>
+              <CurriculumMapView locale={locale} />
             </Suspense>
           )}
         </div>
