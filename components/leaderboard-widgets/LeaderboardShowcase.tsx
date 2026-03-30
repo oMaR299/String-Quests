@@ -8,6 +8,8 @@ const SubjectLeaderboardWidget = React.lazy(() => import('./SubjectLeaderboardWi
 const ClassComparisonWidget = React.lazy(() => import('./ClassComparisonWidget'));
 const TeacherPerformanceWidget = React.lazy(() => import('./TeacherPerformanceWidget').then(m => ({ default: m.TeacherPerformanceWidget })));
 const LeagueProgressWidget = React.lazy(() => import('./LeagueProgressWidget').then(m => ({ default: m.LeagueProgressWidget })));
+const SpaceWeeklyLeaderboardWidget = React.lazy(() => import('./SpaceWeeklyLeaderboardWidget'));
+const SpaceLeaderboardDashboard = React.lazy(() => import('./SpaceLeaderboardDashboard'));
 
 const Loader = () => (
   <div className="flex items-center justify-center p-12">
@@ -38,7 +40,7 @@ export const LeaderboardShowcase: React.FC<LeaderboardShowcaseProps> = ({ onExit
             </div>
             <div>
               <h1 className="text-xl font-black text-slate-900">{t('لوحة المتصدرين', 'Leaderboard')}</h1>
-              <p className="text-xs font-medium text-slate-400">{t('5 أنماط من لوحات المتصدرين', '5 Leaderboard Widget Types')}</p>
+              <p className="text-xs font-medium text-slate-400">{t('7 أنماط من لوحات المتصدرين', '7 Leaderboard Widget Types')}</p>
             </div>
           </div>
 
@@ -110,6 +112,37 @@ export const LeaderboardShowcase: React.FC<LeaderboardShowcaseProps> = ({ onExit
                 <span className="text-[10px] font-medium text-slate-400 mr-2"> — {t('نظام الدوريات', 'League System')}</span>
               </div>
               <LeagueProgressWidget locale={locale} />
+            </motion.div>
+
+            {/* Widget 6: Space Weekly Leaderboard (Sidebar) */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+              <div className="mb-2">
+                <span className="text-[10px] font-bold text-sky-500 uppercase tracking-wider">Widget 6</span>
+                <span className="text-[10px] font-medium text-slate-400 mr-2"> — {t('ترتيب المساحة الأسبوعي (شريط جانبي)', 'Space Weekly (Sidebar)')}</span>
+              </div>
+              <div className="max-w-sm">
+                <SpaceWeeklyLeaderboardWidget
+                  spaceSubject="science"
+                  spaceGrade={7}
+                  spaceSection="A"
+                  locale={locale}
+                  onViewFull={() => {}}
+                />
+              </div>
+            </motion.div>
+
+            {/* Widget 7: Space Leaderboard Dashboard (Full) */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className={layout === 'grid' ? 'lg:col-span-2' : ''}>
+              <div className="mb-2">
+                <span className="text-[10px] font-bold text-sky-500 uppercase tracking-wider">Widget 7</span>
+                <span className="text-[10px] font-medium text-slate-400 mr-2"> — {t('لوحة المتصدرين الكاملة للمساحة', 'Full Space Dashboard')}</span>
+              </div>
+              <SpaceLeaderboardDashboard
+                spaceSubject="science"
+                spaceGrade={7}
+                spaceSection="A"
+                locale={locale}
+              />
             </motion.div>
           </React.Suspense>
         </div>
