@@ -19,6 +19,8 @@ import {
 } from './SvgCharts';
 import { SmartFilterBuilder } from './SmartFilterBuilder';
 import type { FilterGroup } from './SmartFilterBuilder';
+import { StudentReportModal } from './StudentReportModal';
+import type { ExtendedStudent } from '../../../types/admin';
 
 // ═══════════════════════════════════════════════════════════════
 //  Props
@@ -176,6 +178,9 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
 
   // ── Tab state for tables ──
   const [tableTab, setTableTab] = useState<'student' | 'teacher'>('student');
+
+  // ── Student modal state ──
+  const [selectedStudent, setSelectedStudent] = useState<ExtendedStudent | null>(null);
 
   // ── Filtered students ──
   const filteredStudents = useMemo(() => {
@@ -681,8 +686,9 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-4 space-y-6">
-        {/* ─── DATE RANGE ─── */}
-        <div className="bg-white rounded-2xl border border-slate-100 p-4 print:hidden">
+        {/* ─── UNIFIED FILTERS ─── */}
+        <div className="bg-white rounded-2xl border border-slate-100 p-5 space-y-4 print:hidden">
+          {/* Row 1: Date presets + school days count */}
           <div className="flex flex-wrap items-center gap-2">
             {([
               { key: 'today', ar: 'اليوم', en: 'Today' },
@@ -719,20 +725,18 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
                 />
               </div>
             )}
+            <span className="text-xs text-slate-400 ml-auto">
+              {t(locale, `${schoolDays.length} يوم دراسي`, `${schoolDays.length} school days`)}
+              {' · '}
+              {dateRange.from} → {dateRange.to}
+            </span>
           </div>
-          <p className="text-xs text-slate-400 mt-2">
-            {t(locale, `${schoolDays.length} يوم دراسي`, `${schoolDays.length} school days`)}
-            {' · '}
-            {dateRange.from} → {dateRange.to}
-          </p>
-        </div>
 
-        {/* ─── FILTER BAR ─── */}
-        <div className="bg-white rounded-2xl border border-slate-100 p-4 print:hidden">
-          <div className="flex items-center gap-2 mb-2 text-xs font-bold text-slate-500">
-            <Filter className="w-3.5 h-3.5" /> {t(locale, 'تصفية', 'Filters')}
-          </div>
+          {/* Row 2: Filters label + Campus | Grade | Section dropdowns */}
           <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
+              <Filter className="w-3.5 h-3.5" /> {t(locale, 'تصفية', 'Filters')}
+            </div>
             {/* Campus */}
             <select
               value={campusFilter}
@@ -767,14 +771,14 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
               ))}
             </select>
           </div>
-        </div>
 
-        {/* ─── SMART FILTER BUILDER ─── */}
-        <SmartFilterBuilder
-          locale={locale}
-          activeFilter={null}
-          onFilterChange={(fg) => { /* TODO: wire into data filtering */ }}
-        />
+          {/* Row 3: Smart filter builder */}
+          <SmartFilterBuilder
+            locale={locale}
+            activeFilter={null}
+            onFilterChange={(fg) => { /* TODO: wire into data filtering */ }}
+          />
+        </div>
 
         {/* ═══════════════════════════════════════════════════════ */}
         {/*  SECTION 1: Executive Summary                         */}
@@ -919,28 +923,21 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
                   <RadarChart
                     size={320}
                     axes={[
-                      {
-                        label: t(locale, 'الحضور', 'Attendance'),
-                        value: Math.round(campusComparison.reduce((s, c) => s + c.rate, 0) / campusComparison.length),
-                        maxValue: 100,
-                      },
-                      {
-                        label: t(locale, 'التأخر', 'Late Rate'),
-                        value: 100 - Math.round(campusComparison.reduce((s, c) => s + c.lateRate, 0) / campusComparison.length),
-                        maxValue: 100,
-                      },
-                      {
-                        label: t(locale, 'الامتثال', 'Compliance'),
-                        value: Math.round(campusComparison.reduce((s, c) => s + c.compRate, 0) / campusComparison.length),
-                        maxValue: 100,
-                      },
-                      {
-                        label: t(locale, 'عدم الغياب المزمن', 'No Chronic'),
-                        value: 100 - Math.round(campusComparison.reduce((s, c) => s + c.chronicPct, 0) / campusComparison.length),
-                        maxValue: 100,
-                      },
+                      { label: t(locale, 'الحضور', 'Attendance'), maxValue: 100 },
+                      { label: t(locale, 'التأخر', 'Late'), maxValue: 100 },
+                      { label: t(locale, 'الامتثال', 'Compliance'), maxValue: 100 },
+                      { label: t(locale, 'غياب مزمن', 'Chronic'), maxValue: 100 },
                     ]}
-                    color="#8b5cf6"
+                    datasets={campusComparison.map((c, i) => ({
+                      name: t(locale, c.name, c.nameEn),
+                      values: [
+                        Math.round(c.rate),
+                        100 - Math.round(c.lateRate),
+                        Math.round(c.compRate),
+                        100 - Math.round(c.chronicPct),
+                      ],
+                      color: ['#3b82f6', '#f43f5e', '#8b5cf6'][i] || '#64748b',
+                    }))}
                   />
                 </div>
                 {/* Mini comparison table under radar */}
@@ -1151,7 +1148,7 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
                     </thead>
                     <tbody>
                       {studentPageData.map(s => (
-                        <tr key={s.id} className="border-t border-slate-50 hover:bg-sky-50/30 transition-colors">
+                        <tr key={s.id} onClick={() => setSelectedStudent(s)} className="border-t border-slate-50 cursor-pointer hover:bg-sky-50/50 transition-colors">
                           <td className="py-2 px-3 font-semibold text-slate-700">{s.name}</td>
                           <td className="py-2 px-3 text-slate-500">{s.grade}</td>
                           <td className="py-2 px-3 text-slate-500">{s.section}</td>
@@ -1385,6 +1382,13 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
           </button>
         </div>
       </div>
+
+      {/* Student Report Modal */}
+      <StudentReportModal
+        student={selectedStudent}
+        onClose={() => setSelectedStudent(null)}
+        locale={locale}
+      />
     </div>
   );
 }

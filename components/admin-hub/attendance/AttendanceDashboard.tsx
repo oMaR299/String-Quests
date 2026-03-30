@@ -527,7 +527,7 @@ function StudentsContent({
               {card.ring && <div className="w-[60px] h-[60px] shrink-0">{card.ring}</div>}
               {card.spark && (
                 <div className="shrink-0">
-                  <Sparkline data={card.spark} color={card.accent === 'emerald' ? '#10b981' : '#f43f5e'} width={80} height={28} />
+                  <Sparkline data={card.spark} color={card.accent === 'emerald' ? '#10b981' : '#f43f5e'} width={96} height={36} />
                 </div>
               )}
             </div>
@@ -646,16 +646,16 @@ function StudentsContent({
                     initial={{ opacity: 0, x: isRtl ? 12 : -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.03 }}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors group"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer hover:bg-sky-50/50 transition-colors group"
+                    onClick={() => setStudentModal(student)}
                   >
                     <AvatarCircle name={locale === 'ar' ? student.name : student.nameEn} />
                     <div className="flex-1 min-w-0">
-                      <button
-                        onClick={() => setStudentModal(student)}
+                      <span
                         className="text-sm font-semibold text-gray-900 hover:text-violet-600 transition-colors truncate block"
                       >
                         {locale === 'ar' ? student.name : student.nameEn}
-                      </button>
+                      </span>
                       <p className="text-[11px] text-gray-400">
                         {l('صف', 'G')}{student.grade}{student.section}
                         {student.parentName && <> · {student.parentName}</>}
@@ -665,7 +665,7 @@ function StudentsContent({
                       {student.absentDays} {l('يوم', 'days')}
                     </span>
                     <button
-                      onClick={() => handleNotify(locale === 'ar' ? student.name : student.nameEn)}
+                      onClick={(e) => { e.stopPropagation(); handleNotify(locale === 'ar' ? student.name : student.nameEn); }}
                       className="opacity-0 group-hover:opacity-100 text-xs font-semibold text-violet-600 bg-violet-50 px-2.5 py-1 rounded-lg hover:bg-violet-100 transition-all shrink-0 flex items-center gap-1"
                     >
                       <Bell className="w-3 h-3" />
@@ -694,15 +694,14 @@ function StudentsContent({
             </div>
             <div className="px-3 pb-3">
               {data.chronicAbsent.slice(0, 5).map((student, i) => (
-                <div key={student.id} className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-50 transition-colors">
+                <div key={student.id} className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer hover:bg-sky-50/50 transition-colors" onClick={() => setStudentModal(student)}>
                   <AvatarCircle name={locale === 'ar' ? student.name : student.nameEn} />
                   <div className="flex-1 min-w-0">
-                    <button
-                      onClick={() => setStudentModal(student)}
+                    <span
                       className="text-sm font-semibold text-gray-900 hover:text-violet-600 transition-colors truncate block"
                     >
                       {locale === 'ar' ? student.name : student.nameEn}
-                    </button>
+                    </span>
                     <p className="text-[11px] text-gray-400">
                       {l('صف', 'G')}{student.grade}{student.section}
                     </p>
@@ -747,24 +746,26 @@ function StudentsContent({
         {/* RIGHT COLUMN */}
         <div className="space-y-4">
           {/* Day-of-Week Pattern */}
-          <motion.div {...fadeUp} transition={{ delay: 0.3 }} className="bg-white/80 backdrop-blur-sm border border-white/50 rounded-2xl shadow-sm p-5">
+          <motion.div {...fadeUp} transition={{ delay: 0.3 }} className="bg-white/80 backdrop-blur-sm border border-white/50 rounded-2xl shadow-sm p-5 min-h-[280px]">
             <h3 className="font-bold text-gray-900 flex items-center gap-2 text-sm mb-3">
               <CalendarDays className="w-4 h-4 text-sky-500" />
               {l('نمط أيام الأسبوع', 'Day-of-Week Pattern')}
             </h3>
-            <VerticalBarChart
-              data={data.dayOfWeekPattern.map(d => ({
-                label: locale === 'ar' ? d.label : d.labelEn,
-                value: Math.round(d.rate),
-                color: rateHex(d.rate),
-              }))}
-              height={180}
-              maxValue={100}
-            />
+            <div className="min-h-[200px]">
+              <VerticalBarChart
+                data={data.dayOfWeekPattern.map(d => ({
+                  label: locale === 'ar' ? d.label : d.labelEn,
+                  value: Math.round(d.rate),
+                  color: rateHex(d.rate),
+                }))}
+                height={200}
+                maxValue={100}
+              />
+            </div>
           </motion.div>
 
           {/* Attendance Trend (14 days) */}
-          <motion.div {...fadeUp} transition={{ delay: 0.35 }} className="bg-white/80 backdrop-blur-sm border border-white/50 rounded-2xl shadow-sm p-5">
+          <motion.div {...fadeUp} transition={{ delay: 0.35 }} className="bg-white/80 backdrop-blur-sm border border-white/50 rounded-2xl shadow-sm p-5 min-h-[280px]">
             <h3 className="font-bold text-gray-900 flex items-center gap-2 text-sm mb-3">
               <Activity className="w-4 h-4 text-violet-500" />
               {l('اتجاه الحضور (14 يوم)', 'Attendance Trend (14 days)')}
@@ -775,7 +776,7 @@ function StudentsContent({
                 value: Math.round(d.rate),
                 meta: `${d.present}/${d.total}`,
               }))}
-              height={160}
+              height={200}
               color="#8b5cf6"
               yMin={60}
               yMax={100}
@@ -783,7 +784,7 @@ function StudentsContent({
           </motion.div>
 
           {/* Risk Distribution */}
-          <motion.div {...fadeUp} transition={{ delay: 0.4 }} className="bg-white/80 backdrop-blur-sm border border-white/50 rounded-2xl shadow-sm p-5">
+          <motion.div {...fadeUp} transition={{ delay: 0.4 }} className="bg-white/80 backdrop-blur-sm border border-white/50 rounded-2xl shadow-sm p-5 min-h-[280px]">
             <h3 className="font-bold text-gray-900 flex items-center gap-2 text-sm mb-3">
               <AlertTriangle className="w-4 h-4 text-amber-500" />
               {l('توزيع المخاطر', 'Risk Distribution')}
@@ -796,7 +797,7 @@ function StudentsContent({
                   { value: data.riskDistribution.high, color: '#f97316', label: l('مرتفع (50-75%)', 'High (50-75%)') },
                   { value: data.riskDistribution.critical, color: '#f43f5e', label: l('حرج (<50%)', 'Critical (<50%)') },
                 ]}
-                size={150}
+                size={170}
                 strokeWidth={18}
                 centerValue={`${data.totalStudents}`}
                 centerLabel={l('طالب', 'Students')}
@@ -882,31 +883,31 @@ function ClassDetailPanel({ cell, data, locale, l, setStudentModal, onClose }: C
           <div className="md:col-span-2 max-h-48 overflow-y-auto">
             {/* Absent */}
             {absentStudentsList.map(s => (
-              <div key={s.id} className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50">
+              <div key={s.id} className="flex items-center gap-2 py-1.5 px-2 rounded-lg cursor-pointer hover:bg-sky-50/50 transition-colors" onClick={() => setStudentModal(s)}>
                 <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
-                <button onClick={() => setStudentModal(s)} className="text-sm text-gray-800 hover:text-violet-600 font-medium truncate">
+                <span className="text-sm text-gray-800 hover:text-violet-600 font-medium truncate">
                   {locale === 'ar' ? s.name : s.nameEn}
-                </button>
+                </span>
                 <span className="text-[10px] text-gray-400 ms-auto">{l('غائب', 'Absent')}</span>
               </div>
             ))}
             {/* Late */}
             {lateStudentsList.map(s => (
-              <div key={s.id} className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50">
+              <div key={s.id} className="flex items-center gap-2 py-1.5 px-2 rounded-lg cursor-pointer hover:bg-sky-50/50 transition-colors" onClick={() => setStudentModal(s)}>
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
-                <button onClick={() => setStudentModal(s)} className="text-sm text-gray-800 hover:text-violet-600 font-medium truncate">
+                <span className="text-sm text-gray-800 hover:text-violet-600 font-medium truncate">
                   {locale === 'ar' ? s.name : s.nameEn}
-                </button>
+                </span>
                 <span className="text-[10px] text-amber-500 ms-auto">{lateMap.get(s.id)}</span>
               </div>
             ))}
             {/* Present */}
             {presentStudents.slice(0, 8).map(s => (
-              <div key={s.id} className="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50">
+              <div key={s.id} className="flex items-center gap-2 py-1.5 px-2 rounded-lg cursor-pointer hover:bg-sky-50/50 transition-colors" onClick={() => setStudentModal(s)}>
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
-                <button onClick={() => setStudentModal(s)} className="text-sm text-gray-800 hover:text-violet-600 font-medium truncate">
+                <span className="text-sm text-gray-800 hover:text-violet-600 font-medium truncate">
                   {locale === 'ar' ? s.name : s.nameEn}
-                </button>
+                </span>
               </div>
             ))}
             {presentStudents.length > 8 && (

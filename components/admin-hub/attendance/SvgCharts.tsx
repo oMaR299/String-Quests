@@ -339,10 +339,6 @@ export function HorizontalBarChart({
             onMouseLeave={() => setHovered(null)}
             style={{ cursor: 'default' }}
           >
-            {/* Label */}
-            <text x={labelW - 6} y={y + barHeight / 2 + 4} textAnchor="end" fill={isHov ? '#334155' : '#94a3b8'} fontSize={11} fontWeight={isHov ? 700 : 500}>
-              {d.label}
-            </text>
             {/* Bar bg */}
             <rect x={labelW} y={y} width={barAreaW} height={barHeight} rx={barHeight / 2} fill="#e2e8f0" opacity={0.5} />
             {/* Bar fill */}
@@ -357,6 +353,12 @@ export function HorizontalBarChart({
               transition={{ duration: 0.7, delay: i * 0.08, type: 'spring', stiffness: 80 }}
               opacity={isHov ? 1 : 0.85}
             />
+            {/* Label background — renders on top of bar for readability */}
+            <rect x={0} y={y} width={labelW - 4} height={barHeight} fill="white" opacity={0.8} />
+            {/* Label — rendered AFTER bar so it appears on top in SVG z-order */}
+            <text x={labelW - 6} y={y + barHeight / 2 + 4} textAnchor="end" fill={isHov ? '#334155' : '#94a3b8'} fontSize={11} fontWeight={isHov ? 700 : 500}>
+              {d.label}
+            </text>
             {/* Value */}
             {showValues && (
               <motion.text
@@ -536,60 +538,84 @@ export function DonutChart({
     return { ...seg, pct, dash, offset, index: i };
   });
 
-  const legendH = segments.length * 20 + 8;
-
   return (
-    <svg viewBox={`0 0 ${size} ${size + legendH}`} className="w-full" style={{ fontFamily: FONT, maxWidth: size }}>
-      {/* Background ring */}
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#e2e8f0" strokeWidth={strokeWidth} opacity={0.3} />
+    <div style={{ fontFamily: FONT, maxWidth: size, width: '100%' }}>
+      <svg viewBox={`0 0 ${size} ${size}`} className="w-full" style={{ fontFamily: FONT, maxWidth: size }}>
+        {/* Background ring */}
+        <circle cx={cx} cy={cy} r={r} fill="none" stroke="#e2e8f0" strokeWidth={strokeWidth} opacity={0.3} />
 
-      {/* Segments */}
-      {arcs.map((arc) => (
-        <motion.circle
-          key={arc.index}
-          cx={cx}
-          cy={cy}
-          r={r}
-          fill="none"
-          stroke={arc.color}
-          strokeWidth={hovered === arc.index ? strokeWidth + 4 : strokeWidth}
-          strokeLinecap="round"
-          strokeDasharray={`${arc.dash} ${circ - arc.dash}`}
-          transform={`rotate(-90 ${cx} ${cy})`}
-          initial={{ strokeDashoffset: circ }}
-          animate={{ strokeDashoffset: circ - arc.offset - arc.dash }}
-          transition={{ duration: 0.8, delay: arc.index * 0.15, ease: 'easeOut' }}
-          opacity={hovered !== null && hovered !== arc.index ? 0.5 : 1}
-          onMouseEnter={() => setHovered(arc.index)}
-          onMouseLeave={() => setHovered(null)}
-          style={{ cursor: 'default' }}
-        />
-      ))}
+        {/* Segments */}
+        {arcs.map((arc) => (
+          <motion.circle
+            key={arc.index}
+            cx={cx}
+            cy={cy}
+            r={r}
+            fill="none"
+            stroke={arc.color}
+            strokeWidth={hovered === arc.index ? strokeWidth + 4 : strokeWidth}
+            strokeLinecap="round"
+            strokeDasharray={`${arc.dash} ${circ - arc.dash}`}
+            transform={`rotate(-90 ${cx} ${cy})`}
+            initial={{ strokeDashoffset: circ }}
+            animate={{ strokeDashoffset: circ - arc.offset - arc.dash }}
+            transition={{ duration: 0.8, delay: arc.index * 0.15, ease: 'easeOut' }}
+            opacity={hovered !== null && hovered !== arc.index ? 0.5 : 1}
+            onMouseEnter={() => setHovered(arc.index)}
+            onMouseLeave={() => setHovered(null)}
+            style={{ cursor: 'default' }}
+          />
+        ))}
 
-      {/* Center text */}
-      {centerValue && (
-        <text x={cx} y={cy - 2} textAnchor="middle" dominantBaseline="central" fill="#1e293b" fontSize={size / 5.5} fontWeight={800}>
-          {centerValue}
-        </text>
-      )}
-      {centerLabel && (
-        <text x={cx} y={cy + size / 7} textAnchor="middle" fill="#94a3b8" fontSize={size / 13} fontWeight={500}>
-          {centerLabel}
-        </text>
-      )}
+        {/* Center text */}
+        {centerValue && (
+          <text x={cx} y={cy - 2} textAnchor="middle" dominantBaseline="central" fill="#1e293b" fontSize={size / 5.5} fontWeight={800}>
+            {centerValue}
+          </text>
+        )}
+        {centerLabel && (
+          <text x={cx} y={cy + size / 7} textAnchor="middle" fill="#94a3b8" fontSize={size / 13} fontWeight={500}>
+            {centerLabel}
+          </text>
+        )}
+      </svg>
 
-      {/* Legend */}
-      {segments.map((seg, i) => {
-        const ly = size + 8 + i * 20;
-        return (
-          <g key={i} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)} style={{ cursor: 'default' }}>
-            <circle cx={12} cy={ly + 6} r={4} fill={seg.color} />
-            <text x={22} y={ly + 10} fill="#64748b" fontSize={11} fontWeight={500}>{seg.label ?? `Segment ${i + 1}`}</text>
-            <text x={size - 8} y={ly + 10} textAnchor="end" fill="#94a3b8" fontSize={11} fontWeight={700}>{seg.value}</text>
-          </g>
-        );
-      })}
-    </svg>
+      {/* Legend — rendered as HTML below the SVG for proper text wrapping */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 12px', paddingTop: 8 }}>
+        {segments.map((seg, i) => (
+          <div
+            key={i}
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(null)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              cursor: 'default',
+              opacity: hovered !== null && hovered !== i ? 0.5 : 1,
+              transition: 'opacity 0.2s',
+            }}
+          >
+            <span
+              style={{
+                display: 'inline-block',
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                backgroundColor: seg.color,
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ color: '#64748b', fontSize: 12, fontWeight: 500, whiteSpace: 'nowrap' }}>
+              {seg.label ?? `Segment ${i + 1}`}
+            </span>
+            <span style={{ color: '#94a3b8', fontSize: 12, fontWeight: 700 }}>
+              {seg.value}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -770,12 +796,19 @@ export function CalendarHeatmap({
 
 interface RadarAxis {
   label: string;
-  value: number;
+  value?: number;
   maxValue: number;
+}
+
+interface RadarDataset {
+  name: string;
+  values: number[];
+  color: string;
 }
 
 interface RadarChartProps {
   axes: RadarAxis[];
+  datasets?: RadarDataset[];
   size?: number;
   color?: string;
   fillOpacity?: number;
@@ -783,15 +816,18 @@ interface RadarChartProps {
 
 export function RadarChart({
   axes,
+  datasets,
   size = 220,
   color = '#8b5cf6',
   fillOpacity = 0.2,
 }: RadarChartProps) {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [hoveredDataset, setHoveredDataset] = useState<number | null>(null);
 
   const cx = size / 2;
   const cy = size / 2;
-  const maxR = size / 2 - 30;
+  const labelPadding = 44;
+  const maxR = size / 2 - labelPadding;
   const n = axes.length;
   const angleStep = (2 * Math.PI) / n;
 
@@ -802,15 +838,30 @@ export function RadarChart({
   // Concentric rings
   const rings = [0.33, 0.66, 1];
 
-  // Value polygon points
-  const valuePts = axes.map((a, i) => {
-    const pct = clamp(a.value / (a.maxValue || 1), 0, 1);
-    return polarToXY(i * angleStep, pct * maxR);
+  // Resolve datasets: use provided datasets or fall back to axes[i].value (backward compat)
+  const resolvedDatasets: RadarDataset[] = datasets ?? [{
+    name: 'Value',
+    values: axes.map(a => a.value ?? 0),
+    color,
+  }];
+
+  // Compute polygon points for each dataset
+  const datasetPolygons = resolvedDatasets.map((ds) => {
+    const pts = axes.map((a, i) => {
+      const pct = clamp((ds.values[i] ?? 0) / (a.maxValue || 1), 0, 1);
+      return polarToXY(i * angleStep, pct * maxR);
+    });
+    const polygon = pts.map(p => p.join(',')).join(' ');
+    return { pts, polygon };
   });
-  const valuePolygon = valuePts.map(p => p.join(',')).join(' ');
+
+  // Legend height for multi-dataset mode
+  const showLegend = !!datasets && datasets.length > 1;
+  const legendH = showLegend ? datasets!.length * 22 + 12 : 0;
+  const totalH = size + legendH;
 
   return (
-    <svg viewBox={`0 0 ${size} ${size}`} className="w-full" style={{ fontFamily: FONT, maxWidth: size }}>
+    <svg viewBox={`0 0 ${size} ${totalH}`} className="w-full" style={{ fontFamily: FONT, maxWidth: size }}>
       {/* Rings */}
       {rings.map((r, i) => {
         const ringPts = Array.from({ length: n }, (_, j) => polarToXY(j * angleStep, r * maxR));
@@ -832,47 +883,70 @@ export function RadarChart({
         return <line key={i} x1={cx} y1={cy} x2={ex} y2={ey} stroke="#e2e8f0" strokeWidth={0.5} opacity={0.5} />;
       })}
 
-      {/* Value polygon (animated) */}
-      <motion.polygon
-        points={valuePolygon}
-        fill={color}
-        fillOpacity={fillOpacity}
-        stroke={color}
-        strokeWidth={2}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, type: 'spring', stiffness: 80 }}
-        style={{ transformOrigin: `${cx}px ${cy}px` }}
-      />
+      {/* Value polygons (one per dataset, animated) */}
+      {resolvedDatasets.map((ds, di) => {
+        const { polygon } = datasetPolygons[di];
+        const dsOpacity = fillOpacity + di * 0.05;
+        const dimmed = hoveredDataset !== null && hoveredDataset !== di;
+        return (
+          <motion.polygon
+            key={di}
+            points={polygon}
+            fill={ds.color}
+            fillOpacity={dimmed ? dsOpacity * 0.3 : dsOpacity}
+            stroke={ds.color}
+            strokeWidth={dimmed ? 1 : 2}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: di * 0.1, type: 'spring', stiffness: 80 }}
+            style={{ transformOrigin: `${cx}px ${cy}px` }}
+          />
+        );
+      })}
 
-      {/* Value dots */}
-      {valuePts.map(([x, y], i) => (
-        <motion.circle
-          key={i}
-          cx={x}
-          cy={y}
-          r={hovered === i ? 5 : 3}
-          fill={hovered === i ? '#fff' : color}
-          stroke={color}
-          strokeWidth={2}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 + i * 0.08 }}
-          onMouseEnter={() => setHovered(i)}
-          onMouseLeave={() => setHovered(null)}
-          style={{ cursor: 'pointer' }}
-        />
-      ))}
+      {/* Value dots for each dataset */}
+      {resolvedDatasets.map((ds, di) => {
+        const { pts } = datasetPolygons[di];
+        const dimmed = hoveredDataset !== null && hoveredDataset !== di;
+        return pts.map(([x, y], i) => (
+          <motion.circle
+            key={`${di}-${i}`}
+            cx={x}
+            cy={y}
+            r={hovered === i && hoveredDataset === di ? 5 : 3}
+            fill={hovered === i && hoveredDataset === di ? '#fff' : ds.color}
+            stroke={ds.color}
+            strokeWidth={2}
+            opacity={dimmed ? 0.3 : 1}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: dimmed ? 0.3 : 1 }}
+            transition={{ delay: 0.4 + i * 0.08 + di * 0.1 }}
+            onMouseEnter={() => { setHovered(i); setHoveredDataset(di); }}
+            onMouseLeave={() => { setHovered(null); setHoveredDataset(null); }}
+            style={{ cursor: 'pointer' }}
+          />
+        ));
+      })}
 
-      {/* Labels */}
+      {/* Labels — increased padding for long Arabic text */}
       {axes.map((a, i) => {
-        const [lx, ly] = polarToXY(i * angleStep, maxR + 16);
+        const angle = i * angleStep;
+        const [lx, ly] = polarToXY(angle, maxR + 24);
+        // Adjust textAnchor based on position to avoid clipping at edges
+        const normalizedAngle = ((angle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+        const anchor = normalizedAngle < 0.1 || normalizedAngle > Math.PI * 2 - 0.1
+          ? 'middle' as const
+          : normalizedAngle > Math.PI - 0.1 && normalizedAngle < Math.PI + 0.1
+            ? 'middle' as const
+            : normalizedAngle < Math.PI
+              ? 'start' as const
+              : 'end' as const;
         return (
           <text
             key={i}
             x={lx}
             y={ly}
-            textAnchor="middle"
+            textAnchor={anchor}
             dominantBaseline="central"
             fill={hovered === i ? '#334155' : '#64748b'}
             fontSize={10}
@@ -884,18 +958,39 @@ export function RadarChart({
       })}
 
       {/* Hover tooltip */}
-      {hovered !== null && (
-        <foreignObject
-          x={clamp(valuePts[hovered][0] - 45, 0, size - 90)}
-          y={valuePts[hovered][1] - 32}
-          width={90}
-          height={26}
-        >
-          <div style={{ background: '#0f172a', color: '#fff', fontSize: 10, fontWeight: 700, padding: '3px 6px', borderRadius: 6, textAlign: 'center', fontFamily: FONT, boxShadow: '0 4px 12px rgba(0,0,0,.3)' }}>
-            {axes[hovered].label}: {axes[hovered].value}/{axes[hovered].maxValue}
-          </div>
-        </foreignObject>
-      )}
+      {hovered !== null && hoveredDataset !== null && (() => {
+        const pts = datasetPolygons[hoveredDataset].pts;
+        const ds = resolvedDatasets[hoveredDataset];
+        const val = ds.values[hovered] ?? 0;
+        return (
+          <foreignObject
+            x={clamp(pts[hovered][0] - 55, 0, size - 110)}
+            y={pts[hovered][1] - 32}
+            width={110}
+            height={26}
+          >
+            <div style={{ background: '#0f172a', color: '#fff', fontSize: 10, fontWeight: 700, padding: '3px 6px', borderRadius: 6, textAlign: 'center', fontFamily: FONT, boxShadow: '0 4px 12px rgba(0,0,0,.3)' }}>
+              {ds.name}: {axes[hovered].label} {val}/{axes[hovered].maxValue}
+            </div>
+          </foreignObject>
+        );
+      })()}
+
+      {/* Legend for multi-dataset mode */}
+      {showLegend && datasets!.map((ds, di) => {
+        const ly = size + 8 + di * 22;
+        return (
+          <g
+            key={di}
+            onMouseEnter={() => setHoveredDataset(di)}
+            onMouseLeave={() => setHoveredDataset(null)}
+            style={{ cursor: 'default' }}
+          >
+            <circle cx={14} cy={ly + 6} r={5} fill={ds.color} />
+            <text x={26} y={ly + 10} fill="#64748b" fontSize={11} fontWeight={500}>{ds.name}</text>
+          </g>
+        );
+      })}
     </svg>
   );
 }
