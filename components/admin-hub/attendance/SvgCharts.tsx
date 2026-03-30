@@ -636,13 +636,17 @@ export function CalendarHeatmap({
 }: CalendarHeatmapProps) {
   const [tooltip, setTooltip] = useState<{ x: number; y: number; date: string; value: number } | null>(null);
 
-  const gap = 3;
-  const labelW = 50;
-  const headerH = 18;
+  // Use a large fixed viewBox width so the SVG doesn't scale up text/cells
+  const gap = 4;
+  const labelW = 40;
+  const headerH = 16;
   const rows = 5;
   const cols = weeksToShow;
-  const vWidth = labelW + cols * (cellSize + gap) + 8;
-  const vHeight = headerH + rows * (cellSize + gap) + 8;
+  // Calculate cell size to fill a ~700px wide viewBox
+  const targetWidth = 700;
+  const computedCellSize = Math.min(cellSize, Math.floor((targetWidth - labelW - 8) / cols - gap));
+  const vWidth = labelW + cols * (computedCellSize + gap) + 8;
+  const vHeight = headerH + rows * (computedCellSize + gap) + 8;
 
   // Build date map
   const dateMap = useMemo(() => {
@@ -701,40 +705,40 @@ export function CalendarHeatmap({
   }
 
   return (
-    <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full" style={{ fontFamily: FONT }}>
+    <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full" style={{ fontFamily: FONT, maxHeight: 220 }}>
       {/* Month labels */}
       {monthLabels.map((ml, i) => (
-        <text key={i} x={labelW + ml.col * (cellSize + gap) + cellSize / 2} y={12} textAnchor="middle" fill="#94a3b8" fontSize={9} fontWeight={500}>
+        <text key={i} x={labelW + ml.col * (computedCellSize + gap) + computedCellSize / 2} y={12} textAnchor="middle" fill="#94a3b8" fontSize={10} fontWeight={500}>
           {ml.label}
         </text>
       ))}
 
       {/* Day labels */}
       {(locale === 'ar' ? WEEKDAY_LABELS_AR : WEEKDAY_LABELS_EN).map((lbl, i) => (
-        <text key={lbl} x={labelW - 4} y={headerH + i * (cellSize + gap) + cellSize / 2 + 3} textAnchor="end" fill="#64748b" fontSize={9}>
+        <text key={lbl} x={labelW - 4} y={headerH + i * (computedCellSize + gap) + computedCellSize / 2 + 4} textAnchor="end" fill="#64748b" fontSize={10}>
           {lbl}
         </text>
       ))}
 
       {/* Cells */}
       {cells.map((cell, i) => {
-        const x = labelW + cell.col * (cellSize + gap);
-        const y = headerH + cell.row * (cellSize + gap);
+        const x = labelW + cell.col * (computedCellSize + gap);
+        const y = headerH + cell.row * (computedCellSize + gap);
         return (
           <motion.rect
             key={cell.date}
             x={x}
             y={y}
-            width={cellSize}
-            height={cellSize}
-            rx={3}
+            width={computedCellSize}
+            height={computedCellSize}
+            rx={4}
             fill={cellColor(cell.value)}
             opacity={cell.value === null ? 0.25 : 0.85}
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: cell.value === null ? 0.25 : 0.85, scale: 1 }}
             transition={{ duration: 0.3, delay: cell.col * 0.02 + cell.row * 0.01 }}
             onMouseEnter={() => {
-              setTooltip({ x: x + cellSize / 2, y, date: cell.date, value: cell.value ?? 0 });
+              setTooltip({ x: x + computedCellSize / 2, y, date: cell.date, value: cell.value ?? 0 });
               if (cell.value !== null) onCellHover?.(cell.date, cell.value);
             }}
             onMouseLeave={() => setTooltip(null)}
