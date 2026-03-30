@@ -1043,8 +1043,12 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
               <div>
                 <p className="text-xs font-bold text-slate-500 mb-2">{t(locale, 'ترتيب المعلمين', 'Teacher Ranking')}</p>
                 <HorizontalBarChart
-                  data={teacherRanking.slice(0, 12)}
+                  data={teacherRanking.slice(0, 10).map(d => ({
+                    ...d,
+                    color: d.value >= 95 ? '#10b981' : d.value >= 85 ? '#f59e0b' : '#f43f5e',
+                  }))}
                   maxValue={100}
+                  barHeight={18}
                 />
               </div>
             </div>
