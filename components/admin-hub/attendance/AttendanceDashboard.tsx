@@ -16,6 +16,8 @@ import {
 } from './SvgCharts';
 import { TeacherComplianceDashboard } from './TeacherComplianceDashboard';
 import { TeacherPresenceGrid } from './TeacherPresenceGrid';
+import { StudentReportModal } from './StudentReportModal';
+import { TeacherReportModal } from './TeacherReportModal';
 
 // ─────────────────────────────────────────────
 // Props & Helpers
@@ -429,18 +431,11 @@ export const AttendanceDashboard: React.FC<AttendanceDashboardProps> = ({ locale
       </AnimatePresence>
 
       {/* ── STUDENT MODAL ── */}
-      <AnimatePresence>
-        {studentModal && (
-          <StudentDetailModal
-            student={studentModal}
-            locale={locale}
-            l={l}
-            isRtl={isRtl}
-            onClose={() => setStudentModal(null)}
-            onNotify={() => handleNotify(locale === 'ar' ? studentModal.name : studentModal.nameEn)}
-          />
-        )}
-      </AnimatePresence>
+      <StudentReportModal
+        student={studentModal}
+        onClose={() => setStudentModal(null)}
+        locale={locale}
+      />
 
       {/* ── TOAST ── */}
       <AnimatePresence>

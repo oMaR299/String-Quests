@@ -86,8 +86,9 @@ export function useAttendanceData(filters: AttendanceFilters): AttendanceCompute
       }
     }
 
-    // Daily trend
-    const schoolDays = getSchoolDays(dateFrom || getPreviousDay(today), today);
+    // Daily trend — use last 30 days if no dateFrom specified
+    const thirtyDaysAgo = (() => { const d = new Date(today); d.setDate(d.getDate() - 35); return d.toISOString().split('T')[0]; })();
+    const schoolDays = getSchoolDays(dateFrom || thirtyDaysAgo, today);
     const last14 = schoolDays.slice(-14);
     const dailyTrend = last14.map(date => {
       const s = getDailySummary(date, campus);

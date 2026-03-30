@@ -291,6 +291,7 @@ interface HorizontalBarChartProps {
   height?: number;
   barHeight?: number;
   showValues?: boolean;
+  valueSuffix?: string;
   animate?: boolean;
 }
 
@@ -299,6 +300,7 @@ export function HorizontalBarChart({
   maxValue: forcedMax,
   barHeight = 22,
   showValues = true,
+  valueSuffix = '%',
   animate = true,
 }: HorizontalBarChartProps) {
   const uid = useId();
@@ -367,7 +369,7 @@ export function HorizontalBarChart({
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 + i * 0.08 }}
               >
-                {d.value}%
+                {d.value}{valueSuffix}
               </motion.text>
             )}
             {/* Tooltip */}
@@ -610,6 +612,7 @@ interface CalendarHeatmapProps {
   colorScale?: HeatmapColorStop[];
   weeksToShow?: number;
   cellSize?: number;
+  locale?: 'ar' | 'en';
   onCellHover?: (date: string, value: number) => void;
 }
 
@@ -620,13 +623,15 @@ const DEFAULT_HEAT_COLORS: HeatmapColorStop[] = [
   { threshold: 0,  color: '#f43f5e' },   // red
 ];
 
-const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu'];
+const WEEKDAY_LABELS_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu'];
+const WEEKDAY_LABELS_AR = ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس'];
 
 export function CalendarHeatmap({
   data,
   colorScale = DEFAULT_HEAT_COLORS,
   weeksToShow = 16,
   cellSize = 14,
+  locale = 'ar',
   onCellHover,
 }: CalendarHeatmapProps) {
   const [tooltip, setTooltip] = useState<{ x: number; y: number; date: string; value: number } | null>(null);
@@ -705,7 +710,7 @@ export function CalendarHeatmap({
       ))}
 
       {/* Day labels */}
-      {WEEKDAY_LABELS.map((lbl, i) => (
+      {(locale === 'ar' ? WEEKDAY_LABELS_AR : WEEKDAY_LABELS_EN).map((lbl, i) => (
         <text key={lbl} x={labelW - 4} y={headerH + i * (cellSize + gap) + cellSize / 2 + 3} textAnchor="end" fill="#64748b" fontSize={9}>
           {lbl}
         </text>

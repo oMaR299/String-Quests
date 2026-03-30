@@ -896,6 +896,7 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
                 data={lateDistribution}
                 maxValue={Math.max(...lateDistribution.map(d => d.value), 1)}
                 showValues={true}
+                valueSuffix=""
               />
             </ChartCard>
 
@@ -905,8 +906,9 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
                 title={t(locale, 'مقارنة المباني', 'Campus Comparison')}
                 subtitle={t(locale, 'رادار مقارنة 4 محاور', '4-axis radar comparison')}
               >
-                <div className="flex justify-center">
+                <div className="flex justify-center py-4">
                   <RadarChart
+                    size={240}
                     axes={[
                       {
                         label: t(locale, 'الحضور', 'Attendance'),
@@ -929,7 +931,6 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
                         maxValue: 100,
                       },
                     ]}
-                    size={220}
                     color="#8b5cf6"
                   />
                 </div>
@@ -972,7 +973,7 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
             subtitle={t(locale, 'نسبة الحضور اليومية على شكل شبكة', 'Daily attendance rate as a grid')}
             className="col-span-full"
           >
-            <CalendarHeatmap data={heatmapData} weeksToShow={Math.min(Math.ceil(schoolDays.length / 5) + 2, 16)} />
+            <CalendarHeatmap data={heatmapData} weeksToShow={Math.min(Math.ceil(schoolDays.length / 5) + 1, 10)} locale={locale} />
           </ChartCard>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
