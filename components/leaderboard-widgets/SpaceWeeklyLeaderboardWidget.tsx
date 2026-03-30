@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { MOCK_SCHOOL_DATA } from '../../data/complexLeaderboardData';
 import type { Subject, StudentProfile } from '../../data/complexLeaderboardData';
+import { StudentProfileModal } from '../StudentProfileModal';
 
 type SubjectKey = Exclude<Subject, 'all'>;
 
@@ -75,6 +76,9 @@ export function SpaceWeeklyLeaderboardWidget({
 }: SpaceWeeklyLeaderboardWidgetProps) {
   const [weekOffset, setWeekOffset] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [selectedStudent, setSelectedStudent] = useState<StudentProfile | null>(null);
+  const currentUserRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const t = (ar: string, en: string) => (locale === 'ar' ? ar : en);
   const isRTL = locale === 'ar';
   const subjectKey = spaceSubject as SubjectKey;
@@ -101,16 +105,17 @@ export function SpaceWeeklyLeaderboardWidget({
       .sort((a, b) => b.weekXp - a.weekXp);
   }, [classStudents, subjectKey, weekOffset]);
 
-  const top5 = rankedStudents.slice(0, 5);
-  const currentUserEntry = currentUserId
-    ? rankedStudents.find((s) => s.id === currentUserId)
-    : null;
-  const currentUserRank = currentUserEntry
-    ? rankedStudents.indexOf(currentUserEntry) + 1
-    : null;
-  const isCurrentInTop5 = currentUserRank != null && currentUserRank <= 5;
-
   const gradient = SUBJECT_GRADIENTS[spaceSubject] || 'from-slate-400 to-slate-500';
+
+  // Auto-scroll to current user on mount / when rankedStudents change
+  useEffect(() => {
+    if (currentUserRef.current) {
+      const timer = setTimeout(() => {
+        currentUserRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [rankedStudents, currentUserId]);
 
   const navigateWeek = (dir: -1 | 1) => {
     const next = weekOffset + dir;
@@ -169,7 +174,7 @@ export function SpaceWeeklyLeaderboardWidget({
           </button>
         </div>
 
-        {/* Ranking list */}
+        {/* Ranking list — scrollable, all students */}
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={weekOffset}
@@ -179,114 +184,91 @@ export function SpaceWeeklyLeaderboardWidget({
             animate="center"
             exit="exit"
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="space-y-1"
           >
-            {top5.map((student, idx) => {
-              const rank = idx + 1;
-              const isCurrentUser = student.id === currentUserId;
-              const accColor =
-                student.accuracy >= 80 ? 'bg-emerald-400' : student.accuracy >= 60 ? 'bg-amber-400' : 'bg-red-400';
-              const rowBg =
-                rank === 1 ? 'bg-amber-50/60' :
-                rank === 2 ? 'bg-slate-50/80' :
-                rank === 3 ? 'bg-orange-50/40' : '';
+            <div
+              ref={scrollContainerRef}
+              className="max-h-[400px] overflow-y-auto space-y-1 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent"
+            >
+              {rankedStudents.map((student, idx) => {
+                const rank = idx + 1;
+                const isCurrentUser = student.id === currentUserId;
+                const accColor =
+                  student.accuracy >= 80 ? 'bg-emerald-400' : student.accuracy >= 60 ? 'bg-amber-400' : 'bg-red-400';
+                const rowBg =
+                  isCurrentUser
+                    ? 'bg-sky-50'
+                    : rank === 1 ? 'bg-amber-50/60'
+                    : rank === 2 ? 'bg-slate-50/80'
+                    : rank === 3 ? 'bg-orange-50/40' : '';
 
-              return (
-                <motion.div
-                  key={student.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.06, duration: 0.3 }}
-                  className={`flex items-center gap-2.5 px-2.5 py-2 rounded-xl transition-colors ${rowBg} ${
-                    isCurrentUser ? 'ring-1 ring-sky-300/50 bg-sky-50/40' : ''
-                  } ${rank === 1 ? 'py-2.5' : ''}`}
-                >
-                  {/* Rank */}
-                  <div className="w-5 text-center flex-shrink-0">
-                    {rank <= 3 ? (
-                      <span className="text-sm">{RANK_MEDALS[rank]}</span>
-                    ) : (
-                      <span className="text-xs font-bold text-slate-400">{rank}</span>
-                    )}
-                  </div>
-
-                  {/* Avatar */}
-                  <div
-                    className={`${rank === 1 ? 'w-8 h-8' : 'w-7 h-7'} rounded-full bg-gradient-to-br ${getAvatarGradient(
-                      student.id
-                    )} flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0`}
+                return (
+                  <motion.div
+                    key={student.id}
+                    ref={isCurrentUser ? currentUserRef : undefined}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: Math.min(idx * 0.06, 0.6), duration: 0.3 }}
+                    onClick={() => setSelectedStudent(student)}
+                    className={`flex items-center gap-2.5 px-2.5 py-2 rounded-xl transition-colors cursor-pointer hover:bg-slate-50 ${rowBg} ${
+                      isCurrentUser ? `${isRTL ? 'border-r-4' : 'border-l-4'} border-sky-400` : ''
+                    } ${rank === 1 ? 'py-2.5' : ''}`}
                   >
-                    {student.name.charAt(0)}
-                  </div>
+                    {/* Rank */}
+                    <div className="w-5 text-center flex-shrink-0">
+                      {rank <= 3 ? (
+                        <span className="text-sm">{RANK_MEDALS[rank]}</span>
+                      ) : (
+                        <span className="text-xs font-bold text-slate-400">{rank}</span>
+                      )}
+                    </div>
 
-                  {/* Name */}
-                  <div className="flex-1 min-w-0">
-                    <p className={`${rank === 1 ? 'text-sm' : 'text-[13px]'} font-bold text-slate-800 truncate`}>
-                      {student.name}
-                    </p>
-                  </div>
-
-                  {/* XP + accuracy dot */}
-                  <div className="flex items-center gap-1.5 flex-shrink-0">
-                    <motion.span
-                      key={`${student.id}-${weekOffset}`}
-                      className={`${rank === 1 ? 'text-sm' : 'text-xs'} font-black text-slate-700 tabular-nums`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: idx * 0.06 + 0.2, duration: 0.4 }}
+                    {/* Avatar */}
+                    <div
+                      className={`${rank === 1 ? 'w-8 h-8' : 'w-7 h-7'} rounded-full bg-gradient-to-br ${getAvatarGradient(
+                        student.id
+                      )} flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0`}
                     >
-                      {student.weekXp.toLocaleString(locale === 'ar' ? 'ar-SA' : 'en-US')}
-                    </motion.span>
-                    <span className="text-[10px] text-slate-400">XP</span>
-                    <div className={`w-2 h-2 rounded-full ${accColor}`} title={`${student.accuracy}%`} />
-                  </div>
-                </motion.div>
-              );
-            })}
+                      {student.name.charAt(0)}
+                    </div>
 
-            {top5.length === 0 && (
-              <div className="text-center py-6 text-xs text-slate-400">
-                {t('لا توجد بيانات', 'No data available')}
-              </div>
-            )}
+                    {/* Name + "You" badge */}
+                    <div className="flex-1 min-w-0 flex items-center gap-1.5">
+                      <p className={`${rank === 1 ? 'text-sm' : 'text-[13px]'} font-bold text-slate-800 truncate`}>
+                        {student.name}
+                      </p>
+                      {isCurrentUser && (
+                        <span className="text-[10px] font-bold text-sky-600 bg-sky-100 px-1.5 py-0.5 rounded-full flex-shrink-0">
+                          {t('أنت', 'You')}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* XP + accuracy dot */}
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                      <motion.span
+                        key={`${student.id}-${weekOffset}`}
+                        className={`${rank === 1 ? 'text-sm' : 'text-xs'} font-black text-slate-700 tabular-nums`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: Math.min(idx * 0.06, 0.6) + 0.2, duration: 0.4 }}
+                      >
+                        {student.weekXp.toLocaleString(locale === 'ar' ? 'ar-SA' : 'en-US')}
+                      </motion.span>
+                      <span className="text-[10px] text-slate-400">XP</span>
+                      <div className={`w-2 h-2 rounded-full ${accColor}`} title={`${student.accuracy}%`} />
+                    </div>
+                  </motion.div>
+                );
+              })}
+
+              {rankedStudents.length === 0 && (
+                <div className="text-center py-6 text-xs text-slate-400">
+                  {t('لا توجد بيانات', 'No data available')}
+                </div>
+              )}
+            </div>
           </motion.div>
         </AnimatePresence>
-
-        {/* Current user section */}
-        {currentUserEntry && !isCurrentInTop5 && (
-          <>
-            <div className="border-t border-dashed border-slate-200 my-3" />
-            <div className="flex items-center gap-2.5 px-2.5 py-2 rounded-xl bg-sky-50/50 ring-1 ring-sky-200/40">
-              <div className="w-5 text-center flex-shrink-0">
-                <span className="text-xs font-bold text-slate-500">{currentUserRank}</span>
-              </div>
-              <div
-                className={`w-7 h-7 rounded-full bg-gradient-to-br ${getAvatarGradient(
-                  currentUserEntry.id
-                )} flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0`}
-              >
-                {currentUserEntry.name.charAt(0)}
-              </div>
-              <div className="flex-1 min-w-0 flex items-center gap-1.5">
-                <p className="text-[13px] font-bold text-slate-800 truncate">{currentUserEntry.name}</p>
-                <span className="text-[10px] font-bold text-sky-600 bg-sky-100 px-1.5 py-0.5 rounded-full flex-shrink-0">
-                  {t('أنت', 'You')}
-                </span>
-              </div>
-              <div className="flex items-center gap-1.5 flex-shrink-0">
-                <span className="text-xs font-black text-slate-700 tabular-nums">
-                  {currentUserEntry.weekXp.toLocaleString(locale === 'ar' ? 'ar-SA' : 'en-US')}
-                </span>
-                <span className="text-[10px] text-slate-400">XP</span>
-                <div
-                  className={`w-2 h-2 rounded-full ${
-                    currentUserEntry.accuracy >= 80 ? 'bg-emerald-400' : currentUserEntry.accuracy >= 60 ? 'bg-amber-400' : 'bg-red-400'
-                  }`}
-                />
-              </div>
-            </div>
-          </>
-        )}
 
         {/* Footer */}
         {onViewFull && (
@@ -303,6 +285,12 @@ export function SpaceWeeklyLeaderboardWidget({
           </>
         )}
       </div>
+
+      {/* Student Profile Modal */}
+      <StudentProfileModal
+        student={selectedStudent}
+        onClose={() => setSelectedStudent(null)}
+      />
     </div>
   );
 }

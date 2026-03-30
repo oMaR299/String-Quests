@@ -9,6 +9,7 @@ import { MOCK_SCHOOL_DATA, SUBJECT_UNITS as COMPLEX_UNITS } from '../../data/com
 import type { Subject, StudentProfile, League } from '../../data/complexLeaderboardData';
 import { SUBJECT_UNITS as DETAIL_UNITS } from '../../data/subjectUnits';
 import type { SubjectUnit } from '../../data/subjectUnits';
+import { StudentProfileModal } from '../StudentProfileModal';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -109,6 +110,7 @@ export function SpaceLeaderboardDashboard({
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [selectedUnit, setSelectedUnit] = useState<SubjectUnit | null>(null);
   const [chartToggle, setChartToggle] = useState<ChartToggle>('weekly');
+  const [selectedStudent, setSelectedStudent] = useState<StudentProfile | null>(null);
 
   // ─── Data ──────────────────────────────────────────────────────────────────
   const students = useMemo(() =>
@@ -516,8 +518,8 @@ export function SpaceLeaderboardDashboard({
                     <motion.tr
                       key={st.id}
                       variants={fadeUp}
-                      className={`border-b border-slate-50 hover:bg-slate-50/80 transition-colors cursor-pointer ${medalBg}`}
-                      onClick={() => onStudentClick?.(st.id)}
+                      className={`border-b border-slate-50 hover:bg-sky-50/50 transition-colors cursor-pointer ${medalBg}`}
+                      onClick={() => { onStudentClick?.(st.id); setSelectedStudent(st); }}
                     >
                       <td className="py-3 px-2 font-bold text-slate-600">{medalText}</td>
                       <td className="py-3 px-2">
@@ -1045,7 +1047,11 @@ export function SpaceLeaderboardDashboard({
                     {unitModalData.top5.map((st, i) => {
                       const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}`;
                       return (
-                        <div key={st.id} className="flex items-center gap-3 py-2">
+                        <div
+                          key={st.id}
+                          className="flex items-center gap-3 py-2 cursor-pointer hover:bg-sky-50/50 rounded-lg transition-colors px-1"
+                          onClick={() => { setSelectedUnit(null); setSelectedStudent(st); }}
+                        >
                           <span className="w-6 text-center font-bold text-sm">{medal}</span>
                           <div className={`w-7 h-7 rounded-full ${st.avatar} flex items-center justify-center text-[10px] font-bold text-slate-700`}>
                             {st.name.charAt(0)}
@@ -1095,6 +1101,12 @@ export function SpaceLeaderboardDashboard({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Student Profile Modal */}
+      <StudentProfileModal
+        student={selectedStudent}
+        onClose={() => setSelectedStudent(null)}
+      />
     </div>
   );
 }

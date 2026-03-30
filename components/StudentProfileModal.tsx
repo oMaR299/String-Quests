@@ -84,6 +84,54 @@ const SubjectIcon = ({ subject, className }: { subject: string, className?: stri
   }
 };
 
+// --- Unit display mapping ---
+// Maps complexLeaderboardData unit keys (subject-unit) to Arabic names, emojis, and lesson names
+const UNIT_DISPLAY_MAP: Record<string, { nameAr: string; emoji: string; lessons: string[] }> = {
+  // Math
+  'math-arithmetic':  { nameAr: 'العمليات الحسابية', emoji: '🔢', lessons: ['الجمع', 'الطرح', 'الأعداد'] },
+  'math-algebra':     { nameAr: 'الجبر', emoji: '📐', lessons: ['المعادلات', 'المتغيرات', 'التعبيرات الجبرية'] },
+  'math-geometry':    { nameAr: 'الهندسة', emoji: '📏', lessons: ['الأشكال الهندسية', 'المساحة', 'المحيط'] },
+  'math-calculus':    { nameAr: 'التفاضل والتكامل', emoji: '📈', lessons: ['النهايات', 'المشتقات', 'التكامل'] },
+  'math-statistics':  { nameAr: 'الإحصاء', emoji: '📊', lessons: ['المتوسط', 'الوسيط', 'الانحراف المعياري'] },
+  // Science
+  'science-matter':     { nameAr: 'المادة', emoji: '🧪', lessons: ['حالات المادة', 'الخصائص الفيزيائية'] },
+  'science-energy':     { nameAr: 'الطاقة', emoji: '☀️', lessons: ['أشكال الطاقة', 'تحولات الطاقة'] },
+  'science-forces':     { nameAr: 'القوى', emoji: '⚡', lessons: ['قوانين نيوتن', 'الجاذبية'] },
+  'science-ecosystems': { nameAr: 'الأنظمة البيئية', emoji: '🌿', lessons: ['السلسلة الغذائية', 'التوازن البيئي'] },
+  // Languages
+  'languages-grammar':    { nameAr: 'القواعد', emoji: '✏️', lessons: ['الأفعال', 'الأسماء', 'الحروف'] },
+  'languages-literature': { nameAr: 'الأدب', emoji: '📖', lessons: ['القصة القصيرة', 'الرواية'] },
+  'languages-poetry':     { nameAr: 'الشعر', emoji: '🎭', lessons: ['القصيدة', 'البحور الشعرية'] },
+  'languages-writing':    { nameAr: 'الكتابة', emoji: '📝', lessons: ['التعبير الكتابي', 'الإملاء'] },
+  // History
+  'history-ancient':         { nameAr: 'الحضارات القديمة', emoji: '🏛️', lessons: ['حضارة بلاد الرافدين', 'الحضارة المصرية'] },
+  'history-islamic_history': { nameAr: 'التاريخ الإسلامي', emoji: '🕌', lessons: ['الخلفاء الراشدون', 'الدولة الأموية'] },
+  'history-modern':          { nameAr: 'التاريخ الحديث', emoji: '🏗️', lessons: ['الثورة الصناعية', 'العصر الحديث'] },
+  'history-geography':       { nameAr: 'الجغرافيا', emoji: '🗺️', lessons: ['القارات', 'التضاريس'] },
+  // Arts
+  'arts-drawing':        { nameAr: 'الرسم', emoji: '🎨', lessons: ['رسم المناظر الطبيعية', 'رسم الأشخاص'] },
+  'arts-colors':         { nameAr: 'الألوان', emoji: '🖌️', lessons: ['نظرية الألوان', 'مزج الألوان'] },
+  'arts-history_of_art': { nameAr: 'تاريخ الفن', emoji: '🖼️', lessons: ['الفن الإسلامي', 'الفن الحديث'] },
+};
+
+// Short Arabic subject names for badges
+const SUBJECT_SHORT_AR: Record<string, string> = {
+  math: 'رياضيات',
+  science: 'علوم',
+  languages: 'لغات',
+  history: 'تاريخ',
+  arts: 'فنون',
+};
+
+// Badge color classes per subject
+const SUBJECT_BADGE_COLORS: Record<string, string> = {
+  math: 'bg-blue-100 text-blue-600 border-blue-200',
+  science: 'bg-green-100 text-green-600 border-green-200',
+  languages: 'bg-purple-100 text-purple-600 border-purple-200',
+  history: 'bg-amber-100 text-amber-600 border-amber-200',
+  arts: 'bg-pink-100 text-pink-600 border-pink-200',
+};
+
 const LeagueBadge = ({ league, onClick }: { league: League, onClick?: () => void }) => {
     const config = {
         bronze: { color: 'bg-amber-700', border: 'border-amber-600', text: 'برونزي' },
@@ -117,7 +165,7 @@ const getLeagueInfo = (league: League) => {
 };
 
 export const StudentProfileModal: React.FC<StudentProfileModalProps> = ({ student, onClose }) => {
-  const [expandedSubject, setExpandedSubject] = useState<string | null>(null);
+  const [expandedUnit, setExpandedUnit] = useState<string | null>(null);
   const [showStatsInfo, setShowStatsInfo] = useState(false);
   const [activeTab, setActiveTab] = useState<'performance' | 'behavior'>('performance');
   const [infoModalConfig, setInfoModalConfig] = useState<{open: boolean, title: string, desc: string, icon?: React.ReactNode}>({
@@ -141,6 +189,53 @@ export const StudentProfileModal: React.FC<StudentProfileModalProps> = ({ studen
       const totalTime = subjs.reduce((acc, curr) => acc + curr.timeSpent, 0);
       const avgAcc = Math.round(subjs.reduce((acc, curr) => acc + curr.accuracy, 0) / subjs.length);
       return { acc: avgAcc, time: totalTime };
+  }, [student]);
+
+  // Flatten all units across subjects for the unit-based view
+  const flatUnits = useMemo(() => {
+      const subjects: Subject[] = ['math', 'science', 'languages', 'history', 'arts'];
+      const result: Array<{
+          key: string;
+          subject: Subject;
+          subjectAr: string;
+          unitId: string;
+          unitNameAr: string;
+          emoji: string;
+          lessons: string[];
+          // Aggregated data from student
+          xp: number;
+          accuracy: number;
+          timeSpent: number;
+      }> = [];
+
+      if (!student) return result;
+
+      for (const subject of subjects) {
+          const units = SUBJECT_UNITS[subject as keyof typeof SUBJECT_UNITS];
+          if (!units) continue;
+          const subjectAr = SUBJECT_SHORT_AR[subject] || subject;
+
+          for (const unitId of units) {
+              const unitKey = `${subject}-${unitId}`;
+              const displayInfo = UNIT_DISPLAY_MAP[unitKey] || { nameAr: unitId, emoji: '📚', lessons: [] };
+              const lessonStat = student.lessonDetails[unitKey] || { xp: 0, accuracy: 0, timeSpent: 0 };
+
+              result.push({
+                  key: unitKey,
+                  subject,
+                  subjectAr,
+                  unitId,
+                  unitNameAr: displayInfo.nameAr,
+                  emoji: displayInfo.emoji,
+                  lessons: displayInfo.lessons,
+                  xp: lessonStat.xp,
+                  accuracy: lessonStat.accuracy,
+                  timeSpent: lessonStat.timeSpent,
+              });
+          }
+      }
+
+      return result;
   }, [student]);
 
   const openInfo = (title: string, desc: string, icon?: React.ReactNode) => {
@@ -365,43 +460,46 @@ export const StudentProfileModal: React.FC<StudentProfileModalProps> = ({ studen
                     </div>
                 </div>
 
-                {/* 3. Detailed Subjects Breakdown (Right Column - Span 2) */}
+                {/* 3. Detailed Units Breakdown (Right Column - Span 2) */}
                 <div className="lg:col-span-2 space-y-4">
                     <h3 className="text-sm font-black text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2 px-2">
-                        <Award className="w-4 h-4" /> تفاصيل المواد
+                        <Award className="w-4 h-4" /> تفاصيل الوحدات
                     </h3>
-                    
-                    {/* Map through subjects */}
-                    {(['math', 'science', 'languages', 'history', 'arts'] as Subject[]).map((subject) => {
-                        const details = student.subjectDetails[subject as keyof typeof student.subjectDetails];
-                        const units = SUBJECT_UNITS[subject as keyof typeof SUBJECT_UNITS];
-                        const isExpanded = expandedSubject === subject;
+
+                    {/* Map through flattened units */}
+                    {flatUnits.map((unit) => {
+                        const isExpanded = expandedUnit === unit.key;
 
                         return (
-                            <motion.div 
+                            <motion.div
                                 layout
-                                key={subject} 
+                                key={unit.key}
                                 className={`bg-white rounded-[2rem] border transition-all overflow-hidden
                                     ${isExpanded ? 'border-blue-200 shadow-lg ring-4 ring-blue-50 z-10' : 'border-slate-100 hover:border-slate-200 hover:shadow-md'}
                                 `}
                             >
-                                {/* Subject Header (Clickable) */}
-                                <button 
-                                    onClick={() => setExpandedSubject(isExpanded ? null : subject)}
+                                {/* Unit Header (Clickable) */}
+                                <button
+                                    onClick={() => setExpandedUnit(isExpanded ? null : unit.key)}
                                     className="w-full flex items-center justify-between p-5"
                                 >
                                     <div className="flex items-center gap-5">
-                                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-slate-50 border border-slate-100 group-hover:scale-110 transition-transform`}>
-                                            <SubjectIcon subject={subject} className="w-7 h-7 text-slate-600" />
+                                        <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-slate-50 border border-slate-100 text-2xl">
+                                            {unit.emoji}
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-lg font-black text-slate-800 capitalize mb-1">
-                                                {subject === 'math' ? 'الرياضيات' : subject === 'science' ? 'العلوم' : subject === 'languages' ? 'اللغات' : subject === 'history' ? 'التاريخ' : 'الفنون'}
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <span className="text-lg font-black text-slate-800">
+                                                    {unit.unitNameAr}
+                                                </span>
+                                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${SUBJECT_BADGE_COLORS[unit.subject] || 'bg-slate-100 text-slate-500 border-slate-200'}`}>
+                                                    {unit.subjectAr}
+                                                </span>
                                             </div>
                                             <div className="flex items-center gap-3 text-xs font-bold text-slate-400">
-                                                <span>{units.length} وحدات</span>
+                                                <span>{unit.lessons.length} دروس</span>
                                                 <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
-                                                <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {formatTime(details.timeSpent)}</span>
+                                                <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {formatTime(unit.timeSpent)}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -409,12 +507,12 @@ export const StudentProfileModal: React.FC<StudentProfileModalProps> = ({ studen
                                     <div className="flex items-center gap-6 md:gap-8">
                                         {/* Accuracy Ring */}
                                         <div className="hidden sm:flex flex-col items-center gap-1">
-                                            <AccuracyRing percentage={details.accuracy} />
+                                            <AccuracyRing percentage={unit.accuracy} />
                                             <span className="text-[10px] font-bold text-slate-400">الدقة</span>
                                         </div>
 
                                         <div className="text-right min-w-[70px]">
-                                            <div className="text-xl font-black text-indigo-600">{details.xp.toLocaleString()}</div>
+                                            <div className="text-xl font-black text-indigo-600">{unit.xp.toLocaleString()}</div>
                                             <div className="text-[10px] font-bold text-slate-400 uppercase">XP مكتسب</div>
                                         </div>
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isExpanded ? 'bg-blue-100 text-blue-600' : 'bg-slate-50 text-slate-400'}`}>
@@ -423,16 +521,16 @@ export const StudentProfileModal: React.FC<StudentProfileModalProps> = ({ studen
                                     </div>
                                 </button>
 
-                                {/* Expanded Units List */}
+                                {/* Expanded Lessons List */}
                                 <AnimatePresence>
                                     {isExpanded && (
-                                        <motion.div 
+                                        <motion.div
                                             initial={{ height: 0, opacity: 0 }}
                                             animate={{ height: 'auto', opacity: 1 }}
                                             exit={{ height: 0, opacity: 0 }}
                                             className="border-t border-slate-100 bg-slate-50/50"
                                         >
-                                            {/* Sub-Header for Units */}
+                                            {/* Sub-Header for Lessons */}
                                             <div className="px-6 py-3 bg-slate-100/50 grid grid-cols-12 text-[10px] font-black text-slate-400 uppercase tracking-wider">
                                                 <div className="col-span-6">اسم الدرس</div>
                                                 <div className="col-span-2 text-center">الوقت</div>
@@ -441,43 +539,50 @@ export const StudentProfileModal: React.FC<StudentProfileModalProps> = ({ studen
                                             </div>
 
                                             <div className="p-4 grid gap-2">
-                                                {units.map((unit) => {
-                                                    const key = `${subject}-${unit}`;
-                                                    const lessonStat = student.lessonDetails[key] || { xp: 0, accuracy: 0, timeSpent: 0 };
-                                                    
+                                                {unit.lessons.length > 0 ? unit.lessons.map((lessonName, lessonIdx) => {
+                                                    // Distribute unit-level data across lessons proportionally
+                                                    const lessonCount = unit.lessons.length;
+                                                    const lessonXp = Math.round(unit.xp / lessonCount);
+                                                    const lessonAccuracy = unit.accuracy;
+                                                    const lessonTime = Math.round(unit.timeSpent / lessonCount);
+
                                                     return (
-                                                        <div key={unit} className="grid grid-cols-12 items-center bg-white p-3 rounded-xl border border-slate-100 hover:border-blue-200 transition-colors group">
+                                                        <div key={lessonName} className="grid grid-cols-12 items-center bg-white p-3 rounded-xl border border-slate-100 hover:border-blue-200 transition-colors group">
                                                             {/* Name */}
                                                             <div className="col-span-6 flex items-center gap-3">
-                                                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${lessonStat.xp > 500 ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-400'}`}>
+                                                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${lessonXp > 150 ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-400'}`}>
                                                                     <Target className="w-4 h-4" />
                                                                 </div>
-                                                                <span className="font-bold text-slate-700 text-sm capitalize truncate pr-2">{unit}</span>
+                                                                <span className="font-bold text-slate-700 text-sm truncate pr-2">{lessonName}</span>
                                                             </div>
-                                                            
+
                                                             {/* Time */}
                                                             <div className="col-span-2 text-center flex justify-center">
                                                                 <span className="text-xs font-bold text-slate-500 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100 whitespace-nowrap">
-                                                                    {formatTime(lessonStat.timeSpent)}
+                                                                    {formatTime(lessonTime)}
                                                                 </span>
                                                             </div>
 
                                                             {/* Accuracy */}
                                                             <div className="col-span-2 flex justify-center">
-                                                                 <div className={`text-xs font-black px-2 py-1 rounded-lg ${lessonStat.accuracy >= 90 ? 'bg-emerald-100 text-emerald-600' : lessonStat.accuracy >= 70 ? 'bg-blue-100 text-blue-600' : 'bg-rose-100 text-rose-600'}`}>
-                                                                     {lessonStat.accuracy}%
+                                                                 <div className={`text-xs font-black px-2 py-1 rounded-lg ${lessonAccuracy >= 90 ? 'bg-emerald-100 text-emerald-600' : lessonAccuracy >= 70 ? 'bg-blue-100 text-blue-600' : 'bg-rose-100 text-rose-600'}`}>
+                                                                     {lessonAccuracy}%
                                                                  </div>
                                                             </div>
 
                                                             {/* XP */}
                                                             <div className="col-span-2 text-center">
                                                                 <span className="text-sm font-black text-slate-800">
-                                                                    {lessonStat.xp}
+                                                                    {lessonXp}
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                    )
-                                                })}
+                                                    );
+                                                }) : (
+                                                    <div className="text-center py-4 text-sm font-bold text-slate-400">
+                                                        لا توجد دروس مسجلة لهذه الوحدة
+                                                    </div>
+                                                )}
                                             </div>
                                         </motion.div>
                                     )}
