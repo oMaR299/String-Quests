@@ -47,16 +47,29 @@ export const AccuracyVsXpScatter: React.FC<AccuracyVsXpScatterProps> = ({
   const [hoveredQuadrant, setHoveredQuadrant] = useState<string | null>(null);
   const [showInfoTooltip, setShowInfoTooltip] = useState<string | null>(null);
 
-  // Chart dimensions
-  const margin = { top: 30, right: 30, bottom: 45, left: 50 };
-  const width = 600;
-  const height = 400;
+  // Chart dimensions — wider aspect ratio, less vertical waste
+  const margin = { top: 20, right: 25, bottom: 40, left: 45 };
+  const width = 700;
+  const height = 340;
   const plotW = width - margin.left - margin.right;
   const plotH = height - margin.top - margin.bottom;
 
-  // Data bounds
+  // Data bounds — auto-scale Y axis to actual data range (not always 0-100)
   const maxXp = useMemo(() => Math.max(...students.map(s => s.xp), 100), [students]);
   const xpPadding = maxXp * 0.1;
+
+  const { yMin, yMax } = useMemo(() => {
+    if (students.length === 0) return { yMin: 0, yMax: 100 };
+    const accs = students.map(s => s.accuracy);
+    const minAcc = Math.min(...accs);
+    const maxAcc = Math.max(...accs);
+    // Pad the range by 15% on each side, floor/ceil to nearest 10
+    const pad = Math.max((maxAcc - minAcc) * 0.25, 10);
+    return {
+      yMin: Math.max(0, Math.floor((minAcc - pad) / 10) * 10),
+      yMax: Math.min(100, Math.ceil((maxAcc + pad) / 10) * 10),
+    };
+  }, [students]);
 
   // Quadrant thresholds
   const medianXp = useMemo(() => {
@@ -64,10 +77,12 @@ export const AccuracyVsXpScatter: React.FC<AccuracyVsXpScatterProps> = ({
     return sorted[Math.floor(sorted.length / 2)]?.xp || maxXp / 2;
   }, [students, maxXp]);
   const accuracyThreshold = 70;
+  // Clamp accuracy threshold to visible range
+  const visibleAccThreshold = Math.max(yMin, Math.min(yMax, accuracyThreshold));
 
-  // Map data to SVG coordinates
+  // Map data to SVG coordinates — using dynamic Y range
   const toX = (xp: number) => margin.left + (xp / (maxXp + xpPadding)) * plotW;
-  const toY = (acc: number) => margin.top + (1 - acc / 100) * plotH;
+  const toY = (acc: number) => margin.top + (1 - (acc - yMin) / (yMax - yMin)) * plotH;
 
   // Quadrant definitions
   const quadrants = [
@@ -137,8 +152,14 @@ export const AccuracyVsXpScatter: React.FC<AccuracyVsXpScatterProps> = ({
     return counts;
   }, [students, medianXp]);
 
-  // Y-axis ticks
-  const yTicks = [0, 20, 40, 60, 80, 100];
+  // Y-axis ticks — dynamic based on visible range
+  const yTicks = useMemo(() => {
+    const step = Math.max(5, Math.ceil((yMax - yMin) / 5 / 5) * 5);
+    const ticks: number[] = [];
+    for (let v = yMin; v <= yMax; v += step) ticks.push(v);
+    if (ticks[ticks.length - 1] < yMax) ticks.push(yMax);
+    return ticks;
+  }, [yMin, yMax]);
   // X-axis ticks
   const xTickCount = 5;
   const xStep = Math.ceil((maxXp + xpPadding) / xTickCount / 100) * 100;
@@ -147,38 +168,26 @@ export const AccuracyVsXpScatter: React.FC<AccuracyVsXpScatterProps> = ({
   return (
     <div className={`bg-white rounded-2xl border border-slate-100 p-5 shadow-sm ${className}`} style={{ fontFamily: "'Cairo', sans-serif" }}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="text-lg font-black text-slate-900">{t('الدقة مقابل النقاط', 'Accuracy vs XP')}</h3>
-          <p className="text-xs text-slate-400 font-medium">{t('توزيع الطلاب حسب الأداء والنشاط', 'Student distribution by performance and activity')}</p>
-        </div>
-
-        {/* Legend */}
-        <div className="flex flex-wrap gap-2">
-          {Object.entries(LEAGUE_COLORS).map(([league, color]) => (
-            <div key={league} className="flex items-center gap-1">
-              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-              <span className="text-[10px] font-bold text-slate-400">{locale === 'ar' ? LEAGUE_LABELS[league].ar : LEAGUE_LABELS[league].en}</span>
-            </div>
-          ))}
+          <h3 className="text-base font-black text-slate-900">{t('الدقة مقابل النقاط', 'Accuracy vs XP')}</h3>
+          <p className="text-[11px] text-slate-400 font-medium">{t('توزيع الطلاب حسب الأداء والنشاط', 'Student distribution by performance and activity')}</p>
         </div>
       </div>
 
-      {/* Quadrant Summary Cards */}
-      <div className="grid grid-cols-4 gap-2 mb-4">
+      {/* Quadrant Summary + League Legend — compact row */}
+      <div className="flex items-center gap-3 mb-3 flex-wrap">
         {quadrants.map(q => (
           <div
             key={q.id}
-            className="relative flex items-center gap-2 px-3 py-2 rounded-xl border transition-all cursor-default group"
+            className="relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border transition-all cursor-default group"
             style={{ backgroundColor: q.bgColor, borderColor: q.borderColor }}
             onMouseEnter={() => setHoveredQuadrant(q.id)}
             onMouseLeave={() => setHoveredQuadrant(null)}
           >
-            <span className="text-sm">{q.emoji}</span>
-            <div className="flex-1 min-w-0">
-              <div className="text-xs font-black truncate" style={{ color: q.color }}>{q.label}</div>
-              <div className="text-[10px] font-bold text-slate-400">{quadrantCounts[q.id]} {t('طالب', 'students')}</div>
-            </div>
+            <span className="text-xs">{q.emoji}</span>
+            <span className="text-[11px] font-black" style={{ color: q.color }}>{q.label}</span>
+            <span className="text-[10px] font-bold text-slate-400 mr-0.5">{quadrantCounts[q.id]}</span>
             {/* Info icon */}
             <button
               className="p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/50"
@@ -202,6 +211,15 @@ export const AccuracyVsXpScatter: React.FC<AccuracyVsXpScatterProps> = ({
             </AnimatePresence>
           </div>
         ))}
+        {/* League dots inline */}
+        <div className="flex items-center gap-2 mr-auto">
+          {Object.entries(LEAGUE_COLORS).map(([league, color]) => (
+            <div key={league} className="flex items-center gap-0.5">
+              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
+              <span className="text-[9px] font-bold text-slate-400">{locale === 'ar' ? LEAGUE_LABELS[league].ar : LEAGUE_LABELS[league].en}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Chart */}
