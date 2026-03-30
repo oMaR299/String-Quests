@@ -17,6 +17,8 @@ import {
   AreaLineChart, HorizontalBarChart, VerticalBarChart,
   DonutChart, CalendarHeatmap, RadarChart, Sparkline,
 } from './SvgCharts';
+import { SmartFilterBuilder } from './SmartFilterBuilder';
+import type { FilterGroup } from './SmartFilterBuilder';
 
 // ═══════════════════════════════════════════════════════════════
 //  Props
@@ -766,6 +768,13 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
             </select>
           </div>
         </div>
+
+        {/* ─── SMART FILTER BUILDER ─── */}
+        <SmartFilterBuilder
+          locale={locale}
+          activeFilter={null}
+          onFilterChange={(fg) => { /* TODO: wire into data filtering */ }}
+        />
 
         {/* ═══════════════════════════════════════════════════════ */}
         {/*  SECTION 1: Executive Summary                         */}
