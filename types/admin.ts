@@ -99,6 +99,17 @@ export interface TeacherDailyActivity {
   sessionsCount: number;
 }
 
+// --- Teacher Compliance ---
+
+export interface TeacherComplianceRecord {
+  teacherId: string;
+  date: string;
+  spaceId: string;
+  period: number;      // 1-7
+  submitted: boolean;
+  submittedAt?: string;
+}
+
 // --- Filters ---
 
 export interface AttendanceFilters {

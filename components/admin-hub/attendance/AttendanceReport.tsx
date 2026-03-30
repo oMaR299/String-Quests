@@ -1,1170 +1,1377 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowRight, ArrowLeft, Download, FileSpreadsheet, FileText,
+  ArrowRight, ArrowLeft, Download, FileSpreadsheet,
   Search, ChevronUp, ChevronDown, ChevronLeft, ChevronRight,
-  Calendar, Filter, BarChart3, Clock, AlertTriangle, Users,
+  Calendar, Clock, XCircle, CheckCircle,
+  TrendingUp, TrendingDown, Filter,
 } from 'lucide-react';
 import {
   CAMPUSES, EXTENDED_STUDENTS, EXTENDED_TEACHERS,
-  ATTENDANCE_RECORDS, TEACHER_ACTIVITIES, getTodayString,
+  getDailySummary, getAttendanceForDate, getClassAttendance,
+  getStudentAttendance, getTeacherActivityForDate,
+  getTeacherComplianceForDate, getTodayString,
+  TEACHER_COMPLIANCE_RECORDS,
 } from '../../../data/mockAttendanceData';
-import type { AttendanceRecord } from '../../../types/admin';
+import {
+  AreaLineChart, HorizontalBarChart, VerticalBarChart,
+  DonutChart, CalendarHeatmap, RadarChart, Sparkline,
+} from './SvgCharts';
 
-// ─── Props ─────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════
+//  Props
+// ═══════════════════════════════════════════════════════════════
 
 interface AttendanceReportProps {
   locale: 'ar' | 'en';
   onBack: () => void;
 }
 
-// ─── Helpers ───────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════
+//  Helpers
+// ═══════════════════════════════════════════════════════════════
 
 function t(locale: 'ar' | 'en', ar: string, en: string) {
   return locale === 'ar' ? ar : en;
 }
 
-function formatDate(d: Date): string {
+function fmtDate(d: Date): string {
   return d.toISOString().split('T')[0];
 }
 
-function parseDate(s: string): Date {
-  const [y, m, d] = s.split('-').map(Number);
-  return new Date(y, m - 1, d);
-}
-
-function isWeekend(d: Date): boolean {
-  const day = d.getDay();
-  return day === 5 || day === 6;
-}
-
-function getSchoolDaysInRange(from: string, to: string): string[] {
+function getSchoolDays(from: string, to: string): string[] {
   const days: string[] = [];
-  const start = parseDate(from);
-  const end = parseDate(to);
-  const cur = new Date(start);
-  while (cur <= end) {
-    if (!isWeekend(cur)) days.push(formatDate(cur));
-    cur.setDate(cur.getDate() + 1);
+  const d = new Date(from);
+  const end = new Date(to);
+  while (d <= end) {
+    const dow = d.getDay();
+    if (dow !== 5 && dow !== 6) days.push(fmtDate(d));
+    d.setDate(d.getDate() + 1);
   }
   return days;
 }
 
-function getStudentMap() {
-  const map = new Map<string, typeof EXTENDED_STUDENTS[0]>();
-  for (const s of EXTENDED_STUDENTS) map.set(s.id, s);
-  return map;
+function rateColorClass(v: number) {
+  if (v >= 90) return 'text-emerald-600';
+  if (v >= 75) return 'text-amber-500';
+  return 'text-rose-500';
 }
 
-function getTeacherMap() {
-  const map = new Map<string, typeof EXTENDED_TEACHERS[0]>();
-  for (const t of EXTENDED_TEACHERS) map.set(t.id, t);
-  return map;
+function rateBgClass(v: number) {
+  if (v >= 90) return 'bg-emerald-50';
+  if (v >= 75) return 'bg-amber-50';
+  return 'bg-rose-50';
 }
 
-const STUDENT_MAP = getStudentMap();
-const TEACHER_MAP = getTeacherMap();
+function rateHex(v: number) {
+  if (v >= 90) return '#10b981';
+  if (v >= 75) return '#f59e0b';
+  return '#f43f5e';
+}
 
-function getAttendanceInRange(
-  from: string, to: string,
-  campusId?: string, grade?: number | null, section?: string | null,
-): AttendanceRecord[] {
-  const studentIds = new Set<string>();
-  for (const s of EXTENDED_STUDENTS) {
-    if (campusId && campusId !== 'all' && s.campusId !== campusId) continue;
-    if (grade && s.grade !== grade) continue;
-    if (section && s.section !== section) continue;
-    studentIds.add(s.id);
-  }
-  return ATTENDANCE_RECORDS.filter(
-    r => r.date >= from && r.date <= to && studentIds.has(r.studentId),
+const SUBJECTS = [
+  { ar: 'رياضيات', en: 'Math' },
+  { ar: 'علوم', en: 'Science' },
+  { ar: 'لغة عربية', en: 'Arabic' },
+  { ar: 'لغة إنجليزية', en: 'English' },
+  { ar: 'تاريخ', en: 'History' },
+  { ar: 'تربية إسلامية', en: 'Islamic Studies' },
+  { ar: 'حاسب آلي', en: 'Computer Science' },
+  { ar: 'تربية بدنية', en: 'Physical Education' },
+];
+
+const DAY_LABELS = [
+  { ar: 'الأحد', en: 'Sun' },
+  { ar: 'الإثنين', en: 'Mon' },
+  { ar: 'الثلاثاء', en: 'Tue' },
+  { ar: 'الأربعاء', en: 'Wed' },
+  { ar: 'الخميس', en: 'Thu' },
+];
+
+type DatePreset = 'today' | 'week' | 'month' | 'custom';
+
+// ═══════════════════════════════════════════════════════════════
+//  Stat Card
+// ═══════════════════════════════════════════════════════════════
+
+function StatCard({ icon, iconBg, value, label, sparkData, sparkColor }: {
+  icon: React.ReactNode; iconBg: string; value: string; label: string;
+  sparkData?: number[]; sparkColor?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-white rounded-2xl border border-slate-100 p-5 flex items-start gap-4 shadow-sm hover:shadow-md transition-shadow print:shadow-none"
+    >
+      <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${iconBg}`}>
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="text-2xl font-black text-slate-800 leading-tight">{value}</div>
+        <div className="text-xs text-slate-400 mt-0.5 font-medium">{label}</div>
+      </div>
+      {sparkData && sparkData.length > 2 && (
+        <Sparkline data={sparkData} color={sparkColor || '#10b981'} width={56} height={22} />
+      )}
+    </motion.div>
   );
 }
 
-function rateColor(rate: number) {
-  if (rate >= 95) return 'bg-emerald-500';
-  if (rate >= 85) return 'bg-amber-400';
-  return 'bg-rose-500';
-}
+// ═══════════════════════════════════════════════════════════════
+//  Chart Card wrapper
+// ═══════════════════════════════════════════════════════════════
 
-function rateTextColor(rate: number) {
-  if (rate >= 95) return 'text-emerald-600';
-  if (rate >= 85) return 'text-amber-600';
-  return 'text-rose-600';
-}
-
-function shortDate(d: string, locale: 'ar' | 'en') {
-  const dt = parseDate(d);
-  return dt.toLocaleDateString(locale === 'ar' ? 'ar-SA' : 'en-US', { month: 'short', day: 'numeric' });
-}
-
-const DAY_NAMES_AR = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
-const DAY_NAMES_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu'];
-
-function getDayOfWeekStats(records: AttendanceRecord[], schoolDays: string[]) {
-  const byDay: Record<number, { total: number; attended: number }> = {};
-  for (let i = 0; i <= 4; i++) byDay[i] = { total: 0, attended: 0 };
-  for (const day of schoolDays) {
-    const dt = parseDate(day);
-    const dow = dt.getDay(); // 0=Sun..4=Thu
-    if (dow > 4) continue;
-    const dayRecords = records.filter(r => r.date === day);
-    byDay[dow].total += dayRecords.length;
-    byDay[dow].attended += dayRecords.filter(r => r.status === 'present' || r.status === 'late').length;
-  }
-  return Array.from({ length: 5 }, (_, i) => ({
-    day: i,
-    rate: byDay[i].total > 0 ? Math.round((byDay[i].attended / byDay[i].total) * 1000) / 10 : 0,
-  }));
-}
-
-// ─── Sub-Components ────────────────────────────────────────────────
-
-const Tooltip: React.FC<{ text: string; children: React.ReactNode }> = ({ text, children }) => (
-  <div className="relative group">
-    {children}
-    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1.5 bg-slate-800 text-white text-[10px] font-bold rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-lg">
-      {text}
-      <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800" />
+function ChartCard({ title, subtitle, children, className = '' }: {
+  title: string; subtitle?: string; children: React.ReactNode; className?: string;
+}) {
+  return (
+    <div className={`bg-white rounded-2xl border border-slate-100 p-5 print:break-inside-avoid ${className}`}>
+      <div className="mb-3">
+        <h3 className="text-sm font-black text-slate-700">{title}</h3>
+        {subtitle && <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>}
+      </div>
+      {children}
     </div>
-  </div>
-);
+  );
+}
 
-// ─── Main Component ────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════
+//  MAIN COMPONENT
+// ═══════════════════════════════════════════════════════════════
 
-export const AttendanceReport: React.FC<AttendanceReportProps> = ({ locale, onBack }) => {
-  const isRtl = locale === 'ar';
-  const today = getTodayString();
+export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
+  const isRTL = locale === 'ar';
+  const BackArrow = isRTL ? ArrowRight : ArrowLeft;
 
-  // ── Date Range ─────────────────────────────────────────────────
-  const [preset, setPreset] = useState<'today' | 'week' | 'month' | 'custom'>('month');
+  // ── Date range state ──
+  const todayStr = getTodayString();
+  const [preset, setPreset] = useState<DatePreset>('month');
   const [customFrom, setCustomFrom] = useState('');
   const [customTo, setCustomTo] = useState('');
 
-  const { dateFrom, dateTo } = useMemo(() => {
-    const todayDate = parseDate(today);
-    if (preset === 'today') return { dateFrom: today, dateTo: today };
+  const dateRange = useMemo(() => {
+    const today = new Date(todayStr);
+    if (preset === 'today') return { from: todayStr, to: todayStr };
     if (preset === 'week') {
-      const start = new Date(todayDate);
-      start.setDate(todayDate.getDate() - todayDate.getDay());
-      return { dateFrom: formatDate(start), dateTo: today };
+      const d = new Date(today);
+      d.setDate(d.getDate() - 6);
+      return { from: fmtDate(d), to: todayStr };
     }
-    if (preset === 'custom' && customFrom && customTo) {
-      return { dateFrom: customFrom, dateTo: customTo };
+    if (preset === 'custom' && customFrom && customTo) return { from: customFrom, to: customTo };
+    // default: month
+    const d = new Date(today);
+    d.setDate(d.getDate() - 29);
+    return { from: fmtDate(d), to: todayStr };
+  }, [preset, customFrom, customTo, todayStr]);
+
+  const schoolDays = useMemo(() => getSchoolDays(dateRange.from, dateRange.to), [dateRange]);
+
+  // ── Filter state ──
+  const [campusFilter, setCampusFilter] = useState('all');
+  const [gradeFilter, setGradeFilter] = useState<number | null>(null);
+  const [sectionFilter, setSectionFilter] = useState<string | null>(null);
+
+  // ── Tab state for tables ──
+  const [tableTab, setTableTab] = useState<'student' | 'teacher'>('student');
+
+  // ── Filtered students ──
+  const filteredStudents = useMemo(() => {
+    let s = EXTENDED_STUDENTS;
+    if (campusFilter !== 'all') s = s.filter(st => st.campusId === campusFilter);
+    if (gradeFilter) s = s.filter(st => st.grade === gradeFilter);
+    if (sectionFilter) s = s.filter(st => st.section === sectionFilter);
+    return s;
+  }, [campusFilter, gradeFilter, sectionFilter]);
+
+  // Available grades/sections for filters
+  const availableGrades = useMemo(() => {
+    let s = EXTENDED_STUDENTS;
+    if (campusFilter !== 'all') s = s.filter(st => st.campusId === campusFilter);
+    return [...new Set(s.map(st => st.grade))].sort((a, b) => a - b);
+  }, [campusFilter]);
+
+  const availableSections = useMemo(() => {
+    let s = EXTENDED_STUDENTS;
+    if (campusFilter !== 'all') s = s.filter(st => st.campusId === campusFilter);
+    if (gradeFilter) s = s.filter(st => st.grade === gradeFilter);
+    return [...new Set(s.map(st => st.section))].sort();
+  }, [campusFilter, gradeFilter]);
+
+  // ── Computed data (memoized) ──
+  const campus = campusFilter === 'all' ? undefined : campusFilter;
+
+  // Daily trend data
+  const dailyTrend = useMemo(() => {
+    return schoolDays.map(date => {
+      const s = getDailySummary(date, campus);
+      return { date, rate: s.rate, present: s.present, absent: s.absent, late: s.late, total: s.totalStudents };
+    });
+  }, [schoolDays, campus]);
+
+  // Overall stats for the period
+  const periodStats = useMemo(() => {
+    if (dailyTrend.length === 0) return { avgRate: 0, totalAbsent: 0, totalLate: 0 };
+    const avgRate = Math.round(dailyTrend.reduce((s, d) => s + d.rate, 0) / dailyTrend.length * 10) / 10;
+    const totalAbsent = dailyTrend.reduce((s, d) => s + d.absent, 0);
+    const totalLate = dailyTrend.reduce((s, d) => s + d.late, 0);
+    return { avgRate, totalAbsent, totalLate };
+  }, [dailyTrend]);
+
+  // Grade breakdown
+  const gradeBreakdown = useMemo(() => {
+    const grades = [...new Set(filteredStudents.map(s => s.grade))].sort((a: number, b: number) => a - b);
+    return grades.map((g: number) => {
+      const records = getAttendanceForDate(todayStr, campus, g);
+      const present = records.filter(r => r.status === 'present' || r.status === 'late').length;
+      const rate = records.length > 0 ? Math.round(present / records.length * 1000) / 10 : 0;
+      return { grade: g, rate, count: records.length };
+    });
+  }, [filteredStudents, campus, todayStr]);
+
+  const bestGrade = useMemo(() => {
+    if (gradeBreakdown.length === 0) return null;
+    return [...gradeBreakdown].sort((a, b) => b.rate - a.rate)[0];
+  }, [gradeBreakdown]);
+
+  const worstGrade = useMemo(() => {
+    if (gradeBreakdown.length === 0) return null;
+    return [...gradeBreakdown].sort((a, b) => a.rate - b.rate)[0];
+  }, [gradeBreakdown]);
+
+  // Day-of-week pattern
+  const dayOfWeekData = useMemo(() => {
+    const buckets: Record<number, number[]> = { 0: [], 1: [], 2: [], 3: [], 4: [] };
+    for (const date of schoolDays) {
+      const dow = new Date(date).getDay();
+      if (dow >= 0 && dow <= 4) {
+        const s = getDailySummary(date, campus);
+        buckets[dow].push(s.rate);
+      }
     }
-    // month (default)
-    const start = new Date(todayDate);
-    start.setDate(todayDate.getDate() - 29);
-    return { dateFrom: formatDate(start), dateTo: today };
-  }, [preset, today, customFrom, customTo]);
+    return [0, 1, 2, 3, 4].map(day => {
+      const rates = buckets[day];
+      const avg = rates.length > 0 ? Math.round(rates.reduce((a, b) => a + b, 0) / rates.length * 10) / 10 : 0;
+      return { day, label: t(locale, DAY_LABELS[day].ar, DAY_LABELS[day].en), rate: avg };
+    });
+  }, [schoolDays, campus, locale]);
 
-  // ── Filters ────────────────────────────────────────────────────
-  const [campusId, setCampusId] = useState('all');
-  const [grade, setGrade] = useState<number | null>(null);
-  const [section, setSection] = useState<string | null>(null);
+  // Late arrivals distribution
+  const lateDistribution = useMemo(() => {
+    const buckets: Record<string, number> = {
+      '7:00-7:15': 0, '7:15-7:30': 0, '7:30-7:45': 0, '7:45-8:00': 0, '8:00+': 0,
+    };
+    for (const date of schoolDays) {
+      const records = getAttendanceForDate(date, campus);
+      for (const r of records) {
+        if (r.status === 'late' && r.lateTime) {
+          const [h, m] = r.lateTime.split(':').map(Number);
+          const mins = h * 60 + m;
+          if (mins < 435) buckets['7:00-7:15']++;
+          else if (mins < 450) buckets['7:15-7:30']++;
+          else if (mins < 465) buckets['7:30-7:45']++;
+          else if (mins < 480) buckets['7:45-8:00']++;
+          else buckets['8:00+']++;
+        }
+      }
+    }
+    return Object.entries(buckets).map(([label, value]) => ({ label, value, color: '#8b5cf6' }));
+  }, [schoolDays, campus]);
 
-  // ── Tab State ──────────────────────────────────────────────────
-  const [activeTab, setActiveTab] = useState<'students' | 'teachers'>('students');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortCol, setSortCol] = useState<string>('name');
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
-  const [page, setPage] = useState(1);
-  const [minRateFilter, setMinRateFilter] = useState<number>(0);
+  // Section comparison (when grade filter active)
+  const sectionComparison = useMemo(() => {
+    if (!gradeFilter) return null;
+    const sections = availableSections;
+    return sections.map(sec => {
+      const records = getAttendanceForDate(todayStr, campus, gradeFilter, sec);
+      const present = records.filter(r => r.status === 'present' || r.status === 'late').length;
+      const rate = records.length > 0 ? Math.round(present / records.length * 1000) / 10 : 0;
+      return { label: `${t(locale, 'شعبة', 'Section')} ${sec}`, value: rate };
+    });
+  }, [gradeFilter, availableSections, todayStr, campus, locale]);
+
+  // Campus comparison
+  const campusComparison = useMemo(() => {
+    return CAMPUSES.map(c => {
+      const s = getDailySummary(todayStr, c.id);
+      // Compute additional metrics
+      const records = getAttendanceForDate(todayStr, c.id);
+      const lateCount = records.filter(r => r.status === 'late').length;
+      const lateRate = records.length > 0 ? Math.round(lateCount / records.length * 100) : 0;
+      // Compliance
+      const comp = getTeacherComplianceForDate(todayStr, c.id);
+      const compRate = comp.length > 0 ? Math.round(comp.filter(r => r.submitted).length / comp.length * 100) : 0;
+      // Chronic absent students in this campus
+      const campusStudents = EXTENDED_STUDENTS.filter(st => st.campusId === c.id);
+      let chronicCount = 0;
+      for (const st of campusStudents.slice(0, 100)) { // sample for perf
+        const recs = getStudentAttendance(st.id);
+        if (recs.length > 0) {
+          const r = recs.filter(r2 => r2.status !== 'absent').length / recs.length * 100;
+          if (r < 85) chronicCount++;
+        }
+      }
+      return {
+        campus: c,
+        rate: s.rate,
+        lateRate,
+        compRate,
+        chronicPct: Math.round(chronicCount / Math.min(campusStudents.length, 100) * 100),
+      };
+    });
+  }, [todayStr]);
+
+  // Subject breakdown (simulated from per-space data)
+  const subjectBreakdown = useMemo(() => {
+    return SUBJECTS.map(sub => {
+      // Find teachers of this subject in filtered campus
+      const teachers = EXTENDED_TEACHERS.filter(
+        tc => tc.subject === sub.ar && (!campus || tc.campusId === campus)
+      );
+      if (teachers.length === 0) return { label: t(locale, sub.ar, sub.en), value: 0 };
+      // Simulate per-subject attendance rate (based on grades they teach)
+      let totalPresent = 0, totalRecords = 0;
+      for (const tc of teachers) {
+        for (const g of tc.grades) {
+          const records = getAttendanceForDate(todayStr, tc.campusId, g);
+          totalPresent += records.filter(r => r.status === 'present' || r.status === 'late').length;
+          totalRecords += records.length;
+        }
+      }
+      const rate = totalRecords > 0 ? Math.round(totalPresent / totalRecords * 1000) / 10 : 0;
+      return { label: t(locale, sub.ar, sub.en), value: rate };
+    }).filter(d => d.value > 0);
+  }, [todayStr, campus, locale]);
+
+  // Calendar heatmap data
+  const heatmapData = useMemo(() => {
+    return schoolDays.map(date => {
+      const s = getDailySummary(date, campus);
+      return { date, value: s.rate };
+    });
+  }, [schoolDays, campus]);
+
+  // Chronic absence trend (count of students below 85% per day — approximate)
+  const chronicTrend = useMemo(() => {
+    // Sample 200 students for performance
+    const sampleStudents = filteredStudents.slice(0, 200);
+    return schoolDays.slice(-14).map(date => {
+      let belowThreshold = 0;
+      for (const st of sampleStudents) {
+        const recs = getStudentAttendance(st.id, undefined, date);
+        if (recs.length >= 3) {
+          const r = recs.filter(r2 => r2.status !== 'absent').length / recs.length * 100;
+          if (r < 85) belowThreshold++;
+        }
+      }
+      // Scale to full population
+      const scale = filteredStudents.length / Math.max(sampleStudents.length, 1);
+      return { label: date.slice(5), value: Math.round(belowThreshold * scale), meta: date };
+    });
+  }, [schoolDays, filteredStudents]);
+
+  // Risk distribution
+  const riskDistribution = useMemo(() => {
+    const sampleStudents = filteredStudents.slice(0, 300);
+    let low = 0, medium = 0, high = 0, critical = 0;
+    for (const st of sampleStudents) {
+      const recs = getStudentAttendance(st.id);
+      if (recs.length === 0) { low++; continue; }
+      const rate = recs.filter(r => r.status !== 'absent').length / recs.length * 100;
+      if (rate >= 90) low++;
+      else if (rate >= 75) medium++;
+      else if (rate >= 50) high++;
+      else critical++;
+    }
+    const scale = filteredStudents.length / Math.max(sampleStudents.length, 1);
+    return {
+      low: Math.round(low * scale),
+      medium: Math.round(medium * scale),
+      high: Math.round(high * scale),
+      critical: Math.round(critical * scale),
+    };
+  }, [filteredStudents]);
+
+  // Teacher compliance trend (14 days)
+  const complianceTrend = useMemo(() => {
+    const last14 = schoolDays.slice(-14);
+    return last14.map(date => {
+      const recs = getTeacherComplianceForDate(date, campus);
+      const rate = recs.length > 0 ? Math.round(recs.filter(r => r.submitted).length / recs.length * 1000) / 10 : 0;
+      return { label: date.slice(5), value: rate, meta: `${recs.filter(r => r.submitted).length}/${recs.length}` };
+    });
+  }, [schoolDays, campus]);
+
+  // Teacher ranking
+  const teacherRanking = useMemo(() => {
+    let teachers = EXTENDED_TEACHERS;
+    if (campus) teachers = teachers.filter(tc => tc.campusId === campus);
+    return teachers.map(tc => {
+      const allRecs = TEACHER_COMPLIANCE_RECORDS.filter(r => r.teacherId === tc.id);
+      const rate = allRecs.length > 0 ? Math.round(allRecs.filter(r => r.submitted).length / allRecs.length * 1000) / 10 : 0;
+      return { label: t(locale, tc.name, tc.nameEn), value: rate, meta: t(locale, tc.subject, tc.subjectEn) };
+    }).sort((a, b) => b.value - a.value);
+  }, [campus, locale]);
+
+  // Sparkline data for stats
+  const rateSparkData = useMemo(() => dailyTrend.map(d => d.rate), [dailyTrend]);
+  const absentSparkData = useMemo(() => dailyTrend.map(d => d.absent), [dailyTrend]);
+  const lateSparkData = useMemo(() => dailyTrend.map(d => d.late), [dailyTrend]);
+
+  // ═══════════════════════════════════════════════════════════════
+  //  Student table data
+  // ═══════════════════════════════════════════════════════════════
+
+  const [studentSearch, setStudentSearch] = useState('');
+  const [studentRateFilter, setStudentRateFilter] = useState('all');
+  const [studentSort, setStudentSort] = useState<{ key: string; dir: 'asc' | 'desc' }>({ key: 'rate', dir: 'asc' });
+  const [studentPage, setStudentPage] = useState(1);
   const PAGE_SIZE = 20;
 
-  // ── Computed Data ──────────────────────────────────────────────
-  const schoolDays = useMemo(() => getSchoolDaysInRange(dateFrom, dateTo), [dateFrom, dateTo]);
-
-  const filteredRecords = useMemo(
-    () => getAttendanceInRange(dateFrom, dateTo, campusId, grade, section),
-    [dateFrom, dateTo, campusId, grade, section],
-  );
-
-  // Available grades based on campus
-  const availableGrades = useMemo(() => {
-    const grades = new Set<number>();
-    for (const s of EXTENDED_STUDENTS) {
-      if (campusId === 'all' || s.campusId === campusId) grades.add(s.grade);
-    }
-    return Array.from(grades).sort((a, b) => a - b);
-  }, [campusId]);
-
-  // ── Chart 1: Daily Attendance Trend ────────────────────────────
-  const dailyTrend = useMemo(() => {
-    return schoolDays.map(day => {
-      const dayRecs = filteredRecords.filter(r => r.date === day);
-      const total = dayRecs.length;
-      const attended = dayRecs.filter(r => r.status === 'present' || r.status === 'late').length;
-      const rate = total > 0 ? Math.round((attended / total) * 1000) / 10 : 0;
-      return { date: day, total, attended, absent: total - attended, rate };
-    });
-  }, [schoolDays, filteredRecords]);
-
-  // ── Chart 2: Attendance by Grade ───────────────────────────────
-  const gradeStats = useMemo(() => {
-    const stats: { grade: number; rate: number; total: number; attended: number }[] = [];
-    const gradesSet = new Set<number>();
-    for (const s of EXTENDED_STUDENTS) {
-      if (campusId !== 'all' && s.campusId !== campusId) continue;
-      if (section && s.section !== section) continue;
-      gradesSet.add(s.grade);
-    }
-    for (const g of Array.from(gradesSet).sort((a, b) => a - b)) {
-      const recs = getAttendanceInRange(dateFrom, dateTo, campusId, g, section);
-      const total = recs.length;
-      const attended = recs.filter(r => r.status === 'present' || r.status === 'late').length;
-      stats.push({ grade: g, rate: total > 0 ? Math.round((attended / total) * 1000) / 10 : 0, total, attended });
-    }
-    return stats;
-  }, [dateFrom, dateTo, campusId, section]);
-
-  // ── Chart 3: Day of Week Pattern ──────────────────────────────
-  const dayOfWeekStats = useMemo(
-    () => getDayOfWeekStats(filteredRecords, schoolDays),
-    [filteredRecords, schoolDays],
-  );
-
-  // ── Chart 4: Late Arrivals Distribution ───────────────────────
-  const lateDistribution = useMemo(() => {
-    const buckets = [
-      { label: '7:00-7:15', min: 0, max: 15, count: 0 },
-      { label: '7:15-7:30', min: 15, max: 30, count: 0 },
-      { label: '7:30-7:45', min: 30, max: 45, count: 0 },
-      { label: '7:45-8:00', min: 45, max: 60, count: 0 },
-      { label: '8:00+', min: 60, max: 999, count: 0 },
-    ];
-    const lateRecs = filteredRecords.filter(r => r.status === 'late' && r.lateTime);
-    for (const r of lateRecs) {
-      const [h, m] = r.lateTime!.split(':').map(Number);
-      const mins = (h - 7) * 60 + m;
-      for (const b of buckets) {
-        if (mins >= b.min && mins < b.max) { b.count++; break; }
-      }
-    }
-    return buckets;
-  }, [filteredRecords]);
-
-  // ── Chart 5: Campus Comparison ────────────────────────────────
-  const campusComparison = useMemo(() => {
-    if (campusId !== 'all') return [];
-    return CAMPUSES.map(c => {
-      const recs = getAttendanceInRange(dateFrom, dateTo, c.id, grade, section);
-      const total = recs.length;
-      const attended = recs.filter(r => r.status === 'present' || r.status === 'late').length;
-      return {
-        id: c.id,
-        name: locale === 'ar' ? c.name : c.nameEn,
-        rate: total > 0 ? Math.round((attended / total) * 1000) / 10 : 0,
-        total, attended,
-      };
-    });
-  }, [dateFrom, dateTo, campusId, grade, section, locale]);
-
-  // ── Chart 6: Chronic Absence Top 10 ───────────────────────────
-  const chronicAbsent = useMemo(() => {
-    const studentAbsence = new Map<string, { absent: number; total: number; lastAbsent: string }>();
-    for (const r of filteredRecords) {
-      const stu = STUDENT_MAP.get(r.studentId);
-      if (!stu) continue;
-      if (!studentAbsence.has(r.studentId)) {
-        studentAbsence.set(r.studentId, { absent: 0, total: 0, lastAbsent: '' });
-      }
-      const s = studentAbsence.get(r.studentId)!;
-      s.total++;
-      if (r.status === 'absent') {
-        s.absent++;
-        if (r.date > s.lastAbsent) s.lastAbsent = r.date;
-      }
-    }
-    return Array.from(studentAbsence.entries())
-      .map(([id, d]) => ({
-        id,
-        student: STUDENT_MAP.get(id)!,
-        ...d,
-        rate: d.total > 0 ? Math.round(((d.total - d.absent) / d.total) * 1000) / 10 : 100,
-      }))
-      .sort((a, b) => b.absent - a.absent)
-      .slice(0, 10);
-  }, [filteredRecords]);
-
-  // ── Student Table Data ─────────────────────────────────────────
   const studentTableData = useMemo(() => {
-    const studentStats = new Map<string, { present: number; absent: number; late: number; total: number; lastAbsent: string }>();
-    for (const r of filteredRecords) {
-      if (!studentStats.has(r.studentId)) {
-        studentStats.set(r.studentId, { present: 0, absent: 0, late: 0, total: 0, lastAbsent: '' });
+    // Sample for performance — compute stats for each filtered student
+    const data = filteredStudents.map(st => {
+      const recs = getStudentAttendance(st.id, dateRange.from, dateRange.to);
+      const present = recs.filter(r => r.status === 'present').length;
+      const absent = recs.filter(r => r.status === 'absent').length;
+      const late = recs.filter(r => r.status === 'late').length;
+      const total = recs.length;
+      const rate = total > 0 ? Math.round((present + late) / total * 1000) / 10 : 100;
+      // Last 14 days sparkline
+      const last14 = recs.slice(-14).map(r => r.status === 'absent' ? 0 : 1);
+      const sparkVals: number[] = [];
+      for (let i = 0; i < last14.length; i += 1) {
+        sparkVals.push(last14.slice(Math.max(0, i - 2), i + 1).reduce((a, b) => a + b, 0) / Math.min(i + 1, 3) * 100);
       }
-      const s = studentStats.get(r.studentId)!;
-      s.total++;
-      if (r.status === 'present') s.present++;
-      if (r.status === 'absent') {
-        s.absent++;
-        if (r.date > s.lastAbsent) s.lastAbsent = r.date;
-      }
-      if (r.status === 'late') s.late++;
-    }
-    return Array.from(studentStats.entries()).map(([id, stats]) => {
-      const stu = STUDENT_MAP.get(id);
-      if (!stu) return null;
-      const campus = CAMPUSES.find(c => c.id === stu.campusId);
+      const campusObj = CAMPUSES.find(c => c.id === st.campusId);
       return {
-        id,
-        name: locale === 'ar' ? stu.name : stu.nameEn,
-        grade: stu.grade,
-        section: stu.section,
-        campus: campus ? (locale === 'ar' ? campus.name : campus.nameEn) : '',
-        campusId: stu.campusId,
-        totalDays: stats.total,
-        present: stats.present,
-        absent: stats.absent,
-        late: stats.late,
-        rate: stats.total > 0 ? Math.round(((stats.present + stats.late) / stats.total) * 1000) / 10 : 0,
-        lastAbsent: stats.lastAbsent,
+        ...st,
+        campusName: t(locale, campusObj?.name || '', campusObj?.nameEn || ''),
+        days: total,
+        present,
+        absent,
+        late,
+        rate,
+        sparkVals,
       };
-    }).filter(Boolean) as NonNullable<ReturnType<typeof Array.prototype.map>[number]>[];
-  }, [filteredRecords, locale]);
-
-  // Filter + sort + paginate student table
-  const processedStudentData = useMemo(() => {
-    let data = [...studentTableData] as typeof studentTableData;
-    // Search
-    if (searchQuery.trim()) {
-      const q = searchQuery.trim().toLowerCase();
-      data = data.filter(d => (d as any).name.toLowerCase().includes(q));
-    }
-    // Min rate filter
-    if (minRateFilter > 0) {
-      data = data.filter(d => (d as any).rate < minRateFilter);
-    }
-    // Sort
-    data.sort((a: any, b: any) => {
-      let va = a[sortCol];
-      let vb = b[sortCol];
-      if (typeof va === 'string') va = va.toLowerCase();
-      if (typeof vb === 'string') vb = vb.toLowerCase();
-      if (va < vb) return sortDir === 'asc' ? -1 : 1;
-      if (va > vb) return sortDir === 'asc' ? 1 : -1;
-      return 0;
     });
     return data;
-  }, [studentTableData, searchQuery, minRateFilter, sortCol, sortDir]);
+  }, [filteredStudents, dateRange, locale]);
 
-  const totalStudentPages = Math.max(1, Math.ceil(processedStudentData.length / PAGE_SIZE));
-  const pagedStudentData = processedStudentData.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
-
-  // ── Teacher Table Data ────────────────────────────────────────
-  const teacherTableData = useMemo(() => {
-    const teacherStats = new Map<string, { totalMinutes: number; daysActive: number; actionsCount: number; lastActive: string }>();
-    const activities = TEACHER_ACTIVITIES.filter(a => a.date >= dateFrom && a.date <= dateTo);
-    for (const a of activities) {
-      const teacher = TEACHER_MAP.get(a.teacherId);
-      if (!teacher) continue;
-      if (campusId !== 'all' && teacher.campusId !== campusId) continue;
-      if (!teacherStats.has(a.teacherId)) {
-        teacherStats.set(a.teacherId, { totalMinutes: 0, daysActive: 0, actionsCount: 0, lastActive: '' });
-      }
-      const s = teacherStats.get(a.teacherId)!;
-      s.totalMinutes += a.totalMinutes;
-      if (a.totalMinutes > 0) s.daysActive++;
-      s.actionsCount += a.actions.length;
-      if (a.date > s.lastActive) s.lastActive = a.date;
+  const sortedFilteredStudents = useMemo(() => {
+    let data = studentTableData;
+    // Search
+    if (studentSearch) {
+      const q = studentSearch.toLowerCase();
+      data = data.filter(s => s.name.toLowerCase().includes(q) || s.nameEn.toLowerCase().includes(q));
     }
-    return Array.from(teacherStats.entries()).map(([id, stats]) => {
-      const teacher = TEACHER_MAP.get(id);
-      if (!teacher) return null;
-      const campus = CAMPUSES.find(c => c.id === teacher.campusId);
-      const totalHours = Math.round((stats.totalMinutes / 60) * 10) / 10;
-      const avgDaily = stats.daysActive > 0 ? Math.round((totalHours / stats.daysActive) * 10) / 10 : 0;
-      return {
-        id,
-        name: locale === 'ar' ? teacher.name : teacher.nameEn,
-        subject: locale === 'ar' ? teacher.subject : teacher.subjectEn,
-        campus: campus ? (locale === 'ar' ? campus.name : campus.nameEn) : '',
-        spaces: teacher.spaces.length,
-        totalHours,
-        avgDailyHours: avgDaily,
-        actionsCount: stats.actionsCount,
-        lastActive: stats.lastActive,
-        inactive: totalHours === 0,
-      };
-    }).filter(Boolean) as NonNullable<any>[];
-  }, [dateFrom, dateTo, campusId, locale]);
+    // Rate filter
+    if (studentRateFilter === 'below90') data = data.filter(s => s.rate < 90);
+    else if (studentRateFilter === 'below80') data = data.filter(s => s.rate < 80);
+    else if (studentRateFilter === 'below70') data = data.filter(s => s.rate < 70);
+    // Sort
+    const { key, dir } = studentSort;
+    data = [...data].sort((a, b) => {
+      const av = (a as any)[key];
+      const bv = (b as any)[key];
+      if (typeof av === 'number' && typeof bv === 'number') return dir === 'asc' ? av - bv : bv - av;
+      return dir === 'asc' ? String(av).localeCompare(String(bv)) : String(bv).localeCompare(String(av));
+    });
+    return data;
+  }, [studentTableData, studentSearch, studentRateFilter, studentSort]);
 
-  // Teacher sort
-  const [teacherSortCol, setTeacherSortCol] = useState('name');
-  const [teacherSortDir, setTeacherSortDir] = useState<'asc' | 'desc'>('asc');
+  const studentTotalPages = Math.max(1, Math.ceil(sortedFilteredStudents.length / PAGE_SIZE));
+  const studentPageData = sortedFilteredStudents.slice((studentPage - 1) * PAGE_SIZE, studentPage * PAGE_SIZE);
+
+  const toggleStudentSort = useCallback((key: string) => {
+    setStudentSort(prev => ({
+      key,
+      dir: prev.key === key && prev.dir === 'asc' ? 'desc' : 'asc',
+    }));
+    setStudentPage(1);
+  }, []);
+
+  // ═══════════════════════════════════════════════════════════════
+  //  Teacher table data
+  // ═══════════════════════════════════════════════════════════════
+
   const [teacherSearch, setTeacherSearch] = useState('');
+  const [teacherSort, setTeacherSort] = useState<{ key: string; dir: 'asc' | 'desc' }>({ key: 'compliance', dir: 'desc' });
   const [teacherPage, setTeacherPage] = useState(1);
 
-  const processedTeacherData = useMemo(() => {
-    let data = [...teacherTableData];
-    if (teacherSearch.trim()) {
-      const q = teacherSearch.trim().toLowerCase();
-      data = data.filter((d: any) => d.name.toLowerCase().includes(q));
+  const teacherTableData = useMemo(() => {
+    let teachers = EXTENDED_TEACHERS;
+    if (campus) teachers = teachers.filter(tc => tc.campusId === campus);
+
+    return teachers.map(tc => {
+      // Activity across all days in range
+      const activities = schoolDays.map(date => {
+        const dayActs = getTeacherActivityForDate(date, tc.campusId);
+        return dayActs.find(a => a.teacherId === tc.id);
+      }).filter(Boolean);
+
+      const totalMinutes = activities.reduce((s, a) => s + (a?.totalMinutes || 0), 0);
+      const totalHours = Math.round(totalMinutes / 60 * 10) / 10;
+      const activeDays = activities.filter(a => (a?.totalMinutes || 0) > 0).length;
+      const avgDaily = activeDays > 0 ? Math.round(totalMinutes / activeDays) : 0;
+
+      // Compliance
+      const compRecs = TEACHER_COMPLIANCE_RECORDS.filter(r => r.teacherId === tc.id);
+      const compliance = compRecs.length > 0 ? Math.round(compRecs.filter(r => r.submitted).length / compRecs.length * 1000) / 10 : 0;
+
+      // Last active
+      let lastActive = '';
+      for (let i = schoolDays.length - 1; i >= 0; i--) {
+        const dayActs = getTeacherActivityForDate(schoolDays[i], tc.campusId);
+        const act = dayActs.find(a => a.teacherId === tc.id && a.totalMinutes > 0);
+        if (act) { lastActive = schoolDays[i]; break; }
+      }
+
+      const campusObj = CAMPUSES.find(c => c.id === tc.campusId);
+
+      return {
+        ...tc,
+        campusName: t(locale, campusObj?.name || '', campusObj?.nameEn || ''),
+        spacesCount: tc.spaces.length,
+        totalHours,
+        avgDaily,
+        compliance,
+        lastActive,
+        totalActions: activities.reduce((s, a) => s + (a?.actions.length || 0), 0),
+      };
+    });
+  }, [campus, schoolDays, locale]);
+
+  const sortedFilteredTeachers = useMemo(() => {
+    let data = teacherTableData;
+    if (teacherSearch) {
+      const q = teacherSearch.toLowerCase();
+      data = data.filter(tc => tc.name.toLowerCase().includes(q) || tc.nameEn.toLowerCase().includes(q));
     }
-    data.sort((a: any, b: any) => {
-      let va = a[teacherSortCol];
-      let vb = b[teacherSortCol];
-      if (typeof va === 'string') va = va.toLowerCase();
-      if (typeof vb === 'string') vb = vb.toLowerCase();
-      if (va < vb) return teacherSortDir === 'asc' ? -1 : 1;
-      if (va > vb) return teacherSortDir === 'asc' ? 1 : -1;
-      return 0;
+    const { key, dir } = teacherSort;
+    data = [...data].sort((a, b) => {
+      const av = (a as any)[key];
+      const bv = (b as any)[key];
+      if (typeof av === 'number' && typeof bv === 'number') return dir === 'asc' ? av - bv : bv - av;
+      return dir === 'asc' ? String(av).localeCompare(String(bv)) : String(bv).localeCompare(String(av));
     });
     return data;
-  }, [teacherTableData, teacherSearch, teacherSortCol, teacherSortDir]);
+  }, [teacherTableData, teacherSearch, teacherSort]);
 
-  const totalTeacherPages = Math.max(1, Math.ceil(processedTeacherData.length / PAGE_SIZE));
-  const pagedTeacherData = processedTeacherData.slice((teacherPage - 1) * PAGE_SIZE, teacherPage * PAGE_SIZE);
+  const teacherTotalPages = Math.max(1, Math.ceil(sortedFilteredTeachers.length / PAGE_SIZE));
+  const teacherPageData = sortedFilteredTeachers.slice((teacherPage - 1) * PAGE_SIZE, teacherPage * PAGE_SIZE);
 
-  // ── Sort Handler ──────────────────────────────────────────────
-  const handleSort = useCallback((col: string) => {
-    if (activeTab === 'students') {
-      setSortCol(prev => { if (prev === col) { setSortDir(d => d === 'asc' ? 'desc' : 'asc'); return prev; } setSortDir('asc'); return col; });
-    } else {
-      setTeacherSortCol(prev => { if (prev === col) { setTeacherSortDir(d => d === 'asc' ? 'desc' : 'asc'); return prev; } setTeacherSortDir('asc'); return col; });
-    }
-    if (activeTab === 'students') setPage(1);
-    else setTeacherPage(1);
-  }, [activeTab]);
+  const toggleTeacherSort = useCallback((key: string) => {
+    setTeacherSort(prev => ({
+      key,
+      dir: prev.key === key && prev.dir === 'asc' ? 'desc' : 'asc',
+    }));
+    setTeacherPage(1);
+  }, []);
 
-  // ── Download CSV ──────────────────────────────────────────────
-  const downloadCSV = useCallback(() => {
+  // ═══════════════════════════════════════════════════════════════
+  //  Download handlers
+  // ═══════════════════════════════════════════════════════════════
+
+  const handlePDF = useCallback(() => { window.print(); }, []);
+
+  const handleCSV = useCallback(() => {
     const BOM = '\ufeff';
-    const schoolName = t(locale, 'مدارس سترنج', 'String Schools');
-    const rangeLabel = `${dateFrom} - ${dateTo}`;
+    const schoolName = t(locale, 'مدارس الخضر الحديثة', 'Al-Khadr Modern Schools');
+    const rangeLabel = `${dateRange.from} → ${dateRange.to}`;
     const filterLabel = [
-      campusId !== 'all' ? CAMPUSES.find(c => c.id === campusId)?.[locale === 'ar' ? 'name' : 'nameEn'] : '',
-      grade ? `${t(locale, 'الصف', 'Grade')} ${grade}` : '',
-      section ? `${t(locale, 'الشعبة', 'Section')} ${section}` : '',
-    ].filter(Boolean).join(' | ');
+      campusFilter !== 'all' ? CAMPUSES.find(c => c.id === campusFilter)?.name : '',
+      gradeFilter ? `Grade ${gradeFilter}` : '',
+      sectionFilter ? `Section ${sectionFilter}` : '',
+    ].filter(Boolean).join(' | ') || t(locale, 'الكل', 'All');
 
     const headers = [
       t(locale, 'الاسم', 'Name'),
       t(locale, 'الصف', 'Grade'),
       t(locale, 'الشعبة', 'Section'),
       t(locale, 'المبنى', 'Campus'),
-      t(locale, 'أيام', 'Days'),
-      t(locale, 'حضور', 'Present'),
-      t(locale, 'غياب', 'Absent'),
-      t(locale, 'تأخر', 'Late'),
-      t(locale, 'النسبة', 'Rate%'),
-      t(locale, 'آخر غياب', 'Last Absent'),
+      t(locale, 'الأيام', 'Days'),
+      t(locale, 'حاضر', 'Present'),
+      t(locale, 'غائب', 'Absent'),
+      t(locale, 'متأخر', 'Late'),
+      t(locale, 'النسبة%', 'Rate%'),
     ];
-    const rows = processedStudentData.map((d: any) =>
-      [d.name, d.grade, d.section, d.campus, d.totalDays, d.present, d.absent, d.late, d.rate + '%', d.lastAbsent].join(','),
-    );
-    const csv = BOM + `${schoolName}\n${rangeLabel}\n${filterLabel}\n\n` + headers.join(',') + '\n' + rows.join('\n');
+
+    const rows = sortedFilteredStudents.map(s => [
+      s.name, s.grade, s.section, s.campusName, s.days, s.present, s.absent, s.late, s.rate,
+    ]);
+
+    const csv = BOM + [
+      schoolName,
+      rangeLabel,
+      filterLabel,
+      '',
+      headers.join(','),
+      ...rows.map(r => r.join(',')),
+    ].join('\n');
+
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `attendance-report-${dateFrom}-${dateTo}.csv`;
+    a.download = `attendance-report-${dateRange.from}-${dateRange.to}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-  }, [locale, dateFrom, dateTo, campusId, grade, section, processedStudentData]);
+  }, [sortedFilteredStudents, dateRange, campusFilter, gradeFilter, sectionFilter, locale]);
 
-  // ── Print PDF ─────────────────────────────────────────────────
-  const handlePrint = useCallback(() => {
-    window.print();
-  }, []);
+  // ═══════════════════════════════════════════════════════════════
+  //  Sort icon helper
+  // ═══════════════════════════════════════════════════════════════
 
-  // ── Render Helpers ────────────────────────────────────────────
-  const SortIcon: React.FC<{ col: string; isTeacher?: boolean }> = ({ col, isTeacher }) => {
-    const sc = isTeacher ? teacherSortCol : sortCol;
-    const sd = isTeacher ? teacherSortDir : sortDir;
-    if (sc !== col) return <ChevronDown className="w-3 h-3 text-slate-300" />;
-    return sd === 'asc' ? <ChevronUp className="w-3 h-3 text-sky-500" /> : <ChevronDown className="w-3 h-3 text-sky-500" />;
-  };
+  function SortIcon({ field, sort }: { field: string; sort: { key: string; dir: 'asc' | 'desc' } }) {
+    if (sort.key !== field) return <ChevronDown className="w-3 h-3 text-slate-300 inline ml-0.5" />;
+    return sort.dir === 'asc'
+      ? <ChevronUp className="w-3 h-3 text-sky-500 inline ml-0.5" />
+      : <ChevronDown className="w-3 h-3 text-sky-500 inline ml-0.5" />;
+  }
 
-  const BackIcon = isRtl ? ArrowRight : ArrowLeft;
+  // ═══════════════════════════════════════════════════════════════
+  //  Weakest day for highlight
+  // ═══════════════════════════════════════════════════════════════
 
-  // Max late count for bar scaling
-  const maxLate = Math.max(...lateDistribution.map(b => b.count), 1);
+  const weakestDay = useMemo(() => {
+    if (dayOfWeekData.length === 0) return -1;
+    let min = Infinity, idx = 0;
+    dayOfWeekData.forEach((d, i) => { if (d.rate > 0 && d.rate < min) { min = d.rate; idx = i; } });
+    return idx;
+  }, [dayOfWeekData]);
+
+  // ═══════════════════════════════════════════════════════════════
+  //  RENDER
+  // ═══════════════════════════════════════════════════════════════
 
   return (
-    <div className="p-4 lg:p-8 space-y-6 print:p-4 print:space-y-4" dir={isRtl ? 'rtl' : 'ltr'}>
-
-      {/* ─── Header ──────────────────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-      >
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onBack}
-            className="w-9 h-9 rounded-xl bg-white border border-slate-100 flex items-center justify-center hover:bg-slate-50 hover:border-sky-200 transition-all print:hidden"
-          >
-            <BackIcon className="w-4 h-4 text-slate-600" />
-          </button>
-          <div>
-            <h1 className="text-2xl lg:text-3xl font-black text-slate-900">
+    <div dir={isRTL ? 'rtl' : 'ltr'} className="min-h-screen bg-slate-50 pb-12">
+      {/* ─── HEADER ─── */}
+      <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-slate-100 print:static print:bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onBack}
+              className="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors print:hidden"
+            >
+              <BackArrow className="w-4 h-4 text-slate-600" />
+            </button>
+            <h1 className="text-lg sm:text-xl font-black text-slate-800">
               {t(locale, 'تقرير الحضور والغياب', 'Attendance Report')}
             </h1>
-            <p className="text-sm font-medium text-slate-400 mt-0.5">
-              {t(locale, 'تحليل شامل للحضور والانضباط', 'Comprehensive attendance and discipline analysis')}
-            </p>
+          </div>
+          <div className="flex items-center gap-2 print:hidden">
+            <button
+              onClick={handlePDF}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-600 transition-colors"
+            >
+              <Download className="w-3.5 h-3.5" /> PDF
+            </button>
+            <button
+              onClick={handleCSV}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-xs font-bold text-emerald-600 transition-colors"
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5" /> Excel
+            </button>
           </div>
         </div>
-        <div className="flex items-center gap-2 print:hidden">
-          <button
-            onClick={handlePrint}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-100 text-sm font-bold text-slate-600 hover:border-sky-200 hover:bg-sky-50 transition-all"
-          >
-            <FileText className="w-4 h-4" />
-            {t(locale, 'تحميل كـ PDF', 'Download PDF')}
-          </button>
-          <button
-            onClick={downloadCSV}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-sm font-bold text-white hover:shadow-lg hover:shadow-sky-500/25 transition-all"
-          >
-            <FileSpreadsheet className="w-4 h-4" />
-            {t(locale, 'تحميل كـ Excel', 'Download Excel')}
-          </button>
-        </div>
-      </motion.div>
+      </div>
 
-      {/* ─── Date Range Picker ───────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.05 }}
-        className="bg-white rounded-2xl border border-slate-100 p-4 print:border-slate-200"
-      >
-        <div className="flex items-center gap-2 mb-3">
-          <Calendar className="w-4 h-4 text-sky-500" />
-          <span className="text-sm font-black text-slate-700">{t(locale, 'الفترة الزمنية', 'Date Range')}</span>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {([
-            { key: 'today' as const, ar: 'اليوم', en: 'Today' },
-            { key: 'week' as const, ar: 'هذا الأسبوع', en: 'This Week' },
-            { key: 'month' as const, ar: 'هذا الشهر', en: 'This Month' },
-            { key: 'custom' as const, ar: 'مخصص', en: 'Custom' },
-          ]).map(p => (
-            <button
-              key={p.key}
-              onClick={() => setPreset(p.key)}
-              className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
-                preset === p.key
-                  ? 'bg-sky-500 text-white shadow-md shadow-sky-500/20'
-                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
-              }`}
-            >
-              {t(locale, p.ar, p.en)}
-            </button>
-          ))}
-
-          <AnimatePresence>
-            {preset === 'custom' && (
-              <motion.div
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: 'auto' }}
-                exit={{ opacity: 0, width: 0 }}
-                className="flex items-center gap-2 overflow-hidden"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-4 space-y-6">
+        {/* ─── DATE RANGE ─── */}
+        <div className="bg-white rounded-2xl border border-slate-100 p-4 print:hidden">
+          <div className="flex flex-wrap items-center gap-2">
+            {([
+              { key: 'today', ar: 'اليوم', en: 'Today' },
+              { key: 'week', ar: 'هذا الأسبوع', en: 'This Week' },
+              { key: 'month', ar: 'هذا الشهر', en: 'This Month' },
+              { key: 'custom', ar: 'مخصص', en: 'Custom' },
+            ] as { key: DatePreset; ar: string; en: string }[]).map(p => (
+              <button
+                key={p.key}
+                onClick={() => { setPreset(p.key); setStudentPage(1); setTeacherPage(1); }}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  preset === p.key
+                    ? 'bg-sky-500 text-white shadow-sm'
+                    : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                }`}
               >
+                {t(locale, p.ar, p.en)}
+              </button>
+            ))}
+            {preset === 'custom' && (
+              <div className="flex items-center gap-2 mr-2">
                 <input
                   type="date"
                   value={customFrom}
                   onChange={e => setCustomFrom(e.target.value)}
-                  className="px-3 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400"
+                  className="px-2 py-1 rounded-lg border border-slate-200 text-xs text-slate-600"
                 />
-                <span className="text-slate-400 text-sm font-bold">{t(locale, 'إلى', 'to')}</span>
+                <span className="text-slate-400 text-xs">→</span>
                 <input
                   type="date"
                   value={customTo}
                   onChange={e => setCustomTo(e.target.value)}
-                  className="px-3 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400"
+                  className="px-2 py-1 rounded-lg border border-slate-200 text-xs text-slate-600"
                 />
+              </div>
+            )}
+          </div>
+          <p className="text-xs text-slate-400 mt-2">
+            {t(locale, `${schoolDays.length} يوم دراسي`, `${schoolDays.length} school days`)}
+            {' · '}
+            {dateRange.from} → {dateRange.to}
+          </p>
+        </div>
+
+        {/* ─── FILTER BAR ─── */}
+        <div className="bg-white rounded-2xl border border-slate-100 p-4 print:hidden">
+          <div className="flex items-center gap-2 mb-2 text-xs font-bold text-slate-500">
+            <Filter className="w-3.5 h-3.5" /> {t(locale, 'تصفية', 'Filters')}
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Campus */}
+            <select
+              value={campusFilter}
+              onChange={e => { setCampusFilter(e.target.value); setGradeFilter(null); setSectionFilter(null); setStudentPage(1); }}
+              className="px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600 bg-white min-w-[140px]"
+            >
+              <option value="all">{t(locale, 'كل المباني', 'All Campuses')}</option>
+              {CAMPUSES.map(c => (
+                <option key={c.id} value={c.id}>{t(locale, c.name, c.nameEn)}</option>
+              ))}
+            </select>
+            {/* Grade */}
+            <select
+              value={gradeFilter ?? ''}
+              onChange={e => { setGradeFilter(e.target.value ? Number(e.target.value) : null); setSectionFilter(null); setStudentPage(1); }}
+              className="px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600 bg-white min-w-[120px]"
+            >
+              <option value="">{t(locale, 'كل الصفوف', 'All Grades')}</option>
+              {availableGrades.map(g => (
+                <option key={g} value={g}>{t(locale, `الصف ${g}`, `Grade ${g}`)}</option>
+              ))}
+            </select>
+            {/* Section */}
+            <select
+              value={sectionFilter ?? ''}
+              onChange={e => { setSectionFilter(e.target.value || null); setStudentPage(1); }}
+              className="px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600 bg-white min-w-[110px]"
+            >
+              <option value="">{t(locale, 'كل الشعب', 'All Sections')}</option>
+              {availableSections.map(s => (
+                <option key={s} value={s}>{t(locale, `شعبة ${s}`, `Section ${s}`)}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* ═══════════════════════════════════════════════════════ */}
+        {/*  SECTION 1: Executive Summary                         */}
+        {/* ═══════════════════════════════════════════════════════ */}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <StatCard
+            icon={<Calendar className="w-5 h-5 text-sky-600" />}
+            iconBg="bg-gradient-to-br from-sky-100 to-sky-50"
+            value={`${schoolDays.length}`}
+            label={t(locale, 'أيام دراسية', 'School Days')}
+          />
+          <StatCard
+            icon={<CheckCircle className="w-5 h-5 text-emerald-600" />}
+            iconBg={`bg-gradient-to-br ${periodStats.avgRate >= 90 ? 'from-emerald-100 to-emerald-50' : periodStats.avgRate >= 75 ? 'from-amber-100 to-amber-50' : 'from-rose-100 to-rose-50'}`}
+            value={`${periodStats.avgRate}%`}
+            label={t(locale, 'متوسط الحضور', 'Average Rate')}
+            sparkData={rateSparkData}
+            sparkColor={rateHex(periodStats.avgRate)}
+          />
+          <StatCard
+            icon={<XCircle className="w-5 h-5 text-rose-500" />}
+            iconBg="bg-gradient-to-br from-rose-100 to-rose-50"
+            value={periodStats.totalAbsent.toLocaleString()}
+            label={t(locale, 'إجمالي الغياب', 'Total Absences')}
+            sparkData={absentSparkData}
+            sparkColor="#f43f5e"
+          />
+          <StatCard
+            icon={<Clock className="w-5 h-5 text-amber-500" />}
+            iconBg="bg-gradient-to-br from-amber-100 to-amber-50"
+            value={periodStats.totalLate.toLocaleString()}
+            label={t(locale, 'إجمالي التأخر', 'Total Late')}
+            sparkData={lateSparkData}
+            sparkColor="#f59e0b"
+          />
+          <StatCard
+            icon={<TrendingUp className="w-5 h-5 text-emerald-600" />}
+            iconBg="bg-gradient-to-br from-emerald-100 to-emerald-50"
+            value={bestGrade ? `${t(locale, `الصف ${bestGrade.grade}`, `Grade ${bestGrade.grade}`)} — ${bestGrade.rate}%` : '—'}
+            label={t(locale, 'أفضل صف', 'Best Grade')}
+          />
+          <StatCard
+            icon={<TrendingDown className="w-5 h-5 text-rose-500" />}
+            iconBg="bg-gradient-to-br from-rose-100 to-rose-50"
+            value={worstGrade ? `${t(locale, `الصف ${worstGrade.grade}`, `Grade ${worstGrade.grade}`)} — ${worstGrade.rate}%` : '—'}
+            label={t(locale, 'أسوأ صف', 'Worst Grade')}
+          />
+        </div>
+
+        {/* ═══════════════════════════════════════════════════════ */}
+        {/*  SECTION 2: Charts Dashboard                          */}
+        {/* ═══════════════════════════════════════════════════════ */}
+
+        <div className="space-y-4">
+          {/* Chart 1: Daily Attendance Trend (full width) */}
+          <ChartCard
+            title={t(locale, 'اتجاه الحضور اليومي', 'Daily Attendance Trend')}
+            subtitle={t(locale, `آخر ${dailyTrend.length} يوم دراسي`, `Last ${dailyTrend.length} school days`)}
+            className="col-span-full"
+          >
+            <AreaLineChart
+              data={dailyTrend.map(d => ({ label: d.date.slice(5), value: d.rate, meta: `${d.present}/${d.total}` }))}
+              color="#0ea5e9"
+              yMin={80}
+              yMax={100}
+              height={240}
+            />
+          </ChartCard>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Chart 2: Grade Comparison */}
+            <ChartCard
+              title={t(locale, 'مقارنة الصفوف', 'Grade Comparison')}
+              subtitle={t(locale, 'نسبة الحضور لكل صف', 'Attendance rate per grade')}
+            >
+              <HorizontalBarChart
+                data={gradeBreakdown.map(g => ({
+                  label: t(locale, `الصف ${g.grade}`, `Grade ${g.grade}`),
+                  value: g.rate,
+                  meta: `${g.count} ${t(locale, 'طالب', 'students')}`,
+                }))}
+                maxValue={100}
+              />
+            </ChartCard>
+
+            {/* Chart 3: Section Comparison (when grade selected) */}
+            {sectionComparison && sectionComparison.length > 0 ? (
+              <ChartCard
+                title={t(locale, `مقارنة شعب الصف ${gradeFilter}`, `Grade ${gradeFilter} Section Comparison`)}
+                subtitle={t(locale, 'نسبة الحضور لكل شعبة', 'Attendance rate per section')}
+              >
+                <HorizontalBarChart data={sectionComparison} maxValue={100} />
+              </ChartCard>
+            ) : (
+              /* Chart 7: Subject Breakdown (default when no grade filter) */
+              <ChartCard
+                title={t(locale, 'حضور حسب المادة', 'Subject Breakdown')}
+                subtitle={t(locale, 'نسبة الحضور في كل مادة', 'Attendance rate by subject')}
+              >
+                <HorizontalBarChart data={subjectBreakdown} maxValue={100} />
+              </ChartCard>
+            )}
+
+            {/* Chart 4: Day-of-Week Pattern */}
+            <ChartCard
+              title={t(locale, 'نمط الحضور الأسبوعي', 'Day-of-Week Pattern')}
+              subtitle={t(locale, 'متوسط الحضور لكل يوم', 'Average attendance per day')}
+            >
+              <VerticalBarChart
+                data={dayOfWeekData.map((d, i) => ({
+                  label: d.label,
+                  value: d.rate,
+                  color: i === weakestDay ? '#f43f5e' : '#0ea5e9',
+                  highlight: i === weakestDay,
+                }))}
+                maxValue={100}
+                height={200}
+              />
+            </ChartCard>
+
+            {/* Chart 5: Late Arrivals Distribution */}
+            <ChartCard
+              title={t(locale, 'توزيع أوقات التأخر', 'Late Arrivals Distribution')}
+              subtitle={t(locale, 'عدد حالات التأخر حسب الوقت', 'Late count by time bucket')}
+            >
+              <HorizontalBarChart
+                data={lateDistribution}
+                maxValue={Math.max(...lateDistribution.map(d => d.value), 1)}
+                showValues={true}
+              />
+            </ChartCard>
+
+            {/* Chart 6: Campus Comparison (when campus = all) */}
+            {campusFilter === 'all' && (
+              <ChartCard
+                title={t(locale, 'مقارنة المباني', 'Campus Comparison')}
+                subtitle={t(locale, 'رادار مقارنة 4 محاور', '4-axis radar comparison')}
+              >
+                <div className="flex justify-center">
+                  <RadarChart
+                    axes={[
+                      {
+                        label: t(locale, 'الحضور', 'Attendance'),
+                        value: Math.round(campusComparison.reduce((s, c) => s + c.rate, 0) / campusComparison.length),
+                        maxValue: 100,
+                      },
+                      {
+                        label: t(locale, 'التأخر', 'Late Rate'),
+                        value: 100 - Math.round(campusComparison.reduce((s, c) => s + c.lateRate, 0) / campusComparison.length),
+                        maxValue: 100,
+                      },
+                      {
+                        label: t(locale, 'الامتثال', 'Compliance'),
+                        value: Math.round(campusComparison.reduce((s, c) => s + c.compRate, 0) / campusComparison.length),
+                        maxValue: 100,
+                      },
+                      {
+                        label: t(locale, 'عدم الغياب المزمن', 'No Chronic'),
+                        value: 100 - Math.round(campusComparison.reduce((s, c) => s + c.chronicPct, 0) / campusComparison.length),
+                        maxValue: 100,
+                      },
+                    ]}
+                    size={220}
+                    color="#8b5cf6"
+                  />
+                </div>
+                {/* Mini comparison table under radar */}
+                <div className="mt-3 text-xs">
+                  <div className="grid grid-cols-5 gap-1 text-slate-400 font-bold mb-1">
+                    <span>{t(locale, 'المبنى', 'Campus')}</span>
+                    <span className="text-center">{t(locale, 'حضور', 'Att.')}</span>
+                    <span className="text-center">{t(locale, 'تأخر', 'Late')}</span>
+                    <span className="text-center">{t(locale, 'امتثال', 'Comp.')}</span>
+                    <span className="text-center">{t(locale, 'مزمن', 'Chron.')}</span>
+                  </div>
+                  {campusComparison.map(cc => (
+                    <div key={cc.campus.id} className="grid grid-cols-5 gap-1 py-0.5 text-slate-600">
+                      <span className="truncate">{t(locale, cc.campus.name, cc.campus.nameEn).split('(')[0].trim()}</span>
+                      <span className={`text-center font-bold ${rateColorClass(cc.rate)}`}>{cc.rate}%</span>
+                      <span className="text-center text-amber-500 font-bold">{cc.lateRate}%</span>
+                      <span className={`text-center font-bold ${rateColorClass(cc.compRate)}`}>{cc.compRate}%</span>
+                      <span className={`text-center font-bold ${cc.chronicPct > 10 ? 'text-rose-500' : 'text-emerald-500'}`}>{cc.chronicPct}%</span>
+                    </div>
+                  ))}
+                </div>
+              </ChartCard>
+            )}
+
+            {/* Chart 7 (alt): Subject Breakdown — shown alongside section comparison */}
+            {sectionComparison && sectionComparison.length > 0 && (
+              <ChartCard
+                title={t(locale, 'حضور حسب المادة', 'Subject Breakdown')}
+                subtitle={t(locale, 'نسبة الحضور في كل مادة', 'Attendance rate by subject')}
+              >
+                <HorizontalBarChart data={subjectBreakdown} maxValue={100} />
+              </ChartCard>
+            )}
+          </div>
+
+          {/* Chart 8: Calendar Heatmap (full width) */}
+          <ChartCard
+            title={t(locale, 'خريطة الحضور الحرارية', 'Calendar Heatmap')}
+            subtitle={t(locale, 'نسبة الحضور اليومية على شكل شبكة', 'Daily attendance rate as a grid')}
+            className="col-span-full"
+          >
+            <CalendarHeatmap data={heatmapData} weeksToShow={Math.min(Math.ceil(schoolDays.length / 5) + 2, 16)} />
+          </ChartCard>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Chart 9: Chronic Absence Trend */}
+            <ChartCard
+              title={t(locale, 'اتجاه الغياب المزمن', 'Chronic Absence Trend')}
+              subtitle={t(locale, 'عدد الطلاب تحت 85% حضور', 'Students below 85% attendance')}
+            >
+              <AreaLineChart
+                data={chronicTrend}
+                color="#f43f5e"
+                height={200}
+              />
+            </ChartCard>
+
+            {/* Chart 10: Risk Distribution */}
+            <ChartCard
+              title={t(locale, 'توزيع المخاطر', 'Risk Distribution')}
+              subtitle={t(locale, 'تصنيف الطلاب حسب نسبة الحضور', 'Student classification by attendance rate')}
+            >
+              <div className="flex justify-center">
+                <DonutChart
+                  segments={[
+                    { value: riskDistribution.low, color: '#10b981', label: t(locale, 'منخفض الخطورة (≥90%)', 'Low Risk (≥90%)') },
+                    { value: riskDistribution.medium, color: '#f59e0b', label: t(locale, 'متوسط (75-90%)', 'Medium (75-90%)') },
+                    { value: riskDistribution.high, color: '#f43f5e', label: t(locale, 'مرتفع (50-75%)', 'High (50-75%)') },
+                    { value: riskDistribution.critical, color: '#881337', label: t(locale, 'حرج (<50%)', 'Critical (<50%)') },
+                  ]}
+                  size={180}
+                  centerValue={`${filteredStudents.length}`}
+                  centerLabel={t(locale, 'طالب', 'students')}
+                />
+              </div>
+            </ChartCard>
+          </div>
+
+          {/* Charts 11 & 12: Teacher charts (in teacher tab context, but shown here as section) */}
+          <div className="bg-white rounded-2xl border border-slate-100 p-5">
+            <h3 className="text-sm font-black text-slate-700 mb-1">
+              {t(locale, 'بيانات المعلمين', 'Teacher Data')}
+            </h3>
+            <p className="text-xs text-slate-400 mb-4">{t(locale, 'الامتثال والنشاط', 'Compliance & Activity')}</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Chart 11: Teacher Compliance Trend */}
+              <div>
+                <p className="text-xs font-bold text-slate-500 mb-2">{t(locale, 'اتجاه الامتثال', 'Compliance Trend')}</p>
+                <AreaLineChart
+                  data={complianceTrend}
+                  color="#8b5cf6"
+                  yMin={60}
+                  yMax={100}
+                  height={200}
+                />
+              </div>
+
+              {/* Chart 12: Teacher Ranking */}
+              <div>
+                <p className="text-xs font-bold text-slate-500 mb-2">{t(locale, 'ترتيب المعلمين', 'Teacher Ranking')}</p>
+                <HorizontalBarChart
+                  data={teacherRanking.slice(0, 12)}
+                  maxValue={100}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ═══════════════════════════════════════════════════════ */}
+        {/*  SECTION 3: Data Tables                               */}
+        {/* ═══════════════════════════════════════════════════════ */}
+
+        <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+          {/* Tab switcher */}
+          <div className="flex border-b border-slate-100 print:hidden">
+            <button
+              onClick={() => setTableTab('student')}
+              className={`flex-1 py-3 text-sm font-bold transition-colors ${
+                tableTab === 'student'
+                  ? 'text-sky-600 border-b-2 border-sky-500 bg-sky-50/50'
+                  : 'text-slate-400 hover:text-slate-600'
+              }`}
+            >
+              {t(locale, 'بيانات الطلاب', 'Student Data')}
+            </button>
+            <button
+              onClick={() => setTableTab('teacher')}
+              className={`flex-1 py-3 text-sm font-bold transition-colors ${
+                tableTab === 'teacher'
+                  ? 'text-sky-600 border-b-2 border-sky-500 bg-sky-50/50'
+                  : 'text-slate-400 hover:text-slate-600'
+              }`}
+            >
+              {t(locale, 'نشاط المعلمين', 'Teacher Activity')}
+            </button>
+          </div>
+
+          <AnimatePresence mode="wait">
+            {tableTab === 'student' ? (
+              <motion.div
+                key="student"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                {/* Student controls */}
+                <div className="p-4 flex flex-wrap items-center gap-3 border-b border-slate-50 print:hidden">
+                  <div className="relative">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute top-1/2 -translate-y-1/2 left-2.5" />
+                    <input
+                      type="text"
+                      value={studentSearch}
+                      onChange={e => { setStudentSearch(e.target.value); setStudentPage(1); }}
+                      placeholder={t(locale, 'بحث بالاسم...', 'Search by name...')}
+                      className="pl-8 pr-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600 w-48"
+                    />
+                  </div>
+                  <select
+                    value={studentRateFilter}
+                    onChange={e => { setStudentRateFilter(e.target.value); setStudentPage(1); }}
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600 bg-white"
+                  >
+                    <option value="all">{t(locale, 'عرض الكل', 'Show all')}</option>
+                    <option value="below90">{t(locale, 'أقل من 90%', 'Below 90%')}</option>
+                    <option value="below80">{t(locale, 'أقل من 80%', 'Below 80%')}</option>
+                    <option value="below70">{t(locale, 'أقل من 70%', 'Below 70%')}</option>
+                  </select>
+                  <span className="text-xs text-slate-400 ml-auto">
+                    {sortedFilteredStudents.length} {t(locale, 'طالب', 'students')}
+                  </span>
+                </div>
+
+                {/* Student table */}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-slate-50/80 text-slate-500 font-bold">
+                        {[
+                          { key: 'name', label: t(locale, 'الاسم', 'Name'), w: 'min-w-[140px]' },
+                          { key: 'grade', label: t(locale, 'الصف', 'Grade'), w: 'w-16' },
+                          { key: 'section', label: t(locale, 'الشعبة', 'Sec.'), w: 'w-14' },
+                          { key: 'campusName', label: t(locale, 'المبنى', 'Campus'), w: 'min-w-[100px]' },
+                          { key: 'days', label: t(locale, 'الأيام', 'Days'), w: 'w-14' },
+                          { key: 'present', label: t(locale, 'حاضر', 'Pres.'), w: 'w-14' },
+                          { key: 'absent', label: t(locale, 'غائب', 'Abs.'), w: 'w-14' },
+                          { key: 'late', label: t(locale, 'متأخر', 'Late'), w: 'w-14' },
+                          { key: 'rate', label: t(locale, 'النسبة%', 'Rate%'), w: 'w-24' },
+                          { key: 'sparkline', label: t(locale, 'الاتجاه', 'Trend'), w: 'w-16' },
+                        ].map(col => (
+                          <th
+                            key={col.key}
+                            onClick={col.key !== 'sparkline' ? () => toggleStudentSort(col.key) : undefined}
+                            className={`py-2.5 px-3 text-start ${col.w} ${col.key !== 'sparkline' ? 'cursor-pointer hover:text-slate-700 select-none' : ''}`}
+                          >
+                            {col.label}
+                            {col.key !== 'sparkline' && <SortIcon field={col.key} sort={studentSort} />}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {studentPageData.map(s => (
+                        <tr key={s.id} className="border-t border-slate-50 hover:bg-sky-50/30 transition-colors">
+                          <td className="py-2 px-3 font-semibold text-slate-700">{s.name}</td>
+                          <td className="py-2 px-3 text-slate-500">{s.grade}</td>
+                          <td className="py-2 px-3 text-slate-500">{s.section}</td>
+                          <td className="py-2 px-3 text-slate-500 truncate max-w-[120px]">{s.campusName}</td>
+                          <td className="py-2 px-3 text-slate-500">{s.days}</td>
+                          <td className="py-2 px-3 text-emerald-600 font-bold">{s.present}</td>
+                          <td className="py-2 px-3 text-rose-500 font-bold">{s.absent}</td>
+                          <td className="py-2 px-3 text-amber-500 font-bold">{s.late}</td>
+                          <td className="py-2 px-3">
+                            <div className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-bold ${rateBgClass(s.rate)} ${rateColorClass(s.rate)}`}>
+                              {s.rate}%
+                              <div className="w-12 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                                <div
+                                  className="h-full rounded-full transition-all"
+                                  style={{ width: `${Math.min(s.rate, 100)}%`, backgroundColor: rateHex(s.rate) }}
+                                />
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-2 px-3">
+                            {s.sparkVals.length > 2 && (
+                              <Sparkline data={s.sparkVals} color={rateHex(s.rate)} width={50} height={16} />
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                      {studentPageData.length === 0 && (
+                        <tr>
+                          <td colSpan={10} className="py-8 text-center text-slate-400 text-sm">
+                            {t(locale, 'لا توجد بيانات', 'No data found')}
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Pagination */}
+                {studentTotalPages > 1 && (
+                  <div className="flex items-center justify-center gap-1 py-3 border-t border-slate-50 print:hidden">
+                    <button
+                      onClick={() => setStudentPage(p => Math.max(1, p - 1))}
+                      disabled={studentPage === 1}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:bg-slate-100 disabled:opacity-30"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" />
+                    </button>
+                    {Array.from({ length: Math.min(studentTotalPages, 7) }, (_, i) => {
+                      let page: number;
+                      if (studentTotalPages <= 7) {
+                        page = i + 1;
+                      } else if (studentPage <= 4) {
+                        page = i + 1;
+                      } else if (studentPage >= studentTotalPages - 3) {
+                        page = studentTotalPages - 6 + i;
+                      } else {
+                        page = studentPage - 3 + i;
+                      }
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => setStudentPage(page)}
+                          className={`w-7 h-7 rounded-lg text-xs font-bold transition-colors ${
+                            page === studentPage
+                              ? 'bg-sky-500 text-white'
+                              : 'text-slate-400 hover:bg-slate-100'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    })}
+                    <button
+                      onClick={() => setStudentPage(p => Math.min(studentTotalPages, p + 1))}
+                      disabled={studentPage === studentTotalPages}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:bg-slate-100 disabled:opacity-30"
+                    >
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="teacher"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                {/* Teacher controls */}
+                <div className="p-4 flex flex-wrap items-center gap-3 border-b border-slate-50 print:hidden">
+                  <div className="relative">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute top-1/2 -translate-y-1/2 left-2.5" />
+                    <input
+                      type="text"
+                      value={teacherSearch}
+                      onChange={e => { setTeacherSearch(e.target.value); setTeacherPage(1); }}
+                      placeholder={t(locale, 'بحث بالاسم...', 'Search by name...')}
+                      className="pl-8 pr-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600 w-48"
+                    />
+                  </div>
+                  <span className="text-xs text-slate-400 ml-auto">
+                    {sortedFilteredTeachers.length} {t(locale, 'معلم', 'teachers')}
+                  </span>
+                </div>
+
+                {/* Teacher table */}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-slate-50/80 text-slate-500 font-bold">
+                        {[
+                          { key: 'name', label: t(locale, 'الاسم', 'Name'), w: 'min-w-[130px]' },
+                          { key: 'subject', label: t(locale, 'المادة', 'Subject'), w: 'min-w-[90px]' },
+                          { key: 'campusName', label: t(locale, 'المبنى', 'Campus'), w: 'min-w-[100px]' },
+                          { key: 'spacesCount', label: t(locale, 'المساحات', 'Spaces'), w: 'w-16' },
+                          { key: 'totalHours', label: t(locale, 'الساعات', 'Hours'), w: 'w-16' },
+                          { key: 'avgDaily', label: t(locale, 'المعدل اليومي', 'Avg Daily'), w: 'w-20' },
+                          { key: 'compliance', label: t(locale, 'الامتثال%', 'Compliance%'), w: 'w-24' },
+                          { key: 'totalActions', label: t(locale, 'الإجراءات', 'Actions'), w: 'w-18' },
+                          { key: 'lastActive', label: t(locale, 'آخر نشاط', 'Last Active'), w: 'min-w-[90px]' },
+                        ].map(col => (
+                          <th
+                            key={col.key}
+                            onClick={() => toggleTeacherSort(col.key)}
+                            className={`py-2.5 px-3 text-start ${col.w} cursor-pointer hover:text-slate-700 select-none`}
+                          >
+                            {col.label}
+                            <SortIcon field={col.key} sort={teacherSort} />
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {teacherPageData.map(tc => {
+                        const isInactive = tc.totalHours === 0;
+                        return (
+                          <tr key={tc.id} className={`border-t border-slate-50 transition-colors ${isInactive ? 'bg-rose-50/40' : 'hover:bg-sky-50/30'}`}>
+                            <td className="py-2 px-3 font-semibold text-slate-700">{t(locale, tc.name, tc.nameEn)}</td>
+                            <td className="py-2 px-3 text-slate-500">{t(locale, tc.subject, tc.subjectEn)}</td>
+                            <td className="py-2 px-3 text-slate-500 truncate max-w-[120px]">{tc.campusName}</td>
+                            <td className="py-2 px-3 text-slate-500">{tc.spacesCount}</td>
+                            <td className="py-2 px-3 text-slate-600 font-bold">{tc.totalHours}h</td>
+                            <td className="py-2 px-3 text-slate-500">{tc.avgDaily}m</td>
+                            <td className="py-2 px-3">
+                              <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${
+                                tc.compliance >= 90
+                                  ? 'bg-emerald-50 text-emerald-600'
+                                  : tc.compliance >= 70
+                                    ? 'bg-amber-50 text-amber-600'
+                                    : 'bg-rose-50 text-rose-600'
+                              }`}>
+                                {tc.compliance}%
+                              </span>
+                            </td>
+                            <td className="py-2 px-3 text-slate-500">{tc.totalActions}</td>
+                            <td className="py-2 px-3 text-slate-400">{tc.lastActive || '—'}</td>
+                          </tr>
+                        );
+                      })}
+                      {teacherPageData.length === 0 && (
+                        <tr>
+                          <td colSpan={9} className="py-8 text-center text-slate-400 text-sm">
+                            {t(locale, 'لا توجد بيانات', 'No data found')}
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Teacher Pagination */}
+                {teacherTotalPages > 1 && (
+                  <div className="flex items-center justify-center gap-1 py-3 border-t border-slate-50 print:hidden">
+                    <button
+                      onClick={() => setTeacherPage(p => Math.max(1, p - 1))}
+                      disabled={teacherPage === 1}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:bg-slate-100 disabled:opacity-30"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" />
+                    </button>
+                    {Array.from({ length: Math.min(teacherTotalPages, 7) }, (_, i) => {
+                      const page = i + 1;
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => setTeacherPage(page)}
+                          className={`w-7 h-7 rounded-lg text-xs font-bold transition-colors ${
+                            page === teacherPage
+                              ? 'bg-sky-500 text-white'
+                              : 'text-slate-400 hover:bg-slate-100'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    })}
+                    <button
+                      onClick={() => setTeacherPage(p => Math.min(teacherTotalPages, p + 1))}
+                      disabled={teacherPage === teacherTotalPages}
+                      className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:bg-slate-100 disabled:opacity-30"
+                    >
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-        <div className="mt-2 text-xs font-medium text-slate-400">
-          {dateFrom} &mdash; {dateTo} &middot; {schoolDays.length} {t(locale, 'يوم دراسي', 'school days')}
-        </div>
-      </motion.div>
 
-      {/* ─── Filter Bar ──────────────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="bg-white rounded-2xl border border-slate-100 p-4 print:border-slate-200"
-      >
-        <div className="flex items-center gap-2 mb-3">
-          <Filter className="w-4 h-4 text-sky-500" />
-          <span className="text-sm font-black text-slate-700">{t(locale, 'التصفية', 'Filters')}</span>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          {/* Campus */}
-          <div className="flex flex-col gap-1">
-            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t(locale, 'المبنى', 'Campus')}</label>
-            <select
-              value={campusId}
-              onChange={e => { setCampusId(e.target.value); setPage(1); }}
-              className="px-3 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 min-w-[140px]"
-            >
-              <option value="all">{t(locale, 'الكل', 'All')}</option>
-              {CAMPUSES.map(c => (
-                <option key={c.id} value={c.id}>{locale === 'ar' ? c.name : c.nameEn}</option>
-              ))}
-            </select>
-          </div>
-          {/* Grade */}
-          <div className="flex flex-col gap-1">
-            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t(locale, 'الصف', 'Grade')}</label>
-            <select
-              value={grade ?? ''}
-              onChange={e => { setGrade(e.target.value ? Number(e.target.value) : null); setPage(1); }}
-              className="px-3 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 min-w-[100px]"
-            >
-              <option value="">{t(locale, 'الكل', 'All')}</option>
-              {availableGrades.map(g => (
-                <option key={g} value={g}>{g}</option>
-              ))}
-            </select>
-          </div>
-          {/* Section */}
-          <div className="flex flex-col gap-1">
-            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t(locale, 'الشعبة', 'Section')}</label>
-            <select
-              value={section ?? ''}
-              onChange={e => { setSection(e.target.value || null); setPage(1); }}
-              className="px-3 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 min-w-[100px]"
-            >
-              <option value="">{t(locale, 'الكل', 'All')}</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-            </select>
-          </div>
-        </div>
-      </motion.div>
+        {/* ═══════════════════════════════════════════════════════ */}
+        {/*  Download Section                                     */}
+        {/* ═══════════════════════════════════════════════════════ */}
 
-      {/* ─── Charts Dashboard ────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
-        {/* Chart 1: Daily Attendance Trend (full width) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="lg:col-span-2 bg-white rounded-2xl border border-slate-100 p-5"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <BarChart3 className="w-4 h-4 text-sky-500" />
-            <h3 className="text-sm font-black text-slate-700">{t(locale, 'اتجاه الحضور اليومي', 'Daily Attendance Trend')}</h3>
-          </div>
-          <div className="flex items-end gap-[3px] h-48 overflow-x-auto pb-6 relative">
-            {/* Y-axis labels */}
-            <div className="absolute top-0 bottom-6 flex flex-col justify-between text-[9px] font-bold text-slate-300 pointer-events-none" style={{ [isRtl ? 'right' : 'left']: 0 }}>
-              <span>100%</span>
-              <span>80%</span>
-              <span>60%</span>
-            </div>
-            <div className={`flex items-end gap-[3px] flex-1 ${isRtl ? 'pr-8' : 'pl-8'}`}>
-              {dailyTrend.map((d, i) => {
-                const barHeight = Math.max(2, ((d.rate - 60) / 40) * 100);
-                const showLabel = dailyTrend.length <= 10 || i % Math.ceil(dailyTrend.length / 10) === 0;
-                return (
-                  <Tooltip key={d.date} text={`${shortDate(d.date, locale)}: ${d.rate}% (${d.attended}/${d.total})`}>
-                    <div className="flex flex-col items-center flex-1 min-w-[18px]">
-                      <motion.div
-                        initial={{ height: 0 }}
-                        animate={{ height: `${barHeight}%` }}
-                        transition={{ delay: 0.2 + i * 0.02, duration: 0.5 }}
-                        className={`w-full max-w-[28px] rounded-t-lg ${rateColor(d.rate)} cursor-pointer hover:opacity-80 transition-opacity`}
-                        style={{ minHeight: 4 }}
-                      />
-                      {showLabel && (
-                        <span className="text-[8px] font-bold text-slate-400 mt-1 whitespace-nowrap rotate-0 block text-center">
-                          {shortDate(d.date, locale)}
-                        </span>
-                      )}
-                    </div>
-                  </Tooltip>
-                );
-              })}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Chart 2: Attendance by Grade (half) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-white rounded-2xl border border-slate-100 p-5"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Users className="w-4 h-4 text-sky-500" />
-            <h3 className="text-sm font-black text-slate-700">{t(locale, 'الحضور حسب الصف', 'Attendance by Grade')}</h3>
-          </div>
-          <div className="space-y-2.5">
-            {gradeStats.map((g, i) => (
-              <div key={g.grade} className="flex items-center gap-3">
-                <span className="text-xs font-bold text-slate-500 w-14 shrink-0">
-                  {t(locale, `الصف ${g.grade}`, `Grade ${g.grade}`)}
-                </span>
-                <div className="flex-1 bg-slate-100 rounded-full h-5 overflow-hidden relative">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${g.rate}%` }}
-                    transition={{ delay: 0.25 + i * 0.04, duration: 0.6 }}
-                    className={`h-full rounded-full ${rateColor(g.rate)}`}
-                  />
-                </div>
-                <span className={`text-xs font-black w-12 text-end ${rateTextColor(g.rate)}`}>{g.rate}%</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Chart 3: Day of Week Pattern (half) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-          className="bg-white rounded-2xl border border-slate-100 p-5"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Calendar className="w-4 h-4 text-sky-500" />
-            <h3 className="text-sm font-black text-slate-700">{t(locale, 'نمط الأيام', 'Day of Week Pattern')}</h3>
-          </div>
-          <div className="flex items-end justify-around h-40 pt-6">
-            {dayOfWeekStats.map((d, i) => {
-              const minRate = Math.min(...dayOfWeekStats.map(x => x.rate));
-              const isWeakest = d.rate === minRate && d.rate < 95;
-              const barH = Math.max(8, ((d.rate - 60) / 40) * 100);
-              const dayNames = locale === 'ar' ? DAY_NAMES_AR : DAY_NAMES_EN;
-              return (
-                <div key={d.day} className="flex flex-col items-center gap-1 flex-1">
-                  <span className={`text-[10px] font-black ${isWeakest ? 'text-rose-500' : rateTextColor(d.rate)}`}>
-                    {d.rate}%
-                  </span>
-                  <motion.div
-                    initial={{ height: 0 }}
-                    animate={{ height: `${barH}%` }}
-                    transition={{ delay: 0.3 + i * 0.06, duration: 0.5 }}
-                    className={`w-10 rounded-t-xl ${isWeakest ? 'bg-rose-400' : d.rate >= 95 ? 'bg-emerald-400' : 'bg-amber-400'}`}
-                    style={{ minHeight: 8 }}
-                  />
-                  <span className={`text-[10px] font-bold mt-1 ${isWeakest ? 'text-rose-500' : 'text-slate-500'}`}>
-                    {dayNames[i]}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        {/* Chart 4: Late Arrivals Distribution (half) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-white rounded-2xl border border-slate-100 p-5"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Clock className="w-4 h-4 text-violet-500" />
-            <h3 className="text-sm font-black text-slate-700">{t(locale, 'توزيع التأخر', 'Late Arrivals Distribution')}</h3>
-          </div>
-          <div className="space-y-2.5">
-            {lateDistribution.map((b, i) => (
-              <div key={b.label} className="flex items-center gap-3">
-                <span className="text-xs font-bold text-slate-500 w-20 shrink-0 font-mono">{b.label}</span>
-                <div className="flex-1 bg-violet-50 rounded-full h-5 overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${(b.count / maxLate) * 100}%` }}
-                    transition={{ delay: 0.35 + i * 0.05, duration: 0.5 }}
-                    className="h-full rounded-full bg-gradient-to-r from-violet-400 to-purple-500"
-                    style={{ minWidth: b.count > 0 ? 8 : 0 }}
-                  />
-                </div>
-                <span className="text-xs font-black text-violet-600 w-8 text-end">{b.count}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Chart 5: Campus Comparison (half — only when campus = all) */}
-        {campusId === 'all' && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35 }}
-            className="bg-white rounded-2xl border border-slate-100 p-5"
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 print:hidden">
+          <button
+            onClick={handlePDF}
+            className="flex items-center justify-center gap-3 py-4 rounded-2xl bg-gradient-to-r from-slate-700 to-slate-800 text-white font-bold text-sm hover:from-slate-800 hover:to-slate-900 transition-all shadow-lg shadow-slate-300/30"
           >
-            <div className="flex items-center gap-2 mb-4">
-              <BarChart3 className="w-4 h-4 text-sky-500" />
-              <h3 className="text-sm font-black text-slate-700">{t(locale, 'مقارنة المباني', 'Campus Comparison')}</h3>
-            </div>
-            <div className="space-y-3">
-              {campusComparison.map((c, i) => (
-                <div key={c.id} className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-600 truncate max-w-[180px]">{c.name}</span>
-                    <span className={`text-xs font-black ${rateTextColor(c.rate)}`}>{c.rate}%</span>
-                  </div>
-                  <div className="bg-slate-100 rounded-full h-4 overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${c.rate}%` }}
-                      transition={{ delay: 0.4 + i * 0.08, duration: 0.6 }}
-                      className={`h-full rounded-full ${rateColor(c.rate)}`}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Chart 6: Chronic Absence Top 10 (full width) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="lg:col-span-2 bg-white rounded-2xl border border-slate-100 p-5"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <AlertTriangle className="w-4 h-4 text-rose-500" />
-            <h3 className="text-sm font-black text-slate-700">{t(locale, 'أكثر 10 طلاب غياباً', 'Top 10 Most Absent Students')}</h3>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-100">
-                  <th className="text-start py-2 px-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">#</th>
-                  <th className="text-start py-2 px-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t(locale, 'الطالب', 'Student')}</th>
-                  <th className="text-start py-2 px-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t(locale, 'الصف', 'Grade')}</th>
-                  <th className="text-center py-2 px-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t(locale, 'أيام الغياب', 'Days Absent')}</th>
-                  <th className="text-center py-2 px-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t(locale, 'النسبة', 'Rate')}</th>
-                  <th className="text-start py-2 px-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider w-48">{t(locale, 'المؤشر', 'Indicator')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {chronicAbsent.map((row, i) => {
-                  const severity = row.rate < 80 ? 'bg-rose-50' : row.rate < 90 ? 'bg-amber-50' : '';
-                  return (
-                    <motion.tr
-                      key={row.id}
-                      initial={{ opacity: 0, x: isRtl ? 20 : -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.45 + i * 0.03 }}
-                      className={`border-b border-slate-50 ${severity}`}
-                    >
-                      <td className="py-2.5 px-2 font-black text-slate-400">{i + 1}</td>
-                      <td className="py-2.5 px-2 font-bold text-slate-800">
-                        {locale === 'ar' ? row.student.name : row.student.nameEn}
-                      </td>
-                      <td className="py-2.5 px-2 text-slate-500 font-medium">
-                        {row.student.grade}{row.student.section}
-                      </td>
-                      <td className="py-2.5 px-2 text-center font-black text-rose-600">{row.absent}</td>
-                      <td className="py-2.5 px-2 text-center">
-                        <span className={`inline-block px-2 py-0.5 rounded-lg text-xs font-black ${
-                          row.rate < 80 ? 'bg-rose-100 text-rose-700' :
-                          row.rate < 90 ? 'bg-amber-100 text-amber-700' :
-                          'bg-emerald-100 text-emerald-700'
-                        }`}>
-                          {row.rate}%
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-2">
-                        <div className="bg-slate-100 rounded-full h-3 overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${row.rate}%` }}
-                            transition={{ delay: 0.5 + i * 0.03, duration: 0.5 }}
-                            className={`h-full rounded-full ${row.rate < 80 ? 'bg-rose-400' : row.rate < 90 ? 'bg-amber-400' : 'bg-emerald-400'}`}
-                          />
-                        </div>
-                      </td>
-                    </motion.tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </motion.div>
+            <Download className="w-5 h-5" />
+            {t(locale, 'تحميل كـ PDF', 'Download as PDF')}
+          </button>
+          <button
+            onClick={handleCSV}
+            className="flex items-center justify-center gap-3 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold text-sm hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-300/30"
+          >
+            <FileSpreadsheet className="w-5 h-5" />
+            {t(locale, 'تحميل كـ Excel', 'Download as Excel')}
+          </button>
+        </div>
       </div>
-
-      {/* ─── Data Table Section ───────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="bg-white rounded-2xl border border-slate-100 overflow-hidden"
-      >
-        {/* Tab Header */}
-        <div className="flex items-center border-b border-slate-100 print:hidden">
-          <button
-            onClick={() => { setActiveTab('students'); setPage(1); }}
-            className={`flex-1 sm:flex-none px-6 py-3.5 text-sm font-black transition-all border-b-2 ${
-              activeTab === 'students'
-                ? 'text-sky-600 border-sky-500 bg-sky-50/50'
-                : 'text-slate-400 border-transparent hover:text-slate-600'
-            }`}
-          >
-            {t(locale, 'بيانات الطلاب', 'Student Data')}
-          </button>
-          <button
-            onClick={() => { setActiveTab('teachers'); setTeacherPage(1); }}
-            className={`flex-1 sm:flex-none px-6 py-3.5 text-sm font-black transition-all border-b-2 ${
-              activeTab === 'teachers'
-                ? 'text-sky-600 border-sky-500 bg-sky-50/50'
-                : 'text-slate-400 border-transparent hover:text-slate-600'
-            }`}
-          >
-            {t(locale, 'نشاط المعلمين', 'Teacher Activity')}
-          </button>
-        </div>
-
-        {/* Toolbar */}
-        <div className="p-4 flex flex-wrap items-center gap-3 border-b border-slate-50 print:hidden">
-          <div className="relative flex-1 min-w-[200px] max-w-[320px]">
-            <Search className={`w-4 h-4 text-slate-400 absolute top-1/2 -translate-y-1/2 ${isRtl ? 'right-3' : 'left-3'}`} />
-            <input
-              type="text"
-              placeholder={t(locale, 'بحث بالاسم...', 'Search by name...')}
-              value={activeTab === 'students' ? searchQuery : teacherSearch}
-              onChange={e => {
-                if (activeTab === 'students') { setSearchQuery(e.target.value); setPage(1); }
-                else { setTeacherSearch(e.target.value); setTeacherPage(1); }
-              }}
-              className={`w-full py-2.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 ${isRtl ? 'pr-9 pl-3' : 'pl-9 pr-3'}`}
-            />
-          </div>
-          {activeTab === 'students' && (
-            <div className="flex items-center gap-2">
-              <label className="text-xs font-bold text-slate-400">{t(locale, 'أقل من', 'Below')}</label>
-              <select
-                value={minRateFilter}
-                onChange={e => { setMinRateFilter(Number(e.target.value)); setPage(1); }}
-                className="px-3 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/30"
-              >
-                <option value={0}>{t(locale, 'الكل', 'All')}</option>
-                <option value={95}>95%</option>
-                <option value={90}>90%</option>
-                <option value={85}>85%</option>
-                <option value={80}>80%</option>
-              </select>
-            </div>
-          )}
-          <div className="text-xs font-bold text-slate-400">
-            {activeTab === 'students'
-              ? `${processedStudentData.length} ${t(locale, 'طالب', 'students')}`
-              : `${processedTeacherData.length} ${t(locale, 'معلم', 'teachers')}`
-            }
-          </div>
-        </div>
-
-        {/* ── Student Table ──────────────────────────────────────── */}
-        {activeTab === 'students' && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-slate-50/80">
-                  {([
-                    { key: 'name', label: t(locale, 'الاسم', 'Name'), w: '' },
-                    { key: 'grade', label: t(locale, 'الصف', 'Grade'), w: 'w-16' },
-                    { key: 'section', label: t(locale, 'الشعبة', 'Sec'), w: 'w-14' },
-                    { key: 'campus', label: t(locale, 'المبنى', 'Campus'), w: '' },
-                    { key: 'totalDays', label: t(locale, 'أيام', 'Days'), w: 'w-14' },
-                    { key: 'present', label: t(locale, 'حضور', 'Present'), w: 'w-16' },
-                    { key: 'absent', label: t(locale, 'غياب', 'Absent'), w: 'w-14' },
-                    { key: 'late', label: t(locale, 'تأخر', 'Late'), w: 'w-14' },
-                    { key: 'rate', label: t(locale, 'النسبة', 'Rate'), w: 'w-16' },
-                    { key: 'lastAbsent', label: t(locale, 'آخر غياب', 'Last Absent'), w: 'w-24' },
-                  ] as const).map(col => (
-                    <th
-                      key={col.key}
-                      onClick={() => handleSort(col.key)}
-                      className={`text-start py-2.5 px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider cursor-pointer hover:text-sky-500 transition-colors select-none ${col.w}`}
-                    >
-                      <div className="flex items-center gap-1">
-                        <span>{col.label}</span>
-                        <SortIcon col={col.key} />
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {pagedStudentData.map((row: any, i) => (
-                  <tr key={row.id} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                    <td className="py-2.5 px-3 font-bold text-slate-800">{row.name}</td>
-                    <td className="py-2.5 px-3 text-slate-600 font-medium">{row.grade}</td>
-                    <td className="py-2.5 px-3 text-slate-600 font-medium">{row.section}</td>
-                    <td className="py-2.5 px-3 text-slate-500 font-medium text-xs truncate max-w-[140px]">{row.campus}</td>
-                    <td className="py-2.5 px-3 text-slate-600 font-bold text-center">{row.totalDays}</td>
-                    <td className="py-2.5 px-3 text-emerald-600 font-bold text-center">{row.present}</td>
-                    <td className="py-2.5 px-3 text-rose-600 font-bold text-center">{row.absent}</td>
-                    <td className="py-2.5 px-3 text-amber-600 font-bold text-center">{row.late}</td>
-                    <td className="py-2.5 px-3 text-center">
-                      <span className={`inline-block px-2 py-0.5 rounded-lg text-xs font-black ${
-                        row.rate >= 95 ? 'bg-emerald-100 text-emerald-700' :
-                        row.rate >= 85 ? 'bg-amber-100 text-amber-700' :
-                        'bg-rose-100 text-rose-700'
-                      }`}>
-                        {row.rate}%
-                      </span>
-                    </td>
-                    <td className="py-2.5 px-3 text-slate-400 font-medium text-xs">{row.lastAbsent || '—'}</td>
-                  </tr>
-                ))}
-                {pagedStudentData.length === 0 && (
-                  <tr>
-                    <td colSpan={10} className="py-12 text-center text-slate-400 font-bold">
-                      {t(locale, 'لا توجد بيانات', 'No data found')}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {/* ── Teacher Table ──────────────────────────────────────── */}
-        {activeTab === 'teachers' && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-slate-50/80">
-                  {([
-                    { key: 'name', label: t(locale, 'الاسم', 'Name') },
-                    { key: 'subject', label: t(locale, 'المادة', 'Subject') },
-                    { key: 'campus', label: t(locale, 'المبنى', 'Campus') },
-                    { key: 'spaces', label: t(locale, 'المساحات', 'Spaces') },
-                    { key: 'totalHours', label: t(locale, 'إجمالي الساعات', 'Total Hours') },
-                    { key: 'avgDailyHours', label: t(locale, 'متوسط يومي', 'Avg Daily') },
-                    { key: 'actionsCount', label: t(locale, 'الإجراءات', 'Actions') },
-                    { key: 'lastActive', label: t(locale, 'آخر نشاط', 'Last Active') },
-                  ] as const).map(col => (
-                    <th
-                      key={col.key}
-                      onClick={() => handleSort(col.key)}
-                      className="text-start py-2.5 px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider cursor-pointer hover:text-sky-500 transition-colors select-none"
-                    >
-                      <div className="flex items-center gap-1">
-                        <span>{col.label}</span>
-                        <SortIcon col={col.key} isTeacher />
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {pagedTeacherData.map((row: any) => (
-                  <tr
-                    key={row.id}
-                    className={`border-b border-slate-50 hover:bg-slate-50/50 transition-colors ${row.inactive ? 'bg-rose-50/60' : ''}`}
-                  >
-                    <td className="py-2.5 px-3 font-bold text-slate-800">{row.name}</td>
-                    <td className="py-2.5 px-3 text-slate-600 font-medium">{row.subject}</td>
-                    <td className="py-2.5 px-3 text-slate-500 font-medium text-xs truncate max-w-[140px]">{row.campus}</td>
-                    <td className="py-2.5 px-3 text-slate-600 font-bold text-center">{row.spaces}</td>
-                    <td className="py-2.5 px-3 font-bold text-center">
-                      <span className={row.inactive ? 'text-rose-500' : 'text-sky-600'}>{row.totalHours}h</span>
-                    </td>
-                    <td className="py-2.5 px-3 text-slate-600 font-bold text-center">{row.avgDailyHours}h</td>
-                    <td className="py-2.5 px-3 text-slate-600 font-bold text-center">{row.actionsCount}</td>
-                    <td className="py-2.5 px-3 text-slate-400 font-medium text-xs">{row.lastActive || '—'}</td>
-                  </tr>
-                ))}
-                {pagedTeacherData.length === 0 && (
-                  <tr>
-                    <td colSpan={8} className="py-12 text-center text-slate-400 font-bold">
-                      {t(locale, 'لا توجد بيانات', 'No data found')}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {/* Pagination */}
-        <div className="p-4 flex items-center justify-between border-t border-slate-50 print:hidden">
-          <span className="text-xs font-bold text-slate-400">
-            {t(locale, 'صفحة', 'Page')} {activeTab === 'students' ? page : teacherPage} {t(locale, 'من', 'of')} {activeTab === 'students' ? totalStudentPages : totalTeacherPages}
-          </span>
-          <div className="flex items-center gap-1">
-            <button
-              disabled={activeTab === 'students' ? page <= 1 : teacherPage <= 1}
-              onClick={() => activeTab === 'students' ? setPage(p => p - 1) : setTeacherPage(p => p - 1)}
-              className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-            >
-              {isRtl ? <ChevronRight className="w-4 h-4 text-slate-600" /> : <ChevronLeft className="w-4 h-4 text-slate-600" />}
-            </button>
-            {(() => {
-              const totalPages = activeTab === 'students' ? totalStudentPages : totalTeacherPages;
-              const currentPage = activeTab === 'students' ? page : teacherPage;
-              const setCurrentPage = activeTab === 'students' ? setPage : setTeacherPage;
-              const pages: (number | string)[] = [];
-              if (totalPages <= 7) {
-                for (let i = 1; i <= totalPages; i++) pages.push(i);
-              } else {
-                pages.push(1);
-                if (currentPage > 3) pages.push('...');
-                for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) pages.push(i);
-                if (currentPage < totalPages - 2) pages.push('...');
-                pages.push(totalPages);
-              }
-              return pages.map((p, idx) =>
-                typeof p === 'string' ? (
-                  <span key={`ellipsis-${idx}`} className="w-8 h-8 flex items-center justify-center text-slate-400 text-xs">...</span>
-                ) : (
-                  <button
-                    key={p}
-                    onClick={() => setCurrentPage(p)}
-                    className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
-                      p === currentPage
-                        ? 'bg-sky-500 text-white shadow-md shadow-sky-500/20'
-                        : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
-                    }`}
-                  >
-                    {p}
-                  </button>
-                ),
-              );
-            })()}
-            <button
-              disabled={activeTab === 'students' ? page >= totalStudentPages : teacherPage >= totalTeacherPages}
-              onClick={() => activeTab === 'students' ? setPage(p => p + 1) : setTeacherPage(p => p + 1)}
-              className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-            >
-              {isRtl ? <ChevronLeft className="w-4 h-4 text-slate-600" /> : <ChevronRight className="w-4 h-4 text-slate-600" />}
-            </button>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* ─── Download Section (bottom) ────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="flex items-center justify-center gap-3 pb-4 print:hidden"
-      >
-        <button
-          onClick={handlePrint}
-          className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-600 hover:border-sky-300 hover:shadow-md transition-all"
-        >
-          <Download className="w-4 h-4" />
-          {t(locale, 'تحميل كـ PDF', 'Download as PDF')}
-        </button>
-        <button
-          onClick={downloadCSV}
-          className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-sm font-bold text-white hover:shadow-lg hover:shadow-sky-500/25 transition-all"
-        >
-          <FileSpreadsheet className="w-4 h-4" />
-          {t(locale, 'تحميل كـ Excel', 'Download as Excel')}
-        </button>
-      </motion.div>
     </div>
   );
-};
+}
+
+export default AttendanceReport;
