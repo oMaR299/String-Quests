@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { UserProvider } from './contexts/UserContext';
 import { QuizSessionProvider } from './contexts/QuizSessionContext';
 import { I18nProvider } from './contexts/I18nContext';
+import { SkillModelProvider } from './contexts/SkillModelContext';
 import { AppShell } from './layouts/AppShell';
 
 // Pages (lazy loaded for code splitting)
@@ -24,6 +25,7 @@ const CurriculumAdminPage = lazy(() => import('./components/curriculum-admin/Cur
 import { TeacherLayout } from './components/teacher/TeacherLayout';
 import { EduMatrixAllocation } from './components/admin/EduMatrixAllocation';
 import { PrincipalLayout } from './components/principal/PrincipalLayout';
+import { NotificationLayout } from './components/notification-admin/NotificationLayout';
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[50vh]">
@@ -35,6 +37,7 @@ const App: React.FC = () => {
   return (
     <UserProvider>
       <I18nProvider>
+        <SkillModelProvider>
         <QuizSessionProvider>
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
@@ -55,6 +58,7 @@ const App: React.FC = () => {
 
               {/* Role-based routes (own layouts, untouched) */}
               <Route path="/teacher/*" element={<TeacherLayout onLogout={() => window.location.href = '/home'} />} />
+              <Route path="/admin/notifications/*" element={<NotificationLayout onExit={() => window.location.href = '/home'} />} />
               <Route path="/admin/*" element={<EduMatrixAllocation onExit={() => window.location.href = '/home'} />} />
               <Route path="/curriculum-admin" element={<CurriculumAdminPage />} />
               <Route path="/principal/*" element={<PrincipalLayout onLogout={() => window.location.href = '/home'} />} />
@@ -68,6 +72,7 @@ const App: React.FC = () => {
             </Routes>
           </Suspense>
         </QuizSessionProvider>
+        </SkillModelProvider>
       </I18nProvider>
     </UserProvider>
   );

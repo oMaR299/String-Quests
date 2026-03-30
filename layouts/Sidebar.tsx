@@ -12,6 +12,7 @@ import {
   Building2,
   FileText,
   Database,
+  Megaphone,
 } from 'lucide-react';
 import { useI18n } from '../contexts/I18nContext';
 
@@ -44,6 +45,7 @@ const DEV_TOGGLES: DevToggle[] = [
   { label: 'Principal', icon: Building2, route: '/principal', color: 'text-emerald-400' },
   { label: 'Parent Report', icon: FileText, route: '/parent-report', color: 'text-violet-400' },
   { label: 'Curriculum', icon: Database, route: '/curriculum-admin', color: 'text-cyan-400' },
+  { label: 'Notifications', icon: Megaphone, route: '/admin/notifications', color: 'text-sky-400' },
 ];
 
 export const Sidebar: React.FC = () => {
