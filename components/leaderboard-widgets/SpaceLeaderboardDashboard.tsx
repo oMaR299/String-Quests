@@ -10,6 +10,7 @@ import type { Subject, StudentProfile, League } from '../../data/complexLeaderbo
 import { SUBJECT_UNITS as DETAIL_UNITS } from '../../data/subjectUnits';
 import type { SubjectUnit } from '../../data/subjectUnits';
 import { StudentProfileModal } from '../StudentProfileModal';
+import { AccuracyVsXpScatter } from './AccuracyVsXpScatter';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -238,15 +239,6 @@ export function SpaceLeaderboardDashboard({
 
     return { weekly: buildData(weekLabels), monthly: buildData(monthLabels) };
   }, [stats.avgXp, stats.avgAcc, spaceGrade]);
-
-  // ─── Scatter Data ──────────────────────────────────────────────────────────
-  const scatterData = useMemo(() => {
-    const maxXp = Math.max(...students.map(s => s.subjectXp[subject] || 0), 1);
-    const medianXp = students.length > 0
-      ? [...students].sort((a, b) => (a.subjectXp[subject] || 0) - (b.subjectXp[subject] || 0))[Math.floor(students.length / 2)].subjectXp[subject] || maxXp / 2
-      : maxXp / 2;
-    return { maxXp, medianXp, students };
-  }, [students, subject]);
 
   // ─── Improvers / Champions / Streaks ───────────────────────────────────────
   const improvers = useMemo(() => {
@@ -729,88 +721,28 @@ export function SpaceLeaderboardDashboard({
             </div>
           </motion.div>
 
-          {/* Chart 2: Scatter Plot */}
+          {/* Chart 2: Enhanced Scatter Plot */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm"
+            transition={{ delay: 0.35 }}
           >
-            <h3 className="text-lg font-black text-slate-900 mb-4">
-              {t('الدقة مقابل النقاط', 'Accuracy vs XP')}
-            </h3>
-            <div className="relative h-64">
-              <svg viewBox="0 0 400 240" className="w-full h-full">
-                {/* Axes */}
-                <line x1="45" y1="10" x2="45" y2="210" stroke="#e2e8f0" strokeWidth="1" />
-                <line x1="45" y1="210" x2="390" y2="210" stroke="#e2e8f0" strokeWidth="1" />
-
-                {/* Quadrant dividers */}
-                <line x1="45" y1={210 - (70 / 100) * 200} x2="390" y2={210 - (70 / 100) * 200}
-                  stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />
-                {(() => {
-                  const medX = 45 + (scatterData.medianXp / scatterData.maxXp) * 345;
-                  return <line x1={medX} y1="10" x2={medX} y2="210" stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />;
-                })()}
-
-                {/* Quadrant labels */}
-                {(() => {
-                  const medX = 45 + (scatterData.medianXp / scatterData.maxXp) * 345;
-                  const accY = 210 - (70 / 100) * 200;
-                  return (
-                    <>
-                      {/* Top-right: Star Performer */}
-                      <rect x={Math.min(medX + 5, 300)} y="15" width="80" height="18" rx="4" fill="#dcfce7" />
-                      <text x={Math.min(medX + 45, 340)} y="28" textAnchor="middle" className="text-[8px] fill-emerald-700 font-['Cairo'] font-bold">
-                        {t('⭐ متفوق', '⭐ Star')}
-                      </text>
-                      {/* Top-left: Accurate */}
-                      <rect x="50" y="15" width="70" height="18" rx="4" fill="#dbeafe" />
-                      <text x="85" y="28" textAnchor="middle" className="text-[8px] fill-blue-700 font-['Cairo'] font-bold">
-                        {t('🎯 دقيق', '🎯 Accurate')}
-                      </text>
-                      {/* Bottom-right: Active */}
-                      <rect x={Math.min(medX + 5, 300)} y={accY + 5} width="72" height="18" rx="4" fill="#fef3c7" />
-                      <text x={Math.min(medX + 41, 336)} y={accY + 17} textAnchor="middle" className="text-[8px] fill-amber-700 font-['Cairo'] font-bold">
-                        {t('⚡ نشيط', '⚡ Active')}
-                      </text>
-                      {/* Bottom-left: Needs Support */}
-                      <rect x="50" y={accY + 5} width="82" height="18" rx="4" fill="#fee2e2" />
-                      <text x="91" y={accY + 17} textAnchor="middle" className="text-[8px] fill-red-700 font-['Cairo'] font-bold">
-                        {t('🆘 يحتاج دعم', '🆘 Support')}
-                      </text>
-                    </>
-                  );
-                })()}
-
-                {/* Axis labels */}
-                <text x="220" y="232" textAnchor="middle" className="text-[9px] fill-slate-400 font-['Cairo']">XP</text>
-                <text x="12" y="110" textAnchor="middle" className="text-[9px] fill-slate-400 font-['Cairo']"
-                  transform="rotate(-90, 12, 110)">{t('الدقة', 'Acc')}%</text>
-
-                {/* Student dots */}
-                {scatterData.students.map((st, i) => {
-                  const xp = st.subjectXp[subject] || 0;
-                  const acc = st.subjectDetails[subject]?.accuracy || 0;
-                  const cx = 45 + (xp / scatterData.maxXp) * 345;
-                  const cy = 210 - (acc / 100) * 200;
-                  return (
-                    <motion.circle
-                      key={st.id}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 0.85, scale: 1 }}
-                      transition={{ delay: 0.5 + i * 0.04 }}
-                      cx={cx} cy={cy} r="6"
-                      fill={LEAGUE_COLORS[st.league]}
-                      stroke="white" strokeWidth="1.5"
-                      className="cursor-pointer hover:opacity-100"
-                    >
-                      <title>{`${st.name}\nXP: ${xp}\n${t('دقة', 'Acc')}: ${acc}%`}</title>
-                    </motion.circle>
-                  );
-                })}
-              </svg>
-            </div>
+            <AccuracyVsXpScatter
+              students={students.map(s => ({
+                id: s.id,
+                name: s.name,
+                xp: s.subjectXp[subject] || 0,
+                accuracy: s.subjectDetails[subject]?.accuracy || 0,
+                league: s.league,
+                grade: typeof s.grade === 'number' ? s.grade : undefined,
+                section: s.section,
+              }))}
+              locale={locale}
+              onStudentClick={(id) => {
+                const st = students.find(s => s.id === id);
+                if (st) setSelectedStudent(st);
+              }}
+            />
           </motion.div>
         </div>
 
@@ -969,7 +901,15 @@ export function SpaceLeaderboardDashboard({
 
       {/* ═══ Unit Detail Modal ═══ */}
       <AnimatePresence>
-        {selectedUnit && unitModalData && (
+        {selectedUnit && unitModalData && (() => {
+          const avgAccuracy = unitModalData.lessonBreakdown.length > 0
+            ? Math.round(unitModalData.lessonBreakdown.reduce((s, l) => s + l.avgScore, 0) / unitModalData.lessonBreakdown.length)
+            : 0;
+          const avgXp = unitModalData.top5.length > 0
+            ? Math.round(unitModalData.top5.reduce((s, st) => s + st.unitScore, 0) / unitModalData.top5.length)
+            : 0;
+
+          return (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -983,26 +923,50 @@ export function SpaceLeaderboardDashboard({
               exit={{ opacity: 0, scale: 0.92, y: 30 }}
               transition={{ type: 'spring', damping: 25 }}
               onClick={e => e.stopPropagation()}
-              className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[85vh] overflow-y-auto font-['Cairo']"
+              className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[85vh] overflow-y-auto overflow-hidden font-['Cairo']"
               dir={isRTL ? 'rtl' : 'ltr'}
             >
-              {/* Modal Header */}
-              <div className="flex items-center justify-between p-5 border-b border-slate-100 sticky top-0 bg-white rounded-t-2xl z-10">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">{selectedUnit.emoji}</span>
-                  <h3 className="text-lg font-black text-slate-900">
-                    {locale === 'ar' ? selectedUnit.nameAr : selectedUnit.nameEn}
-                  </h3>
+              {/* Gradient header strip */}
+              <div className="h-2 bg-gradient-to-r from-sky-400 to-blue-600 rounded-t-2xl" />
+
+              {/* Header content */}
+              <div className="p-6 border-b border-slate-100">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-sky-500/20">
+                      {selectedUnit.emoji || '📚'}
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-black text-slate-900">{selectedUnit.nameAr}</h2>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-600">{SUBJECT_AR[subject] || subject}</span>
+                        <span className="text-xs text-slate-400">{selectedUnit.lessons.length} {t('درس', 'lessons')}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button onClick={() => setSelectedUnit(null)} className="p-2 rounded-xl hover:bg-slate-100 transition-colors">
+                    <X className="w-5 h-5 text-slate-400" />
+                  </button>
                 </div>
-                <button
-                  onClick={() => setSelectedUnit(null)}
-                  className="p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
-                >
-                  <X className="w-5 h-5 text-slate-500" />
-                </button>
               </div>
 
-              <div className="p-5 space-y-6">
+              {/* Stats cards */}
+              <div className="grid grid-cols-3 gap-3 px-6 py-4 border-b border-slate-50">
+                <div className="text-center p-3 bg-emerald-50 rounded-xl">
+                  <div className="text-lg font-black text-emerald-600">{avgAccuracy}%</div>
+                  <div className="text-[10px] font-bold text-emerald-500">{t('متوسط الدقة', 'Avg Accuracy')}</div>
+                </div>
+                <div className="text-center p-3 bg-sky-50 rounded-xl">
+                  <div className="text-lg font-black text-sky-600">{avgXp}</div>
+                  <div className="text-[10px] font-bold text-sky-500">{t('متوسط النقاط', 'Avg XP')}</div>
+                </div>
+                <div className="text-center p-3 bg-violet-50 rounded-xl">
+                  <div className="text-lg font-black text-violet-600">{students.length}</div>
+                  <div className="text-[10px] font-bold text-violet-500">{t('عدد الطلاب', 'Students')}</div>
+                </div>
+              </div>
+
+              <div className="p-6 space-y-6">
                 {/* Lesson Breakdown Table */}
                 <div>
                   <h4 className="text-sm font-black text-slate-800 mb-3">
@@ -1011,26 +975,37 @@ export function SpaceLeaderboardDashboard({
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="text-slate-500 border-b border-slate-100">
-                          <th className="py-2 px-2 text-start font-semibold">{t('الدرس', 'Lesson')}</th>
-                          <th className="py-2 px-2 text-start font-semibold">{t('متوسط النتيجة', 'Avg Score')}</th>
-                          <th className="py-2 px-2 text-start font-semibold">{t('الأفضل', 'Top Student')}</th>
-                          <th className="py-2 px-2 text-center font-semibold">{t('المحاولات', 'Attempts')}</th>
+                        <tr className="text-slate-500 border-b border-slate-200">
+                          <th className="py-2.5 px-3 text-start font-semibold">{t('الدرس', 'Lesson')}</th>
+                          <th className="py-2.5 px-3 text-start font-semibold">{t('متوسط النتيجة', 'Avg Score')}</th>
+                          <th className="py-2.5 px-3 text-start font-semibold">{t('الأفضل', 'Top Student')}</th>
+                          <th className="py-2.5 px-3 text-center font-semibold">{t('المحاولات', 'Attempts')}</th>
                         </tr>
                       </thead>
                       <tbody>
                         {unitModalData.lessonBreakdown.map((lesson, i) => (
-                          <tr key={i} className="border-b border-slate-50">
-                            <td className="py-2.5 px-2 font-semibold text-slate-700 capitalize">{lesson.name}</td>
-                            <td className="py-2.5 px-2">
-                              <span className={`font-bold ${
-                                lesson.avgScore >= 80 ? 'text-emerald-600' : lesson.avgScore >= 60 ? 'text-amber-600' : 'text-red-500'
+                          <tr key={i} className={`border-b border-slate-50 ${i % 2 === 1 ? 'bg-slate-50/50' : ''}`}>
+                            <td className="py-3 px-3 font-semibold text-slate-700 capitalize">{lesson.name}</td>
+                            <td className="py-3 px-3">
+                              <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold ${
+                                lesson.avgScore >= 80
+                                  ? 'bg-emerald-50 text-emerald-600'
+                                  : lesson.avgScore >= 60
+                                    ? 'bg-amber-50 text-amber-600'
+                                    : 'bg-red-50 text-red-500'
                               }`}>
                                 {lesson.avgScore}%
                               </span>
                             </td>
-                            <td className="py-2.5 px-2 text-slate-600 truncate max-w-[120px]">{lesson.topStudent}</td>
-                            <td className="py-2.5 px-2 text-center text-slate-500">{lesson.attempts}</td>
+                            <td className="py-3 px-3">
+                              <div className="flex items-center gap-2">
+                                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center text-[10px] font-bold text-sky-700">
+                                  {lesson.topStudent.charAt(0)}
+                                </div>
+                                <span className="text-slate-600 truncate max-w-[100px]">{lesson.topStudent}</span>
+                              </div>
+                            </td>
+                            <td className="py-3 px-3 text-center text-slate-500 font-medium">{lesson.attempts}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1045,15 +1020,22 @@ export function SpaceLeaderboardDashboard({
                   </h4>
                   <div className="space-y-2">
                     {unitModalData.top5.map((st, i) => {
-                      const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}`;
+                      const medalIcon = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
+                      const rankNum = i + 1;
                       return (
                         <div
                           key={st.id}
-                          className="flex items-center gap-3 py-2 cursor-pointer hover:bg-sky-50/50 rounded-lg transition-colors px-1"
+                          className={`flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-sky-50/50 rounded-xl transition-colors ${i % 2 === 1 ? 'bg-slate-50/50' : ''}`}
                           onClick={() => { setSelectedUnit(null); setSelectedStudent(st); }}
                         >
-                          <span className="w-6 text-center font-bold text-sm">{medal}</span>
-                          <div className={`w-7 h-7 rounded-full ${st.avatar} flex items-center justify-center text-[10px] font-bold text-slate-700`}>
+                          <div className="w-7 flex items-center justify-center">
+                            {medalIcon ? (
+                              <span className="text-base">{medalIcon}</span>
+                            ) : (
+                              <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500">{rankNum}</span>
+                            )}
+                          </div>
+                          <div className={`w-8 h-8 rounded-full ${st.avatar} flex items-center justify-center text-[10px] font-bold text-slate-700`}>
                             {st.name.charAt(0)}
                           </div>
                           <span className="flex-1 font-semibold text-slate-800 text-sm truncate">{st.name}</span>
@@ -1099,7 +1081,8 @@ export function SpaceLeaderboardDashboard({
               </div>
             </motion.div>
           </motion.div>
-        )}
+          );
+        })()}
       </AnimatePresence>
 
       {/* Student Profile Modal */}
