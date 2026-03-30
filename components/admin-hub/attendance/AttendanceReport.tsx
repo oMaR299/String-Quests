@@ -917,7 +917,7 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
               >
                 <div className="flex justify-center py-4">
                   <RadarChart
-                    size={240}
+                    size={320}
                     axes={[
                       {
                         label: t(locale, 'الحضور', 'Attendance'),
@@ -1043,9 +1043,10 @@ export function AttendanceReport({ locale, onBack }: AttendanceReportProps) {
               <div>
                 <p className="text-xs font-bold text-slate-500 mb-2">{t(locale, 'ترتيب المعلمين', 'Teacher Ranking')}</p>
                 <HorizontalBarChart
-                  data={teacherRanking.slice(0, 10).map(d => ({
+                  data={teacherRanking.slice(0, 10).map((d, i) => ({
                     ...d,
-                    color: d.value >= 95 ? '#10b981' : d.value >= 85 ? '#f59e0b' : '#f43f5e',
+                    // Use position-based colors so differences are visible even when values are close
+                    color: i < 3 ? '#10b981' : i < 6 ? '#0ea5e9' : i < 8 ? '#f59e0b' : '#f43f5e',
                   }))}
                   maxValue={100}
                   barHeight={18}

@@ -72,7 +72,7 @@ interface SparklineProps {
   className?: string;
 }
 
-export function Sparkline({ data, color = '#10b981', width = 60, height = 20, className = '' }: SparklineProps) {
+export function Sparkline({ data, color = '#10b981', width = 80, height = 28, className = '' }: SparklineProps) {
   const uid = useId();
   if (!data.length) return null;
   const min = Math.min(...data);
@@ -101,7 +101,7 @@ export function Sparkline({ data, color = '#10b981', width = 60, height = 20, cl
         d={line}
         fill="none"
         stroke={color}
-        strokeWidth={1.5}
+        strokeWidth={2}
         strokeLinecap="round"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
@@ -308,9 +308,9 @@ export function HorizontalBarChart({
 
   const max = forcedMax ?? Math.max(...data.map(d => d.value), 1);
   const rowH = barHeight + 14;
-  const labelW = 120;
-  const valueW = 50;
-  const vWidth = 500;
+  const labelW = 160;
+  const valueW = 55;
+  const vWidth = 600;
   const vHeight = data.length * rowH + 8;
   const barAreaW = vWidth - labelW - valueW - 16;
 
