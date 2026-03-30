@@ -27,6 +27,7 @@ import { EduMatrixAllocation } from './components/admin/EduMatrixAllocation';
 import { PrincipalLayout } from './components/principal/PrincipalLayout';
 import { NotificationLayout } from './components/notification-admin/NotificationLayout';
 import { AdminHubLayout } from './components/admin-hub/AdminHubLayout';
+import { LeaderboardShowcase } from './components/leaderboard-widgets/LeaderboardShowcase';
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[50vh]">
@@ -64,6 +65,9 @@ const App: React.FC = () => {
               <Route path="/admin/*" element={<EduMatrixAllocation onExit={() => window.location.href = '/home'} />} />
               <Route path="/curriculum-admin" element={<CurriculumAdminPage />} />
               <Route path="/principal/*" element={<PrincipalLayout onLogout={() => window.location.href = '/home'} />} />
+
+              {/* Leaderboard showcase */}
+              <Route path="/leaderboard-widgets" element={<LeaderboardShowcase onExit={() => window.location.href = '/home'} />} />
 
               {/* Stakeholder report routes */}
               <Route path="/parent-report" element={<ParentReportPage />} />
