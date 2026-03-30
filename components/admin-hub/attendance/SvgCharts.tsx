@@ -308,7 +308,7 @@ export function HorizontalBarChart({
 
   const max = forcedMax ?? Math.max(...data.map(d => d.value), 1);
   const rowH = barHeight + 14;
-  const labelW = 100;
+  const labelW = 120;
   const valueW = 50;
   const vWidth = 500;
   const vHeight = data.length * rowH + 8;
@@ -340,11 +340,11 @@ export function HorizontalBarChart({
             style={{ cursor: 'default' }}
           >
             {/* Label */}
-            <text x={labelW - 6} y={y + barHeight / 2 + 4} textAnchor="end" fill={isHov ? '#f8fafc' : '#94a3b8'} fontSize={11} fontWeight={isHov ? 700 : 500}>
+            <text x={labelW - 6} y={y + barHeight / 2 + 4} textAnchor="end" fill={isHov ? '#334155' : '#94a3b8'} fontSize={11} fontWeight={isHov ? 700 : 500}>
               {d.label}
             </text>
             {/* Bar bg */}
-            <rect x={labelW} y={y} width={barAreaW} height={barHeight} rx={barHeight / 2} fill="#1e293b" opacity={0.3} />
+            <rect x={labelW} y={y} width={barAreaW} height={barHeight} rx={barHeight / 2} fill="#e2e8f0" opacity={0.5} />
             {/* Bar fill */}
             <motion.rect
               x={labelW}
@@ -483,7 +483,7 @@ export function VerticalBarChart({
               </motion.text>
             )}
             {/* X label */}
-            <text x={x + barW / 2} y={margin.top + ch + 16} textAnchor="middle" fill={isHov ? '#f8fafc' : '#94a3b8'} fontSize={10} fontWeight={isHov ? 700 : 400}>
+            <text x={x + barW / 2} y={margin.top + ch + 16} textAnchor="middle" fill={isHov ? '#334155' : '#94a3b8'} fontSize={10} fontWeight={isHov ? 700 : 400}>
               {d.label}
             </text>
           </g>
@@ -541,7 +541,7 @@ export function DonutChart({
   return (
     <svg viewBox={`0 0 ${size} ${size + legendH}`} className="w-full" style={{ fontFamily: FONT, maxWidth: size }}>
       {/* Background ring */}
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#1e293b" strokeWidth={strokeWidth} opacity={0.3} />
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#e2e8f0" strokeWidth={strokeWidth} opacity={0.3} />
 
       {/* Segments */}
       {arcs.map((arc) => (
@@ -568,7 +568,7 @@ export function DonutChart({
 
       {/* Center text */}
       {centerValue && (
-        <text x={cx} y={cy - 2} textAnchor="middle" dominantBaseline="central" fill="#f8fafc" fontSize={size / 5.5} fontWeight={800}>
+        <text x={cx} y={cy - 2} textAnchor="middle" dominantBaseline="central" fill="#1e293b" fontSize={size / 5.5} fontWeight={800}>
           {centerValue}
         </text>
       )}
@@ -584,7 +584,7 @@ export function DonutChart({
         return (
           <g key={i} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)} style={{ cursor: 'default' }}>
             <circle cx={12} cy={ly + 6} r={4} fill={seg.color} />
-            <text x={22} y={ly + 10} fill="#cbd5e1" fontSize={11} fontWeight={500}>{seg.label ?? `Segment ${i + 1}`}</text>
+            <text x={22} y={ly + 10} fill="#64748b" fontSize={11} fontWeight={500}>{seg.label ?? `Segment ${i + 1}`}</text>
             <text x={size - 8} y={ly + 10} textAnchor="end" fill="#94a3b8" fontSize={11} fontWeight={700}>{seg.value}</text>
           </g>
         );
@@ -630,14 +630,14 @@ export function CalendarHeatmap({
   data,
   colorScale = DEFAULT_HEAT_COLORS,
   weeksToShow = 16,
-  cellSize = 14,
+  cellSize = 24,
   locale = 'ar',
   onCellHover,
 }: CalendarHeatmapProps) {
   const [tooltip, setTooltip] = useState<{ x: number; y: number; date: string; value: number } | null>(null);
 
   const gap = 3;
-  const labelW = 32;
+  const labelW = 50;
   const headerH = 18;
   const rows = 5;
   const cols = weeksToShow;
@@ -684,20 +684,20 @@ export function CalendarHeatmap({
       if (cell.row !== 0) continue;
       const m = new Date(cell.date).getMonth();
       if (m !== lastMonth) {
-        labels.push({ label: new Date(cell.date).toLocaleString('en', { month: 'short' }), col: cell.col });
+        labels.push({ label: new Date(cell.date).toLocaleString(locale === 'ar' ? 'ar-SA' : 'en', { month: 'short' }), col: cell.col });
         lastMonth = m;
       }
     }
     return labels;
-  }, [cells]);
+  }, [cells, locale]);
 
   function cellColor(value: number | null): string {
-    if (value === null) return '#334155'; // slate-700 / no data
+    if (value === null) return '#e2e8f0'; // slate-200 / no data
     const sorted = [...colorScale].sort((a, b) => b.threshold - a.threshold);
     for (const s of sorted) {
       if (value >= s.threshold) return s.color;
     }
-    return sorted[sorted.length - 1]?.color ?? '#334155';
+    return sorted[sorted.length - 1]?.color ?? '#e2e8f0';
   }
 
   return (
@@ -815,7 +815,7 @@ export function RadarChart({
             key={i}
             points={ringPts.map(p => p.join(',')).join(' ')}
             fill="none"
-            stroke="#334155"
+            stroke="#e2e8f0"
             strokeWidth={0.5}
             opacity={0.5}
           />
@@ -825,7 +825,7 @@ export function RadarChart({
       {/* Axis lines */}
       {axes.map((_, i) => {
         const [ex, ey] = polarToXY(i * angleStep, maxR);
-        return <line key={i} x1={cx} y1={cy} x2={ex} y2={ey} stroke="#334155" strokeWidth={0.5} opacity={0.5} />;
+        return <line key={i} x1={cx} y1={cy} x2={ex} y2={ey} stroke="#e2e8f0" strokeWidth={0.5} opacity={0.5} />;
       })}
 
       {/* Value polygon (animated) */}
@@ -870,7 +870,7 @@ export function RadarChart({
             y={ly}
             textAnchor="middle"
             dominantBaseline="central"
-            fill={hovered === i ? '#f8fafc' : '#94a3b8'}
+            fill={hovered === i ? '#334155' : '#64748b'}
             fontSize={10}
             fontWeight={hovered === i ? 700 : 500}
           >
@@ -1068,7 +1068,7 @@ export function ProgressRing({
       onMouseLeave={() => setHovered(false)}
     >
       {/* Background ring */}
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#1e293b" strokeWidth={strokeWidth} opacity={0.3} />
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#e2e8f0" strokeWidth={strokeWidth} opacity={0.3} />
 
       {/* Progress arc */}
       <motion.circle
@@ -1087,7 +1087,7 @@ export function ProgressRing({
       />
 
       {/* Center percentage */}
-      <text x={cx} y={label ? cy - 4 : cy} textAnchor="middle" dominantBaseline="central" fill="#f8fafc" fontSize={size / 4.2} fontWeight={800}>
+      <text x={cx} y={label ? cy - 4 : cy} textAnchor="middle" dominantBaseline="central" fill="#1e293b" fontSize={size / 4.2} fontWeight={800}>
         {displayPct}%
       </text>
 
