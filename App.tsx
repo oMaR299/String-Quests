@@ -26,6 +26,7 @@ import { TeacherLayout } from './components/teacher/TeacherLayout';
 import { EduMatrixAllocation } from './components/admin/EduMatrixAllocation';
 import { PrincipalLayout } from './components/principal/PrincipalLayout';
 import { NotificationLayout } from './components/notification-admin/NotificationLayout';
+import { AdminHubLayout } from './components/admin-hub/AdminHubLayout';
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[50vh]">
@@ -58,6 +59,7 @@ const App: React.FC = () => {
 
               {/* Role-based routes (own layouts, untouched) */}
               <Route path="/teacher/*" element={<TeacherLayout onLogout={() => window.location.href = '/home'} />} />
+              <Route path="/admin/hub/*" element={<AdminHubLayout onExit={() => window.location.href = '/home'} />} />
               <Route path="/admin/notifications/*" element={<NotificationLayout onExit={() => window.location.href = '/home'} />} />
               <Route path="/admin/*" element={<EduMatrixAllocation onExit={() => window.location.href = '/home'} />} />
               <Route path="/curriculum-admin" element={<CurriculumAdminPage />} />
