@@ -172,31 +172,55 @@ export function GradesTab({ subject, locale }: GradesTabProps) {
   }, [sectionRows]);
 
   /* ── Radar chart data ──────────────────────────── */
+  // Show top 3 + worst section for contrast (max 4 polygons to reduce clutter)
   const radarData = useMemo(() => {
-    if (sectionRows.length === 0 || sectionRows.length > 6) return null;
+    if (sectionRows.length === 0) return null;
+
+    // Sort by accuracy descending, pick top 3 + worst 1
+    const sorted = [...sectionRows].sort((a, b) => b.avgAccuracy - a.avgAccuracy);
+    const top3 = sorted.slice(0, 3);
+    const worst = sorted[sorted.length - 1];
+    const selected = worst && !top3.includes(worst) ? [...top3, worst] : top3;
+
+    // Distinct, high-contrast colors: blue, green, amber, red
+    const radarColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
+
+    // Abbreviate section labels for legend readability
+    const abbreviate = (label: string) => {
+      // Extract section letter (أ, ب, etc.) and simplify campus name
+      const sectionMatch = label.match(/شعبة\s*(\S+)/);
+      const sectionLetter = sectionMatch ? sectionMatch[1] : label.slice(0, 4);
+
+      if (label.includes('بنين')) return `${sectionLetter}-بنين`;
+      if (label.includes('بنات')) return `${sectionLetter}-بنات`;
+      if (label.includes('المستقبل')) return `${sectionLetter}-المستقبل`;
+      // Fallback: just use the first few words
+      return label.length > 12 ? label.slice(0, 12) : label;
+    };
 
     const axes = [
       { label: t('الدقة', 'Accuracy'), maxValue: 100 },
-      { label: t('XP', 'XP'), maxValue: Math.max(...sectionRows.map(r => r.avgXp), 1) },
-      { label: t('الطلاب', 'Students'), maxValue: Math.max(...sectionRows.map(r => r.studentCount), 1) },
+      { label: t('XP', 'XP'), maxValue: Math.max(...selected.map(r => r.avgXp), 1) },
+      { label: t('الطلاب', 'Students'), maxValue: Math.max(...selected.map(r => r.studentCount), 1) },
       { label: t('الإكمال', 'Completion'), maxValue: 100 },
       { label: t('المشاركة', 'Engagement'), maxValue: 100 },
     ];
 
-    const datasets = sectionRows.map(r => {
-      // mock completion and engagement
-      const completion = Math.min(100, r.avgAccuracy + Math.floor(Math.random() * 15));
+    const datasets = selected.map((r, i) => {
+      // mock completion and engagement (use deterministic seed to avoid re-render jitter)
+      const seed = r.section.charCodeAt(0) + r.campusId.charCodeAt(0);
+      const completion = Math.min(100, r.avgAccuracy + (seed % 15));
       const engagement = Math.min(100, Math.round((r.students.filter(s => (s.subjectDetails[subjectKey]?.accuracy ?? 0) > 60).length / Math.max(r.studentCount, 1)) * 100));
 
       return {
-        name: r.label,
+        name: locale === 'ar' ? abbreviate(r.label) : r.label,
         values: [r.avgAccuracy, r.avgXp, r.studentCount, completion, engagement],
-        color: CAMPUS_COLORS[r.campusId]?.radar || '#94a3b8',
+        color: radarColors[i % radarColors.length],
       };
     });
 
     return { axes, datasets };
-  }, [sectionRows, subjectKey, t]);
+  }, [sectionRows, subjectKey, t, locale]);
 
   /* ── Section detail panel data ─────────────────── */
   const sectionDetail = useMemo(() => {
@@ -397,20 +421,20 @@ export function GradesTab({ subject, locale }: GradesTabProps) {
             {radarData ? (
               <>
                 <div className="flex justify-center">
-                  <RadarChart axes={radarData.axes} datasets={radarData.datasets} size={260} />
+                  <RadarChart axes={radarData.axes} datasets={radarData.datasets} size={260} fillOpacity={0.25} />
                 </div>
                 <div className="flex flex-wrap gap-3 mt-3 justify-center">
                   {radarData.datasets.map(ds => (
                     <div key={ds.name} className="flex items-center gap-1.5">
                       <div className="w-3 h-1.5 rounded-full" style={{ backgroundColor: ds.color }} />
-                      <span className="text-[10px] font-semibold text-slate-500 max-w-[120px] truncate">{ds.name}</span>
+                      <span className="text-[10px] font-semibold text-slate-500">{ds.name}</span>
                     </div>
                   ))}
                 </div>
               </>
             ) : (
               <div className="text-center py-12 text-slate-400">
-                <p className="text-xs font-semibold">{t('الرسم البياني الشبكي متاح لـ 6 شعب أو أقل', 'Radar chart available for 6 or fewer sections')}</p>
+                <p className="text-xs font-semibold">{t('لا توجد بيانات كافية للرسم البياني', 'No data available for radar chart')}</p>
               </div>
             )}
           </motion.div>

@@ -316,21 +316,21 @@ export function TeacherEffectivenessTable({
 
   return (
     <div
-      className="w-full rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden"
+      className="w-full rounded-2xl border border-slate-200 bg-white overflow-hidden"
       style={{ fontFamily: "'Cairo', sans-serif" }}
       dir={isAr ? 'rtl' : 'ltr'}
     >
       {/* ── Header ── */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-600/20 flex items-center justify-center">
-            <GraduationCap className="w-5 h-5 text-violet-400" />
+            <GraduationCap className="w-5 h-5 text-violet-500" />
           </div>
           <div>
-            <h3 className="text-[15px] font-bold text-white/90">
+            <h3 className="text-[15px] font-bold text-slate-900">
               {isAr ? 'فعالية المعلمين' : 'Teacher Effectiveness'}
             </h3>
-            <span className="text-xs text-white/40">
+            <span className="text-xs text-slate-400">
               {subjectLabel} · {teachers.length} {isAr ? 'معلم' : 'teachers'}
             </span>
           </div>
@@ -338,7 +338,7 @@ export function TeacherEffectivenessTable({
 
         {/* Search */}
         <div className="relative">
-          <Search className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/30 pointer-events-none"
+          <Search className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none"
             style={isAr ? { right: 10 } : { left: 10 }}
           />
           <input
@@ -346,7 +346,7 @@ export function TeacherEffectivenessTable({
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             placeholder={isAr ? 'بحث...' : 'Search...'}
-            className="h-8 rounded-lg bg-white/[0.05] border border-white/[0.08] text-xs text-white/80 placeholder:text-white/25 focus:outline-none focus:ring-1 focus:ring-violet-500/40 w-40"
+            className="h-8 rounded-lg bg-slate-100 border border-slate-200 text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500/20 w-40"
             style={isAr ? { paddingRight: 30, paddingLeft: 10 } : { paddingLeft: 30, paddingRight: 10 }}
           />
         </div>
@@ -356,18 +356,18 @@ export function TeacherEffectivenessTable({
       <div className="overflow-x-auto">
         <table className="w-full text-xs">
           <thead>
-            <tr className="border-b border-white/[0.06]">
+            <tr className="border-b border-slate-200 bg-slate-50">
               {columns.map(col => (
                 <th
                   key={col.key}
                   onClick={() => handleSort(col.key)}
-                  className="px-3 py-2.5 text-white/50 font-semibold whitespace-nowrap cursor-pointer hover:text-white/70 transition-colors select-none"
+                  className="px-3 py-2.5 text-slate-600 font-semibold whitespace-nowrap cursor-pointer hover:text-slate-800 transition-colors select-none"
                   style={{ textAlign: isAr ? 'right' : 'left' }}
                 >
                   <span className="inline-flex items-center gap-1">
                     {col.label}
                     {sortKey === col.key && (
-                      <ArrowUpDown className="w-3 h-3 text-violet-400" />
+                      <ArrowUpDown className="w-3 h-3 text-violet-500" />
                     )}
                   </span>
                 </th>
@@ -391,7 +391,7 @@ export function TeacherEffectivenessTable({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ delay: idx * 0.03, type: 'spring', stiffness: 300, damping: 30 }}
-                    className={`border-b border-white/[0.04] cursor-pointer hover:bg-white/[0.03] transition-colors ${tierBg}`}
+                    className={`border-b border-slate-100 cursor-pointer hover:bg-slate-50 transition-colors ${tierBg}`}
                     onClick={() => setExpandedId(isExpanded ? null : teacher.id)}
                     style={{ display: 'table-row' }}
                   >
@@ -405,45 +405,45 @@ export function TeacherEffectivenessTable({
                           {teacher.name.charAt(teacher.name.indexOf(' ') + 1) || teacher.name[0]}
                         </div>
                         <div>
-                          <span className="text-white/90 font-semibold">{teacher.name}</span>
+                          <span className="text-slate-900 font-semibold">{teacher.name}</span>
                           <div className="flex items-center gap-0.5 mt-0.5">
                             {Array.from({ length: 5 }).map((_, si) => (
                               <Star
                                 key={si}
-                                className={`w-2.5 h-2.5 ${si < getStarRating(teacher.avgAccuracy) ? 'text-amber-400 fill-amber-400' : 'text-white/10'}`}
+                                className={`w-2.5 h-2.5 ${si < getStarRating(teacher.avgAccuracy) ? 'text-amber-400 fill-amber-400' : 'text-slate-200'}`}
                               />
                             ))}
                           </div>
                         </div>
-                        <ChevronDown className={`w-3.5 h-3.5 text-white/30 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
                       </div>
                     </td>
                     {/* Campus */}
-                    <td className="px-3 py-2.5 text-white/60 whitespace-nowrap">
-                      <span className="px-2 py-0.5 rounded-md bg-white/[0.06] text-[10px] font-medium">
+                    <td className="px-3 py-2.5 text-slate-600 whitespace-nowrap">
+                      <span className="px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-medium">
                         {teacher.campus}
                       </span>
                     </td>
                     {/* Grades */}
-                    <td className="px-3 py-2.5 text-white/60 whitespace-nowrap">
+                    <td className="px-3 py-2.5 text-slate-600 whitespace-nowrap">
                       {teacher.grades.map(g => (
-                        <span key={g} className="inline-block px-1.5 py-0.5 rounded bg-white/[0.06] text-[10px] font-medium mr-1">{g}</span>
+                        <span key={g} className="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-[10px] font-medium mr-1">{g}</span>
                       ))}
                     </td>
                     {/* Avg Accuracy + mini bar */}
                     <td className="px-3 py-2.5 whitespace-nowrap">
                       <div className="flex items-center gap-2">
-                        <div className="w-16 h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+                        <div className="w-16 h-1.5 rounded-full bg-slate-200 overflow-hidden">
                           <div
                             className={`h-full rounded-full ${accuracyColor(teacher.avgAccuracy)}`}
                             style={{ width: `${teacher.avgAccuracy}%` }}
                           />
                         </div>
-                        <span className="text-white/80 font-semibold tabular-nums">{teacher.avgAccuracy}%</span>
+                        <span className="text-slate-700 font-semibold tabular-nums">{teacher.avgAccuracy}%</span>
                       </div>
                     </td>
                     {/* Avg XP */}
-                    <td className="px-3 py-2.5 text-white/70 font-medium tabular-nums whitespace-nowrap">
+                    <td className="px-3 py-2.5 text-slate-600 font-medium tabular-nums whitespace-nowrap">
                       {teacher.avgXp.toLocaleString()}
                     </td>
                     {/* Best Unit */}
@@ -460,7 +460,7 @@ export function TeacherEffectivenessTable({
                     </td>
                     {/* Students */}
                     <td className="px-3 py-2.5 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5 text-white/60">
+                      <div className="flex items-center gap-1.5 text-slate-600">
                         <Users className="w-3 h-3" />
                         <span className="font-medium">{teacher.studentCount}</span>
                       </div>
@@ -476,7 +476,7 @@ export function TeacherEffectivenessTable({
                           <TrendingDown className="w-3 h-3" />{teacher.performanceVsCampusAvg}%
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.06] text-white/40 text-[10px] font-bold">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 text-slate-400 text-[10px] font-bold">
                           <Minus className="w-3 h-3" />0%
                         </span>
                       )}
@@ -532,12 +532,12 @@ export function TeacherEffectivenessTable({
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 280, damping: 28 }}
-              className="overflow-hidden border-b border-white/[0.06]"
+              className="overflow-hidden border-b border-slate-200"
             >
-              <div className="grid grid-cols-3 gap-5 px-5 py-4 bg-white/[0.02]">
+              <div className="grid grid-cols-3 gap-5 px-5 py-4 bg-slate-50">
                 {/* Col 1: Per-Grade Breakdown */}
                 <div>
-                  <h4 className="text-[11px] font-bold text-white/50 uppercase tracking-wider mb-3">
+                  <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
                     {isAr ? 'تفصيل حسب الصف' : 'Per-Grade Breakdown'}
                   </h4>
                   <div className="space-y-2.5">
@@ -547,7 +547,7 @@ export function TeacherEffectivenessTable({
                           {isAr ? `ص${gd.grade}` : `G${gd.grade}`}
                         </span>
                         <div className="flex-1 min-w-0">
-                          <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                          <div className="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
                             <motion.div
                               initial={{ width: 0 }}
                               animate={{ width: `${gd.accuracy}%` }}
@@ -556,8 +556,8 @@ export function TeacherEffectivenessTable({
                             />
                           </div>
                         </div>
-                        <span className="text-[10px] text-white/60 font-semibold tabular-nums w-10 text-center">{gd.accuracy}%</span>
-                        <span className="text-[10px] text-white/30 tabular-nums w-14 text-center">{gd.xp.toLocaleString()} XP</span>
+                        <span className="text-[10px] text-slate-600 font-semibold tabular-nums w-10 text-center">{gd.accuracy}%</span>
+                        <span className="text-[10px] text-slate-400 tabular-nums w-14 text-center">{gd.xp.toLocaleString()} XP</span>
                       </div>
                     ))}
                   </div>
@@ -565,17 +565,17 @@ export function TeacherEffectivenessTable({
 
                 {/* Col 2: Campus Comparison */}
                 <div>
-                  <h4 className="text-[11px] font-bold text-white/50 uppercase tracking-wider mb-3">
+                  <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
                     {isAr ? 'مقارنة بمعدل الحرم' : 'vs Campus Average'}
                   </h4>
                   <div className="space-y-3">
                     {/* Teacher bar */}
                     <div>
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] text-white/50">{isAr ? 'المعلم' : 'Teacher'}</span>
-                        <span className="text-[10px] text-blue-400 font-bold tabular-nums">{teacher.avgAccuracy}%</span>
+                        <span className="text-[10px] text-slate-500">{isAr ? 'المعلم' : 'Teacher'}</span>
+                        <span className="text-[10px] text-blue-500 font-bold tabular-nums">{teacher.avgAccuracy}%</span>
                       </div>
-                      <div className="w-full h-2.5 rounded-full bg-white/[0.06] overflow-hidden">
+                      <div className="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${teacher.avgAccuracy}%` }}
@@ -587,15 +587,15 @@ export function TeacherEffectivenessTable({
                     {/* Campus bar */}
                     <div>
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] text-white/50">{isAr ? 'معدل الحرم' : 'Campus Avg'}</span>
-                        <span className="text-[10px] text-white/40 font-bold tabular-nums">{campusAvg}%</span>
+                        <span className="text-[10px] text-slate-500">{isAr ? 'معدل الحرم' : 'Campus Avg'}</span>
+                        <span className="text-[10px] text-slate-400 font-bold tabular-nums">{campusAvg}%</span>
                       </div>
-                      <div className="w-full h-2.5 rounded-full bg-white/[0.06] overflow-hidden">
+                      <div className="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${campusAvg}%` }}
                           transition={{ type: 'spring', stiffness: 200, damping: 25, delay: 0.2 }}
-                          className="h-full rounded-full bg-white/20"
+                          className="h-full rounded-full bg-slate-400"
                         />
                       </div>
                     </div>
@@ -612,7 +612,7 @@ export function TeacherEffectivenessTable({
                           {delta}% {isAr ? 'أقل من المعدل' : 'below average'}
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.06] text-white/40 text-[11px] font-bold">
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-400 text-[11px] font-bold">
                           <Minus className="w-3.5 h-3.5" />
                           {isAr ? 'يساوي المعدل' : 'At average'}
                         </span>
@@ -623,7 +623,7 @@ export function TeacherEffectivenessTable({
 
                 {/* Col 3: Student Distribution */}
                 <div>
-                  <h4 className="text-[11px] font-bold text-white/50 uppercase tracking-wider mb-3">
+                  <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
                     {isAr ? 'توزيع الطلاب' : 'Student Distribution'}
                   </h4>
                   <div className="space-y-2">
@@ -634,8 +634,8 @@ export function TeacherEffectivenessTable({
                       { label: '<70%', count: brackets.sBelow, color: 'bg-red-500', pill: 'bg-red-500/15 text-red-400' },
                     ].map(b => (
                       <div key={b.label} className="flex items-center gap-2.5">
-                        <span className="text-[10px] text-white/40 w-12 shrink-0 tabular-nums">{b.label}</span>
-                        <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                        <span className="text-[10px] text-slate-400 w-12 shrink-0 tabular-nums">{b.label}</span>
+                        <div className="flex-1 h-1.5 rounded-full bg-slate-200 overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${(b.count / maxBracket) * 100}%` }}
