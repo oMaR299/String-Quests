@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   TrendingUp, TrendingDown, Minus, Users, Target, Trophy,
   BookOpen, Layers, BarChart3, Crown, GraduationCap,
-  ArrowUpDown, Eye, ChevronDown, ChevronRight, Building2, X,
+  ArrowUpDown, Eye, ChevronDown, Building2, X,
 } from 'lucide-react';
 import {
   MOCK_SCHOOL_DATA, SUBJECT_UNITS,
@@ -154,7 +154,7 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
   const [top10GradeFilter, setTop10GradeFilter] = useState<string>('all');
   const [top10SectionFilter, setTop10SectionFilter] = useState<string>('all');
   const [unitGradeFilter, setUnitGradeFilter] = useState<string>('all');
-  const [expandedGradeRow, setExpandedGradeRow] = useState<string | null>(null);
+  const [leaderboardGrade, setLeaderboardGrade] = useState<number>(1);
 
   const isRTL = locale === 'ar';
   const t = useCallback((ar: string, en: string) => (locale === 'ar' ? ar : en), [locale]);
@@ -208,34 +208,48 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
     return { total, engagement, avgAccuracy, hardestUnit, hardestUnitAcc, bestCampus, bestCampusAcc, sparklineData };
   }, [filteredStudents, subjectKey, subject, units]);
 
-  /* ── Grade leaderboard (with campus column) ────── */
-  const gradeLeaderboard = useMemo(() => {
-    const map = new Map<string, { grade: string; campusId: string; avgXp: number; avgAccuracy: number; count: number; trend: 'up' | 'down' | 'stable'; topStudent: string }>();
+  /* ── Section leaderboard (grade pills → section rows) ── */
+  const CAMPUS_SHORT: Record<string, { ar: string; en: string }> = {
+    'camp-1': { ar: 'بنين', en: 'Boys' },
+    'camp-2': { ar: 'بنات', en: 'Girls' },
+    'camp-3': { ar: 'المستقبل', en: 'Future' },
+  };
+  const SECTION_COLORS: Record<string, string> = {
+    A: '#3b82f6', B: '#10b981', C: '#f59e0b', D: '#8b5cf6', E: '#ec4899', F: '#06b6d4',
+  };
+  const SECTION_BADGE_CLASSES: Record<string, string> = {
+    A: 'bg-blue-100 text-blue-700', B: 'bg-emerald-100 text-emerald-700', C: 'bg-amber-100 text-amber-700',
+    D: 'bg-purple-100 text-purple-700', E: 'bg-pink-100 text-pink-700', F: 'bg-cyan-100 text-cyan-700',
+  };
 
-    for (const s of filteredStudents) {
-      const key = `${s.grade}-${s.campusId}`;
-      const entry = map.get(key) || { grade: String(s.grade), campusId: s.campusId, avgXp: 0, avgAccuracy: 0, count: 0, trend: 'stable' as const, topStudent: '' };
-      entry.avgXp += s.subjectXp[subjectKey] || 0;
-      entry.avgAccuracy += s.subjectDetails[subjectKey]?.accuracy || 0;
-      entry.count += 1;
+  const sectionLeaderboard = useMemo(() => {
+    const gradeStudents = filteredStudents.filter(s => s.grade === leaderboardGrade);
+    const sectionMap = new Map<string, StudentProfile[]>();
 
-      const curTopAcc = map.get(key)
-        ? filteredStudents.find(st => st.name === map.get(key)!.topStudent)?.subjectDetails[subjectKey]?.accuracy ?? 0
-        : 0;
-      if ((s.subjectDetails[subjectKey]?.accuracy ?? 0) > curTopAcc) entry.topStudent = s.name;
-      map.set(key, entry);
+    for (const s of gradeStudents) {
+      const key = `${s.section || '?'}-${s.campusId}`;
+      if (!sectionMap.has(key)) sectionMap.set(key, []);
+      sectionMap.get(key)!.push(s);
     }
 
-    const list = Array.from(map.values()).map(e => ({
-      ...e,
-      avgXp: Math.round(e.avgXp / e.count),
-      avgAccuracy: Math.round(e.avgAccuracy / e.count),
-      trend: (e.avgAccuracy / e.count > 78 ? 'up' : e.avgAccuracy / e.count < 70 ? 'down' : 'stable') as 'up' | 'down' | 'stable',
-    }));
+    const list: { section: string; campusId: string; avgXp: number; avgAccuracy: number; count: number; trend: 'up' | 'down' | 'stable'; topStudent: string }[] = [];
+
+    for (const [, students] of sectionMap) {
+      const sec = students[0].section || '?';
+      const campusId = students[0].campusId;
+      const avgAcc = Math.round(students.reduce((sum, st) => sum + (st.subjectDetails[subjectKey]?.accuracy ?? 0), 0) / students.length);
+      const avgXp = Math.round(students.reduce((sum, st) => sum + (st.subjectXp[subjectKey] || 0), 0) / students.length);
+      const topSt = [...students].sort((a, b) => (b.subjectDetails[subjectKey]?.accuracy ?? 0) - (a.subjectDetails[subjectKey]?.accuracy ?? 0))[0];
+      const ups = students.filter(s => s.trend === 'up').length;
+      const downs = students.filter(s => s.trend === 'down').length;
+      const trend: 'up' | 'down' | 'stable' = ups > downs + 1 ? 'up' : downs > ups + 1 ? 'down' : 'stable';
+
+      list.push({ section: sec, campusId, avgXp, avgAccuracy: avgAcc, count: students.length, trend, topStudent: topSt?.name || '-' });
+    }
 
     list.sort((a, b) => gradeSortDir === 'desc' ? b[gradeSortKey] - a[gradeSortKey] : a[gradeSortKey] - b[gradeSortKey]);
     return list;
-  }, [filteredStudents, subjectKey, gradeSortKey, gradeSortDir]);
+  }, [filteredStudents, subjectKey, leaderboardGrade, gradeSortKey, gradeSortDir]);
 
   /* ── Unit stats ────────────────────────────────── */
   const unitStats = useMemo(() => {
@@ -259,39 +273,6 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
     return [...students].sort((a, b) => (b.subjectXp[subjectKey] || 0) - (a.subjectXp[subjectKey] || 0)).slice(0, 10);
   }, [filteredStudents, subjectKey, top10GradeFilter, top10SectionFilter]);
 
-  /* ── Section breakdown for grade leaderboard ───── */
-  const gradeSectionBreakdown = useMemo(() => {
-    const map = new Map<string, { section: string; campusId: string; count: number; avgAccuracy: number; avgXp: number; trend: 'up' | 'down' | 'stable'; topStudent: string; teacher: string }[]>();
-    for (const row of gradeLeaderboard) {
-      const key = `${row.grade}-${row.campusId}`;
-      const studentsInGradeCampus = filteredStudents.filter(s => String(s.grade) === row.grade && s.campusId === row.campusId);
-      const sectionMap = new Map<string, typeof studentsInGradeCampus>();
-      for (const s of studentsInGradeCampus) {
-        const sec = s.section || '?';
-        if (!sectionMap.has(sec)) sectionMap.set(sec, []);
-        sectionMap.get(sec)!.push(s);
-      }
-      const sections: { section: string; campusId: string; count: number; avgAccuracy: number; avgXp: number; trend: 'up' | 'down' | 'stable'; topStudent: string; teacher: string }[] = [];
-      for (const [sec, students] of sectionMap) {
-        const avgAcc = Math.round(students.reduce((sum, st) => sum + (st.subjectDetails[subjectKey]?.accuracy ?? 0), 0) / students.length);
-        const avgXp = Math.round(students.reduce((sum, st) => sum + (st.subjectXp[subjectKey] || 0), 0) / students.length);
-        const topSt = [...students].sort((a, b) => (b.subjectDetails[subjectKey]?.accuracy ?? 0) - (a.subjectDetails[subjectKey]?.accuracy ?? 0))[0];
-        sections.push({
-          section: sec,
-          campusId: row.campusId,
-          count: students.length,
-          avgAccuracy: avgAcc,
-          avgXp,
-          trend: (avgAcc > 78 ? 'up' : avgAcc < 70 ? 'down' : 'stable') as 'up' | 'down' | 'stable',
-          topStudent: topSt?.name || '-',
-          teacher: `${t('معلم', 'Teacher')} ${sec}`,
-        });
-      }
-      sections.sort((a, b) => b.avgAccuracy - a.avgAccuracy);
-      map.set(key, sections);
-    }
-    return map;
-  }, [gradeLeaderboard, filteredStudents, subjectKey, t]);
 
   /* ── Multi-grade trend data ────────────────────── */
   const trendChartId = useId();
@@ -460,90 +441,119 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
       </SectionBlock>
 
       {/* ═══════════════════════════════════════════════
-          SECTION 3: Grade Leaderboard
+          SECTION 3: Section Ranking (grade pills → section rows)
           ═══════════════════════════════════════════════ */}
-      <SectionBlock icon={Trophy} title={t('ترتيب الصفوف', 'Grade Leaderboard')} subtitle={t('مقارنة أداء الصفوف في المادة', 'Compare grade performance in this subject')} idx={3} accentGradient={subjectMeta.gradient}>
+      <SectionBlock icon={Trophy} title={t('ترتيب الشعب', 'Section Ranking')} subtitle={t(`الصف ${leaderboardGrade} — مقارنة أداء الشعب`, `Grade ${leaderboardGrade} — Compare section performance`)} idx={3} accentGradient={subjectMeta.gradient}>
         <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-          <div className="grid grid-cols-[48px_1fr_1fr_100px_1fr_80px_48px_1fr] gap-2 px-5 py-3 bg-slate-50 border-b border-slate-100 text-xs font-bold text-slate-500 items-center">
+          {/* Grade selector pills (identical to heatmap) */}
+          <div className="px-5 py-4 border-b border-slate-100">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-slate-200">
+              {[1,2,3,4,5,6,7,8,9,10,11,12].map(grade => {
+                const isActive = leaderboardGrade === grade;
+                return (
+                  <motion.button
+                    key={grade}
+                    whileTap={{ scale: 0.93 }}
+                    onClick={() => setLeaderboardGrade(grade)}
+                    className={`
+                      flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold font-[Cairo]
+                      transition-colors duration-150
+                      ${isActive
+                        ? 'bg-sky-500 text-white shadow-sm shadow-sky-500/25'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }
+                    `}
+                  >
+                    {grade}
+                  </motion.button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Table header */}
+          <div className="grid grid-cols-[48px_1fr_100px_80px_1fr_100px_48px_1fr] gap-2 px-5 py-3 bg-slate-50 border-b border-slate-100 text-xs font-bold text-slate-500 items-center">
             <span>#</span>
-            <span>{t('الصف', 'Grade')}</span>
+            <span>{t('الشعبة', 'Section')}</span>
             <span>{t('المبنى', 'Campus')}</span>
-            <button onClick={() => toggleGradeSort('xp')} className="flex items-center gap-1 hover:text-slate-700 transition-colors">{t('متوسط XP', 'Avg XP')}<ArrowUpDown className="w-3 h-3" /></button>
-            <button onClick={() => toggleGradeSort('accuracy')} className="flex items-center gap-1 hover:text-slate-700 transition-colors">{t('متوسط الدقة', 'Avg Accuracy')}<ArrowUpDown className="w-3 h-3" /></button>
             <span>{t('طلاب', 'Students')}</span>
+            <button onClick={() => toggleGradeSort('accuracy')} className="flex items-center gap-1 hover:text-slate-700 transition-colors">{t('متوسط الدقة', 'Avg Accuracy')}<ArrowUpDown className="w-3 h-3" /></button>
+            <button onClick={() => toggleGradeSort('xp')} className="flex items-center gap-1 hover:text-slate-700 transition-colors">{t('متوسط XP', 'Avg XP')}<ArrowUpDown className="w-3 h-3" /></button>
             <span>{t('اتجاه', 'Trend')}</span>
             <span>{t('أفضل طالب', 'Top Student')}</span>
           </div>
-          {gradeLeaderboard.map((row, i) => {
-            const rowKey = `${row.grade}-${row.campusId}`;
-            const isExpanded = expandedGradeRow === rowKey;
-            const sections = gradeSectionBreakdown.get(rowKey) || [];
+
+          {/* Section rows */}
+          {sectionLeaderboard.map((row, i) => {
+            const badgeClass = SECTION_BADGE_CLASSES[row.section] || 'bg-slate-100 text-slate-600';
+            const sectionColor = SECTION_COLORS[row.section] || '#64748b';
+            const campusShort = CAMPUS_SHORT[row.campusId];
+            const campusLabel = campusShort ? t(campusShort.ar, campusShort.en) : getCampusName(row.campusId);
+
             return (
-              <React.Fragment key={rowKey}>
-                <motion.div initial={{ opacity: 0, x: isRTL ? 20 : -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: i * 0.04 }}
-                  onClick={() => setExpandedGradeRow(isExpanded ? null : rowKey)}
-                  className={`grid grid-cols-[48px_1fr_1fr_100px_1fr_80px_48px_1fr] gap-2 px-5 py-3 items-center border-b border-slate-50 hover:bg-slate-50/50 transition-colors cursor-pointer ${i < 3 ? 'bg-gradient-to-r from-amber-50/40 to-transparent' : ''}`}>
-                  <span className="text-sm font-extrabold text-slate-700 flex items-center gap-1">
-                    <motion.span animate={{ rotate: isExpanded ? 90 : 0 }} transition={{ duration: 0.2 }} className="inline-flex">
-                      <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-                    </motion.span>
-                    {i < 3 ? MEDAL_EMOJIS[i] : i + 1}
+              <motion.div
+                key={`${row.section}-${row.campusId}`}
+                initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: i * 0.04 }}
+                className={`grid grid-cols-[48px_1fr_100px_80px_1fr_100px_48px_1fr] gap-2 px-5 py-3 items-center border-b border-slate-50 hover:bg-slate-50/50 transition-colors ${i < 3 ? 'bg-gradient-to-r from-amber-50/40 to-transparent' : ''}`}
+              >
+                {/* Rank */}
+                <span className="text-sm font-extrabold text-slate-700">
+                  {i < 3 ? MEDAL_EMOJIS[i] : i + 1}
+                </span>
+
+                {/* Section badge */}
+                <span className="flex items-center gap-2">
+                  <span
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold text-white shrink-0"
+                    style={{ backgroundColor: sectionColor }}
+                  >
+                    {row.section}
                   </span>
-                  <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold w-fit bg-gradient-to-r ${subjectMeta.gradient} text-white`}>
-                    <GraduationCap className="w-3 h-3" />{t(`الصف ${row.grade}`, `Grade ${row.grade}`)}
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-bold ${badgeClass}`}>
+                    {t(`شعبة ${row.section}`, `Section ${row.section}`)}
                   </span>
-                  <span className="text-xs font-semibold text-slate-500">{getCampusName(row.campusId)}</span>
-                  <span className="text-sm font-bold text-slate-700">{row.avgXp.toLocaleString()}</span>
-                  <div className="flex items-center gap-2">
-                    <div className="h-2.5 rounded-full bg-slate-100 flex-1 max-w-[120px]">
-                      <motion.div initial={{ width: 0 }} animate={{ width: `${row.avgAccuracy}%` }} transition={{ duration: 0.6, delay: i * 0.04 }} className="h-2.5 rounded-full" style={{ backgroundColor: accuracyColor(row.avgAccuracy) }} />
-                    </div>
-                    <span className="text-xs font-bold" style={{ color: accuracyColor(row.avgAccuracy) }}>{row.avgAccuracy}%</span>
-                  </div>
-                  <span className="text-xs font-semibold text-slate-500">{row.count}</span>
-                  {trendIcon(row.trend)}
-                  <span className="text-xs font-semibold text-slate-600 truncate">{row.topStudent || '-'}</span>
-                </motion.div>
-                <AnimatePresence>
-                  {isExpanded && sections.length > 0 && (
+                </span>
+
+                {/* Campus */}
+                <span className="text-xs font-semibold text-slate-500">{campusLabel}</span>
+
+                {/* Student count */}
+                <span className="text-xs font-semibold text-slate-500">{row.count}</span>
+
+                {/* Accuracy bar */}
+                <div className="flex items-center gap-2">
+                  <div className="h-2.5 rounded-full bg-slate-100 flex-1 max-w-[120px]">
                     <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      {sections.map((sec, si) => {
-                        const sectionColors: Record<string, string> = { A: 'bg-blue-100 text-blue-700', B: 'bg-emerald-100 text-emerald-700', C: 'bg-amber-100 text-amber-700', D: 'bg-purple-100 text-purple-700', E: 'bg-pink-100 text-pink-700', F: 'bg-cyan-100 text-cyan-700' };
-                        const badgeClass = sectionColors[sec.section] || 'bg-slate-100 text-slate-600';
-                        return (
-                          <div key={sec.section}
-                            className={`grid grid-cols-[48px_1fr_1fr_100px_1fr_80px_48px_1fr] gap-2 px-5 py-2.5 items-center border-b border-slate-50 bg-slate-50/80 ${isRTL ? 'pr-10' : 'pl-10'}`}>
-                            <span className="text-[10px] font-bold text-slate-400">{si + 1}</span>
-                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold w-fit ${badgeClass}`}>
-                              {t(`شعبة ${sec.section}`, `Section ${sec.section}`)}
-                            </span>
-                            <span className="text-[10px] font-semibold text-slate-400">{sec.teacher}</span>
-                            <span className="text-xs font-bold text-slate-600">{sec.avgXp.toLocaleString()}</span>
-                            <div className="flex items-center gap-2">
-                              <div className="h-2 rounded-full bg-slate-200 flex-1 max-w-[100px]">
-                                <div className="h-2 rounded-full transition-all" style={{ width: `${sec.avgAccuracy}%`, backgroundColor: accuracyColor(sec.avgAccuracy) }} />
-                              </div>
-                              <span className="text-[10px] font-bold" style={{ color: accuracyColor(sec.avgAccuracy) }}>{sec.avgAccuracy}%</span>
-                            </div>
-                            <span className="text-[10px] font-semibold text-slate-400">{sec.count}</span>
-                            {trendIcon(sec.trend)}
-                            <span className="text-[10px] font-semibold text-slate-500 truncate">{sec.topStudent}</span>
-                          </div>
-                        );
-                      })}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </React.Fragment>
+                      initial={{ width: 0 }}
+                      animate={{ width: `${row.avgAccuracy}%` }}
+                      transition={{ duration: 0.6, delay: i * 0.04 }}
+                      className="h-2.5 rounded-full"
+                      style={{ backgroundColor: accuracyColor(row.avgAccuracy) }}
+                    />
+                  </div>
+                  <span className="text-xs font-bold" style={{ color: accuracyColor(row.avgAccuracy) }}>{row.avgAccuracy}%</span>
+                </div>
+
+                {/* Avg XP */}
+                <span className="text-sm font-bold text-slate-700">{row.avgXp.toLocaleString()}</span>
+
+                {/* Trend */}
+                {trendIcon(row.trend)}
+
+                {/* Top student */}
+                <span className="text-xs font-semibold text-slate-600 truncate">{row.topStudent || '-'}</span>
+              </motion.div>
             );
           })}
-          {gradeLeaderboard.length === 0 && <div className="text-center py-12 text-slate-400 text-sm">{t('لا توجد بيانات', 'No data available')}</div>}
+
+          {sectionLeaderboard.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-12 text-slate-400">
+              <Users className="w-8 h-8 mb-2 text-slate-300" />
+              <p className="text-sm">{t('لا توجد بيانات لهذا الصف', 'No data for this grade')}</p>
+            </div>
+          )}
         </div>
       </SectionBlock>
 
