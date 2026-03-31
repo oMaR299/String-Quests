@@ -48,6 +48,7 @@ const DEV_TOGGLES: DevToggle[] = [
   { label: 'Notifications', icon: Megaphone, route: '/admin/notifications', color: 'text-sky-400' },
   { label: 'Admin Hub', icon: Building2, route: '/admin/hub', color: 'text-rose-400' },
   { label: 'Leaderboards', icon: Trophy, route: '/leaderboard-widgets', color: 'text-amber-400' },
+  { label: 'Topic Manager', icon: BookOpen, route: '/topic-manager', color: 'text-orange-400' },
 ];
 
 export const Sidebar: React.FC = () => {

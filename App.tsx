@@ -28,6 +28,7 @@ import { PrincipalLayout } from './components/principal/PrincipalLayout';
 import { NotificationLayout } from './components/notification-admin/NotificationLayout';
 import { AdminHubLayout } from './components/admin-hub/AdminHubLayout';
 import { LeaderboardShowcase } from './components/leaderboard-widgets/LeaderboardShowcase';
+import { TopicManagerLayout } from './components/topic-manager/TopicManagerLayout';
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[50vh]">
@@ -68,6 +69,9 @@ const App: React.FC = () => {
 
               {/* Leaderboard showcase */}
               <Route path="/leaderboard-widgets" element={<LeaderboardShowcase onExit={() => window.location.href = '/home'} />} />
+
+              {/* Topic Manager */}
+              <Route path="/topic-manager/*" element={<TopicManagerLayout onExit={() => window.location.href = '/home'} />} />
 
               {/* Stakeholder report routes */}
               <Route path="/parent-report" element={<ParentReportPage />} />

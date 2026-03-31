@@ -15,6 +15,8 @@ const SECTION_COLORS: Record<ClassSection, { bg: string; bar: string; text: stri
   B: { bg: 'bg-emerald-500', bar: 'from-emerald-400 to-emerald-600', text: 'text-emerald-600', light: 'bg-emerald-50' },
   C: { bg: 'bg-amber-500', bar: 'from-amber-400 to-amber-600', text: 'text-amber-600', light: 'bg-amber-50' },
   D: { bg: 'bg-violet-500', bar: 'from-violet-400 to-violet-600', text: 'text-violet-600', light: 'bg-violet-50' },
+  E: { bg: 'bg-pink-500', bar: 'from-pink-400 to-pink-600', text: 'text-pink-600', light: 'bg-pink-50' },
+  F: { bg: 'bg-cyan-500', bar: 'from-cyan-400 to-cyan-600', text: 'text-cyan-600', light: 'bg-cyan-50' },
 };
 
 const LEAGUE_DOT_COLORS: Record<League, string> = {

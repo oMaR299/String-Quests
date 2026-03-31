@@ -1,7 +1,7 @@
 
 // Types
 export type GradeLevel = 'KG' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-export type ClassSection = 'A' | 'B' | 'C' | 'D';
+export type ClassSection = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 export type Subject = 
   | 'all' 
   | 'math' | 'science' | 'languages' | 'history' | 'arts' 
@@ -38,6 +38,7 @@ export interface StudentProfile {
   name: string;
   grade: GradeLevel;
   section: ClassSection;
+  campusId: string;
   avatar: string;
   league: League;
   
@@ -79,7 +80,7 @@ const generateHourlyActivity = () => {
     return curve.map(val => Math.max(0, val + Math.floor(Math.random() * 20 - 10)));
 };
 
-const generateStudent = (id: string, grade: GradeLevel, section: ClassSection): StudentProfile => {
+const generateStudent = (id: string, grade: GradeLevel, section: ClassSection, campusId: string = 'camp-1'): StudentProfile => {
   const firstName = FIRST_NAMES[Math.floor(Math.random() * FIRST_NAMES.length)];
   const lastName = LAST_NAMES[Math.floor(Math.random() * LAST_NAMES.length)];
   
@@ -163,6 +164,7 @@ const generateStudent = (id: string, grade: GradeLevel, section: ClassSection): 
     name: `${firstName} ${lastName}`,
     grade,
     section,
+    campusId,
     avatar: `bg-${['blue', 'red', 'green', 'yellow', 'purple', 'pink'][Math.floor(Math.random() * 6)]}-100`,
     league,
     subjectXp,
@@ -197,10 +199,14 @@ export const CURRENT_USER_ID = 'user-me';
 // Generate data for Grades 1-12
 const grades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as GradeLevel[];
 for (const g of grades) {
-  for (const s of ['A', 'B'] as ClassSection[]) {
-    const count = 5 + Math.floor(Math.random() * 3); // Fewer students for per-class view performance
+  for (const s of ['A', 'B', 'C', 'D', 'E', 'F'] as ClassSection[]) {
+    // Grades 1-6: camps 1 & 2 (boys/girls), Grades 7-12: camp 3 (international)
+    const campusId = (g as number) <= 6
+      ? (s <= 'C' ? 'camp-1' : 'camp-2')
+      : 'camp-3';
+    const count = 4 + Math.floor(Math.random() * 3); // 4-6 students per section
     for (let i = 0; i < count; i++) {
-      MOCK_SCHOOL_DATA.push(generateStudent(`st-${g}-${s}-${i}`, g, s));
+      MOCK_SCHOOL_DATA.push(generateStudent(`st-${g}-${s}-${i}`, g, s, campusId));
     }
   }
 }
