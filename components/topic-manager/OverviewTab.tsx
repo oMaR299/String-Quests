@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   TrendingUp, TrendingDown, Minus, Users, Target, Trophy,
   BookOpen, Layers, BarChart3, Crown, GraduationCap,
-  ArrowUpDown, Eye, ChevronDown, Building2, X,
+  ArrowUpDown, Eye, ChevronDown, ChevronRight, Building2, X,
 } from 'lucide-react';
 import {
   MOCK_SCHOOL_DATA, SUBJECT_UNITS,
@@ -151,6 +151,10 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
   const [gradeSortKey, setGradeSortKey] = useState<'accuracy' | 'xp'>('accuracy');
   const [gradeSortDir, setGradeSortDir] = useState<'asc' | 'desc'>('desc');
   const [campusDropdownOpen, setCampusDropdownOpen] = useState(false);
+  const [top10GradeFilter, setTop10GradeFilter] = useState<string>('all');
+  const [top10SectionFilter, setTop10SectionFilter] = useState<string>('all');
+  const [unitGradeFilter, setUnitGradeFilter] = useState<string>('all');
+  const [expandedGradeRow, setExpandedGradeRow] = useState<string | null>(null);
 
   const isRTL = locale === 'ar';
   const t = useCallback((ar: string, en: string) => (locale === 'ar' ? ar : en), [locale]);
@@ -235,20 +239,59 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
 
   /* ── Unit stats ────────────────────────────────── */
   const unitStats = useMemo(() => {
+    let students = filteredStudents;
+    if (unitGradeFilter !== 'all') students = students.filter(s => String(s.grade) === unitGradeFilter);
     return units.map(u => {
       const key = `${subject}-${u}`;
-      const attempted = filteredStudents.filter(s => s.lessonDetails[key]);
-      const total = filteredStudents.length;
+      const attempted = students.filter(s => s.lessonDetails[key]);
+      const total = students.length;
       const avgAcc = attempted.length > 0 ? Math.round(attempted.reduce((s, st) => s + (st.lessonDetails[key]?.accuracy ?? 0), 0) / attempted.length) : 0;
       const topStudent = [...attempted].sort((a, b) => (b.lessonDetails[key]?.accuracy ?? 0) - (a.lessonDetails[key]?.accuracy ?? 0))[0];
       return { unit: u, avgAccuracy: avgAcc, completion: total > 0 ? Math.round((attempted.length / total) * 100) : 0, studentCount: attempted.length, topStudent: topStudent?.name || '-' };
     });
-  }, [units, subject, filteredStudents]);
+  }, [units, subject, filteredStudents, unitGradeFilter]);
 
   /* ── Top 10 students ───────────────────────────── */
   const top10Students = useMemo(() => {
-    return [...filteredStudents].sort((a, b) => (b.subjectXp[subjectKey] || 0) - (a.subjectXp[subjectKey] || 0)).slice(0, 10);
-  }, [filteredStudents, subjectKey]);
+    let students = filteredStudents;
+    if (top10GradeFilter !== 'all') students = students.filter(s => String(s.grade) === top10GradeFilter);
+    if (top10SectionFilter !== 'all') students = students.filter(s => s.section === top10SectionFilter);
+    return [...students].sort((a, b) => (b.subjectXp[subjectKey] || 0) - (a.subjectXp[subjectKey] || 0)).slice(0, 10);
+  }, [filteredStudents, subjectKey, top10GradeFilter, top10SectionFilter]);
+
+  /* ── Section breakdown for grade leaderboard ───── */
+  const gradeSectionBreakdown = useMemo(() => {
+    const map = new Map<string, { section: string; campusId: string; count: number; avgAccuracy: number; avgXp: number; trend: 'up' | 'down' | 'stable'; topStudent: string; teacher: string }[]>();
+    for (const row of gradeLeaderboard) {
+      const key = `${row.grade}-${row.campusId}`;
+      const studentsInGradeCampus = filteredStudents.filter(s => String(s.grade) === row.grade && s.campusId === row.campusId);
+      const sectionMap = new Map<string, typeof studentsInGradeCampus>();
+      for (const s of studentsInGradeCampus) {
+        const sec = s.section || '?';
+        if (!sectionMap.has(sec)) sectionMap.set(sec, []);
+        sectionMap.get(sec)!.push(s);
+      }
+      const sections: { section: string; campusId: string; count: number; avgAccuracy: number; avgXp: number; trend: 'up' | 'down' | 'stable'; topStudent: string; teacher: string }[] = [];
+      for (const [sec, students] of sectionMap) {
+        const avgAcc = Math.round(students.reduce((sum, st) => sum + (st.subjectDetails[subjectKey]?.accuracy ?? 0), 0) / students.length);
+        const avgXp = Math.round(students.reduce((sum, st) => sum + (st.subjectXp[subjectKey] || 0), 0) / students.length);
+        const topSt = [...students].sort((a, b) => (b.subjectDetails[subjectKey]?.accuracy ?? 0) - (a.subjectDetails[subjectKey]?.accuracy ?? 0))[0];
+        sections.push({
+          section: sec,
+          campusId: row.campusId,
+          count: students.length,
+          avgAccuracy: avgAcc,
+          avgXp,
+          trend: (avgAcc > 78 ? 'up' : avgAcc < 70 ? 'down' : 'stable') as 'up' | 'down' | 'stable',
+          topStudent: topSt?.name || '-',
+          teacher: `${t('معلم', 'Teacher')} ${sec}`,
+        });
+      }
+      sections.sort((a, b) => b.avgAccuracy - a.avgAccuracy);
+      map.set(key, sections);
+    }
+    return map;
+  }, [gradeLeaderboard, filteredStudents, subjectKey, t]);
 
   /* ── Multi-grade trend data ────────────────────── */
   const trendChartId = useId();
@@ -431,26 +474,75 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
             <span>{t('اتجاه', 'Trend')}</span>
             <span>{t('أفضل طالب', 'Top Student')}</span>
           </div>
-          {gradeLeaderboard.map((row, i) => (
-            <motion.div key={`${row.grade}-${row.campusId}`} initial={{ opacity: 0, x: isRTL ? 20 : -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: i * 0.04 }}
-              className={`grid grid-cols-[48px_1fr_1fr_100px_1fr_80px_48px_1fr] gap-2 px-5 py-3 items-center border-b border-slate-50 hover:bg-slate-50/50 transition-colors ${i < 3 ? 'bg-gradient-to-r from-amber-50/40 to-transparent' : ''}`}>
-              <span className="text-sm font-extrabold text-slate-700">{i < 3 ? MEDAL_EMOJIS[i] : i + 1}</span>
-              <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold w-fit bg-gradient-to-r ${subjectMeta.gradient} text-white`}>
-                <GraduationCap className="w-3 h-3" />{t(`الصف ${row.grade}`, `Grade ${row.grade}`)}
-              </span>
-              <span className="text-xs font-semibold text-slate-500">{getCampusName(row.campusId)}</span>
-              <span className="text-sm font-bold text-slate-700">{row.avgXp.toLocaleString()}</span>
-              <div className="flex items-center gap-2">
-                <div className="h-2.5 rounded-full bg-slate-100 flex-1 max-w-[120px]">
-                  <motion.div initial={{ width: 0 }} animate={{ width: `${row.avgAccuracy}%` }} transition={{ duration: 0.6, delay: i * 0.04 }} className="h-2.5 rounded-full" style={{ backgroundColor: accuracyColor(row.avgAccuracy) }} />
-                </div>
-                <span className="text-xs font-bold" style={{ color: accuracyColor(row.avgAccuracy) }}>{row.avgAccuracy}%</span>
-              </div>
-              <span className="text-xs font-semibold text-slate-500">{row.count}</span>
-              {trendIcon(row.trend)}
-              <span className="text-xs font-semibold text-slate-600 truncate">{row.topStudent || '-'}</span>
-            </motion.div>
-          ))}
+          {gradeLeaderboard.map((row, i) => {
+            const rowKey = `${row.grade}-${row.campusId}`;
+            const isExpanded = expandedGradeRow === rowKey;
+            const sections = gradeSectionBreakdown.get(rowKey) || [];
+            return (
+              <React.Fragment key={rowKey}>
+                <motion.div initial={{ opacity: 0, x: isRTL ? 20 : -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: i * 0.04 }}
+                  onClick={() => setExpandedGradeRow(isExpanded ? null : rowKey)}
+                  className={`grid grid-cols-[48px_1fr_1fr_100px_1fr_80px_48px_1fr] gap-2 px-5 py-3 items-center border-b border-slate-50 hover:bg-slate-50/50 transition-colors cursor-pointer ${i < 3 ? 'bg-gradient-to-r from-amber-50/40 to-transparent' : ''}`}>
+                  <span className="text-sm font-extrabold text-slate-700 flex items-center gap-1">
+                    <motion.span animate={{ rotate: isExpanded ? 90 : 0 }} transition={{ duration: 0.2 }} className="inline-flex">
+                      <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                    </motion.span>
+                    {i < 3 ? MEDAL_EMOJIS[i] : i + 1}
+                  </span>
+                  <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold w-fit bg-gradient-to-r ${subjectMeta.gradient} text-white`}>
+                    <GraduationCap className="w-3 h-3" />{t(`الصف ${row.grade}`, `Grade ${row.grade}`)}
+                  </span>
+                  <span className="text-xs font-semibold text-slate-500">{getCampusName(row.campusId)}</span>
+                  <span className="text-sm font-bold text-slate-700">{row.avgXp.toLocaleString()}</span>
+                  <div className="flex items-center gap-2">
+                    <div className="h-2.5 rounded-full bg-slate-100 flex-1 max-w-[120px]">
+                      <motion.div initial={{ width: 0 }} animate={{ width: `${row.avgAccuracy}%` }} transition={{ duration: 0.6, delay: i * 0.04 }} className="h-2.5 rounded-full" style={{ backgroundColor: accuracyColor(row.avgAccuracy) }} />
+                    </div>
+                    <span className="text-xs font-bold" style={{ color: accuracyColor(row.avgAccuracy) }}>{row.avgAccuracy}%</span>
+                  </div>
+                  <span className="text-xs font-semibold text-slate-500">{row.count}</span>
+                  {trendIcon(row.trend)}
+                  <span className="text-xs font-semibold text-slate-600 truncate">{row.topStudent || '-'}</span>
+                </motion.div>
+                <AnimatePresence>
+                  {isExpanded && sections.length > 0 && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      {sections.map((sec, si) => {
+                        const sectionColors: Record<string, string> = { A: 'bg-blue-100 text-blue-700', B: 'bg-emerald-100 text-emerald-700', C: 'bg-amber-100 text-amber-700', D: 'bg-purple-100 text-purple-700', E: 'bg-pink-100 text-pink-700', F: 'bg-cyan-100 text-cyan-700' };
+                        const badgeClass = sectionColors[sec.section] || 'bg-slate-100 text-slate-600';
+                        return (
+                          <div key={sec.section}
+                            className={`grid grid-cols-[48px_1fr_1fr_100px_1fr_80px_48px_1fr] gap-2 px-5 py-2.5 items-center border-b border-slate-50 bg-slate-50/80 ${isRTL ? 'pr-10' : 'pl-10'}`}>
+                            <span className="text-[10px] font-bold text-slate-400">{si + 1}</span>
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold w-fit ${badgeClass}`}>
+                              {t(`شعبة ${sec.section}`, `Section ${sec.section}`)}
+                            </span>
+                            <span className="text-[10px] font-semibold text-slate-400">{sec.teacher}</span>
+                            <span className="text-xs font-bold text-slate-600">{sec.avgXp.toLocaleString()}</span>
+                            <div className="flex items-center gap-2">
+                              <div className="h-2 rounded-full bg-slate-200 flex-1 max-w-[100px]">
+                                <div className="h-2 rounded-full transition-all" style={{ width: `${sec.avgAccuracy}%`, backgroundColor: accuracyColor(sec.avgAccuracy) }} />
+                              </div>
+                              <span className="text-[10px] font-bold" style={{ color: accuracyColor(sec.avgAccuracy) }}>{sec.avgAccuracy}%</span>
+                            </div>
+                            <span className="text-[10px] font-semibold text-slate-400">{sec.count}</span>
+                            {trendIcon(sec.trend)}
+                            <span className="text-[10px] font-semibold text-slate-500 truncate">{sec.topStudent}</span>
+                          </div>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </React.Fragment>
+            );
+          })}
           {gradeLeaderboard.length === 0 && <div className="text-center py-12 text-slate-400 text-sm">{t('لا توجد بيانات', 'No data available')}</div>}
         </div>
       </SectionBlock>
@@ -468,6 +560,22 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
           SECTION 5: Unit Deep Dive
           ═══════════════════════════════════════════════ */}
       <SectionBlock icon={BookOpen} title={t('تفاصيل الوحدات', 'Unit Deep Dive')} subtitle={t('استكشف أداء كل وحدة', "Explore each unit's performance")} idx={5} accentGradient={subjectMeta.gradient}>
+        {/* Grade filter for units */}
+        <div className="flex items-center gap-3 mb-4 flex-wrap">
+          <span className="text-xs font-bold text-slate-500">{t('الصف:', 'Grade:')}</span>
+          <div className="flex gap-1.5 flex-wrap">
+            <button onClick={() => setUnitGradeFilter('all')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${unitGradeFilter === 'all' ? 'bg-sky-500 text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>
+              {t('الكل', 'All')}
+            </button>
+            {[1,2,3,4,5,6,7,8,9,10,11,12].map(g => (
+              <button key={g} onClick={() => setUnitGradeFilter(String(g))}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${unitGradeFilter === String(g) ? 'bg-sky-500 text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'}`}>
+                {g}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {unitStats.map((u, i) => (
             <motion.button key={u.unit} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: i * 0.05 }}
@@ -561,6 +669,28 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
           ═══════════════════════════════════════════════ */}
       <SectionBlock icon={Crown} title={t('أفضل 10 طلاب', 'Top 10 Students')} subtitle={t('ترتيب الطلاب حسب نقاط الخبرة', 'Student ranking by XP in this subject')} idx={8} accentGradient={subjectMeta.gradient}>
         <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+          {/* Filters */}
+          <div className="flex items-center gap-3 px-5 py-3 border-b border-slate-100 flex-wrap">
+            <span className="text-xs font-bold text-slate-500">{t('تصفية:', 'Filter:')}</span>
+
+            {/* Grade filter */}
+            <select value={top10GradeFilter} onChange={e => setTop10GradeFilter(e.target.value)}
+              className="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 bg-white">
+              <option value="all">{t('كل الصفوف', 'All Grades')}</option>
+              {[1,2,3,4,5,6,7,8,9,10,11,12].map(g => (
+                <option key={g} value={g}>{t(`الصف ${g}`, `Grade ${g}`)}</option>
+              ))}
+            </select>
+
+            {/* Section filter */}
+            <select value={top10SectionFilter} onChange={e => setTop10SectionFilter(e.target.value)}
+              className="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 bg-white">
+              <option value="all">{t('كل الشعب', 'All Sections')}</option>
+              {['A','B','C','D','E','F'].map(s => (
+                <option key={s} value={s}>{t(`شعبة ${s}`, `Section ${s}`)}</option>
+              ))}
+            </select>
+          </div>
           {top10Students.map((st, i) => {
             const acc = st.subjectDetails[subjectKey]?.accuracy || 0;
             const xp = st.subjectXp[subjectKey] || 0;
