@@ -10,6 +10,7 @@ const TeacherPerformanceWidget = React.lazy(() => import('./TeacherPerformanceWi
 const LeagueProgressWidget = React.lazy(() => import('./LeagueProgressWidget').then(m => ({ default: m.LeagueProgressWidget })));
 const SpaceWeeklyLeaderboardWidget = React.lazy(() => import('./SpaceWeeklyLeaderboardWidget'));
 const SpaceLeaderboardDashboard = React.lazy(() => import('./SpaceLeaderboardDashboard'));
+const TopicManagerDashboard = React.lazy(() => import('./TopicManagerDashboard'));
 
 const Loader = () => (
   <div className="flex items-center justify-center p-12">
@@ -40,7 +41,7 @@ export const LeaderboardShowcase: React.FC<LeaderboardShowcaseProps> = ({ onExit
             </div>
             <div>
               <h1 className="text-xl font-black text-slate-900">{t('لوحة المتصدرين', 'Leaderboard')}</h1>
-              <p className="text-xs font-medium text-slate-400">{t('7 أنماط من لوحات المتصدرين', '7 Leaderboard Widget Types')}</p>
+              <p className="text-xs font-medium text-slate-400">{t('8 أنماط من لوحات المتصدرين', '8 Leaderboard Widget Types')}</p>
             </div>
           </div>
 
@@ -143,6 +144,15 @@ export const LeaderboardShowcase: React.FC<LeaderboardShowcaseProps> = ({ onExit
                 spaceSection="A"
                 locale={locale}
               />
+            </motion.div>
+
+            {/* Widget 8: Topic Manager Dashboard */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className={layout === 'grid' ? 'lg:col-span-2' : ''}>
+              <div className="mb-2">
+                <span className="text-[10px] font-bold text-sky-500 uppercase tracking-wider">Widget 8</span>
+                <span className="text-[10px] font-medium text-slate-400 mr-2"> — {t('لوحة مدير المادة', 'Topic Manager Dashboard')}</span>
+              </div>
+              <TopicManagerDashboard locale={locale} defaultSubject="math" />
             </motion.div>
           </React.Suspense>
         </div>
