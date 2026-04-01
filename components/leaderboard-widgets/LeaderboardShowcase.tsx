@@ -11,6 +11,7 @@ const LeagueProgressWidget = React.lazy(() => import('./LeagueProgressWidget').t
 const SpaceWeeklyLeaderboardWidget = React.lazy(() => import('./SpaceWeeklyLeaderboardWidget'));
 const SpaceLeaderboardDashboard = React.lazy(() => import('./SpaceLeaderboardDashboard'));
 const TopicManagerDashboard = React.lazy(() => import('./TopicManagerDashboard'));
+const StudentLeagueWidget = React.lazy(() => import('./StudentLeagueWidget'));
 
 const Loader = () => (
   <div className="flex items-center justify-center p-12">
@@ -41,7 +42,7 @@ export const LeaderboardShowcase: React.FC<LeaderboardShowcaseProps> = ({ onExit
             </div>
             <div>
               <h1 className="text-xl font-black text-slate-900">{t('لوحة المتصدرين', 'Leaderboard')}</h1>
-              <p className="text-xs font-medium text-slate-400">{t('8 أنماط من لوحات المتصدرين', '8 Leaderboard Widget Types')}</p>
+              <p className="text-xs font-medium text-slate-400">{t('9 أنماط من لوحات المتصدرين', '9 Leaderboard Widget Types')}</p>
             </div>
           </div>
 
@@ -153,6 +154,22 @@ export const LeaderboardShowcase: React.FC<LeaderboardShowcaseProps> = ({ onExit
                 <span className="text-[10px] font-medium text-slate-400 mr-2"> — {t('لوحة مدير المادة', 'Topic Manager Dashboard')}</span>
               </div>
               <TopicManagerDashboard locale={locale} defaultSubject="math" />
+            </motion.div>
+
+            {/* Widget 9: Student League Widget */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
+              <div className="mb-2">
+                <span className="text-[10px] font-bold text-sky-500 uppercase tracking-wider">Widget 9</span>
+                <span className="text-[10px] font-medium text-slate-400 mr-2"> — {t('ترتيب الطالب مع الدوري الأسبوعي', 'Student League Ranking')}</span>
+              </div>
+              <div className="max-w-md">
+                <StudentLeagueWidget
+                  subject="math"
+                  grade={4}
+                  currentStudentId="st-4-A-0"
+                  locale={locale}
+                />
+              </div>
             </motion.div>
           </React.Suspense>
         </div>
