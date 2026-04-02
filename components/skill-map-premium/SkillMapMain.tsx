@@ -302,11 +302,11 @@ export function SkillMapMain({
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="relative mb-8 rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/80 via-purple-950/40 to-slate-900/80 backdrop-blur-xl p-6 shadow-xl overflow-hidden"
+        className="relative mb-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm overflow-hidden"
       >
-        {/* Subtle gradient orbs */}
-        <div className="absolute -top-20 -right-20 w-56 h-56 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Subtle gradient accent */}
+        <div className="absolute -top-20 -right-20 w-56 h-56 bg-sky-100/50 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-violet-100/30 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative flex items-center justify-between gap-4">
           {/* Left: Streak */}
@@ -329,10 +329,10 @@ export function SkillMapMain({
               strokeWidth={8}
               showLabel
             />
-            <h1 className="text-lg font-bold text-white tracking-wide">
+            <h1 className="text-lg font-black text-slate-900 tracking-wide">
               {t('خريطة المعرفة', 'Knowledge Map')}
             </h1>
-            <p className="text-xs text-slate-400">{student.name}</p>
+            <p className="text-xs font-medium text-slate-400">{student.name}</p>
           </div>
 
           {/* Right: League */}
