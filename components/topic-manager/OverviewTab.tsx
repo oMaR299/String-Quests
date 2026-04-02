@@ -100,6 +100,25 @@ function accuracyBg(v: number): string {
   return 'bg-red-50 border-red-200';
 }
 
+/** Catmull-Rom smooth SVG path through points */
+function smoothSvgPath(pts: [number, number][]): string {
+  if (pts.length < 2) return '';
+  if (pts.length === 2) return `M${pts[0][0]},${pts[0][1]} L${pts[1][0]},${pts[1][1]}`;
+  const d: string[] = [`M${pts[0][0]},${pts[0][1]}`];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[Math.max(i - 1, 0)];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[Math.min(i + 2, pts.length - 1)];
+    const cp1x = p1[0] + (p2[0] - p0[0]) / 6;
+    const cp1y = p1[1] + (p2[1] - p0[1]) / 6;
+    const cp2x = p2[0] - (p3[0] - p1[0]) / 6;
+    const cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+    d.push(`C${cp1x},${cp1y} ${cp2x},${cp2y} ${p2[0]},${p2[1]}`);
+  }
+  return d.join(' ');
+}
+
 /* ═══════════════════════════════════════════════════════════════
    Section wrapper
    ═══════════════════════════════════════════════════════════════ */
@@ -155,6 +174,9 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
   const [top10SectionFilter, setTop10SectionFilter] = useState<string>('all');
   const [unitGradeFilter, setUnitGradeFilter] = useState<string>('all');
   const [leaderboardGrade, setLeaderboardGrade] = useState<number>(1);
+  const [trendGrade, setTrendGrade] = useState<number>(1);
+  const [activeSections, setActiveSections] = useState<Set<string>>(new Set(['A', 'B', 'C', 'D', 'E', 'F']));
+  const [hoveredWeek, setHoveredWeek] = useState<number | null>(null);
 
   const isRTL = locale === 'ar';
   const t = useCallback((ar: string, en: string) => (locale === 'ar' ? ar : en), [locale]);
@@ -274,17 +296,39 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
   }, [filteredStudents, subjectKey, top10GradeFilter, top10SectionFilter]);
 
 
-  /* ── Multi-grade trend data ────────────────────── */
+  /* ── Section-based trend data (per grade) ──────── */
   const trendChartId = useId();
-  const trendData = useMemo(() => {
-    const grades = ['3', '6', '9', '10', '12'];
-    const colors = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'];
-    const weeks = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8'];
-    return grades.map((g, gi) => {
-      const base = 60 + Math.floor(Math.random() * 20);
-      return { grade: g, color: colors[gi], points: weeks.map((_, wi) => Math.max(40, Math.min(100, base + Math.floor(Math.random() * 15) - 5 + wi * 2))) };
+  const sectionTrendData = useMemo(() => {
+    const SEC_COLORS: Record<string, string> = {
+      A: '#3b82f6', B: '#10b981', C: '#f59e0b', D: '#8b5cf6', E: '#ec4899', F: '#06b6d4',
+    };
+    const CAMP_SHORT: Record<string, string> = { 'camp-1': 'بنين', 'camp-2': 'بنات', 'camp-3': 'المستقبل' };
+    const CAMP_SHORT_EN: Record<string, string> = { 'camp-1': 'Boys', 'camp-2': 'Girls', 'camp-3': 'Future' };
+
+    const gradeStudents = filteredStudents.filter(s => s.grade === trendGrade);
+    const sectionKeys = Array.from(new Set(gradeStudents.map(s => `${s.section}-${s.campusId}`)));
+
+    return sectionKeys.map((key: string) => {
+      const dashIdx = key.indexOf('-');
+      const section = key.substring(0, dashIdx);
+      const campusId = key.substring(dashIdx + 1);
+      const sectionStudents = gradeStudents.filter(s => s.section === section && s.campusId === campusId);
+      const campusLabel = locale === 'ar' ? (CAMP_SHORT[campusId] || campusId) : (CAMP_SHORT_EN[campusId] || campusId);
+      const label = `${section} - ${campusLabel}`;
+
+      // Generate 8 weeks of mock accuracy data seeded from section identity
+      const baseAcc = sectionStudents.length > 0
+        ? sectionStudents.reduce((s, st) => s + (st.subjectDetails[subjectKey]?.accuracy || 0), 0) / sectionStudents.length
+        : 75;
+      const seed = section.charCodeAt(0) + (campusId.charCodeAt(5) || 0);
+      const points = Array.from({ length: 8 }, (_, wi) => {
+        const noise = ((seed * (wi + 1) * 9301 + 49297) % 233280) / 233280 * 12 - 6;
+        return Math.max(50, Math.min(100, Math.round(baseAcc + noise + wi * 0.8)));
+      });
+
+      return { key, section, campusId, label, color: SEC_COLORS[section] || '#64748b', points };
     });
-  }, []);
+  }, [filteredStudents, trendGrade, subjectKey, locale]);
 
   /* ── Unit detail modal data ────────────────────── */
   const unitModalData = useMemo(() => {
@@ -620,43 +664,217 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
           ═══════════════════════════════════════════════ */}
       <SectionBlock icon={BarChart3} title={t('الرسوم البيانية', 'Analytics Charts')} subtitle={t('اتجاهات وتوزيعات الأداء', 'Performance trends and distributions')} idx={6} accentGradient={subjectMeta.gradient}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Chart A: Multi-Grade Accuracy Trend */}
+          {/* Chart A: Section-based Growth Trajectory */}
           <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
-            <h3 className="text-sm font-bold text-slate-700 mb-4">{t('اتجاه الدقة متعدد الصفوف', 'Multi-Grade Accuracy Trend')}</h3>
-            <svg viewBox="0 0 400 220" className="w-full" style={{ fontFamily: "'Cairo', sans-serif" }}>
-              <defs>
-                {trendData.map(line => (
-                  <linearGradient key={line.grade} id={`trend-area-${trendChartId}-${line.grade}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={line.color} stopOpacity={0.15} />
-                    <stop offset="100%" stopColor={line.color} stopOpacity={0} />
-                  </linearGradient>
-                ))}
-              </defs>
-              {[40, 60, 80, 100].map(v => { const y = 180 - ((v - 30) / 80) * 170; return (
-                <g key={v}><line x1={40} x2={380} y1={y} y2={y} stroke="#e2e8f0" strokeWidth={0.5} /><text x={35} y={y + 3} textAnchor="end" fontSize={9} fill="#94a3b8">{v}%</text></g>
-              ); })}
-              {trendData[0].points.map((_, wi) => { const x = 40 + (wi / 7) * 340; return <text key={wi} x={x} y={198} textAnchor="middle" fontSize={9} fill="#94a3b8">{t(`أ${wi + 1}`, `W${wi + 1}`)}</text>; })}
-              {trendData.map(line => {
-                const pts = line.points.map((v, i) => { const x = 40 + (i / 7) * 340; const y = 180 - ((v - 30) / 80) * 170; return `${x},${y}`; });
-                const pathD = `M${pts.join(' L')}`;
-                const areaD = `${pathD} L${40 + 340},${180} L${40},${180} Z`;
+            {/* Header with grade pills */}
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+              <h3 className="text-sm font-bold text-slate-700">{t('اتجاه الشعب الأسبوعي', 'Weekly Section Trend')}</h3>
+            </div>
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-3 scrollbar-thin scrollbar-thumb-slate-200">
+              {[1,2,3,4,5,6,7,8,9,10,11,12].map(grade => {
+                const isActive = trendGrade === grade;
                 return (
-                  <g key={line.grade}>
-                    <path d={areaD} fill={`url(#trend-area-${trendChartId}-${line.grade})`} />
-                    <motion.path d={pathD} fill="none" stroke={line.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.2, delay: 0.2 }} />
-                    <circle cx={40 + 340} cy={180 - ((line.points[7] - 30) / 80) * 170} r={3} fill={line.color} />
-                  </g>
+                  <motion.button
+                    key={grade}
+                    whileTap={{ scale: 0.93 }}
+                    onClick={() => setTrendGrade(grade)}
+                    className={`
+                      flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold font-[Cairo]
+                      transition-colors duration-150
+                      ${isActive
+                        ? 'bg-sky-500 text-white shadow-sm shadow-sky-500/25'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }
+                    `}
+                  >
+                    {grade}
+                  </motion.button>
                 );
               })}
-            </svg>
-            <div className="flex flex-wrap gap-3 mt-3 justify-center">
-              {trendData.map(line => (
-                <div key={line.grade} className="flex items-center gap-1.5">
-                  <div className="w-3 h-1.5 rounded-full" style={{ backgroundColor: line.color }} />
-                  <span className="text-[10px] font-semibold text-slate-500">{t(`الصف ${line.grade}`, `Grade ${line.grade}`)}</span>
-                </div>
-              ))}
             </div>
+
+            {/* SVG Chart */}
+            {(() => {
+              const activeTrends = sectionTrendData.filter(s => activeSections.has(s.section));
+              const W = 700, H = 300;
+              const pad = { top: 20, right: 30, bottom: 35, left: 45 };
+              const cw = W - pad.left - pad.right;
+              const ch = H - pad.top - pad.bottom;
+
+              const allValues = activeTrends.flatMap(s => s.points);
+              const dataMin = allValues.length > 0 ? Math.min(...allValues) : 50;
+              const dataMax = allValues.length > 0 ? Math.max(...allValues) : 100;
+              const margin = Math.max(5, (dataMax - dataMin) * 0.1);
+              const yMin = Math.max(0, Math.floor(dataMin - margin));
+              const yMax = Math.min(100, Math.ceil(dataMax + margin));
+              const yRange = yMax - yMin || 1;
+
+              const weeks = 8;
+              const xStep = cw / (weeks - 1);
+
+              // Y ticks
+              const yTicks: number[] = [];
+              const yStep = Math.ceil(yRange / 5);
+              for (let v = yMin; v <= yMax; v += yStep) yTicks.push(v);
+
+              return (
+                <div className="relative" onMouseLeave={() => setHoveredWeek(null)}>
+                  <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ fontFamily: "'Cairo', sans-serif" }}>
+                    {/* Defs: gradient fills per section */}
+                    <defs>
+                      {activeTrends.map((sec, si) => (
+                        <linearGradient key={sec.key} id={`sec-trend-g-${trendChartId}-${si}`} x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor={sec.color} stopOpacity={0.15} />
+                          <stop offset="100%" stopColor={sec.color} stopOpacity={0} />
+                        </linearGradient>
+                      ))}
+                    </defs>
+
+                    {/* Horizontal grid lines */}
+                    {yTicks.map(v => {
+                      const y = pad.top + ch - ((v - yMin) / yRange) * ch;
+                      return (
+                        <g key={v}>
+                          <line x1={pad.left} y1={y} x2={W - pad.right} y2={y} stroke="#e2e8f0" strokeWidth={0.5} strokeDasharray="4,4" />
+                          <text x={pad.left - 8} y={y + 4} textAnchor="end" fontSize={10} fill="#94a3b8">{v}%</text>
+                        </g>
+                      );
+                    })}
+
+                    {/* X-axis labels */}
+                    {Array.from({ length: weeks }, (_, i) => (
+                      <text
+                        key={i}
+                        x={pad.left + i * xStep}
+                        y={H - 8}
+                        textAnchor="middle"
+                        fontSize={10}
+                        fill="#94a3b8"
+                      >
+                        {t(`أسبوع ${i + 1}`, `Week ${i + 1}`)}
+                      </text>
+                    ))}
+
+                    {/* Lines + areas + dots */}
+                    {activeTrends.map((sec, si) => {
+                      const pts: [number, number][] = sec.points.map((v, i) => [
+                        pad.left + i * xStep,
+                        pad.top + ch - ((v - yMin) / yRange) * ch,
+                      ]);
+                      const linePath = smoothSvgPath(pts);
+                      const areaPath = `${linePath} L${pts[pts.length - 1][0]},${pad.top + ch} L${pts[0][0]},${pad.top + ch} Z`;
+
+                      return (
+                        <g key={sec.key}>
+                          <path d={areaPath} fill={`url(#sec-trend-g-${trendChartId}-${si})`} />
+                          <motion.path
+                            d={linePath}
+                            fill="none"
+                            stroke={sec.color}
+                            strokeWidth={2.5}
+                            strokeLinecap="round"
+                            initial={{ pathLength: 0 }}
+                            animate={{ pathLength: 1 }}
+                            transition={{ duration: 1.2, ease: 'easeOut', delay: si * 0.15 }}
+                          />
+                          {/* Dot markers */}
+                          {pts.map(([x, y], di) => (
+                            <motion.circle
+                              key={di}
+                              cx={x} cy={y} r={3}
+                              fill="white"
+                              stroke={sec.color}
+                              strokeWidth={2}
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ delay: 0.8 + di * 0.05 }}
+                            />
+                          ))}
+                        </g>
+                      );
+                    })}
+
+                    {/* Hover crosshair */}
+                    {hoveredWeek !== null && (
+                      <g>
+                        <line
+                          x1={pad.left + hoveredWeek * xStep}
+                          y1={pad.top}
+                          x2={pad.left + hoveredWeek * xStep}
+                          y2={pad.top + ch}
+                          stroke="#8b5cf6"
+                          strokeWidth={1}
+                          strokeDasharray="4,4"
+                          opacity={0.5}
+                        />
+                        {activeTrends.map((sec, ti) => {
+                          const v = sec.points[hoveredWeek];
+                          const x = pad.left + hoveredWeek * xStep;
+                          const y = pad.top + ch - ((v - yMin) / yRange) * ch;
+                          return (
+                            <g key={sec.key}>
+                              <circle cx={x} cy={y} r={5} fill={sec.color} stroke="white" strokeWidth={2} />
+                              <rect x={x + 8} y={y - 10 + ti * 18} width={55} height={16} rx={4} fill="white" stroke={sec.color} strokeWidth={0.5} />
+                              <text x={x + 14} y={y + 2 + ti * 18} fontSize={10} fill={sec.color} fontWeight={700}>{v}%</text>
+                            </g>
+                          );
+                        })}
+                      </g>
+                    )}
+
+                    {/* Invisible hover zones */}
+                    {Array.from({ length: weeks }, (_, i) => (
+                      <rect
+                        key={i}
+                        x={pad.left + i * xStep - xStep / 2}
+                        y={pad.top}
+                        width={xStep}
+                        height={ch}
+                        fill="transparent"
+                        onMouseEnter={() => setHoveredWeek(i)}
+                      />
+                    ))}
+                  </svg>
+                </div>
+              );
+            })()}
+
+            {/* Legend with toggle checkboxes */}
+            <div className="flex flex-wrap gap-2.5 mt-4 px-1">
+              {sectionTrendData.map(sec => {
+                const active = activeSections.has(sec.section);
+                // Determine trend arrow from first to last point
+                const trendDir = sec.points[7] > sec.points[0] ? 'up' : sec.points[7] < sec.points[0] ? 'down' : 'stable';
+                return (
+                  <button
+                    key={sec.key}
+                    onClick={() => {
+                      const next = new Set(activeSections);
+                      if (next.has(sec.section)) next.delete(sec.section);
+                      else next.add(sec.section);
+                      setActiveSections(next);
+                    }}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
+                      active ? 'bg-white shadow-sm border-slate-200' : 'bg-slate-50 border-transparent opacity-50 hover:opacity-75'
+                    }`}
+                  >
+                    <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: sec.color }} />
+                    <span className="text-slate-700">{sec.label}</span>
+                    {trendDir === 'up' && <TrendingUp className="w-3 h-3 text-emerald-500" />}
+                    {trendDir === 'down' && <TrendingDown className="w-3 h-3 text-rose-500" />}
+                    {trendDir === 'stable' && <Minus className="w-3 h-3 text-slate-400" />}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Empty state */}
+            {sectionTrendData.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-12 text-slate-400">
+                <Users className="w-8 h-8 mb-2 text-slate-300" />
+                <p className="text-sm">{t('لا توجد بيانات لهذا الصف', 'No data for this grade')}</p>
+              </div>
+            )}
           </div>
 
           {/* Chart B: Accuracy vs XP Scatter */}
