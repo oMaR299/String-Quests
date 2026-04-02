@@ -29,6 +29,7 @@ import { NotificationLayout } from './components/notification-admin/Notification
 import { AdminHubLayout } from './components/admin-hub/AdminHubLayout';
 import { LeaderboardShowcase } from './components/leaderboard-widgets/LeaderboardShowcase';
 import { TopicManagerLayout } from './components/topic-manager/TopicManagerLayout';
+import { SkillMapPremiumPage } from './components/skill-map-premium/SkillMapPremiumPage';
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[50vh]">
@@ -72,6 +73,9 @@ const App: React.FC = () => {
 
               {/* Topic Manager */}
               <Route path="/topic-manager/*" element={<TopicManagerLayout onExit={() => window.location.href = '/home'} />} />
+
+              {/* Premium Skill Map */}
+              <Route path="/skill-map-premium" element={<SkillMapPremiumPage onExit={() => window.location.href = '/home'} />} />
 
               {/* Stakeholder report routes */}
               <Route path="/parent-report" element={<ParentReportPage />} />
