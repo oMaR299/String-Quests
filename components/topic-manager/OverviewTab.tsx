@@ -294,17 +294,23 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
     const avgAcc = attempted.length > 0 ? Math.round(attempted.reduce((s, st) => s + (st.lessonDetails[key]?.accuracy ?? 0), 0) / attempted.length) : 0;
     const avgXp = attempted.length > 0 ? Math.round(attempted.reduce((s, st) => s + (st.lessonDetails[key]?.xp ?? 0), 0) / attempted.length) : 0;
 
-    const gradeGroups = new Map<string, number[]>();
-    for (const s of attempted) { const g = String(s.grade); if (!gradeGroups.has(g)) gradeGroups.set(g, []); gradeGroups.get(g)!.push(s.lessonDetails[key]?.accuracy ?? 0); }
-    const gradeComparison: { label: string; value: number; color: string }[] = [];
-    for (const [g, vals] of gradeGroups) {
-      const avg = Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
-      gradeComparison.push({ label: `${locale === 'ar' ? 'الصف ' : 'G'}${g}`, value: avg, color: accuracyColor(avg) });
+    const sectionGroups = new Map<string, { accuracies: number[]; campusId: string }>();
+    for (const s of attempted) {
+      const sKey = `${s.section}-${s.campusId}`;
+      if (!sectionGroups.has(sKey)) sectionGroups.set(sKey, { accuracies: [], campusId: s.campusId });
+      sectionGroups.get(sKey)!.accuracies.push(s.lessonDetails[key]?.accuracy ?? 0);
     }
-    gradeComparison.sort((a, b) => parseInt(a.label.replace(/\D/g, '')) - parseInt(b.label.replace(/\D/g, '')));
+    const sectionComparison = Array.from(sectionGroups.entries()).map(([sKey, { accuracies, campusId }]) => {
+      const section = sKey.split('-')[0];
+      const avg = Math.round(accuracies.reduce((a, b) => a + b, 0) / accuracies.length);
+      const campusShort = campusId === 'camp-1' ? 'بنين' : campusId === 'camp-2' ? 'بنات' : 'المستقبل';
+      const label = locale === 'ar' ? `${section} - ${campusShort}` : `${section} - ${campusId === 'camp-1' ? 'Boys' : campusId === 'camp-2' ? 'Girls' : 'Future'}`;
+      const sectionColors: Record<string, string> = { A: '#3b82f6', B: '#10b981', C: '#f59e0b', D: '#8b5cf6', E: '#ec4899', F: '#06b6d4' };
+      return { label, value: avg, color: sectionColors[section] || '#64748b' };
+    }).sort((a, b) => b.value - a.value);
 
     const top5 = [...attempted].sort((a, b) => (b.lessonDetails[key]?.accuracy ?? 0) - (a.lessonDetails[key]?.accuracy ?? 0)).slice(0, 5);
-    return { avgAcc, avgXp, studentCount: attempted.length, gradeComparison, top5 };
+    return { avgAcc, avgXp, studentCount: attempted.length, sectionComparison, top5 };
   }, [selectedUnitForPopup, subject, filteredStudents, locale]);
 
   /* ── Handlers ──────────────────────────────────── */
@@ -762,8 +768,8 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
                   <div className="rounded-xl bg-sky-50 border border-sky-100 p-4 text-center"><p className="text-2xl font-extrabold text-sky-600">{unitModalData.avgXp.toLocaleString()}</p><p className="text-[10px] font-semibold text-sky-500 mt-0.5">{t('متوسط XP', 'Avg XP')}</p></div>
                   <div className="rounded-xl bg-violet-50 border border-violet-100 p-4 text-center"><p className="text-2xl font-extrabold text-violet-600">{unitModalData.studentCount}</p><p className="text-[10px] font-semibold text-violet-500 mt-0.5">{t('طلاب', 'Students')}</p></div>
                 </div>
-                {unitModalData.gradeComparison.length > 0 && (
-                  <div><h3 className="text-sm font-bold text-slate-700 mb-3">{t('مقارنة الصفوف', 'Grade Comparison')}</h3><VerticalBarChart data={unitModalData.gradeComparison} maxValue={100} showValues /></div>
+                {unitModalData.sectionComparison.length > 0 && (
+                  <div><h3 className="text-sm font-bold text-slate-700 mb-3">{t('مقارنة الشعب', 'Section Comparison')}</h3><VerticalBarChart data={unitModalData.sectionComparison} maxValue={100} showValues /></div>
                 )}
                 {unitModalData.top5.length > 0 && (
                   <div>

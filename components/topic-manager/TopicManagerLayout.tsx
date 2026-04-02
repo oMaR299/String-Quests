@@ -47,8 +47,12 @@ export { SUBJECT_META };
    Lazy Tab Imports
    ═══════════════════════════════════════════════════════════════ */
 
-const OverviewTab = lazy(() => import('./OverviewTab'));
-const GradesTab   = lazy(() => import('./GradesTab'));
+const OverviewTab  = lazy(() => import('./OverviewTab'));
+const GradesTab    = lazy(() => import('./GradesTab'));
+const TeachersTab  = lazy(() => import('./TeachersTab'));
+const UnitsTab     = lazy(() => import('./UnitsTab'));
+const SkillMapTab  = lazy(() => import('./SkillMapTab'));
+const ReportsTab   = lazy(() => import('./ReportsTab'));
 
 /* ═══════════════════════════════════════════════════════════════
    Types
@@ -78,10 +82,10 @@ export function TopicManagerLayout({ onExit }: TopicManagerLayoutProps) {
   const tabs: { id: Tab; label: string; labelEn: string; icon: React.FC<{ className?: string }>; enabled: boolean }[] = [
     { id: 'overview',  label: 'نظرة عامة',  labelEn: 'Overview',   icon: LayoutGrid,    enabled: true },
     { id: 'grades',    label: 'الصفوف',      labelEn: 'Grades',     icon: GraduationCap, enabled: true },
-    { id: 'teachers',  label: 'المعلمون',    labelEn: 'Teachers',   icon: Users,         enabled: false },
-    { id: 'units',     label: 'الوحدات',     labelEn: 'Units',      icon: BookOpen,      enabled: false },
-    { id: 'skills',    label: 'المهارات',    labelEn: 'Skill Map',  icon: BrainCircuit,  enabled: false },
-    { id: 'reports',   label: 'التقارير',    labelEn: 'Reports',    icon: FileText,      enabled: false },
+    { id: 'teachers',  label: 'المعلمون',    labelEn: 'Teachers',   icon: Users,         enabled: true },
+    { id: 'units',     label: 'الوحدات',     labelEn: 'Units',      icon: BookOpen,      enabled: true },
+    { id: 'skills',    label: 'المهارات',    labelEn: 'Skill Map',  icon: BrainCircuit,  enabled: true },
+    { id: 'reports',   label: 'التقارير',    labelEn: 'Reports',    icon: FileText,      enabled: true },
   ];
 
   /* ── NavItem ─────────────────────────────────────── */
@@ -135,13 +139,13 @@ export function TopicManagerLayout({ onExit }: TopicManagerLayoutProps) {
           </Suspense>
         );
       case 'teachers':
-        return <TabPlaceholder label={t('سيتم إضافة قسم المعلمين قريبا', 'Teachers module coming soon')} />;
+        return <Suspense fallback={<TabFallback />}><TeachersTab subject={selectedSubject} locale={locale} /></Suspense>;
       case 'units':
-        return <TabPlaceholder label={t('سيتم إضافة قسم الوحدات قريبا', 'Units module coming soon')} />;
+        return <Suspense fallback={<TabFallback />}><UnitsTab subject={selectedSubject} locale={locale} /></Suspense>;
       case 'skills':
-        return <TabPlaceholder label={t('سيتم إضافة خريطة المهارات قريبا', 'Skill Map coming soon')} />;
+        return <Suspense fallback={<TabFallback />}><SkillMapTab subject={selectedSubject} locale={locale} /></Suspense>;
       case 'reports':
-        return <TabPlaceholder label={t('سيتم إضافة التقارير قريبا', 'Reports coming soon')} />;
+        return <Suspense fallback={<TabFallback />}><ReportsTab subject={selectedSubject} locale={locale} /></Suspense>;
       default:
         return null;
     }
