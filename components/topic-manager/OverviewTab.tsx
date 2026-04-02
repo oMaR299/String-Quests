@@ -176,7 +176,7 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
   const [unitGradeFilter, setUnitGradeFilter] = useState<string>('all');
   const [leaderboardGrade, setLeaderboardGrade] = useState<number>(1);
   const [trendGrade, setTrendGrade] = useState<number>(1);
-  const [activeSections, setActiveSections] = useState<Set<string>>(new Set(['A', 'B', 'C', 'D', 'E', 'F']));
+  const [activeSections, setActiveSections] = useState<Set<string>>(new Set(['A', 'B', 'C']));
   const [hoveredWeek, setHoveredWeek] = useState<number | null>(null);
 
   const isRTL = locale === 'ar';
@@ -730,8 +730,8 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
                     <defs>
                       {activeTrends.map((sec, si) => (
                         <linearGradient key={sec.key} id={`sec-trend-g-${trendChartId}-${si}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor={sec.color} stopOpacity={0.15} />
-                          <stop offset="100%" stopColor={sec.color} stopOpacity={0} />
+                          <stop offset="0%" stopColor={sec.color} stopOpacity={0.08} />
+                          <stop offset="100%" stopColor={sec.color} stopOpacity={0.01} />
                         </linearGradient>
                       ))}
                     </defs>
@@ -777,25 +777,22 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
                             d={linePath}
                             fill="none"
                             stroke={sec.color}
-                            strokeWidth={2.5}
+                            strokeWidth={2}
                             strokeLinecap="round"
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
                             transition={{ duration: 1.2, ease: 'easeOut', delay: si * 0.15 }}
                           />
-                          {/* Dot markers */}
-                          {pts.map(([x, y], di) => (
-                            <motion.circle
-                              key={di}
-                              cx={x} cy={y} r={3}
-                              fill="white"
-                              stroke={sec.color}
-                              strokeWidth={2}
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              transition={{ delay: 0.8 + di * 0.05 }}
-                            />
-                          ))}
+                          {/* Endpoint dot only */}
+                          <motion.circle
+                            cx={pts[pts.length - 1][0]} cy={pts[pts.length - 1][1]} r={3.5}
+                            fill={sec.color}
+                            stroke="white"
+                            strokeWidth={2}
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 1 }}
+                          />
                         </g>
                       );
                     })}
@@ -813,18 +810,32 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
                           strokeDasharray="4,4"
                           opacity={0.5}
                         />
-                        {activeTrends.map((sec, ti) => {
+                        {/* Dots on each line at hover week */}
+                        {activeTrends.map((sec) => {
                           const v = sec.points[hoveredWeek];
                           const x = pad.left + hoveredWeek * xStep;
                           const y = pad.top + ch - ((v - yMin) / yRange) * ch;
-                          return (
-                            <g key={sec.key}>
-                              <circle cx={x} cy={y} r={5} fill={sec.color} stroke="white" strokeWidth={2} />
-                              <rect x={x + 8} y={y - 10 + ti * 18} width={55} height={16} rx={4} fill="white" stroke={sec.color} strokeWidth={0.5} />
-                              <text x={x + 14} y={y + 2 + ti * 18} fontSize={10} fill={sec.color} fontWeight={700}>{v}%</text>
-                            </g>
-                          );
+                          return <circle key={sec.key} cx={x} cy={y} r={4} fill={sec.color} stroke="white" strokeWidth={2} />;
                         })}
+                        {/* Single consolidated tooltip */}
+                        {(() => {
+                          const x = pad.left + hoveredWeek * xStep;
+                          const tooltipX = x > W / 2 ? x - 110 : x + 12;
+                          return (
+                            <foreignObject x={tooltipX} y={pad.top} width={100} height={activeTrends.length * 18 + 24}>
+                              <div style={{ background: '#0f172a', borderRadius: 8, padding: '6px 10px', fontFamily: "'Cairo', sans-serif", boxShadow: '0 4px 16px rgba(0,0,0,.25)' }}>
+                                <div style={{ fontSize: 9, color: '#94a3b8', fontWeight: 700, marginBottom: 3 }}>{t(`أسبوع ${hoveredWeek + 1}`, `Week ${hoveredWeek + 1}`)}</div>
+                                {activeTrends.map(sec => (
+                                  <div key={sec.key} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 10, color: '#fff', fontWeight: 600, lineHeight: '16px' }}>
+                                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: sec.color, flexShrink: 0 }} />
+                                    <span style={{ color: '#94a3b8', fontSize: 9 }}>{sec.section}</span>
+                                    <span style={{ marginRight: 'auto', marginLeft: 'auto' }}>{sec.points[hoveredWeek]}%</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </foreignObject>
+                          );
+                        })()}
                       </g>
                     )}
 
