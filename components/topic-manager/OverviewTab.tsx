@@ -17,6 +17,7 @@ import { TeacherEffectivenessTable } from '../leaderboard-widgets/TeacherEffecti
 import { InterventionInsights } from '../leaderboard-widgets/InterventionInsights';
 import { AccuracyVsXpScatter } from '../leaderboard-widgets/AccuracyVsXpScatter';
 import { StudentProfileModal } from '../StudentProfileModal';
+import { ExpandableWidget } from './ExpandableWidget';
 import { CAMPUSES } from './TopicManagerLayout';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -485,9 +486,11 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
           SECTION 2: Grade Performance Heatmap
           ═══════════════════════════════════════════════ */}
       <SectionBlock icon={Layers} title={t('خريطة الأداء الحرارية', 'Grade Performance Heatmap')} subtitle={t('مقارنة الوحدات عبر الصفوف', 'Compare units across grades')} idx={2} accentGradient={subjectMeta.gradient}>
-        <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm overflow-x-auto">
-          <GradeUnitHeatmap subject={subject} students={filteredStudents} locale={locale} onCellClick={openGradeUnitPopup} />
-        </div>
+        <ExpandableWidget title={t('خريطة الدقة', 'Accuracy Heatmap')}>
+          <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm overflow-x-auto">
+            <GradeUnitHeatmap subject={subject} students={filteredStudents} locale={locale} onCellClick={openGradeUnitPopup} />
+          </div>
+        </ExpandableWidget>
       </SectionBlock>
 
       {/* ═══════════════════════════════════════════════
@@ -611,9 +614,11 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
           SECTION 4: Teacher Effectiveness
           ═══════════════════════════════════════════════ */}
       <SectionBlock icon={GraduationCap} title={t('فعالية المعلمين', 'Teacher Effectiveness')} subtitle={t('أداء المعلمين عبر الوحدات', 'Teacher performance across units')} idx={4} accentGradient={subjectMeta.gradient}>
-        <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm overflow-x-auto">
-          <TeacherEffectivenessTable subject={subject} students={filteredStudents} locale={locale} onStudentClick={(st: StudentProfile) => setSelectedStudent(st)} />
-        </div>
+        <ExpandableWidget title={t('فعالية المعلمين', 'Teacher Effectiveness')}>
+          <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm overflow-x-auto">
+            <TeacherEffectivenessTable subject={subject} students={filteredStudents} locale={locale} onStudentClick={(st: StudentProfile) => setSelectedStudent(st)} />
+          </div>
+        </ExpandableWidget>
       </SectionBlock>
 
       {/* ═══════════════════════════════════════════════
@@ -665,6 +670,7 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
       <SectionBlock icon={BarChart3} title={t('الرسوم البيانية', 'Analytics Charts')} subtitle={t('اتجاهات وتوزيعات الأداء', 'Performance trends and distributions')} idx={6} accentGradient={subjectMeta.gradient}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Chart A: Section-based Growth Trajectory */}
+          <ExpandableWidget title={t('اتجاه الشعب', 'Section Trend')}>
           <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
             {/* Header with grade pills */}
             <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
@@ -876,8 +882,10 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
               </div>
             )}
           </div>
+          </ExpandableWidget>
 
           {/* Chart B: Accuracy vs XP Scatter */}
+          <ExpandableWidget title={t('الدقة مقابل النقاط', 'Accuracy vs XP')}>
           <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
             <h3 className="text-sm font-bold text-slate-700 mb-4">{t('الدقة مقابل نقاط الخبرة', 'Accuracy vs XP')}</h3>
             <AccuracyVsXpScatter
@@ -886,6 +894,7 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
               onStudentClick={(id) => { const st = filteredStudents.find(s => s.id === id); if (st) setSelectedStudent(st); }}
             />
           </div>
+          </ExpandableWidget>
         </div>
       </SectionBlock>
 
@@ -893,9 +902,11 @@ export function OverviewTab({ subject, locale }: OverviewTabProps) {
           SECTION 7: Intervention Insights
           ═══════════════════════════════════════════════ */}
       <SectionBlock icon={Eye} title={t('رؤى التدخل', 'Intervention Insights')} subtitle={t('توصيات لتحسين الأداء', 'Recommendations for improvement')} idx={7} accentGradient={subjectMeta.gradient}>
-        <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
-          <InterventionInsights subject={subject} students={filteredStudents} locale={locale} />
-        </div>
+        <ExpandableWidget title={t('رؤى التدخل', 'Insights')}>
+          <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
+            <InterventionInsights subject={subject} students={filteredStudents} locale={locale} />
+          </div>
+        </ExpandableWidget>
       </SectionBlock>
 
       {/* ═══════════════════════════════════════════════

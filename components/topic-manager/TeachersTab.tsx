@@ -20,6 +20,7 @@ import {
 import { ProgressRing, Sparkline, HorizontalBarChart } from '../admin-hub/attendance/SvgCharts';
 import AccuracyVsXpScatter from '../leaderboard-widgets/AccuracyVsXpScatter';
 import { StudentProfileModal } from '../StudentProfileModal';
+import { ExpandableWidget } from './ExpandableWidget';
 
 /* ═══════════════════════════════════════════════════════════════
    Constants & Types
@@ -1072,6 +1073,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
       <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
         <SectionHeader icon={Activity} title={t('growthTrajectory')} subtitle={t('growthTrajectorySub')} locale={locale} />
 
+        <ExpandableWidget title={t('growthTrajectory')}>
         <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
           {/* Teacher toggles */}
           <div className="flex flex-wrap gap-2 mb-5">
@@ -1259,6 +1261,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
             );
           })()}
         </div>
+        </ExpandableWidget>
       </motion.section>
 
       {/* ─── SECTION 5: Unit Mastery Heatmap ─── */}
@@ -1282,6 +1285,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
           ))}
         </div>
 
+        <ExpandableWidget title={t('unitMastery')}>
         <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm overflow-x-auto">
           {(() => {
             const gradeTeachers = teachers.filter(t => t.grade === activeHeatmapGrade);
@@ -1332,6 +1336,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
             );
           })()}
         </div>
+        </ExpandableWidget>
       </motion.section>
 
       {/* ─── SECTION 6: Teacher Health Dashboard ─── */}
@@ -1424,6 +1429,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
       <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
         <SectionHeader icon={Target} title={t('engagementImpact')} subtitle={t('engagementImpactSub')} locale={locale} />
 
+        <ExpandableWidget title={t('engagementImpact')}>
         <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
           {/* Quadrant labels */}
           <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
@@ -1451,6 +1457,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
             className="w-full"
           />
         </div>
+        </ExpandableWidget>
       </motion.section>
 
       {/* ─── SECTION 8: Spotlight & Peer Learning ─── */}
