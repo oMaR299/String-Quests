@@ -71,15 +71,19 @@ function useCountUp(target: number, duration = 2000, shouldStart = false) {
 }
 
 function parseNumber(str: string): number {
-  const cleaned = str.replace(/[^0-9.]/g, '');
+  // Convert Arabic-Indic numerals (٠-٩) to Western digits (0-9)
+  const western = str.replace(/[٠-٩]/g, (d) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)));
+  const cleaned = western.replace(/[^0-9.]/g, '');
   return parseFloat(cleaned) || 0;
 }
 
-function formatNumber(num: number, template: string): string {
-  if (template.includes(',')) {
-    return num.toLocaleString('en-US');
-  }
-  return num.toString();
+function toArabicNumerals(n: number): string {
+  const arabicDigits = '٠١٢٣٤٥٦٧٨٩';
+  return n.toString().replace(/[0-9]/g, (d) => arabicDigits[parseInt(d)]);
+}
+
+function formatNumber(num: number, _template: string): string {
+  return toArabicNumerals(num);
 }
 
 // ─────────────────────────────────────────────
@@ -119,8 +123,8 @@ export function StatCallout({ number, subtitle, icon, color = 'sky' }: StatCallo
           {icon}
         </div>
       )}
-      <div className={`text-5xl font-black ${colors.text} font-['Cairo'] leading-tight`}>
-        {prefix}{formatNumber(animatedValue, number)}{suffix}
+      <div className={`text-5xl font-black ${colors.text} font-['Cairo'] leading-tight`} dir="ltr" style={{ unicodeBidi: 'bidi-override', direction: 'ltr' }}>
+        <bdi>{prefix}{formatNumber(animatedValue, number)}{suffix}</bdi>
       </div>
       <div className="text-sm font-semibold text-slate-600 uppercase tracking-wide mt-2 font-['Cairo']">
         {subtitle}
