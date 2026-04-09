@@ -16,6 +16,8 @@ import {
   Users,
   GraduationCap,
   School,
+  Shield,
+  Handshake,
 } from 'lucide-react';
 import {
   StatCallout,
@@ -854,6 +856,223 @@ function Section10Pricing() {
         ))}
       </div>
 
+      {/* Founding Partner Program - What It Is */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <SectionDivider sectionNumber={0} title="برنامج شريك التأسيس" />
+
+        {/* Program header */}
+        <div className="bg-gradient-to-l from-amber-50 to-yellow-50 border-2 border-amber-300 rounded-2xl p-6 sm:p-8 mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg">
+              <Handshake className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <h3 className="font-black text-gray-900 text-xl font-['Cairo']">
+                برنامج شريك التأسيس
+              </h3>
+              <p className="text-amber-700 text-sm font-['Cairo']">
+                شراكة حقيقية — ليس مجرد خصم
+              </p>
+            </div>
+          </div>
+
+          <p className="text-gray-700 text-sm leading-relaxed mb-6 font-['Cairo']">
+            نقدم لمدارس Edison فرصة الانضمام لبرنامج "شريك التأسيس" — وهو ليس
+            خصماً عادياً، بل شراكة حقيقية بين String والمدرسة تساعدنا معاً على
+            بناء أفضل نظام تعليمي في العالم.
+          </p>
+          <p className="text-gray-700 text-sm leading-relaxed mb-6 font-['Cairo']">
+            <strong>هذا البرنامج اختياري تماماً</strong> — يمكنكم الاشتراك بأي
+            خطة بالسعر الأساسي بدون الانضمام للبرنامج. لكن إذا اخترتم الشراكة،
+            ستحصلون على خصم ٥٠٪ مقابل مشاركتكم الفعالة في تطوير المنصة.
+          </p>
+
+          {/* Two columns: What Edison gets / What String gets */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* What Edison Gets */}
+            <div className="bg-white rounded-xl border border-emerald-200 p-5">
+              <h4 className="font-black text-emerald-700 text-sm mb-3 flex items-center gap-2 font-['Cairo']">
+                <span>✅</span> ماذا تحصل المدرسة
+              </h4>
+              <ul className="space-y-2 text-sm text-gray-700 font-['Cairo']">
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  خصم ٥٠٪ على السعر الأساسي طوال فترة العقد
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  ترقية مجانية إلى خطة Supernova للسنة الأولى كاملة
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  لقب "الشريك المؤسس" — أول مدرسة String في إربد
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  الوصول المبكر لميزات Beta الجديدة قبل أي مدرسة أخرى
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  اسم وشعار المدرسة على موقع String الرسمي
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  خط مباشر مع فريق التطوير في String
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  أولوية في تنفيذ الميزات التي تطلبها المدرسة
+                </li>
+              </ul>
+            </div>
+
+            {/* What String Gets */}
+            <div className="bg-white rounded-xl border border-sky-200 p-5">
+              <h4 className="font-black text-sky-700 text-sm mb-3 flex items-center gap-2 font-['Cairo']">
+                <span>🤝</span> ماذا نحتاج من المدرسة
+              </h4>
+              <ul className="space-y-2 text-sm text-gray-700 font-['Cairo']">
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500 mt-0.5">•</span>
+                  المشاركة في اختبار الميزات الجديدة وإعطاء ملاحظات منتظمة
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500 mt-0.5">•</span>
+                  المشاركة في الأبحاث الاستراتيجية وكتابة الأوراق البيضاء حول
+                  String DNA و String Skill Map
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500 mt-0.5">•</span>
+                  مشاركة بيانات الاستخدام المجمعة (بدون أي بيانات شخصية) لتحسين
+                  أنظمتنا — مع ضمان كامل لأمن وخصوصية البيانات وفقاً لأعلى
+                  المعايير الدولية
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500 mt-0.5">•</span>
+                  أن تكون المدرسة مرجعاً — نوصي بها لمدارس أخرى تسأل عن تجربة
+                  String
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500 mt-0.5">•</span>
+                  إخبارنا بالميزات التي تحتاجها المدرسة لمساعدتنا في تحسين
+                  المنصة
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500 mt-0.5">•</span>
+                  فيديو شهادة بعد السنة الأولى
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500 mt-0.5">•</span>
+                  إمكانية زيارة مدارس أخرى للمنصة في Edison
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Data privacy note */}
+          <div className="mt-6 bg-sky-50 border border-sky-200 rounded-xl p-4 flex items-start gap-3">
+            <Shield className="w-5 h-5 text-sky-600 mt-0.5 shrink-0" />
+            <div>
+              <h5 className="font-bold text-sky-800 text-sm mb-1 font-['Cairo']">
+                ضمان أمن البيانات
+              </h5>
+              <p className="text-sky-700 text-xs leading-relaxed font-['Cairo']">
+                جميع البيانات المشاركة تكون مجمعة وغير شخصية — لا تشمل أسماء
+                طلاب أو بيانات حساسة. نلتزم بأعلى معايير حماية البيانات الدولية
+                (GDPR). المدرسة تحتفظ بالملكية الكاملة لبياناتها. لا نبيع أو
+                نشارك أي بيانات مع أطراف ثالثة.
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* After-School Program */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <div className="bg-gradient-to-l from-violet-50 to-purple-50 border-2 border-violet-300 rounded-2xl p-6 sm:p-8 mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-400 to-purple-600 flex items-center justify-center shadow-lg">
+              <GraduationCap className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <h3 className="font-black text-gray-900 text-xl font-['Cairo']">
+                برنامج ما بعد المدرسة
+              </h3>
+              <p className="text-violet-700 text-sm font-['Cairo']">
+                برامج إثرائية لطلاب Edison بعد الدوام
+              </p>
+            </div>
+          </div>
+
+          <p className="text-gray-700 text-sm leading-relaxed mb-6 font-['Cairo']">
+            نقترح إطلاق برنامج "ما بعد المدرسة" لطلاب Edison — برامج إثرائية
+            وتدريبية تُقدم بعد الدوام المدرسي باستخدام أدوات String. هذه
+            البرامج ترفع مستوى الطلاب وتعطي المدرسة ميزة تنافسية إضافية.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            {/* Program 1 */}
+            <div className="bg-white rounded-xl border border-violet-200 p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">💻</span>
+                <h4 className="font-black text-gray-900 text-sm font-['Cairo']">
+                  برنامج البرمجة والروبوتيكس
+                </h4>
+              </div>
+              <p className="text-gray-600 text-xs leading-relaxed mb-3 font-['Cairo']">
+                تعليم البرمجة (Python, Scratch, C++) والروبوتيكس باستخدام String
+                Studio — نفس الأدوات التي فازت بها مدارس الخضر بـ ٣ جوائز
+                وطنية.
+              </p>
+              <ul className="space-y-1 text-xs text-gray-600 font-['Cairo']">
+                <li>• مرتين أسبوعياً بعد الدوام</li>
+                <li>• مناسب لجميع المراحل (صف ١-١٢)</li>
+                <li>• يؤهل الطلاب للمسابقات الوطنية</li>
+                <li>• يُبنى بالكامل على String Studio</li>
+              </ul>
+            </div>
+
+            {/* Program 2 */}
+            <div className="bg-white rounded-xl border border-violet-200 p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">🧠</span>
+                <h4 className="font-black text-gray-900 text-sm font-['Cairo']">
+                  برنامج التفوق الأكاديمي
+                </h4>
+              </div>
+              <p className="text-gray-600 text-xs leading-relaxed mb-3 font-['Cairo']">
+                مراجعة ذكية وتحديات مخصصة بناءً على ملف DNA كل طالب — يركز على
+                نقاط الضعف ويقوي نقاط القوة. كل طالب يحصل على مسار تعلم مخصص.
+              </p>
+              <ul className="space-y-1 text-xs text-gray-600 font-['Cairo']">
+                <li>• مرتين أسبوعياً بعد الدوام</li>
+                <li>• مبني على بيانات DNA و Skill Map</li>
+                <li>• تحديات ومسابقات أسبوعية</li>
+                <li>• تقارير تقدم لأولياء الأمور</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-violet-100 border border-violet-200 rounded-xl p-4 text-center">
+            <p className="text-violet-800 text-sm font-bold font-['Cairo']">
+              ✨ المدارس التي تطبق برنامج ما بعد المدرسة تحصل على خصم ٥٠٪ ضمن
+              برنامج شريك التأسيس
+            </p>
+            <p className="text-violet-600 text-xs mt-1 font-['Cairo']">
+              هذه البرامج مجانية للمدرسة — String يقدمها كجزء من الشراكة
+            </p>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Founder Partner Discount */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -868,10 +1087,13 @@ function Section10Pricing() {
             </div>
             <div>
               <h3 className="font-black text-gray-900 text-lg font-['Cairo']">
-                عرض شريك التأسيس
+                عرض شريك التأسيس (اختياري)
               </h3>
               <p className="text-emerald-700 text-sm font-['Cairo']">
                 حصري — لفترة محدودة
+              </p>
+              <p className="text-emerald-600 text-xs font-['Cairo']">
+                يمكنكم الاشتراك بأي خطة بالسعر الأساسي بدون هذا العرض
               </p>
             </div>
           </div>
