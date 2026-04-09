@@ -718,6 +718,7 @@ function Section10Pricing() {
       name: 'Basic',
       price: '٤ دنانير',
       priceNote: 'لكل طالب / شهرياً',
+      discountPrice: '٢ دينار',
       features: [
         'String Spaces (LMS + SIS)',
         'String Studio (التطبيقات التفاعلية)',
@@ -747,6 +748,7 @@ function Section10Pricing() {
       name: 'Supernova',
       price: '١٤ دينار',
       priceNote: 'لكل طالب / شهرياً',
+      discountPrice: '٧ دنانير',
       features: [
         'كل ميزات Nova',
         'String Family (تطبيق أولياء الأمور)',
@@ -1151,6 +1153,22 @@ function Section10Pricing() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Monthly breakdown */}
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="bg-white rounded-xl border border-emerald-200 p-4 text-center">
+            <div className="text-2xl font-black text-emerald-600 font-['Cairo']">٤,٦٣٠ دينار</div>
+            <div className="text-xs text-gray-500 font-['Cairo']">شهرياً</div>
+          </div>
+          <div className="bg-white rounded-xl border border-emerald-200 p-4 text-center">
+            <div className="text-2xl font-black text-emerald-600 font-['Cairo']">٤.٢١ دينار</div>
+            <div className="text-xs text-gray-500 font-['Cairo']">لكل طالب شهرياً — شامل كل شيء</div>
+          </div>
+          <div className="bg-white rounded-xl border border-emerald-200 p-4 text-center">
+            <div className="text-2xl font-black text-emerald-600 font-['Cairo']">أقل من ⅓</div>
+            <div className="text-xs text-gray-500 font-['Cairo']">القيمة الحقيقية — Supernova تساوي ١٥٤,٠٠٠ دينار</div>
+          </div>
         </div>
       </motion.div>
 
