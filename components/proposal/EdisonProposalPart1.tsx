@@ -18,24 +18,35 @@ const stagger = {
 };
 
 // ─────────────────────────────────────────────
-// Student Data
+// Student Stats Data
 // ─────────────────────────────────────────────
 
-const students = [
-  { rank: 1, name: 'أسماء منصور الشريف', grade: '٦', xp: '٣٢,٨٨٧', questions: '٢,٠٦٧', subjects: 'عربي، تربية إسلامية، رياضيات' },
-  { rank: 2, name: 'عمر حسام عساف', grade: '٤', xp: '٢٣,٢٩٠', questions: '١,٢١٤', subjects: 'عربي، تربية إسلامية، مهني' },
-  { rank: 3, name: 'ديما محمد عساف', grade: '٤', xp: '١٢,١٣٥', questions: '٧٤٨', subjects: 'عربي، رياضيات' },
-  { rank: 4, name: 'بشر جابر', grade: '٢', xp: '١٠,٥١٧', questions: '٦٢٧', subjects: 'عربي، رياضيات، علوم' },
-  { rank: 7, name: 'سارة رامي شراب', grade: '١٠', xp: '٦,٦١١', questions: '٥٣٨', subjects: 'كيمياء' },
-  { rank: 8, name: 'ملك حسام عساف', grade: '١٠', xp: '٥,٦٨٧', questions: '٣٨١', subjects: 'جغرافيا، تاريخ، تربية وطنية' },
+const studentStats = [
+  {
+    number: '٢,٠٠٠+',
+    description: 'طالبة في الصف السادس أجابت على أكثر من ٢,٠٠٠ سؤال في ٣ مواد',
+    color: 'emerald' as const,
+    icon: '📚',
+  },
+  {
+    number: '٦٠٠+',
+    description: 'طالب في الصف الثاني — عمره ٧ سنوات — أجاب على أكثر من ٦٠٠ سؤال',
+    color: 'sky' as const,
+    icon: '🧒',
+  },
+  {
+    number: '٥٠٠+',
+    description: 'طالبة في الصف العاشر تتدرب على الكيمياء يومياً عبر أكثر من ٥٠٠ سؤال',
+    color: 'violet' as const,
+    icon: '🧪',
+  },
+  {
+    number: '٤٨,٠٠٠+',
+    description: 'تحدي تعليمي أكمله الطلاب في أقل من ٣ أشهر',
+    color: 'amber' as const,
+    icon: '🏆',
+  },
 ];
-
-function getMedalColor(rank: number): string {
-  if (rank === 1) return 'bg-gradient-to-br from-yellow-300 to-amber-500 text-white';
-  if (rank === 2) return 'bg-gradient-to-br from-slate-200 to-slate-400 text-white';
-  if (rank === 3) return 'bg-gradient-to-br from-amber-600 to-amber-800 text-white';
-  return 'bg-slate-100 text-slate-600';
-}
 
 // ─────────────────────────────────────────────
 // Main Component
@@ -342,53 +353,68 @@ export function EdisonProposalPart1() {
             </div>
           </motion.div>
 
-          {/* Student Engagement Table */}
-          <motion.div variants={fadeUp} transition={{ duration: 0.6 }} className="space-y-4">
+          {/* Student Engagement — Stat Cards */}
+          <motion.div variants={fadeUp} transition={{ duration: 0.6 }} className="space-y-6">
             <h3 className="text-xl font-bold text-slate-800 text-center">
-              بيانات حقيقية من مدارس تستخدم String
+              أرقام حقيقية من طلابنا
             </h3>
-            <p className="text-center text-sm text-slate-500 mb-6">
-              جدول تفاعل الطلاب — بيانات حقيقية وليست عروض توضيحية
-            </p>
 
-            <div className="overflow-x-auto rounded-2xl border border-slate-200/60 shadow-sm">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-slate-50/80 border-b border-slate-200/60">
-                    <th className="px-4 py-3 text-right font-bold text-slate-600 font-['Cairo']">#</th>
-                    <th className="px-4 py-3 text-right font-bold text-slate-600 font-['Cairo']">الطالب</th>
-                    <th className="px-4 py-3 text-right font-bold text-slate-600 font-['Cairo']">الصف</th>
-                    <th className="px-4 py-3 text-right font-bold text-slate-600 font-['Cairo']">نقاط XP</th>
-                    <th className="px-4 py-3 text-right font-bold text-slate-600 font-['Cairo']">أسئلة مُجابة</th>
-                    <th className="px-4 py-3 text-right font-bold text-slate-600 font-['Cairo']">المواد</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {students.map((student, i) => (
-                    <tr
-                      key={i}
-                      className={`border-b border-slate-100 transition-colors hover:bg-sky-50/30 ${
-                        student.rank <= 3 ? 'bg-amber-50/20' : ''
-                      }`}
-                    >
-                      <td className="px-4 py-3">
-                        <span
-                          className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold ${getMedalColor(
-                            student.rank
-                          )}`}
-                        >
-                          {student.rank}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 font-semibold text-slate-800 font-['Cairo']">{student.name}</td>
-                      <td className="px-4 py-3 text-slate-600 font-['Cairo']">{student.grade}</td>
-                      <td className="px-4 py-3 font-bold text-sky-600 font-['Cairo']">{student.xp}</td>
-                      <td className="px-4 py-3 text-slate-700 font-['Cairo']">{student.questions}</td>
-                      <td className="px-4 py-3 text-slate-500 text-xs font-['Cairo']">{student.subjects}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {studentStats.map((stat, i) => {
+                const colorStyles = {
+                  emerald: {
+                    border: 'border-emerald-200/60',
+                    bg: 'bg-gradient-to-br from-white to-emerald-50/40',
+                    numberColor: 'text-emerald-600',
+                    iconBg: 'bg-emerald-100',
+                  },
+                  sky: {
+                    border: 'border-sky-200/60',
+                    bg: 'bg-gradient-to-br from-white to-sky-50/40',
+                    numberColor: 'text-sky-600',
+                    iconBg: 'bg-sky-100',
+                  },
+                  violet: {
+                    border: 'border-violet-200/60',
+                    bg: 'bg-gradient-to-br from-white to-violet-50/40',
+                    numberColor: 'text-violet-600',
+                    iconBg: 'bg-violet-100',
+                  },
+                  amber: {
+                    border: 'border-amber-200/60',
+                    bg: 'bg-gradient-to-br from-white to-amber-50/40',
+                    numberColor: 'text-amber-600',
+                    iconBg: 'bg-amber-100',
+                  },
+                };
+
+                const style = colorStyles[stat.color];
+
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    className={`${style.bg} ${style.border} border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className={`${style.iconBg} w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0`}>
+                        {stat.icon}
+                      </div>
+                      <div className="space-y-1">
+                        <p className={`text-3xl font-black ${style.numberColor} font-['Cairo'] leading-tight`}>
+                          {stat.number}
+                        </p>
+                        <p className="text-sm text-slate-600 font-['Cairo'] leading-relaxed">
+                          {stat.description}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </motion.div>

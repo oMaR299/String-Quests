@@ -75,7 +75,7 @@ function Section6Features() {
       emoji: '\u2728',
       title: 'String Studio',
       bullets: [
-        '"التطبيقات كشرائح" — أسلوب ثوري في بناء الدروس',
+        'كل تطبيق يصبح جزء من الدرس — أسلوب ثوري في بناء الدروس',
         'أكثر من 100 تطبيق تعليمي تفاعلي جاهز',
         'مساعد ذكاء اصطناعي لبناء الدروس بسرعة',
       ],
@@ -87,7 +87,7 @@ function Section6Features() {
       bullets: [
         'ألعاب تعليمية مبنية من المنهج مباشرة',
         'نظام XP يحفّز الطلاب على التعلّم',
-        'لوحة متصدّرين تشعل روح المنافسة',
+        'لوحة ترتيب ونقاط تشعل روح المنافسة',
       ],
       allPlans: false,
     },
@@ -125,7 +125,7 @@ function Section6Features() {
       emoji: '\u{1F4AC}',
       title: 'String Chat',
       bullets: [
-        'تواصل آمن مبني على بروتوكول Matrix',
+        'تواصل آمن مبني على تقنية تشفير عسكرية للتواصل الآمن',
         'محادثات مشفّرة بين المعلمين والطلاب',
         'قنوات إدارية وتعليمية منظّمة',
       ],
@@ -135,7 +135,7 @@ function Section6Features() {
       emoji: '\u{1F4F9}',
       title: 'String Meetings',
       bullets: [
-        'حصص فيديو مباشرة + سبورة تفاعلية',
+        'حصص فيديو مباشرة مبنية على تقنية مفتوحة المصدر وآمنة',
         'تسجيل تلقائي للرجوع إليه لاحقاً',
         'نسخ ذكي بالذكاء الاصطناعي',
       ],
@@ -564,7 +564,7 @@ function Section9WhatEdisonGets() {
       items: [
         'ملف تعليمي شخصي (DNA) بـ ١٢٨ بُعداً',
         'ألعاب تعليمية من المنهج (Quests)',
-        'نظام نقاط XP ولوحة متصدرين',
+        'لوحة ترتيب ونقاط',
         'واجبات تفاعلية بدل الورقية',
         'دروس مسجّلة يمكن إعادتها',
         'مساعد ذكاء اصطناعي للدراسة',
@@ -596,7 +596,7 @@ function Section9WhatEdisonGets() {
         'بيانات لحظية لاتخاذ القرارات',
         'تقارير لوزارة التربية جاهزة',
         'نظام تواصل إداري آمن',
-        'إدارة الحسابات والصلاحيات',
+        'إدارة تلقائية بالكامل',
         'دعم مخصص من فريق String',
       ],
     },
@@ -714,7 +714,7 @@ function Section10Pricing() {
   }> = [
     {
       name: 'Basic',
-      price: '٢ دينار',
+      price: '٤ دنانير',
       priceNote: 'لكل طالب / شهرياً',
       features: [
         'String Spaces (LMS + SIS)',
@@ -726,10 +726,10 @@ function Section10Pricing() {
     },
     {
       name: 'Nova',
-      price: '٣.٥ دينار',
+      price: '٧ دنانير',
       priceNote: 'لكل طالب / شهرياً — مع ترقية Supernova مجانية للسنة الأولى',
       recommended: true,
-      discountPrice: '١.٧٥ دينار',
+      discountPrice: '٣.٥ دينار',
       features: [
         'كل ميزات Basic',
         'String Quests (الألعاب التعليمية)',
@@ -743,7 +743,7 @@ function Section10Pricing() {
     },
     {
       name: 'Supernova',
-      price: '٧ دنانير',
+      price: '١٤ دينار',
       priceNote: 'لكل طالب / شهرياً',
       features: [
         'كل ميزات Nova',
@@ -757,7 +757,7 @@ function Section10Pricing() {
     {
       name: 'Hypernova',
       price: '\u2014',
-      priceNote: 'قريباً',
+      priceNote: 'قريباً — ٢٠٢٧',
       comingSoon: true,
       features: [
         'كل ميزات Supernova',
@@ -776,8 +776,8 @@ function Section10Pricing() {
       date: 'عند التوقيع',
     },
     {
-      item: 'اشتراك Nova (١,١٠٠ طالب \u00D7 ٣.٥ \u00D7 ١٠ أشهر \u00D7 ٥٠٪)',
-      amount: '١٩,٢٥٠ دينار',
+      item: 'اشتراك Nova',
+      amount: '٣٨,٥٠٠ دينار',
       date: '٣ دفعات',
     },
     {
@@ -788,7 +788,7 @@ function Section10Pricing() {
     },
     {
       item: 'المجموع',
-      amount: '٢٧,٠٥٠ دينار',
+      amount: '٤٦,٣٠٠ دينار',
       date: '',
       total: true,
     },
@@ -817,7 +817,7 @@ function Section10Pricing() {
     },
     {
       service: 'String AI',
-      competitor: '١٤ دينار / معلم / شهر',
+      competitor: 'أدوات الذكاء الاصطناعي تكلف المدارس ١٤ دينار لكل معلم شهرياً',
       note: 'مجاني وغير محدود',
     },
   ];
