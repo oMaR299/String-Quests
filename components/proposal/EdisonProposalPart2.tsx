@@ -483,32 +483,87 @@ function Section8CaseStudy() {
         ))}
       </div>
 
-      {/* National Wins */}
+      {/* National Wins — with HOW they did it */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
+        className="space-y-6 mb-8"
       >
-        {wins.map((w, i) => (
-          <motion.div
-            key={i}
-            variants={staggerItem}
-            className="bg-amber-50 border border-amber-200 rounded-2xl p-5 text-center hover:shadow-md transition-shadow"
-          >
-            <div className="text-4xl mb-3">{w.icon}</div>
-            <h4 className="font-bold text-gray-900 mb-1 font-['Cairo']">
-              {w.title}
-            </h4>
-            <p className="text-amber-700 text-sm font-medium font-['Cairo']">
-              {w.desc}
-            </p>
-            <div className="mt-3">
-              <Trophy className="w-5 h-5 text-amber-500 mx-auto" />
+        <h3 className="text-xl font-black text-gray-900 text-center font-['Cairo'] mb-2">
+          ٣ انتصارات وطنية في فصل دراسي واحد — وكيف تحققت
+        </h3>
+        <p className="text-center text-sm text-slate-500 font-['Cairo'] mb-6">
+          شركاؤنا لا يشاركون فقط — بل يسيطرون
+        </p>
+
+        {/* Win 1: Chemistry */}
+        <motion.div variants={staggerItem} className="bg-gradient-to-l from-amber-50 to-white border border-amber-200 rounded-2xl p-6 sm:p-8">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-2xl shadow-lg shrink-0">🧪</div>
+            <div>
+              <h4 className="font-black text-gray-900 text-lg font-['Cairo']">مسابقة الكيمياء — المركز الأول على المملكة</h4>
+              <div className="flex items-center gap-2 mt-1">
+                <Trophy className="w-4 h-4 text-amber-500" />
+                <span className="text-amber-600 text-sm font-bold font-['Cairo']">المركز الأول وطنياً</span>
+              </div>
             </div>
-          </motion.div>
-        ))}
+          </div>
+          <div className="bg-white rounded-xl border border-amber-100 p-5">
+            <h5 className="font-bold text-slate-800 text-sm mb-3 font-['Cairo']">كيف تحقق هذا الإنجاز؟</h5>
+            <p className="text-slate-600 text-sm leading-relaxed font-['Cairo']">
+              استخدم الطلاب <strong className="text-sky-600">String Quests</strong> للتدرب — تحديات كيمياء مولّدة بالذكاء الاصطناعي من المنهج الرسمي. بدلاً من الحفظ التقليدي، قاس الطلاب فهمهم الحقيقي عبر تحديات تفاعلية يومية. الـ AI يعرف نقاط ضعف كل طالب ويولّد أسئلة مخصصة لمستواه — فكل طالب يتدرب على ما يحتاجه فعلاً، وليس على نفس الأسئلة التي يحصل عليها الجميع.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Win 2: Programming */}
+        <motion.div variants={staggerItem} className="bg-gradient-to-l from-sky-50 to-white border border-sky-200 rounded-2xl p-6 sm:p-8">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-2xl shadow-lg shrink-0">💻</div>
+            <div>
+              <h4 className="font-black text-gray-900 text-lg font-['Cairo']">مسابقة البرمجة — إنجاز غير مسبوق في تاريخ المدرسة</h4>
+              <div className="flex items-center gap-2 mt-1">
+                <Trophy className="w-4 h-4 text-sky-500" />
+                <span className="text-sky-600 text-sm font-bold font-['Cairo']">٩ طلاب وصلوا لمستوى المملكة — أكثر من أي مدرسة أخرى</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl border border-sky-100 p-5">
+            <h5 className="font-bold text-slate-800 text-sm mb-3 font-['Cairo']">كيف تحقق هذا الإنجاز؟</h5>
+            <p className="text-slate-600 text-sm leading-relaxed font-['Cairo']">
+              أنشأت المدرسة برنامج C++ داخلي بالكامل باستخدام <strong className="text-sky-600">String Studio</strong> — شارك فيه أكثر من ١٢٠ طالب. كل أدوات البرمجة — محرر الكود، بيئة التشغيل، التقييم التلقائي — كلها داخل درس واحد في Studio. هذا كان مستحيلاً بدون Studio لأن المعلمين كانوا يحتاجون أدوات متعددة موحدة في مكان واحد — وString وفّر ذلك.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Win 3: Robotics */}
+        <motion.div variants={staggerItem} className="bg-gradient-to-l from-violet-50 to-white border border-violet-200 rounded-2xl p-6 sm:p-8">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-400 to-purple-600 flex items-center justify-center text-2xl shadow-lg shrink-0">🤖</div>
+            <div>
+              <h4 className="font-black text-gray-900 text-lg font-['Cairo']">مسابقة الروبوتيكس — ٣ جوائز</h4>
+              <div className="flex items-center gap-2 mt-1">
+                <Trophy className="w-4 h-4 text-violet-500" />
+                <span className="text-violet-600 text-sm font-bold font-['Cairo']">٣ جوائز في المسابقة الوطنية</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl border border-violet-100 p-5">
+            <h5 className="font-bold text-slate-800 text-sm mb-3 font-['Cairo']">كيف تحقق هذا الإنجاز؟</h5>
+            <p className="text-slate-600 text-sm leading-relaxed font-['Cairo']">
+              ربا صرور، معلمة الروبوتيكس، استخدمت <strong className="text-sky-600">String Studio</strong> لجمع كل أدوات التدريب — أدوات التصميم، برمجة الروبوتات، محاكاة الحركة — في واجهة واحدة. كانت تدفع اشتراك سنوي لمنصة Hello World Kids، لكن خلال أسبوعين بنت على Studio بديلاً أفضل — مصمم لطلابها وأجهزتها. ألغت الاشتراك وقالت أن ما بنته أكثر تفاعلية ومرونة.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Bottom banner */}
+        <motion.div variants={staggerItem} className="bg-gradient-to-r from-sky-50 to-emerald-50 border border-sky-200 rounded-xl p-4 text-center">
+          <p className="text-sky-800 text-sm font-bold font-['Cairo']">
+            هذا نفس النظام الذي سيعمل في مدارس Edison. نفس الأدوات. نفس القدرات. نفس الفرصة.
+          </p>
+        </motion.div>
       </motion.div>
 
       {/* Testimonial */}
