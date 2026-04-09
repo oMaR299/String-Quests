@@ -30,6 +30,7 @@ import { AdminHubLayout } from './components/admin-hub/AdminHubLayout';
 import { LeaderboardShowcase } from './components/leaderboard-widgets/LeaderboardShowcase';
 import { TopicManagerLayout } from './components/topic-manager/TopicManagerLayout';
 import { SkillMapPremiumPage } from './components/skill-map-premium/SkillMapPremiumPage';
+import { EdisonProposal } from './components/proposal/EdisonProposal';
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[50vh]">
@@ -76,6 +77,9 @@ const App: React.FC = () => {
 
               {/* Premium Skill Map */}
               <Route path="/skill-map-premium" element={<SkillMapPremiumPage onExit={() => window.location.href = '/home'} />} />
+
+              {/* Proposal */}
+              <Route path="/proposal/edison" element={<EdisonProposal />} />
 
               {/* Stakeholder report routes */}
               <Route path="/parent-report" element={<ParentReportPage />} />

@@ -50,6 +50,7 @@ const DEV_TOGGLES: DevToggle[] = [
   { label: 'Leaderboards', icon: Trophy, route: '/leaderboard-widgets', color: 'text-amber-400' },
   { label: 'Topic Manager', icon: BookOpen, route: '/topic-manager', color: 'text-orange-400' },
   { label: 'Skill Map Pro', icon: BrainCircuit, route: '/skill-map-premium', color: 'text-violet-400' },
+  { label: 'Edison Proposal', icon: FileText, route: '/proposal/edison', color: 'text-emerald-400' },
 ];
 
 export const Sidebar: React.FC = () => {
