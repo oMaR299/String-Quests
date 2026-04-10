@@ -1454,6 +1454,104 @@ function Section10Pricing() {
             <div className="text-xs text-gray-500 font-['Cairo']">القيمة الحقيقية — Supernova تساوي ١٥٤,٠٠٠ دينار</div>
           </div>
         </div>
+
+        {/* Founder Partner Pricing Table (50% off) */}
+        <div className="mt-8 mb-6">
+          <h4 className="font-black text-gray-900 text-base mb-4 font-['Cairo'] text-center">
+            أسعار شريك التأسيس — خصم ٥٠٪ على جميع الخطط
+          </h4>
+          <div className="bg-white rounded-xl border border-emerald-200 overflow-hidden">
+            <table className="w-full text-sm font-['Cairo']">
+              <thead>
+                <tr className="bg-emerald-100/60">
+                  <th className="text-start p-3 font-bold text-gray-700">الخطة</th>
+                  <th className="text-center p-3 font-bold text-gray-400">السعر العادي</th>
+                  <th className="text-center p-3 font-bold text-emerald-700">سعر الشريك (٥٠٪)</th>
+                  <th className="text-center p-3 font-bold text-gray-700">سنوياً (١,١٠٠ × ١٠ أشهر)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-t border-emerald-100">
+                  <td className="p-3 font-bold text-gray-900">Basic</td>
+                  <td className="p-3 text-center text-gray-400 line-through">٤ دنانير</td>
+                  <td className="p-3 text-center font-black text-emerald-600">٢ دينار</td>
+                  <td className="p-3 text-center text-gray-700" dir="ltr">22,000 JOD</td>
+                </tr>
+                <tr className="border-t border-emerald-100 bg-sky-50/30">
+                  <td className="p-3 font-bold text-sky-700">Nova ⭐</td>
+                  <td className="p-3 text-center text-gray-400 line-through">٧ دنانير</td>
+                  <td className="p-3 text-center font-black text-emerald-600">٣.٥ دينار</td>
+                  <td className="p-3 text-center text-gray-700" dir="ltr">38,500 JOD</td>
+                </tr>
+                <tr className="border-t border-emerald-100">
+                  <td className="p-3 font-bold text-gray-900">Supernova</td>
+                  <td className="p-3 text-center text-gray-400 line-through">١٤ دينار</td>
+                  <td className="p-3 text-center font-black text-emerald-600">٧ دنانير</td>
+                  <td className="p-3 text-center text-gray-700" dir="ltr">77,000 JOD</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Supernova Free Year 1 */}
+        <div className="bg-gradient-to-l from-sky-50 to-emerald-50 border-2 border-sky-300 rounded-2xl p-6 mb-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-full bg-sky-500 flex items-center justify-center">
+              <Rocket className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h4 className="font-black text-gray-900 text-base font-['Cairo']">🚀 عرض السنة الأولى</h4>
+              <p className="text-sky-700 text-sm font-['Cairo']">ادفع Nova — واحصل على Supernova مجاناً</p>
+            </div>
+          </div>
+          <p className="text-gray-700 text-sm leading-relaxed font-['Cairo'] mb-4">
+            <strong>اشترك بخطة Nova بسعر الشريك المؤسس (٣.٥ دينار/طالب/شهر) — واحصل على ترقية Supernova مجاناً للسنة الأولى كاملة.</strong> هذا يعني أنكم ستحصلون على كل ميزات Supernova — تطبيق أولياء الأمور، الكتب الذكية، الموقع المدرسي المميز، قسم الإرشاد النفسي، مهندسون في المدرسة — كل هذا بدون أي تكلفة إضافية في السنة الأولى.
+          </p>
+          <div className="bg-white rounded-xl border border-sky-200 p-4 text-center mb-4">
+            <p className="text-gray-500 text-xs font-['Cairo'] mb-1">القيمة الحقيقية لخطة Supernova لـ ١,١٠٠ طالب × ١٠ أشهر:</p>
+            <p className="text-3xl font-black text-sky-600 font-['Cairo']" dir="ltr">154,000 JOD</p>
+            <p className="text-emerald-600 text-sm font-black font-['Cairo'] mt-1">ستحصلون عليها مجاناً في السنة الأولى ✨</p>
+          </div>
+        </div>
+
+        {/* Supernova Year 2 Incentive */}
+        <div className="bg-gradient-to-l from-amber-50 to-white border border-amber-200 rounded-2xl p-6 mb-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-full bg-amber-400 flex items-center justify-center">
+              <Star className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h4 className="font-black text-gray-900 text-base font-['Cairo']">⭐ Supernova مجاناً في السنة الثانية أيضاً — بشرط النتائج</h4>
+            </div>
+          </div>
+          <p className="text-gray-700 text-sm leading-relaxed font-['Cairo'] mb-4">
+            إذا حققت مدارس Edison نتائج إيجابية ملموسة في السنة الأولى — مثل زيادة تفاعل الطلاب، تحسن في الأداء الأكاديمي، أو رضا أولياء الأمور — ستحصلون على ترقية Supernova مجاناً في السنة الثانية أيضاً. نحن نؤمن بنتائج String ومستعدون لربط استثمارنا بنجاحكم.
+          </p>
+          <div className="bg-amber-100 border border-amber-200 rounded-xl p-4">
+            <p className="text-amber-800 text-sm font-bold font-['Cairo'] text-center">
+              نجاحكم = نجاحنا. إذا نجحتم، نكمل الشراكة بنفس الشروط المميزة.
+            </p>
+          </div>
+        </div>
+
+        {/* Custom Pricing Note */}
+        <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-4">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
+              <Users className="w-5 h-5 text-gray-600" />
+            </div>
+            <div>
+              <h4 className="font-black text-gray-900 text-sm font-['Cairo'] mb-2">خيارات تسعير مرنة</h4>
+              <p className="text-gray-600 text-sm leading-relaxed font-['Cairo']">
+                String يقدم أيضاً خيارات تسعير مختلفة ومرنة بناءً على احتياجات كل مدرسة — سواء من حيث عدد الطلاب، مدة العقد، أو طريقة الدفع. هذه الخيارات تحتاج مناقشة مباشرة مع إدارة المدرسة للوصول إلى الاتفاق الأنسب للطرفين. نحن مستعدون للجلوس معكم ومناقشة كل التفاصيل.
+              </p>
+              <p className="text-sky-600 text-sm font-bold font-['Cairo'] mt-3">
+                📞 للمناقشة: تواصلوا معنا لترتيب اجتماع حول التسعير المخصص
+              </p>
+            </div>
+          </div>
+        </div>
       </motion.div>
 
       {/* Competitor Pricing - "Real Value" */}
