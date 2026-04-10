@@ -301,6 +301,235 @@ function Section6Features() {
 }
 
 // ═══════════════════════════════════════════════════════════════
+// SECTION 6B — Curriculum & AI Content System
+// ═══════════════════════════════════════════════════════════════
+function Section6BCurriculum() {
+  return (
+    <motion.section
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-60px' }}
+    >
+      <div className="text-center mb-10">
+        <h2 className="text-2xl sm:text-3xl font-black text-gray-900 font-['Cairo']">
+          المنهج جاهز من <span className="text-sky-600">اليوم الأول</span> — محتوى لا ينتهي لكل طالب
+        </h2>
+        <p className="text-gray-500 mt-2 text-sm font-['Cairo']">
+          String يأتي بالمنهج كاملاً — ألعاب تعليمية، محتوى AI، وتنظيم تلقائي
+        </p>
+      </div>
+
+      {/* Curriculum Auto-Setup */}
+      <motion.div variants={staggerItem} className="bg-gradient-to-l from-sky-50 to-white border border-sky-200 rounded-2xl p-6 sm:p-8 mb-6">
+        <div className="flex items-start gap-4 mb-5">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-2xl shadow-lg shrink-0">📚</div>
+          <div>
+            <h3 className="font-black text-gray-900 text-lg font-['Cairo']">المنهج الرسمي — مُنظم ومُفعّل تلقائياً</h3>
+            <p className="text-sky-700 text-sm font-['Cairo'] mt-1">لا حاجة لإدخال أي شيء يدوياً — كل مادة، كل صف، كل درس جاهز</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+          <div className="bg-white rounded-xl border border-sky-100 p-5 text-center">
+            <div className="text-3xl mb-2">🎮</div>
+            <h4 className="font-bold text-gray-900 text-sm font-['Cairo'] mb-2">ألعاب تعليمية تلقائية</h4>
+            <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed">الذكاء الاصطناعي يحوّل كل درس في المنهج إلى تحديات تفاعلية — تلقائياً. لا يحتاج المعلم أن يفعل شيئاً.</p>
+          </div>
+          <div className="bg-white rounded-xl border border-sky-100 p-5 text-center">
+            <div className="text-3xl mb-2">🤖</div>
+            <h4 className="font-bold text-gray-900 text-sm font-['Cairo'] mb-2">محتوى AI لا ينتهي</h4>
+            <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed">كل طالب يحصل على محتوى مخصص لمستواه — أسئلة مختلفة، تحديات مختلفة، مسارات تعلم مختلفة. محتوى غير محدود.</p>
+          </div>
+          <div className="bg-white rounded-xl border border-sky-100 p-5 text-center">
+            <div className="text-3xl mb-2">📋</div>
+            <h4 className="font-bold text-gray-900 text-sm font-['Cairo'] mb-2">تنظيم تلقائي للمنهج</h4>
+            <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed">String ينظم المنهج تلقائياً — مواد، وحدات، دروس، صفحات — كل شيء مرتب ومتاح للمعلم والطالب من اليوم الأول.</p>
+          </div>
+        </div>
+        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+          <p className="text-emerald-800 text-sm font-bold font-['Cairo'] text-center">
+            ✨ مدرسة Edison ستحصل على المنهج الأردني كاملاً — لكل مادة ولكل صف — جاهز ومُفعّل بالألعاب والمحتوى التفاعلي من اليوم الأول
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Skill Map — Per-page mastery */}
+      <motion.div variants={staggerItem} className="bg-gradient-to-l from-violet-50 to-white border border-violet-200 rounded-2xl p-6 sm:p-8 mb-6">
+        <div className="flex items-start gap-4 mb-5">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-400 to-purple-600 flex items-center justify-center text-2xl shadow-lg shrink-0">🗺️</div>
+          <div>
+            <h3 className="font-black text-gray-900 text-lg font-['Cairo']">خريطة المهارات — دقة غير مسبوقة في العالم</h3>
+            <p className="text-violet-700 text-sm font-['Cairo'] mt-1">نعرف بالضبط ماذا يعرف الطالب — وصولاً لكل صفحة في كل كتاب</p>
+          </div>
+        </div>
+        <p className="text-gray-700 text-sm leading-relaxed font-['Cairo'] mb-5">
+          خريطة المهارات في String ليست مجرد نسبة مئوية عامة — هي نظام تتبع معرفي يقيس إتقان الطالب لكل مفهوم ومهارة في كل صفحة من كل كتاب مدرسي. هذا المستوى من الدقة والعمق <strong className="text-violet-700">لا يوجد في أي نظام آخر في العالم</strong>.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+          <div className="bg-white rounded-xl border border-violet-100 p-5">
+            <h4 className="font-bold text-gray-900 text-sm font-['Cairo'] mb-3">ماذا يعرف النظام عن كل طالب؟</h4>
+            <ul className="space-y-2 text-sm text-gray-700 font-['Cairo']">
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> إتقانه لكل مفهوم في كل صفحة من الكتاب المدرسي</li>
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> أي مفاهيم يفهمها وأيها يعاني فيها — بالاسم</li>
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> مستوى الإتقان في كل درس، كل وحدة، كل مادة</li>
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> هل المعرفة ثابتة أم بدأت تتلاشى (نظام تتبع النسيان)</li>
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> ما يجب أن يدرسه اليوم بناءً على نقاط ضعفه</li>
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> مستوى التفكير — هل يحفظ فقط أم يفهم ويحلل ويبتكر؟ (مستويات بلوم)</li>
+            </ul>
+          </div>
+          <div className="bg-white rounded-xl border border-violet-100 p-5">
+            <h4 className="font-bold text-gray-900 text-sm font-['Cairo'] mb-3">لماذا هذا غير موجود في أي مكان آخر؟</h4>
+            <ul className="space-y-2 text-sm text-gray-700 font-['Cairo']">
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> أنظمة LMS تقيس الدرجات فقط — لا تعرف أي مفهوم يعرفه الطالب</li>
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> حتى أفضل المنصات تقيس على مستوى "الدرس" — String يقيس على مستوى "الصفحة"</li>
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> String يستخدم ٣ نماذج علمية معاً: تتبع المعرفة (BKT)، التكرار المتباعد (FSRS)، نظرية الاستجابة (IRT)</li>
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> النتيجة: أدق نموذج لحالة الطالب المعرفية في العالم</li>
+              <li className="flex items-start gap-2"><span className="text-violet-500 mt-0.5">•</span> المعلم يرى بالضبط أين المشكلة — ليس "الطالب ضعيف في الرياضيات" بل "الطالب يعاني في الكسور العشرية صفحة ٤١"</li>
+            </ul>
+          </div>
+        </div>
+        <div className="bg-violet-100 border border-violet-200 rounded-xl p-4">
+          <p className="text-violet-800 text-sm font-bold font-['Cairo'] text-center">
+            🎯 كل هذا يحدث تلقائياً — لا يحتاج المعلم أن يفعل شيئاً. كل تحدي يحله الطالب يُغذي الخريطة ويجعلها أدق.
+          </p>
+        </div>
+      </motion.div>
+    </motion.section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SECTION 6C — DNA & Psychological Wellbeing Department
+// ═══════════════════════════════════════════════════════════════
+function Section6CDNA() {
+  return (
+    <motion.section
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-60px' }}
+    >
+      <div className="text-center mb-10">
+        <h2 className="text-2xl sm:text-3xl font-black text-gray-900 font-['Cairo']">
+          قسم الإرشاد النفسي والرفاه — <span className="text-emerald-600">DNA في خدمة المرشدين</span>
+        </h2>
+        <p className="text-gray-500 mt-2 text-sm font-['Cairo']">
+          ما سيجعل مدارس Edison معروفة بشيء لا تملكه أي مدرسة أخرى في إربد
+        </p>
+      </div>
+
+      {/* The Reputation Angle */}
+      <motion.div variants={staggerItem} className="bg-gradient-to-l from-emerald-50 to-white border-2 border-emerald-300 rounded-2xl p-6 sm:p-8 mb-6">
+        <div className="text-center mb-6">
+          <div className="text-5xl mb-3">🏆</div>
+          <h3 className="text-xl font-black text-emerald-800 font-['Cairo']">
+            "المدرسة التي تهتم بالصحة النفسية لأطفالها"
+          </h3>
+          <p className="text-emerald-700 text-sm font-['Cairo'] mt-2 max-w-2xl mx-auto leading-relaxed">
+            هذه أقوى رسالة تسويقية يمكن أن تملكها مدرسة في ٢٠٢٦. أولياء الأمور في كل مكان يقلقون على صحة أطفالهم النفسية — والمدرسة التي تظهر أنها تأخذ هذا بجدية تكسب ولاء الأهل بشكل لا يمكن لأي LMS أن يقدمه.
+          </p>
+        </div>
+      </motion.div>
+
+      {/* What DNA Provides */}
+      <motion.div variants={staggerItem} className="bg-white border border-emerald-200 rounded-2xl p-6 sm:p-8 mb-6">
+        <div className="flex items-start gap-4 mb-5">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center text-2xl shadow-lg shrink-0">🧬</div>
+          <div>
+            <h3 className="font-black text-gray-900 text-lg font-['Cairo']">String DNA — بصمة التعلم لكل طالب</h3>
+            <p className="text-emerald-700 text-sm font-['Cairo'] mt-1">تقييم نفسي شامل من ٩٦ سؤالاً — ١٢٨ ملفاً فريداً ممكناً</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+          <div className="bg-emerald-50/50 rounded-xl border border-emerald-100 p-5">
+            <h4 className="font-bold text-emerald-800 text-sm font-['Cairo'] mb-3">DNA لا يقيس الذكاء — يقيس كيف يتعلم الطالب:</h4>
+            <ul className="space-y-2 text-sm text-gray-700 font-['Cairo']">
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> أسلوب التعلم المفضل — بصري؟ سمعي؟ عملي؟ قرائي؟</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> نقاط القوة الأكاديمية والشخصية</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> التحديات والمجالات التي تحتاج دعم</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> الميول المهنية والأكاديمية</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> الأنماط السلوكية في التعلم</li>
+            </ul>
+          </div>
+          <div className="bg-emerald-50/50 rounded-xl border border-emerald-100 p-5">
+            <h4 className="font-bold text-emerald-800 text-sm font-['Cairo'] mb-3">DNA يتطور مع الطالب — ليس اختباراً يُنسى:</h4>
+            <ul className="space-y-2 text-sm text-gray-700 font-['Cairo']">
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> كل نشاط على المنصة يُغذي الملف ويجعله أدق</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> المحتوى في Studio يتخصص حسب أسلوب تعلم الطالب</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> التحديات في Quests تتكيف مع مستواه</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> التقارير تُظهر بالضبط ما يحتاجه كل طالب</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-500">✦</span> ٩٢٪ من الطلاب أكملوا التقييم بالكامل</li>
+            </ul>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Counselor Training */}
+      <motion.div variants={staggerItem} className="bg-gradient-to-l from-teal-50 to-white border border-teal-200 rounded-2xl p-6 sm:p-8 mb-6">
+        <div className="flex items-start gap-4 mb-5">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-400 to-emerald-600 flex items-center justify-center text-2xl shadow-lg shrink-0">🎓</div>
+          <div>
+            <h3 className="font-black text-gray-900 text-lg font-['Cairo']">تدريب المرشدين التربويين — شهادات متخصصة</h3>
+            <p className="text-teal-700 text-sm font-['Cairo'] mt-1">نُدرب المرشدين النفسيين في Edison على استخدام بيانات DNA في عملهم اليومي</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+          <div className="space-y-4">
+            {[
+              { icon: '📊', title: 'قراءة الملفات', desc: 'كيف يقرأ المرشد ملف DNA لكل طالب — ماذا تعني الأرقام وكيف يترجمها لخطة عمل' },
+              { icon: '📋', title: 'بناء خطط دعم', desc: 'كل طالب يحصل على خطة دعم مبنية على بياناته الحقيقية — ليس تخمينات' },
+              { icon: '📈', title: 'متابعة التطور', desc: 'البيانات تتطور في الوقت الحقيقي — المرشد يرى التغييرات فوراً ويتدخل مبكراً' },
+            ].map((item, i) => (
+              <div key={i} className="bg-white rounded-xl border border-teal-100 p-4 flex items-start gap-3">
+                <span className="text-2xl shrink-0">{item.icon}</span>
+                <div>
+                  <h5 className="font-bold text-gray-900 text-sm font-['Cairo']">{item.title}</h5>
+                  <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed mt-1">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="space-y-4">
+            {[
+              { icon: '🔔', title: 'كشف مبكر', desc: 'الطالب الذي يبدأ بالتراجع يظهر في النظام فوراً — النظام يُنبه المرشد تلقائياً قبل أن تصبح المشكلة كبيرة' },
+              { icon: '👨‍👩‍👧', title: 'تقارير لأولياء الأمور', desc: 'الأهل يحصلون على رؤية واضحة — ليس فقط درجات، بل الصحة النفسية والاجتماعية والأكاديمية' },
+              { icon: '📝', title: 'تقارير مهنية', desc: 'كيف يكتب المرشد تقارير مبنية على بيانات حقيقية بدل الانطباعات — مستوى مهني جديد' },
+            ].map((item, i) => (
+              <div key={i} className="bg-white rounded-xl border border-teal-100 p-4 flex items-start gap-3">
+                <span className="text-2xl shrink-0">{item.icon}</span>
+                <div>
+                  <h5 className="font-bold text-gray-900 text-sm font-['Cairo']">{item.title}</h5>
+                  <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed mt-1">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl border border-teal-200 p-5">
+          <h4 className="font-bold text-teal-800 text-sm font-['Cairo'] mb-2">في الـ LMS: المرشد يخمن. في String: المرشد يعرف.</h4>
+          <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed">
+            لا مدرسة أخرى في إربد — وربما في الأردن — تملك هذا المستوى من الدعم النفسي المبني على البيانات. هذا يجعل Edison المدرسة التي يختارها الأهل الذين يريدون الأفضل لأطفالهم — ليس فقط أكاديمياً، بل نفسياً واجتماعياً.
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Edison Prestige Banner */}
+      <motion.div variants={staggerItem} className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-6 sm:p-8 text-center text-white">
+        <h3 className="text-xl font-black font-['Cairo'] mb-3">
+          مدارس Edison ستكون المدرسة الأولى في إربد التي تقدم هذا المستوى من الرعاية
+        </h3>
+        <p className="text-emerald-100 text-sm font-['Cairo'] max-w-2xl mx-auto leading-relaxed">
+          عندما يسأل ولي أمر "ما الذي يميز مدرستكم؟" — الجواب لن يكون "عندنا كمبيوترات" أو "عندنا LMS". الجواب سيكون: "نحن نعرف كيف يتعلم كل طفل، ونعرف حالته النفسية، وعندنا خريطة مهارات لكل صفحة في كل كتاب. لا أحد في إربد يقدم هذا."
+        </p>
+      </motion.div>
+    </motion.section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
 // SECTION 7 — 3-Day Setup
 // ═══════════════════════════════════════════════════════════════
 function Section7Setup() {
@@ -1391,6 +1620,13 @@ export function EdisonProposalPart2() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-0">
         {/* Section 6: Feature Breakdown */}
         <Section6Features />
+
+        {/* Section 6B: Curriculum & AI Content */}
+        <Section6BCurriculum />
+
+        {/* Section 6C: DNA & Psychological Wellbeing */}
+        <Section6CDNA />
+
         <SectionDivider sectionNumber={7} title="الإعداد والتشغيل" />
 
         {/* Section 7: 3-Day Setup */}
