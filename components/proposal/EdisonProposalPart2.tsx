@@ -1455,63 +1455,71 @@ function Section10Pricing() {
           </div>
         </div>
 
-        {/* Founder Partner Pricing Table (50% off) */}
+        {/* Founder Partner Pricing — Cards (same design as main pricing) */}
         <div className="mt-8 mb-6">
-          <h4 className="font-black text-gray-900 text-base mb-4 font-['Cairo'] text-center">
-            أسعار شريك التأسيس — خصم ٥٠٪ على جميع الخطط
+          <h4 className="font-black text-gray-900 text-base mb-2 font-['Cairo'] text-center">
+            أسعار شريك التأسيس — خصم ٥٠٪ لكل طالب
           </h4>
-          <div className="bg-white rounded-xl border border-emerald-200 overflow-hidden">
-            <table className="w-full text-sm font-['Cairo']">
-              <thead>
-                <tr className="bg-emerald-100/60">
-                  <th className="text-start p-3 font-bold text-gray-700">الخطة</th>
-                  <th className="text-center p-3 font-bold text-gray-400">السعر العادي</th>
-                  <th className="text-center p-3 font-bold text-emerald-700">سعر الشريك (٥٠٪)</th>
-                  <th className="text-center p-3 font-bold text-gray-700">سنوياً (١,١٠٠ × ١٠ أشهر)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-t border-emerald-100">
-                  <td className="p-3 font-bold text-gray-900">Basic</td>
-                  <td className="p-3 text-center text-gray-400 line-through">٤ دنانير</td>
-                  <td className="p-3 text-center font-black text-emerald-600">٢ دينار</td>
-                  <td className="p-3 text-center text-gray-700" dir="ltr">22,000 JOD</td>
-                </tr>
-                <tr className="border-t border-emerald-100 bg-sky-50/30">
-                  <td className="p-3 font-bold text-sky-700">Nova ⭐</td>
-                  <td className="p-3 text-center text-gray-400 line-through">٧ دنانير</td>
-                  <td className="p-3 text-center font-black text-emerald-600">٣.٥ دينار</td>
-                  <td className="p-3 text-center text-gray-700" dir="ltr">38,500 JOD</td>
-                </tr>
-                <tr className="border-t border-emerald-100">
-                  <td className="p-3 font-bold text-gray-900">Supernova</td>
-                  <td className="p-3 text-center text-gray-400 line-through">١٤ دينار</td>
-                  <td className="p-3 text-center font-black text-emerald-600">٧ دنانير</td>
-                  <td className="p-3 text-center text-gray-700" dir="ltr">77,000 JOD</td>
-                </tr>
-              </tbody>
-            </table>
+          <p className="text-emerald-600 text-sm font-['Cairo'] text-center mb-6">
+            + ترقية Supernova مجاناً في السنة الأولى لجميع الخطط
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Basic */}
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
+              <h5 className="font-black text-gray-900 text-lg font-['Cairo'] mb-3">Basic</h5>
+              <div className="mb-1">
+                <span className="text-gray-400 text-sm line-through font-['Cairo']">٤ دنانير</span>
+              </div>
+              <div className="text-4xl font-black text-emerald-600 font-['Cairo'] mb-1" dir="ltr" style={{ unicodeBidi: 'plaintext' }}>٢ دينار</div>
+              <p className="text-gray-500 text-xs font-['Cairo'] mb-4">لكل طالب / شهرياً</p>
+              <div className="bg-emerald-50 rounded-lg px-3 py-1.5 inline-block">
+                <span className="text-emerald-700 text-xs font-bold font-['Cairo']">خصم ٥٠٪</span>
+              </div>
+            </div>
+            {/* Nova — Recommended */}
+            <div className="relative bg-gradient-to-b from-sky-50 to-white border-2 border-sky-400 rounded-2xl p-6 text-center shadow-lg scale-105 hover:shadow-xl transition-shadow">
+              <div className="absolute -top-3 right-4 bg-sky-500 text-white text-xs font-black px-3 py-1 rounded-full font-['Cairo']">⭐ الموصى بها</div>
+              <h5 className="font-black text-sky-700 text-lg font-['Cairo'] mb-3">Nova</h5>
+              <div className="mb-1">
+                <span className="text-gray-400 text-sm line-through font-['Cairo']">٧ دنانير</span>
+              </div>
+              <div className="text-4xl font-black text-emerald-600 font-['Cairo'] mb-1" dir="ltr" style={{ unicodeBidi: 'plaintext' }}>٣.٥ دينار</div>
+              <p className="text-gray-500 text-xs font-['Cairo'] mb-3">لكل طالب / شهرياً</p>
+              <div className="bg-emerald-50 rounded-lg px-3 py-1.5 inline-block mb-2">
+                <span className="text-emerald-700 text-xs font-bold font-['Cairo']">خصم ٥٠٪</span>
+              </div>
+              <div className="bg-sky-100 rounded-lg px-3 py-1.5 mt-2">
+                <span className="text-sky-700 text-xs font-bold font-['Cairo']">🚀 + Supernova مجاناً السنة الأولى</span>
+              </div>
+            </div>
+            {/* Supernova */}
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
+              <h5 className="font-black text-gray-900 text-lg font-['Cairo'] mb-3">Supernova</h5>
+              <div className="mb-1">
+                <span className="text-gray-400 text-sm line-through font-['Cairo']">١٤ دينار</span>
+              </div>
+              <div className="text-4xl font-black text-emerald-600 font-['Cairo'] mb-1" dir="ltr" style={{ unicodeBidi: 'plaintext' }}>٧ دنانير</div>
+              <p className="text-gray-500 text-xs font-['Cairo'] mb-4">لكل طالب / شهرياً</p>
+              <div className="bg-emerald-50 rounded-lg px-3 py-1.5 inline-block">
+                <span className="text-emerald-700 text-xs font-bold font-['Cairo']">خصم ٥٠٪</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Supernova Free Year 1 */}
+        {/* Supernova Free — clear statement */}
         <div className="bg-gradient-to-l from-sky-50 to-emerald-50 border-2 border-sky-300 rounded-2xl p-6 mb-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-sky-500 flex items-center justify-center">
-              <Rocket className="w-6 h-6 text-white" />
+          <div className="text-center">
+            <div className="text-4xl mb-3">🚀</div>
+            <h4 className="font-black text-gray-900 text-xl font-['Cairo'] mb-3">Supernova مجاناً — السنة الأولى كاملة</h4>
+            <p className="text-gray-700 text-sm leading-relaxed font-['Cairo'] max-w-2xl mx-auto mb-4">
+              مهما كانت الخطة التي تختارها — ستحصلون على <strong className="text-sky-700">ترقية Supernova مجاناً</strong> في السنة الأولى. هذا يشمل: تطبيق أولياء الأمور، الكتب الذكية بالـ AI، الموقع المدرسي المميز، قسم الإرشاد النفسي، مهندسون في المدرسة، وكل الميزات المتقدمة — بدون أي تكلفة إضافية.
+            </p>
+            <div className="bg-white rounded-xl border border-sky-200 p-4 inline-block">
+              <p className="text-sky-700 text-sm font-black font-['Cairo']">
+                ✨ اختر أي خطة → احصل على Supernova مجاناً → ادفع فقط سعر الخطة التي اخترتها
+              </p>
             </div>
-            <div>
-              <h4 className="font-black text-gray-900 text-base font-['Cairo']">🚀 عرض السنة الأولى</h4>
-              <p className="text-sky-700 text-sm font-['Cairo']">ادفع Nova — واحصل على Supernova مجاناً</p>
-            </div>
-          </div>
-          <p className="text-gray-700 text-sm leading-relaxed font-['Cairo'] mb-4">
-            <strong>اشترك بخطة Nova بسعر الشريك المؤسس (٣.٥ دينار/طالب/شهر) — واحصل على ترقية Supernova مجاناً للسنة الأولى كاملة.</strong> هذا يعني أنكم ستحصلون على كل ميزات Supernova — تطبيق أولياء الأمور، الكتب الذكية، الموقع المدرسي المميز، قسم الإرشاد النفسي، مهندسون في المدرسة — كل هذا بدون أي تكلفة إضافية في السنة الأولى.
-          </p>
-          <div className="bg-white rounded-xl border border-sky-200 p-4 text-center mb-4">
-            <p className="text-gray-500 text-xs font-['Cairo'] mb-1">القيمة الحقيقية لخطة Supernova لـ ١,١٠٠ طالب × ١٠ أشهر:</p>
-            <p className="text-3xl font-black text-sky-600 font-['Cairo']" dir="ltr">154,000 JOD</p>
-            <p className="text-emerald-600 text-sm font-black font-['Cairo'] mt-1">ستحصلون عليها مجاناً في السنة الأولى ✨</p>
           </div>
         </div>
 
