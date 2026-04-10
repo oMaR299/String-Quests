@@ -1151,76 +1151,80 @@ function Section10Pricing() {
         <SectionDivider sectionNumber={0} title="برنامج شريك التأسيس" />
 
         {/* Program header */}
-        <div className="bg-gradient-to-l from-amber-50 to-yellow-50 border-2 border-amber-300 rounded-2xl p-6 sm:p-8 mb-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg">
-              <Handshake className="w-7 h-7 text-white" />
-            </div>
-            <div>
-              <h3 className="font-black text-gray-900 text-xl font-['Cairo']">
-                برنامج شريك التأسيس
-              </h3>
-              <p className="text-amber-700 text-sm font-['Cairo']">
-                شراكة حقيقية — ليس مجرد خصم
-              </p>
-            </div>
-          </div>
+        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden mb-8 shadow-sm">
+          {/* Top gradient accent */}
+          <div className="h-1.5 bg-gradient-to-r from-sky-400 via-blue-500 to-violet-500" />
 
-          <p className="text-gray-700 text-sm leading-relaxed mb-6 font-['Cairo']">
-            نقدم لمدارس Edison فرصة الانضمام لبرنامج "شريك التأسيس" — وهو ليس
-            خصماً عادياً، بل شراكة حقيقية بين String والمدرسة تساعدنا معاً على
-            بناء أفضل نظام تعليمي في العالم.
-          </p>
-          <p className="text-gray-700 text-sm leading-relaxed mb-6 font-['Cairo']">
-            <strong>هذا البرنامج اختياري تماماً</strong> — يمكنكم الاشتراك بأي
-            خطة بالسعر الأساسي بدون الانضمام للبرنامج. لكن إذا اخترتم الشراكة،
-            ستحصلون على خصم ٥٠٪ مقابل مشاركتكم الفعالة في تطوير المنصة.
-          </p>
+          <div className="p-6 sm:p-8">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-lg shadow-sky-500/20">
+                <Handshake className="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <h3 className="font-black text-gray-900 text-xl font-['Cairo']">
+                  برنامج شريك التأسيس
+                </h3>
+                <p className="text-sky-600 text-sm font-['Cairo']">
+                  شراكة حقيقية — ليس مجرد خصم
+                </p>
+              </div>
+            </div>
 
-          {/* Two columns: What Edison gets / What String gets */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* What Edison Gets */}
-            <div className="bg-white rounded-xl border border-emerald-200 p-5">
-              <h4 className="font-black text-emerald-700 text-sm mb-3 flex items-center gap-2 font-['Cairo']">
-                <span>✅</span> ماذا تحصل المدرسة
-              </h4>
+            <p className="text-gray-700 text-sm leading-relaxed mb-4 font-['Cairo']">
+              نقدم لمدارس Edison فرصة الانضمام لبرنامج "شريك التأسيس" — وهو ليس
+              خصماً عادياً، بل شراكة حقيقية بين String والمدرسة تساعدنا معاً على
+              بناء أفضل نظام تعليمي في العالم.
+            </p>
+            <p className="text-gray-600 text-sm leading-relaxed mb-8 font-['Cairo']">
+              <strong className="text-gray-900">هذا البرنامج اختياري تماماً</strong> — يمكنكم الاشتراك بأي
+              خطة بالسعر الأساسي بدون الانضمام للبرنامج. لكن إذا اخترتم الشراكة،
+              ستحصلون على خصم ٥٠٪ مقابل مشاركتكم الفعالة في تطوير المنصة.
+            </p>
+
+            {/* Two columns: What Edison gets / What String gets */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* What Edison Gets */}
+              <div className="bg-gradient-to-br from-sky-50/50 to-white rounded-xl border border-sky-100 p-5">
+                <h4 className="font-black text-sky-700 text-sm mb-4 flex items-center gap-2 font-['Cairo']">
+                  <Check className="w-5 h-5 text-sky-500" /> ماذا تحصل المدرسة
+                </h4>
               <ul className="space-y-2 text-sm text-gray-700 font-['Cairo']">
                 <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  <Check className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
                   خصم ٥٠٪ على السعر الأساسي طوال فترة العقد
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  <Check className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
                   ترقية مجانية إلى خطة Supernova للسنة الأولى كاملة
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  <Check className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
                   لقب "الشريك المؤسس" — أول مدرسة String في إربد
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  <Check className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
                   الوصول المبكر لميزات Beta الجديدة قبل أي مدرسة أخرى
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  <Check className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
                   اسم وشعار المدرسة على موقع String الرسمي
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  <Check className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
                   خط مباشر مع فريق التطوير في String
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  <Check className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
                   أولوية في تنفيذ الميزات التي تطلبها المدرسة
                 </li>
               </ul>
             </div>
 
-            {/* What String Gets */}
-            <div className="bg-white rounded-xl border border-sky-200 p-5">
-              <h4 className="font-black text-sky-700 text-sm mb-3 flex items-center gap-2 font-['Cairo']">
-                <span>🤝</span> ماذا نحتاج من المدرسة
-              </h4>
+              {/* What String Gets */}
+              <div className="bg-gradient-to-br from-slate-50/50 to-white rounded-xl border border-slate-200 p-5">
+                <h4 className="font-black text-slate-700 text-sm mb-4 flex items-center gap-2 font-['Cairo']">
+                  <Handshake className="w-5 h-5 text-slate-500" /> ماذا نحتاج من المدرسة
+                </h4>
               <ul className="space-y-2 text-sm text-gray-700 font-['Cairo']">
                 <li className="flex items-start gap-2">
                   <span className="text-sky-500 mt-0.5">•</span>
@@ -1272,6 +1276,7 @@ function Section10Pricing() {
                 (GDPR). المدرسة تحتفظ بالملكية الكاملة لبياناتها. لا نبيع أو
                 نشارك أي بيانات مع أطراف ثالثة.
               </p>
+            </div>
             </div>
           </div>
         </div>
