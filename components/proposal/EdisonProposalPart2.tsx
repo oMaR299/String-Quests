@@ -1729,6 +1729,149 @@ export function EdisonProposalPart2() {
           </div>
         </motion.section>
 
+        {/* Personalization & Branding Section */}
+        <motion.section
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+          className="mb-12"
+        >
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 font-['Cairo']">
+              هذه ليست منصة عامة — هذه <span className="text-sky-600">منصة Edison</span>
+            </h2>
+            <p className="text-gray-500 mt-2 text-sm font-['Cairo']">
+              هوية المدرسة في كل شاشة، كل رسالة، كل درس
+            </p>
+          </div>
+
+          {/* Hero Banner - Edison Branded Platform */}
+          <motion.div variants={staggerItem} className="relative bg-gradient-to-l from-sky-600 to-blue-700 rounded-2xl p-8 sm:p-10 mb-6 text-white overflow-hidden">
+            <div className="absolute -top-20 -left-20 w-56 h-56 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-16 -right-16 w-48 h-48 bg-sky-400/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-6">
+                <img src="/edison-logo.png" alt="Edison" className="w-16 h-16 rounded-2xl bg-white p-1 shadow-lg" />
+                <div>
+                  <h3 className="text-2xl font-black font-['Cairo']">Edison International Model School</h3>
+                  <p className="text-sky-200 text-sm font-['Cairo']">مدارس إديسون الدولية النموذجية — إربد، الأردن</p>
+                </div>
+              </div>
+              <p className="text-sky-100 text-sm leading-relaxed font-['Cairo'] max-w-3xl">
+                عندما يفتح أي شخص — معلم، طالب، ولي أمر — المنصة، لن يرى "String". سيرى <strong className="text-white">مدارس Edison</strong>. شعار Edison. ألوان Edison. اسم Edison. في كل شاشة، كل إشعار، كل تقرير، كل شهادة. كأن المدرسة بنت هذه المنصة بنفسها.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Three Branding Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+            <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg hover:border-sky-200 transition-all">
+              <div className="text-4xl mb-4">🌐</div>
+              <h4 className="font-black text-gray-900 text-base font-['Cairo'] mb-2">نطاق خاص — دومين المدرسة</h4>
+              <p className="text-gray-600 text-sm font-['Cairo'] leading-relaxed mb-3">
+                المنصة تعمل على نطاق المدرسة الخاص — المستخدمون يسجلون دخول إلى <strong className="text-sky-600">edison.string.education</strong> وليس إلى موقع عام. هذا يعزز هوية المدرسة ويجعل التجربة شخصية.
+              </p>
+              <div className="bg-slate-50 rounded-xl px-4 py-3 text-center" dir="ltr">
+                <span className="text-sky-600 font-black text-sm font-mono">edison.string.education</span>
+              </div>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg hover:border-sky-200 transition-all">
+              <div className="text-4xl mb-4">🎨</div>
+              <h4 className="font-black text-gray-900 text-base font-['Cairo'] mb-2">هوية بصرية كاملة</h4>
+              <p className="text-gray-600 text-sm font-['Cairo'] leading-relaxed mb-3">
+                شعار Edison وألوانه في كل مكان — صفحة تسجيل الدخول، الشريط العلوي، التقارير، الشهادات، الإشعارات، تطبيق أولياء الأمور. لا يوجد أثر لعلامة تجارية أخرى.
+              </p>
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-red-600" title="Edison Red" />
+                <div className="w-8 h-8 rounded-lg bg-green-600" title="Edison Green" />
+                <div className="w-8 h-8 rounded-lg bg-white border-2 border-slate-200" title="White" />
+                <span className="text-xs text-slate-400 font-bold font-['Cairo']">ألوان Edison</span>
+              </div>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg hover:border-sky-200 transition-all">
+              <div className="text-4xl mb-4">📱</div>
+              <h4 className="font-black text-gray-900 text-base font-['Cairo'] mb-2">في كل التطبيقات</h4>
+              <p className="text-gray-600 text-sm font-['Cairo'] leading-relaxed mb-3">
+                تطبيق أولياء الأمور، تطبيق الطلاب، تطبيق الشاشات الذكية — كلها تحمل هوية Edison. ولي الأمر يفتح التطبيق ويرى مدرسة ابنه، ليس شركة تقنية.
+              </p>
+              <div className="flex items-center justify-center gap-2">
+                <span className="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg font-['Cairo']">iOS</span>
+                <span className="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg font-['Cairo']">Android</span>
+                <span className="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg font-['Cairo']">Web</span>
+                <span className="bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg font-['Cairo']">شاشات</span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Studio Content Marketplace */}
+          <motion.div variants={staggerItem} className="bg-gradient-to-l from-amber-50 to-white border-2 border-amber-300 rounded-2xl p-6 sm:p-8 mb-6">
+            <div className="flex items-start gap-4 mb-5">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-2xl shadow-lg shrink-0">💰</div>
+              <div>
+                <h3 className="font-black text-gray-900 text-lg font-['Cairo']">معلمو Edison يبنون محتوى — ويبيعونه باسم المدرسة</h3>
+                <p className="text-amber-700 text-sm font-['Cairo'] mt-1">المحتوى الذي يُبنى في Studio يحمل علامة Edison — ويمكن بيعه</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="bg-white rounded-xl border border-amber-200 p-5">
+                <h4 className="font-bold text-gray-900 text-sm font-['Cairo'] mb-3">كيف يعمل؟</h4>
+                <div className="space-y-3">
+                  {[
+                    { step: '١', text: 'المعلم يبني درساً تفاعلياً في String Studio' },
+                    { step: '٢', text: 'الدرس يحمل شعار Edison وهوية المدرسة تلقائياً' },
+                    { step: '٣', text: 'المعلم يختار نشر الدرس في السوق العام' },
+                    { step: '٤', text: 'معلمون ومدارس أخرى يشترون الدرس' },
+                    { step: '٥', text: 'Edison تظهر كمصدر المحتوى — سمعة + دخل' },
+                  ].map((item) => (
+                    <div key={item.step} className="flex items-start gap-3">
+                      <span className="w-6 h-6 rounded-full bg-amber-100 text-amber-700 font-black text-xs flex items-center justify-center shrink-0">{item.step}</span>
+                      <span className="text-gray-700 text-sm font-['Cairo']">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-white rounded-xl border border-amber-200 p-5">
+                <h4 className="font-bold text-gray-900 text-sm font-['Cairo'] mb-3">لماذا هذا مهم لـ Edison؟</h4>
+                <ul className="space-y-3 text-sm text-gray-700 font-['Cairo']">
+                  <li className="flex items-start gap-2"><span className="text-amber-500">✦</span> <strong>سمعة:</strong> اسم Edison يظهر على كل درس يشتريه معلم آخر في الأردن</li>
+                  <li className="flex items-start gap-2"><span className="text-amber-500">✦</span> <strong>دخل:</strong> المعلمون يحصلون على دخل إضافي — والمدرسة تحصل على شهرة</li>
+                  <li className="flex items-start gap-2"><span className="text-amber-500">✦</span> <strong>ملكية:</strong> كل المحتوى يبقى ملك المدرسة — حتى لو غادر المعلم</li>
+                  <li className="flex items-start gap-2"><span className="text-amber-500">✦</span> <strong>تراكم:</strong> مع مرور الوقت، المدرسة تبني مكتبة محتوى — أصل رقمي يزداد قيمة</li>
+                  <li className="flex items-start gap-2"><span className="text-amber-500">✦</span> <strong>تميز:</strong> "المدرسة التي معلموها ينشرون محتوى للعالم" — لا أحد آخر يقدم هذا</li>
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Prestige Summary */}
+          <motion.div variants={staggerItem} className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div className="bg-gradient-to-br from-red-50 to-white border border-red-200 rounded-2xl p-5 text-center">
+              <div className="text-3xl mb-2">🏫</div>
+              <h5 className="font-black text-gray-900 text-sm font-['Cairo'] mb-1">تسجيل الدخول</h5>
+              <p className="text-gray-500 text-xs font-['Cairo']">المستخدم يدخل إلى "مدارس Edison" — ليس إلى منصة عامة</p>
+            </div>
+            <div className="bg-gradient-to-br from-green-50 to-white border border-green-200 rounded-2xl p-5 text-center">
+              <div className="text-3xl mb-2">📜</div>
+              <h5 className="font-black text-gray-900 text-sm font-['Cairo'] mb-1">الشهادات والتقارير</h5>
+              <p className="text-gray-500 text-xs font-['Cairo']">كل شهادة وتقرير يحمل شعار Edison — يطبع أو يرسل رقمياً</p>
+            </div>
+            <div className="bg-gradient-to-br from-sky-50 to-white border border-sky-200 rounded-2xl p-5 text-center">
+              <div className="text-3xl mb-2">🌍</div>
+              <h5 className="font-black text-gray-900 text-sm font-['Cairo'] mb-1">موقع المدرسة بالـ AI</h5>
+              <p className="text-gray-500 text-xs font-['Cairo']">أفضل موقع مدرسي في إربد — يعرض إنجازات الطلاب والمعلمين تلقائياً</p>
+            </div>
+          </motion.div>
+
+          <motion.div variants={staggerItem} className="bg-gradient-to-r from-sky-600 to-blue-700 rounded-2xl p-5 text-center text-white">
+            <p className="text-sm font-black font-['Cairo']">
+              عندما ولي أمر يفتح التطبيق ويرى شعار Edison — يعرف أن هذه المدرسة استثمرت في أطفاله. هذا ولاء لا يشتريه إعلان.
+            </p>
+          </motion.div>
+        </motion.section>
+
         {/* Section 6B: Curriculum & AI Content */}
         <Section6BCurriculum />
 
