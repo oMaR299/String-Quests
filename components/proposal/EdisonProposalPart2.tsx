@@ -1621,6 +1621,114 @@ export function EdisonProposalPart2() {
         {/* Section 6: Feature Breakdown */}
         <Section6Features />
 
+        {/* LMS vs String Comparison Table */}
+        <motion.section
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+          className="mb-12"
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 font-['Cairo']">
+              String يشمل الـ LMS — <span className="text-sky-600">وأكثر بكثير</span>
+            </h2>
+            <p className="text-gray-500 mt-2 text-sm font-['Cairo']">
+              اشتراك واحد يحل محل ٩+ أدوات منفصلة
+            </p>
+          </div>
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm font-['Cairo']" dir="rtl">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200">
+                    <th className="text-start p-4 font-black text-slate-700 min-w-[200px]">الميزة</th>
+                    <th className="p-4 text-center font-black text-slate-400 min-w-[100px]">
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="text-slate-400">LMS تقليدي</span>
+                      </div>
+                    </th>
+                    <th className="p-4 text-center font-black text-sky-600 min-w-[100px] bg-sky-50/50">
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="text-sky-600">String</span>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { feature: 'نظام إدارة التعلم (LMS)', lms: true, string: true, category: 'أساسي' },
+                    { feature: 'نظام معلومات الطلاب (SIS)', lms: 'partial', string: true },
+                    { feature: 'إدارة الحضور والغياب', lms: true, string: true },
+                    { feature: 'إدارة الدرجات والتقارير', lms: true, string: true },
+                    { feature: 'التواصل بين المعلم والطالب', lms: 'partial', string: true },
+                    { feature: '', lms: '', string: '', divider: true, label: 'ما لا يقدمه الـ LMS' },
+                    { feature: 'استوديو بناء المحتوى التفاعلي (١٠٠+ تطبيق)', lms: false, string: true },
+                    { feature: 'ألعاب تعليمية تلقائية من المنهج (Quests)', lms: false, string: true },
+                    { feature: 'بصمة التعلم الشخصية (DNA) — ١٢٨ ملف فريد', lms: false, string: true },
+                    { feature: 'خريطة مهارات لكل صفحة في كل كتاب', lms: false, string: true },
+                    { feature: 'ذكاء اصطناعي غير محدود ومجاني', lms: false, string: true },
+                    { feature: 'تطبيق أولياء الأمور (Family)', lms: false, string: true },
+                    { feature: 'اجتماعات فيديو مع سبورة وتسجيل', lms: false, string: true },
+                    { feature: 'نظام تواصل مشفّر (Chat)', lms: false, string: true },
+                    { feature: 'قسم الإرشاد النفسي المبني على البيانات', lms: false, string: true },
+                    { feature: 'كتب مدرسية تفاعلية بالـ AI', lms: false, string: true },
+                    { feature: 'موقع مدرسي مميز بالـ AI', lms: false, string: true },
+                    { feature: 'نظام إنذار مبكر للطلاب المتراجعين', lms: false, string: true },
+                    { feature: 'شهادات مخصصة بالـ AI', lms: false, string: true },
+                    { feature: 'تطبيقات الشاشات الذكية', lms: false, string: true },
+                    { feature: 'تحضير تلقائي بصفر تدخل', lms: false, string: true },
+                    { feature: '', lms: '', string: '', divider: true, label: 'النتيجة' },
+                    { feature: 'استخدام الطلاب للمنصة', lms: '١٥ دقيقة/أسبوع', string: '٣-٥ ساعات/يوم', result: true },
+                    { feature: 'إدخال بيانات يدوي مطلوب', lms: 'نعم — كل شيء', string: 'صفر — تلقائي بالكامل', result: true },
+                    { feature: 'عدد الأدوات التي يحلها', lms: '١ أداة', string: '٩+ أدوات في اشتراك واحد', result: true },
+                  ].map((row, i) => {
+                    if (row.divider) {
+                      return (
+                        <tr key={i} className="bg-slate-100">
+                          <td colSpan={3} className="p-3 text-center font-black text-slate-700 text-xs uppercase tracking-wider">
+                            {row.label}
+                          </td>
+                        </tr>
+                      );
+                    }
+                    return (
+                      <tr key={i} className={`border-t border-slate-100 ${row.result ? 'bg-sky-50/30' : 'hover:bg-slate-50/50'} transition-colors`}>
+                        <td className="p-3 sm:p-4 font-semibold text-slate-800">{row.feature}</td>
+                        <td className="p-3 sm:p-4 text-center">
+                          {row.result ? (
+                            <span className="text-rose-500 font-bold text-xs" dir="ltr">{row.lms}</span>
+                          ) : row.lms === true ? (
+                            <Check className="w-5 h-5 text-slate-400 mx-auto" />
+                          ) : row.lms === 'partial' ? (
+                            <span className="text-slate-400 text-xs font-bold">جزئي</span>
+                          ) : (
+                            <span className="text-slate-300 text-lg">✕</span>
+                          )}
+                        </td>
+                        <td className={`p-3 sm:p-4 text-center ${!row.result ? 'bg-sky-50/30' : 'bg-sky-50/50'}`}>
+                          {row.result ? (
+                            <span className="text-sky-600 font-black text-xs" dir="ltr">{row.string}</span>
+                          ) : row.string === true ? (
+                            <Check className="w-5 h-5 text-sky-500 mx-auto" />
+                          ) : (
+                            <span className="text-slate-300 text-lg">✕</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div className="bg-sky-50 border-t border-sky-200 p-4 text-center">
+              <p className="text-sky-800 text-sm font-black font-['Cairo']">
+                🎯 String يشمل كل ما يقدمه الـ LMS + ١٥ ميزة إضافية لا تتوفر في أي نظام آخر — باشتراك واحد
+              </p>
+            </div>
+          </div>
+        </motion.section>
+
         {/* Section 6B: Curriculum & AI Content */}
         <Section6BCurriculum />
 
