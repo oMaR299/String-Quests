@@ -465,54 +465,66 @@ function Section6CDNA() {
         </div>
       </motion.div>
 
-      {/* Counselor Training */}
-      <motion.div variants={staggerItem} className="bg-gradient-to-l from-teal-50 to-white border border-teal-200 rounded-2xl p-6 sm:p-8 mb-6">
-        <div className="flex items-start gap-4 mb-5">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-400 to-emerald-600 flex items-center justify-center text-2xl shadow-lg shrink-0">🎓</div>
-          <div>
-            <h3 className="font-black text-gray-900 text-lg font-['Cairo']">تدريب المرشدين التربويين — شهادات متخصصة</h3>
-            <p className="text-teal-700 text-sm font-['Cairo'] mt-1">نُدرب المرشدين النفسيين في Edison على استخدام بيانات DNA في عملهم اليومي</p>
+      {/* Counselor Training — Redesigned */}
+      <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm mb-6">
+        <div className="h-1.5 bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500" />
+        <div className="p-6 sm:p-8">
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-3xl shadow-lg shadow-emerald-500/20 mx-auto mb-4">🎓</div>
+            <h3 className="font-black text-gray-900 text-xl font-['Cairo']">تدريب المرشدين التربويين</h3>
+            <p className="text-emerald-600 text-sm font-['Cairo'] mt-1">شهادات متخصصة في استخدام بيانات DNA</p>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-          <div className="space-y-4">
+          {/* Three-step process */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
             {[
-              { icon: '📊', title: 'قراءة الملفات', desc: 'كيف يقرأ المرشد ملف DNA لكل طالب — ماذا تعني الأرقام وكيف يترجمها لخطة عمل' },
-              { icon: '📋', title: 'بناء خطط دعم', desc: 'كل طالب يحصل على خطة دعم مبنية على بياناته الحقيقية — ليس تخمينات' },
-              { icon: '📈', title: 'متابعة التطور', desc: 'البيانات تتطور في الوقت الحقيقي — المرشد يرى التغييرات فوراً ويتدخل مبكراً' },
+              { num: '١', icon: '📊', title: 'قراءة وتحليل', desc: 'كيف يقرأ المرشد ملف DNA لكل طالب — ماذا تعني الأرقام وكيف يترجمها لخطة عمل عملية', color: 'sky' },
+              { num: '٢', icon: '📋', title: 'بناء خطط دعم', desc: 'كل طالب يحصل على خطة دعم مبنية على بياناته الحقيقية — ليس تخمينات أو انطباعات', color: 'emerald' },
+              { num: '٣', icon: '📈', title: 'متابعة وتدخل', desc: 'البيانات تتطور في الوقت الحقيقي — المرشد يرى التغييرات فوراً ويتدخل قبل فوات الأوان', color: 'violet' },
             ].map((item, i) => (
-              <div key={i} className="bg-white rounded-xl border border-teal-100 p-4 flex items-start gap-3">
-                <span className="text-2xl shrink-0">{item.icon}</span>
-                <div>
-                  <h5 className="font-bold text-gray-900 text-sm font-['Cairo']">{item.title}</h5>
-                  <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed mt-1">{item.desc}</p>
+              <div key={i} className="relative">
+                <div className={`absolute -top-3 right-4 w-8 h-8 rounded-full bg-${item.color}-500 text-white font-black text-sm flex items-center justify-center shadow-lg z-10`}>{item.num}</div>
+                <div className={`bg-gradient-to-br from-${item.color}-50/50 to-white rounded-xl border border-${item.color}-100 p-5 pt-7 h-full`}>
+                  <div className="text-2xl mb-3">{item.icon}</div>
+                  <h5 className="font-black text-gray-900 text-sm font-['Cairo'] mb-2">{item.title}</h5>
+                  <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div className="space-y-4">
-            {[
-              { icon: '🔔', title: 'كشف مبكر', desc: 'الطالب الذي يبدأ بالتراجع يظهر في النظام فوراً — النظام يُنبه المرشد تلقائياً قبل أن تصبح المشكلة كبيرة' },
-              { icon: '👨‍👩‍👧', title: 'تقارير لأولياء الأمور', desc: 'الأهل يحصلون على رؤية واضحة — ليس فقط درجات، بل الصحة النفسية والاجتماعية والأكاديمية' },
-              { icon: '📝', title: 'تقارير مهنية', desc: 'كيف يكتب المرشد تقارير مبنية على بيانات حقيقية بدل الانطباعات — مستوى مهني جديد' },
-            ].map((item, i) => (
-              <div key={i} className="bg-white rounded-xl border border-teal-100 p-4 flex items-start gap-3">
-                <span className="text-2xl shrink-0">{item.icon}</span>
-                <div>
-                  <h5 className="font-bold text-gray-900 text-sm font-['Cairo']">{item.title}</h5>
-                  <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed mt-1">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="bg-white rounded-xl border border-teal-200 p-5">
-          <h4 className="font-bold text-teal-800 text-sm font-['Cairo'] mb-2">في الـ LMS: المرشد يخمن. في String: المرشد يعرف.</h4>
-          <p className="text-gray-600 text-xs font-['Cairo'] leading-relaxed">
-            لا مدرسة أخرى في إربد — وربما في الأردن — تملك هذا المستوى من الدعم النفسي المبني على البيانات. هذا يجعل Edison المدرسة التي يختارها الأهل الذين يريدون الأفضل لأطفالهم — ليس فقط أكاديمياً، بل نفسياً واجتماعياً.
-          </p>
+          {/* Key capabilities row */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div className="bg-rose-50 rounded-xl border border-rose-100 p-4 text-center">
+              <div className="text-2xl mb-2">🔔</div>
+              <h5 className="font-bold text-gray-900 text-xs font-['Cairo'] mb-1">كشف مبكر تلقائي</h5>
+              <p className="text-gray-500 text-[11px] font-['Cairo']">النظام يُنبه المرشد قبل أن تصبح المشكلة كبيرة</p>
+            </div>
+            <div className="bg-sky-50 rounded-xl border border-sky-100 p-4 text-center">
+              <div className="text-2xl mb-2">👨‍👩‍👧</div>
+              <h5 className="font-bold text-gray-900 text-xs font-['Cairo'] mb-1">تقارير شاملة للأهل</h5>
+              <p className="text-gray-500 text-[11px] font-['Cairo']">صحة نفسية + اجتماعية + أكاديمية — صورة كاملة</p>
+            </div>
+            <div className="bg-violet-50 rounded-xl border border-violet-100 p-4 text-center">
+              <div className="text-2xl mb-2">📝</div>
+              <h5 className="font-bold text-gray-900 text-xs font-['Cairo'] mb-1">تقارير مهنية بالبيانات</h5>
+              <p className="text-gray-500 text-[11px] font-['Cairo']">بيانات حقيقية بدل الانطباعات — مستوى مهني جديد</p>
+            </div>
+          </div>
+
+          {/* Before/After comparison */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-rose-50/50 rounded-xl border border-rose-200 p-5 text-center">
+              <span className="text-rose-400 text-xs font-bold font-['Cairo'] uppercase tracking-wider">في الـ LMS</span>
+              <p className="text-rose-600 text-lg font-black font-['Cairo'] mt-2">المرشد يخمن 🤔</p>
+              <p className="text-rose-500 text-xs font-['Cairo'] mt-1">انطباعات شخصية بدون بيانات</p>
+            </div>
+            <div className="bg-emerald-50/50 rounded-xl border border-emerald-200 p-5 text-center">
+              <span className="text-emerald-400 text-xs font-bold font-['Cairo'] uppercase tracking-wider">في String</span>
+              <p className="text-emerald-600 text-lg font-black font-['Cairo'] mt-2">المرشد يعرف ✅</p>
+              <p className="text-emerald-500 text-xs font-['Cairo'] mt-1">بيانات حقيقية + كشف مبكر + خطط مخصصة</p>
+            </div>
+          </div>
         </div>
       </motion.div>
 
@@ -1973,6 +1985,94 @@ export function EdisonProposalPart2() {
               <div className="text-3xl mb-2">🌍</div>
               <h5 className="font-black text-gray-900 text-sm font-['Cairo'] mb-1">موقع المدرسة بالـ AI</h5>
               <p className="text-gray-500 text-xs font-['Cairo']">أفضل موقع مدرسي في إربد — يعرض إنجازات الطلاب والمعلمين تلقائياً</p>
+            </div>
+          </motion.div>
+
+          {/* NEW: AI-Powered School Website Mockup */}
+          <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm mb-6">
+            <div className="h-1 bg-gradient-to-r from-red-500 via-green-500 to-red-500" />
+            <div className="p-6 sm:p-8">
+              <div className="flex items-start gap-4 mb-5">
+                <img src="/edison-logo.png" alt="Edison" className="w-14 h-14 rounded-xl shadow-md" />
+                <div>
+                  <h4 className="font-black text-gray-900 text-lg font-['Cairo']">موقع مدارس Edison المميز — مدعوم بالذكاء الاصطناعي</h4>
+                  <p className="text-sky-600 text-sm font-['Cairo'] mt-1">أفضل موقع مدرسي في إربد — يُحدّث نفسه تلقائياً</p>
+                </div>
+              </div>
+
+              {/* Website Mockup */}
+              <div className="bg-gradient-to-b from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-xl mb-5">
+                {/* Browser Chrome */}
+                <div className="bg-slate-700 px-4 py-2 flex items-center gap-2">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-400" />
+                    <div className="w-3 h-3 rounded-full bg-amber-400" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-400" />
+                  </div>
+                  <div className="flex-1 bg-slate-600 rounded-md px-3 py-1 text-xs text-slate-300 text-center font-mono" dir="ltr">
+                    edison.string.education
+                  </div>
+                </div>
+                {/* Website Content Mockup */}
+                <div className="p-6 text-center">
+                  <img src="/edison-logo.png" alt="Edison" className="w-16 h-16 mx-auto mb-3 rounded-xl" />
+                  <h5 className="text-white text-xl font-black font-['Cairo'] mb-1">مدارس إديسون الدولية النموذجية</h5>
+                  <p className="text-slate-400 text-xs font-['Cairo'] mb-4">Edison International Model School — إربد، الأردن</p>
+                  <div className="flex items-center justify-center gap-2 mb-4">
+                    <span className="bg-sky-500/20 text-sky-400 text-[10px] font-bold px-3 py-1 rounded-full font-['Cairo']">🤖 مدرسة تعمل بالذكاء الاصطناعي</span>
+                    <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-3 py-1 rounded-full font-['Cairo']">✨ شريك String المؤسس</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3 max-w-md mx-auto">
+                    <div className="bg-slate-700/50 rounded-lg p-3">
+                      <div className="text-white text-lg font-black">١,١٠٠</div>
+                      <div className="text-slate-400 text-[10px] font-['Cairo']">طالب</div>
+                    </div>
+                    <div className="bg-slate-700/50 rounded-lg p-3">
+                      <div className="text-white text-lg font-black">٧٠</div>
+                      <div className="text-slate-400 text-[10px] font-['Cairo']">معلم</div>
+                    </div>
+                    <div className="bg-slate-700/50 rounded-lg p-3">
+                      <div className="text-white text-lg font-black">٣</div>
+                      <div className="text-slate-400 text-[10px] font-['Cairo']">جوائز وطنية</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-gray-600 text-sm leading-relaxed font-['Cairo']">
+                موقع Edison سيكون أفضل موقع مدرسي في إربد — مبني بالـ AI، يعرض إنجازات الطلاب والمعلمين تلقائياً، يتحدث نفسه دون أي تدخل. عندما ولي أمر يبحث عن مدرسة لابنه ويجد هذا الموقع — القرار يصبح سهلاً.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* NEW: String AI School Badge */}
+          <motion.div variants={staggerItem} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm mb-6">
+            <div className="p-6 sm:p-8">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                {/* Badge Visual */}
+                <div className="shrink-0">
+                  <div className="w-36 h-36 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-700 flex flex-col items-center justify-center shadow-xl shadow-sky-500/20 p-4">
+                    <img src="/edison-logo.png" alt="Edison" className="w-12 h-12 rounded-lg bg-white p-1 mb-2" />
+                    <div className="text-white text-[10px] font-black font-['Cairo'] text-center leading-tight">مدرسة معتمدة</div>
+                    <div className="text-sky-200 text-[8px] font-bold font-['Cairo'] mt-0.5">String AI Certified</div>
+                    <div className="text-white text-lg mt-1">🤖</div>
+                  </div>
+                </div>
+                {/* Description */}
+                <div>
+                  <h4 className="font-black text-gray-900 text-lg font-['Cairo'] mb-2">شارة String AI المدرسية</h4>
+                  <p className="text-sky-600 text-sm font-bold font-['Cairo'] mb-3">شهادة رسمية أن المدرسة تعمل بأحدث تقنيات الذكاء الاصطناعي</p>
+                  <p className="text-gray-600 text-sm leading-relaxed font-['Cairo'] mb-4">
+                    مدارس Edison ستحصل على شارة "String AI Certified" — شهادة رسمية تُعلن أن المدرسة تستخدم أحدث تقنيات الذكاء الاصطناعي في التعليم. هذه الشارة تظهر على الموقع، في التطبيقات، وفي المواد التسويقية — وتخبر الأهل أن هذه المدرسة مختلفة.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="bg-sky-50 text-sky-700 text-xs font-bold px-3 py-1.5 rounded-lg font-['Cairo']">✓ على الموقع الرسمي</span>
+                    <span className="bg-sky-50 text-sky-700 text-xs font-bold px-3 py-1.5 rounded-lg font-['Cairo']">✓ في التطبيقات</span>
+                    <span className="bg-sky-50 text-sky-700 text-xs font-bold px-3 py-1.5 rounded-lg font-['Cairo']">✓ في المواد التسويقية</span>
+                    <span className="bg-sky-50 text-sky-700 text-xs font-bold px-3 py-1.5 rounded-lg font-['Cairo']">✓ في الشاشات الذكية</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
 
