@@ -9,6 +9,7 @@ import {
   Swords, Shield, Zap, Target, CalendarHeart, UserCheck,
   ArrowRight, MessageCircle, Clock, Lock, Monitor,
   FileText, ClipboardList, PenTool, SearchCheck,
+  Bell, Share2, ArrowDown, ArrowUp,
 } from 'lucide-react';
 import {
   MOCK_SCHOOL_DATA,
@@ -93,7 +94,16 @@ interface TeacherData {
     engagement: 'green' | 'amber' | 'red';
     trend: 'green' | 'amber' | 'red';
     retention: 'green' | 'amber' | 'red';
+    studentPush: 'green' | 'amber' | 'red';
   };
+  // Student engagement metrics
+  studentAvgActiveTime: number;
+  studentAvgXp: number;
+  studentAvgAccuracy: number;
+  studentWeeklyLoginRate: number;
+  studentDailyLoginRate: number;
+  attendanceMarked: boolean;
+  studentEngagementScore: number;
 }
 
 type SortKey = 'name' | 'campus' | 'grade' | 'students' | 'accuracy' | 'xp' | 'stars' | 'trend';
@@ -255,6 +265,43 @@ const translations: Record<string, { ar: string; en: string }> = {
   tue: { ar: 'ثلاثاء', en: 'Tue' },
   wed: { ar: 'أربعاء', en: 'Wed' },
   thu: { ar: 'خميس', en: 'Thu' },
+  // Section 2 new columns
+  studentActiveTime: { ar: 'وقت نشاط الطلاب', en: 'Student Active Time' },
+  weeklyLoginPct: { ar: 'دخول أسبوعي %', en: 'Weekly Login %' },
+  attendanceCol: { ar: 'الحضور', en: 'Attendance' },
+  engagementScoreCol: { ar: 'نقاط التفاعل', en: 'Engagement' },
+  hrsPerWeek: { ar: 'ساعة/أسبوع', en: 'hrs/wk' },
+  studentPush: { ar: 'دفع الطلاب', en: 'Student Push' },
+  // Section 13
+  adoptionFunnel: { ar: '📈 مسار تبني المنصة', en: '📈 Platform Adoption Funnel' },
+  adoptionFunnelSub: { ar: 'تتبع مراحل استخدام المعلمين للمنصة', en: 'Track teacher platform adoption stages' },
+  // Section 14
+  usageLeaderboard: { ar: '🏆 ترتيب استخدام المنصة', en: '🏆 Platform Usage Ranking' },
+  usageLeaderboardSub: { ar: 'ترتيب المعلمين حسب استخدام المنصة', en: 'Rank teachers by platform engagement' },
+  shareRanking: { ar: 'شارك هذا الترتيب مع المعلمين', en: 'Share ranking with teachers' },
+  linkCopied: { ar: 'تم نسخ الرابط', en: 'Link copied' },
+  totalScore: { ar: 'النقاط الإجمالية', en: 'Total Score' },
+  weeklyHoursLabel: { ar: 'الساعات الأسبوعية', en: 'Weekly Hours' },
+  lessonsCreatedLabel: { ar: 'الدروس المنشأة', en: 'Lessons Created' },
+  aiUsageLabel: { ar: 'استخدام AI %', en: 'AI Usage %' },
+  studentActiveLabel: { ar: 'نشاط الطلاب %', en: 'Student Active %' },
+  loginStreakLabel: { ar: 'سلسلة الدخول', en: 'Login Streak' },
+  // Section 15
+  alertsActions: { ar: '⚠️ تنبيهات وإجراءات', en: '⚠️ Alerts & Actions' },
+  alertsActionsSub: { ar: 'تنبيهات ذكية من البيانات', en: 'Smart alerts generated from data' },
+  viewBtn: { ar: 'عرض', en: 'View' },
+  remindBtn: { ar: 'تذكير', en: 'Remind' },
+  // Section 16
+  weekOverWeek: { ar: '📊 مقارنة أسبوعية', en: '📊 Week-over-Week' },
+  weekOverWeekSub: { ar: 'مقارنة أداء هذا الأسبوع بالأسبوع الماضي', en: 'Compare this week performance to last week' },
+  thisWeekLabel: { ar: 'هذا الأسبوع', en: 'This Week' },
+  lastWeekLabel: { ar: 'الأسبوع الماضي', en: 'Last Week' },
+  changeLabel: { ar: 'التغيير', en: 'Change' },
+  avgHoursMetric: { ar: 'متوسط الساعات', en: 'Avg Hours' },
+  activeTeachersMetric: { ar: 'المعلمون النشطون', en: 'Active Teachers' },
+  lessonsCreatedMetric: { ar: 'الدروس المنشأة', en: 'Lessons Created' },
+  studentActivePctMetric: { ar: 'نشاط الطلاب %', en: 'Student Active %' },
+  inactiveTeachersMetric: { ar: 'معلمون غير نشطين', en: 'Inactive Teachers' },
 };
 
 /* ═══════════════════════════════════════════════════════════════
@@ -323,12 +370,26 @@ function generateTeachers(subjectKey: string): TeacherData[] {
 
       const engagementHours = Math.round((0.5 + seededRandom(seed + 999) * 4.5) * 10) / 10;
 
+      // Student engagement metrics
+      const rng = (n: number) => seededRandom(seed + 5000 + n);
+      const studentAvgActiveTime = Math.round((1.5 + rng(10) * 3.5) * 10) / 10;
+      const studentWeeklyLoginRate = Math.round(55 + rng(11) * 40);
+      const studentDailyLoginRate = Math.round(30 + rng(12) * 55);
+      const attendanceMarked = rng(13) > 0.15;
+      const studentEngagementScore = Math.round(
+        studentWeeklyLoginRate * 0.3 +
+        avgAcc * 0.25 +
+        studentDailyLoginRate * 0.25 +
+        (attendanceMarked ? 20 : 0)
+      );
+
       // Health signals
       const academic: 'green' | 'amber' | 'red' = avgAcc >= 80 ? 'green' : avgAcc >= 65 ? 'amber' : 'red';
       const engSignal: 'green' | 'amber' | 'red' = engagementHours >= 3 ? 'green' : engagementHours >= 1.5 ? 'amber' : 'red';
       const trendSignal: 'green' | 'amber' | 'red' = trend === 'up' ? 'green' : trend === 'stable' ? 'amber' : 'red';
       const avgStreak = students.reduce((s, st) => s + (st.weeklyActivity?.reduce((a, b) => a + b, 0) ?? 0), 0) / students.length;
       const retentionSignal: 'green' | 'amber' | 'red' = avgStreak > 350 ? 'green' : avgStreak > 200 ? 'amber' : 'red';
+      const studentPushSignal: 'green' | 'amber' | 'red' = studentEngagementScore > 75 ? 'green' : studentEngagementScore >= 50 ? 'amber' : 'red';
 
       teachers.push({
         id: `teacher-${g}-${s}`,
@@ -348,7 +409,14 @@ function generateTeachers(subjectKey: string): TeacherData[] {
         engagementHours,
         unitAccuracies,
         weeklyTrend,
-        healthSignals: { academic, engagement: engSignal, trend: trendSignal, retention: retentionSignal },
+        healthSignals: { academic, engagement: engSignal, trend: trendSignal, retention: retentionSignal, studentPush: studentPushSignal },
+        studentAvgActiveTime,
+        studentAvgXp: avgXp,
+        studentAvgAccuracy: avgAcc,
+        studentWeeklyLoginRate,
+        studentDailyLoginRate,
+        attendanceMarked,
+        studentEngagementScore,
       });
     }
   }
@@ -982,6 +1050,10 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
                     { key: 'stars' as SortKey, label: t('stars'), w: 'min-w-[80px]' },
                     { key: 'trend' as SortKey, label: t('health'), w: 'min-w-[60px]' },
                     { key: 'trend' as SortKey, label: t('trendLabel'), w: 'min-w-[80px]' },
+                    { key: 'accuracy' as SortKey, label: t('studentActiveTime'), w: 'min-w-[100px]' },
+                    { key: 'accuracy' as SortKey, label: t('weeklyLoginPct'), w: 'min-w-[100px]' },
+                    { key: 'accuracy' as SortKey, label: t('attendanceCol'), w: 'min-w-[60px]' },
+                    { key: 'accuracy' as SortKey, label: t('engagementScoreCol'), w: 'min-w-[90px]' },
                     { key: 'accuracy' as SortKey, label: t('units'), w: 'min-w-[100px]' },
                   ].map((col, ci) => (
                     <th
@@ -1013,7 +1085,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
                       variants={fadeUp}
                       className="group"
                     >
-                      <td colSpan={10} className="p-0">
+                      <td colSpan={14} className="p-0">
                         {/* Main row */}
                         <div
                           className={`flex items-center w-full px-3 py-3 border-b border-slate-50 cursor-pointer hover:bg-slate-50/50 transition-colors ${isExpanded ? 'bg-purple-50/30' : ''}`}
@@ -1068,6 +1140,31 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
                           {/* Trend sparkline */}
                           <div className="min-w-[80px] px-3">
                             <MiniSparkline data={teacher.weeklyTrend} color={teacher.trend === 'up' ? '#10b981' : teacher.trend === 'down' ? '#f43f5e' : '#94a3b8'} />
+                          </div>
+                          {/* Student Active Time */}
+                          <div className="min-w-[100px] px-3">
+                            <span className={`text-xs font-semibold ${teacher.studentAvgActiveTime > 3 ? 'text-emerald-600' : teacher.studentAvgActiveTime >= 2 ? 'text-amber-600' : 'text-rose-600'}`}>
+                              {teacher.studentAvgActiveTime} {t('hrsPerWeek')}
+                            </span>
+                          </div>
+                          {/* Weekly Login % */}
+                          <div className="min-w-[100px] px-3">
+                            <div className="flex items-center gap-1.5">
+                              <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden max-w-[50px]">
+                                <div className="h-full rounded-full bg-sky-400" style={{ width: `${teacher.studentWeeklyLoginRate}%` }} />
+                              </div>
+                              <span className="text-xs font-bold text-sky-600">{teacher.studentWeeklyLoginRate}%</span>
+                            </div>
+                          </div>
+                          {/* Attendance */}
+                          <div className="min-w-[60px] px-3 text-center">
+                            <span className="text-sm">{teacher.attendanceMarked ? '\u2705' : '\u274C'}</span>
+                          </div>
+                          {/* Engagement Score */}
+                          <div className="min-w-[90px] px-3">
+                            <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${teacher.studentEngagementScore > 75 ? 'bg-emerald-100 text-emerald-700' : teacher.studentEngagementScore >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'}`}>
+                              {teacher.studentEngagementScore}
+                            </span>
                           </div>
                           {/* Unit heatmap squares */}
                           <div className="min-w-[100px] px-3 flex items-center gap-1">
@@ -1650,6 +1747,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
               { key: 'engagement' as const, label: t('engagement'), icon: Activity },
               { key: 'trend' as const, label: t('trendLabel'), icon: TrendingUp },
               { key: 'retention' as const, label: t('retention'), icon: UserCheck },
+              { key: 'studentPush' as const, label: t('studentPush'), icon: Users },
             ];
 
             return (
@@ -1677,7 +1775,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
                 </div>
 
                 {/* Traffic lights */}
-                <div className="grid grid-cols-4 gap-2 mt-4">
+                <div className="grid grid-cols-5 gap-2 mt-4">
                   {signalLabels.map(({ key, label, icon: SIcon }) => (
                     <div key={key} className="flex flex-col items-center gap-1.5">
                       <div className={`w-4 h-4 rounded-full ${signalDot(signals[key])} shadow-sm`} />
@@ -1692,14 +1790,14 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
                   <div className="w-10 h-10">
                     <ProgressRing
                       value={healthyCount}
-                      max={4}
+                      max={5}
                       size={40}
                       strokeWidth={4}
-                      color={healthyCount >= 3 ? '#10b981' : healthyCount >= 2 ? '#f59e0b' : '#f43f5e'}
+                      color={healthyCount >= 4 ? '#10b981' : healthyCount >= 2 ? '#f59e0b' : '#f43f5e'}
                     />
                   </div>
                   <span className="text-xs text-slate-600">
-                    <span className="font-bold">{healthyCount}/4</span> {t('healthy')}
+                    <span className="font-bold">{healthyCount}/5</span> {t('healthy')}
                   </span>
                 </div>
 
@@ -2649,6 +2747,356 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
             </motion.div>
           )}
         </AnimatePresence>
+      </motion.section>
+
+      {/* ─── SECTION 13: Teacher Adoption Funnel ─── */}
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
+        <SectionHeader icon={TrendingUp} title={t('adoptionFunnel')} subtitle={t('adoptionFunnelSub')} locale={locale} />
+
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+          {(() => {
+            const funnelData = [
+              { label: locale === 'ar' ? 'مسجلون في String' : 'Registered on String', count: teachers.length, pct: 100 },
+              { label: locale === 'ar' ? 'دخلوا هذا الأسبوع' : 'Logged in this week', count: teachers.filter(tc => tc.engagementHours > 0).length, pct: 0 },
+              { label: locale === 'ar' ? 'أنشأوا درساً' : 'Created a lesson', count: contentStats.filter(c => c.lessonsCreated > 0).length, pct: 0 },
+              { label: locale === 'ar' ? 'استخدموا AI' : 'Used AI', count: Math.round(teachers.length * 0.67), pct: 0 },
+              { label: locale === 'ar' ? 'بنوا اختباراً تفاعلياً' : 'Built interactive quiz', count: contentStats.filter(c => c.examsCreated > 0).length, pct: 0 },
+              { label: locale === 'ar' ? 'راجعوا بيانات الطلاب' : 'Reviewed student data', count: Math.round(teachers.length * 0.39), pct: 0 },
+              { label: locale === 'ar' ? 'استخدموا Quests' : 'Used Quests', count: Math.round(teachers.length * 0.28), pct: 0 },
+            ];
+            // Compute percentages
+            const total = funnelData[0].count || 1;
+            funnelData.forEach(f => { f.pct = Math.round((f.count / total) * 100); });
+
+            const funnelColors = ['#10b981', '#34d399', '#6ee7b7', '#fbbf24', '#f59e0b', '#fb923c', '#f43f5e'];
+
+            return (
+              <div className="space-y-3">
+                {funnelData.map((item, fi) => {
+                  const widthPct = Math.max(item.pct, 8);
+                  return (
+                    <motion.div
+                      key={fi}
+                      initial={{ opacity: 0, x: locale === 'ar' ? 30 : -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: fi * 0.08 }}
+                      className="flex items-center gap-3"
+                    >
+                      <span className="text-xs text-slate-600 font-semibold w-40 shrink-0 truncate text-end">{item.label}</span>
+                      <div className="flex-1 relative">
+                        <motion.div
+                          className="h-8 rounded-lg flex items-center justify-end px-3"
+                          style={{ background: funnelColors[fi], width: `${widthPct}%` }}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${widthPct}%` }}
+                          transition={{ duration: 0.7, delay: fi * 0.08 }}
+                        >
+                          <span className="text-xs font-bold text-white drop-shadow-sm">{item.count} ({item.pct}%)</span>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+        </div>
+      </motion.section>
+
+      {/* ─── SECTION 14: Teacher Platform Usage Leaderboard ─── */}
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}>
+        <SectionHeader icon={Trophy} title={t('usageLeaderboard')} subtitle={t('usageLeaderboardSub')} locale={locale} />
+
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-slate-50/80 border-b border-slate-100">
+                  <th className="px-3 py-3 text-start text-xs font-semibold text-slate-500 w-10">#</th>
+                  <th className="px-3 py-3 text-start text-xs font-semibold text-slate-500 min-w-[160px]">{t('name')}</th>
+                  <th className="px-3 py-3 text-start text-xs font-semibold text-slate-500 min-w-[80px]">{t('weeklyHoursLabel')}</th>
+                  <th className="px-3 py-3 text-start text-xs font-semibold text-slate-500 min-w-[80px]">{t('lessonsCreatedLabel')}</th>
+                  <th className="px-3 py-3 text-start text-xs font-semibold text-slate-500 min-w-[80px]">{t('aiUsageLabel')}</th>
+                  <th className="px-3 py-3 text-start text-xs font-semibold text-slate-500 min-w-[90px]">{t('studentActiveLabel')}</th>
+                  <th className="px-3 py-3 text-start text-xs font-semibold text-slate-500 min-w-[70px]">{t('loginStreakLabel')}</th>
+                  <th className="px-3 py-3 text-start text-xs font-semibold text-slate-500 min-w-[90px]">{t('totalScore')}</th>
+                </tr>
+              </thead>
+              <motion.tbody variants={staggerContainer} initial="hidden" animate="visible">
+                {(() => {
+                  const usageRanking = contentStats.map(ct => {
+                    const seed14 = ct.id.charCodeAt(4) || 0;
+                    const rng14 = (n: number) => ((seed14 * 9301 + 49297 + n * 17) % 233280) / 233280;
+                    const aiUsage = Math.round(30 + rng14(20) * 60);
+                    const streak14 = Math.floor(1 + rng14(21) * 14);
+                    const score = Math.round(
+                      ct.engagementHours * 2 +
+                      ct.lessonsCreated * 5 +
+                      aiUsage * 0.5 +
+                      ct.activeStudentRate * 0.3 +
+                      streak14 * 3
+                    );
+                    return { ...ct, aiUsage, streak14, score };
+                  }).sort((a, b) => b.score - a.score);
+
+                  return usageRanking.map((row, idx) => {
+                    const medal14 = idx === 0 ? '\u{1F947}' : idx === 1 ? '\u{1F948}' : idx === 2 ? '\u{1F949}' : null;
+                    const scoreBg14 = row.score >= 80 ? 'bg-emerald-100 text-emerald-700' : row.score >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700';
+
+                    return (
+                      <motion.tr key={row.id} custom={idx} variants={fadeUp} className={`border-b border-slate-50 hover:bg-slate-50/50 transition-colors ${idx < 3 ? 'bg-amber-50/20' : ''}`}>
+                        <td className="px-3 py-2.5 text-xs text-slate-400 font-mono">{medal14 ?? (idx + 1)}</td>
+                        <td className="px-3 py-2.5">
+                          <div className="flex items-center gap-2">
+                            <TeacherAvatar name={row.name} size={28} />
+                            <span className="font-semibold text-slate-700 text-xs truncate">{row.name}</span>
+                          </div>
+                        </td>
+                        <td className="px-3 py-2.5 text-xs font-mono text-slate-600">{row.engagementHours}h</td>
+                        <td className="px-3 py-2.5 text-xs font-mono text-slate-600">{row.lessonsCreated}</td>
+                        <td className="px-3 py-2.5">
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${row.aiUsage >= 70 ? 'bg-emerald-100 text-emerald-700' : row.aiUsage >= 40 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'}`}>
+                            {row.aiUsage}%
+                          </span>
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden max-w-[50px]">
+                              <div className="h-full rounded-full bg-sky-400" style={{ width: `${row.activeStudentRate}%` }} />
+                            </div>
+                            <span className="text-xs font-bold text-sky-600">{row.activeStudentRate}%</span>
+                          </div>
+                        </td>
+                        <td className="px-3 py-2.5 text-xs font-mono text-slate-600">
+                          {row.streak14 > 5 ? '\u{1F525} ' : ''}{row.streak14}
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <span className={`text-xs px-2.5 py-1 rounded-full font-bold ${scoreBg14}`}>{row.score}</span>
+                        </td>
+                      </motion.tr>
+                    );
+                  });
+                })()}
+              </motion.tbody>
+            </table>
+          </div>
+
+          {/* Share button */}
+          <div className="px-5 py-4 border-t border-slate-100 flex justify-center">
+            <button
+              onClick={() => showToast(t('linkCopied'))}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-sm font-bold hover:from-purple-600 hover:to-indigo-600 transition-all shadow-sm hover:shadow-md"
+            >
+              <Share2 className="w-4 h-4" />
+              {t('shareRanking')}
+            </button>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* ─── SECTION 15: Smart Alerts & Action Items ─── */}
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}>
+        <SectionHeader icon={Bell} title={t('alertsActions')} subtitle={t('alertsActionsSub')} locale={locale} />
+
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+          {(() => {
+            const alerts: { type: 'critical' | 'warning' | 'success'; msg: string }[] = [];
+
+            // Critical: inactive 5+ days (using engagement as proxy)
+            teachers.filter(tc => tc.engagementHours < 0.5).forEach(tc => {
+              alerts.push({
+                type: 'critical',
+                msg: locale === 'ar'
+                  ? `${tc.name} لم يسجل دخول منذ ٥ أيام`
+                  : `${tc.name} hasn't logged in for 5 days`,
+              });
+            });
+
+            // Warning: low engagement hours
+            teachers.filter(tc => tc.engagementHours >= 0.5 && tc.engagementHours < 5).slice(0, 5).forEach(tc => {
+              alerts.push({
+                type: 'warning',
+                msg: locale === 'ar'
+                  ? `${tc.name} أقل من ٥ ساعات هذا الأسبوع`
+                  : `${tc.name} has less than 5 hours this week`,
+              });
+            });
+
+            // Warning: didn't mark attendance
+            teachers.filter(tc => !tc.attendanceMarked).slice(0, 4).forEach(tc => {
+              alerts.push({
+                type: 'warning',
+                msg: locale === 'ar'
+                  ? `${tc.name} لم يسجل الحضور اليوم`
+                  : `${tc.name} hasn't marked attendance today`,
+              });
+            });
+
+            // Success: top teacher
+            const topTeacherS15 = sortedByAccuracy[0];
+            const topContentS15 = contentStats.find(c => c.id === topTeacherS15?.id);
+            if (topTeacherS15 && topContentS15) {
+              alerts.push({
+                type: 'success',
+                msg: locale === 'ar'
+                  ? `${topTeacherS15.name} أنشأ ${topContentS15.lessonsCreated} درساً هذا الأسبوع — الأعلى في المدرسة`
+                  : `${topTeacherS15.name} created ${topContentS15.lessonsCreated} lessons this week — highest in school`,
+              });
+            }
+
+            // Teachers with high engagement scores
+            const highEngagement = teachers.filter(tc => tc.studentEngagementScore > 85);
+            if (highEngagement.length > 0) {
+              alerts.push({
+                type: 'success',
+                msg: locale === 'ar'
+                  ? `${highEngagement.length} معلمين لديهم تفاعل طلابي ممتاز (أعلى من 85)`
+                  : `${highEngagement.length} teachers have excellent student engagement (above 85)`,
+              });
+            }
+
+            // Sort: critical first, then warning, then success
+            const typeOrder = { critical: 0, warning: 1, success: 2 };
+            alerts.sort((a, b) => typeOrder[a.type] - typeOrder[b.type]);
+
+            const alertStyles = {
+              critical: { border: 'border-l-rose-500', bg: 'bg-rose-50/50', icon: <XCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" /> },
+              warning: { border: 'border-l-amber-500', bg: 'bg-amber-50/50', icon: <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" /> },
+              success: { border: 'border-l-emerald-500', bg: 'bg-emerald-50/50', icon: <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" /> },
+            };
+
+            return (
+              <div className="space-y-3">
+                {alerts.map((alert, ai) => {
+                  const style = alertStyles[alert.type];
+                  return (
+                    <motion.div
+                      key={ai}
+                      initial={{ opacity: 0, x: locale === 'ar' ? 20 : -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: ai * 0.06 }}
+                      className={`flex items-start gap-3 p-3.5 rounded-xl border-l-4 ${style.border} ${style.bg}`}
+                    >
+                      {style.icon}
+                      <p className="text-xs text-slate-700 flex-1 font-semibold leading-relaxed">{alert.msg}</p>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          onClick={() => showToast(locale === 'ar' ? 'جاري العرض...' : 'Opening...')}
+                          className="text-[10px] px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition"
+                        >
+                          {t('viewBtn')}
+                        </button>
+                        {alert.type !== 'success' && (
+                          <button
+                            onClick={() => showToast(locale === 'ar' ? 'تم إرسال التذكير' : 'Reminder sent')}
+                            className="text-[10px] px-2.5 py-1 rounded-lg bg-purple-500 text-white font-bold hover:bg-purple-600 transition"
+                          >
+                            {t('remindBtn')}
+                          </button>
+                        )}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+        </div>
+      </motion.section>
+
+      {/* ─── SECTION 16: This Week vs Last Week ─── */}
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95 }}>
+        <SectionHeader icon={BarChart3} title={t('weekOverWeek')} subtitle={t('weekOverWeekSub')} locale={locale} />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {(() => {
+            const avgHours = Math.round(teachers.reduce((s, tc) => s + tc.engagementHours, 0) / (teachers.length || 1) * 10) / 10;
+            const activeCount = teachers.filter(tc => tc.engagementHours > 0).length;
+            const inactiveCount = teachers.filter(tc => tc.engagementHours < 0.5).length;
+            const totalLessonsS16 = contentStats.reduce((s, c) => s + c.lessonsCreated, 0);
+            const studentActiveAvg = Math.round(teachers.reduce((s, tc) => s + tc.studentWeeklyLoginRate, 0) / (teachers.length || 1));
+
+            // Mock "last week" values with a random factor 0.75-0.95
+            const lwSeed = (n: number) => seededRandom(42 + n);
+            const lwAvgHours = Math.round(avgHours * (0.75 + lwSeed(1) * 0.20) * 10) / 10;
+            const lwActive = Math.round(activeCount * (0.75 + lwSeed(2) * 0.20));
+            const lwLessons = Math.round(totalLessonsS16 * (0.75 + lwSeed(3) * 0.20));
+            const lwStudentActive = Math.round(studentActiveAvg * (0.75 + lwSeed(4) * 0.20));
+            const lwInactive = Math.round(inactiveCount * (1.3 + lwSeed(5) * 0.7));
+
+            const metrics = [
+              {
+                label: t('avgHoursMetric'),
+                thisWeek: `${avgHours}h`,
+                lastWeek: `${lwAvgHours}h`,
+                delta: avgHours > 0 ? Math.round(((avgHours - lwAvgHours) / lwAvgHours) * 1000) / 10 : 0,
+                improved: avgHours >= lwAvgHours,
+              },
+              {
+                label: t('activeTeachersMetric'),
+                thisWeek: `${activeCount}/${teachers.length}`,
+                lastWeek: `${lwActive}/${teachers.length}`,
+                delta: lwActive > 0 ? Math.round(((activeCount - lwActive) / lwActive) * 1000) / 10 : 0,
+                improved: activeCount >= lwActive,
+              },
+              {
+                label: t('lessonsCreatedMetric'),
+                thisWeek: `${totalLessonsS16}`,
+                lastWeek: `${lwLessons}`,
+                delta: lwLessons > 0 ? Math.round(((totalLessonsS16 - lwLessons) / lwLessons) * 1000) / 10 : 0,
+                improved: totalLessonsS16 >= lwLessons,
+              },
+              {
+                label: t('studentActivePctMetric'),
+                thisWeek: `${studentActiveAvg}%`,
+                lastWeek: `${lwStudentActive}%`,
+                delta: lwStudentActive > 0 ? Math.round(((studentActiveAvg - lwStudentActive) / lwStudentActive) * 1000) / 10 : 0,
+                improved: studentActiveAvg >= lwStudentActive,
+              },
+              {
+                label: t('inactiveTeachersMetric'),
+                thisWeek: `${inactiveCount}`,
+                lastWeek: `${lwInactive}`,
+                delta: lwInactive > 0 ? Math.round(((inactiveCount - lwInactive) / lwInactive) * 1000) / 10 : 0,
+                improved: inactiveCount <= lwInactive, // Lower is better for inactive
+              },
+            ];
+
+            return metrics.map((m, mi) => (
+              <motion.div
+                key={mi}
+                custom={mi}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+                className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 hover:shadow-md transition-shadow"
+              >
+                <p className="text-xs text-slate-500 font-semibold mb-3">{m.label}</p>
+
+                {/* This week value */}
+                <p className="text-2xl font-extrabold text-slate-800 mb-1">{m.thisWeek}</p>
+
+                {/* Last week */}
+                <p className="text-xs text-slate-400 mb-3">
+                  {t('lastWeekLabel')}: <span className="font-semibold">{m.lastWeek}</span>
+                </p>
+
+                {/* Delta badge */}
+                <span className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-bold ${
+                  m.improved ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
+                }`}>
+                  {m.delta >= 0 ? '+' : ''}{m.delta}%
+                  {m.improved ? (
+                    <ArrowUp className="w-3 h-3" />
+                  ) : (
+                    <ArrowDown className="w-3 h-3" />
+                  )}
+                  {m.improved && mi === 4 && <CheckCircle2 className="w-3 h-3" />}
+                </span>
+              </motion.div>
+            ));
+          })()}
+        </div>
       </motion.section>
 
       {/* Toast */}
