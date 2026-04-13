@@ -7,7 +7,8 @@ import {
   Heart, Activity, Flame, BookOpen, Sparkles, Lightbulb,
   AlertTriangle, CheckCircle2, XCircle, BarChart3,
   Swords, Shield, Zap, Target, CalendarHeart, UserCheck,
-  ArrowRight, MessageCircle, Clock,
+  ArrowRight, MessageCircle, Clock, Lock, Monitor,
+  FileText, ClipboardList, PenTool, SearchCheck,
 } from 'lucide-react';
 import {
   MOCK_SCHOOL_DATA,
@@ -17,7 +18,15 @@ import {
   type ClassSection,
   type GradeLevel,
 } from '../../data/complexLeaderboardData';
-import { ProgressRing, Sparkline, HorizontalBarChart } from '../admin-hub/attendance/SvgCharts';
+import { ProgressRing, Sparkline, HorizontalBarChart, VerticalBarChart } from '../admin-hub/attendance/SvgCharts';
+import {
+  TEACHER_ACTIVITIES,
+  EXTENDED_TEACHERS as EXT_TEACHERS,
+  getTeacherActivityForDate,
+  getTodayString,
+  ACTION_LABELS,
+  CAMPUSES as ATT_CAMPUSES,
+} from '../../data/mockAttendanceData';
 import AccuracyVsXpScatter from '../leaderboard-widgets/AccuracyVsXpScatter';
 import { StudentProfileModal } from '../StudentProfileModal';
 import { ExpandableWidget } from './ExpandableWidget';
@@ -210,6 +219,42 @@ const translations: Record<string, { ar: string; en: string }> = {
   below70: { ar: 'أقل من 70%', en: 'Below 70%' },
   meetingScheduled: { ar: 'تم جدولة الاجتماع بنجاح!', en: 'Meeting scheduled successfully!' },
   recommendation: { ar: 'توصية', en: 'Recommendation' },
+  // Section 9 — Platform Activity
+  platformActivity: { ar: '📊 نشاط المنصة', en: '📊 Platform Activity' },
+  platformActivitySub: { ar: 'مراقبة استخدام المعلمين للمنصة', en: 'Monitor teacher platform usage' },
+  avgWeeklyTime: { ar: 'متوسط الوقت الأسبوعي', en: 'Avg Weekly Active Time' },
+  activeTeachersToday: { ar: 'معلمون نشطون اليوم', en: 'Active Teachers Today' },
+  loginFreshness: { ar: 'حداثة الدخول', en: 'Login Freshness' },
+  platformHealth: { ar: 'صحة المنصة', en: 'Platform Health Score' },
+  todayLabel: { ar: 'اليوم', en: 'Today' },
+  yesterdayLabel: { ar: 'أمس', en: 'Yesterday' },
+  daysAgo23: { ar: 'قبل ٢-٣ أيام', en: '2-3 days ago' },
+  daysAgo4Plus: { ar: 'قبل ٤+ أيام', en: '4+ days ago' },
+  weeklyPlatformHours: { ar: 'ساعات المنصة الأسبوعية', en: 'Weekly Platform Hours' },
+  // Section 10 — Login & Presence
+  loginPresence: { ar: '🔐 متابعة الحضور والدخول', en: '🔐 Login & Presence' },
+  loginPresenceSub: { ar: 'متابعة تسجيل الدخول والحضور', en: 'Track teacher login & presence' },
+  lastLogin: { ar: 'آخر دخول', en: 'Last Login' },
+  status: { ar: 'الحالة', en: 'Status' },
+  thisWeek: { ar: 'هذا الأسبوع', en: 'This Week' },
+  avgWeekly: { ar: 'متوسط أسبوعي', en: 'Avg Weekly' },
+  streak: { ar: 'السلسلة', en: 'Streak' },
+  teacher: { ar: 'المعلم', en: 'Teacher' },
+  allStatuses: { ar: 'كل الحالات', en: 'All Statuses' },
+  active: { ar: 'نشط', en: 'Active' },
+  partial: { ar: 'جزئي', en: 'Partial' },
+  inactive: { ar: 'غير نشط', en: 'Inactive' },
+  hoursAbbr: { ar: 'س', en: 'h' },
+  agoHours: { ar: 'قبل {n} ساعة', en: '{n}h ago' },
+  agoMinutes: { ar: 'قبل {n} دقيقة', en: '{n}m ago' },
+  justNow: { ar: 'الآن', en: 'Just now' },
+  ago1Day: { ar: 'أمس', en: 'Yesterday' },
+  agoDays: { ar: 'قبل {n} أيام', en: '{n} days ago' },
+  sun: { ar: 'أحد', en: 'Sun' },
+  mon: { ar: 'اثنين', en: 'Mon' },
+  tue: { ar: 'ثلاثاء', en: 'Tue' },
+  wed: { ar: 'أربعاء', en: 'Wed' },
+  thu: { ar: 'خميس', en: 'Thu' },
 };
 
 /* ═══════════════════════════════════════════════════════════════
@@ -440,6 +485,20 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const [selectedStudent, setSelectedStudent] = useState<StudentProfile | null>(null);
 
+  // Section 10 state
+  const [s10SortKey, setS10SortKey] = useState<'name' | 'lastLogin' | 'weeklyHours' | 'streak'>('lastLogin');
+  const [s10SortDir, setS10SortDir] = useState<'asc' | 'desc'>('desc');
+  const [s10CampusFilter, setS10CampusFilter] = useState('all');
+  const [s10StatusFilter, setS10StatusFilter] = useState<'all' | 'active' | 'partial' | 'inactive'>('all');
+
+  // Section 11 state
+  const [s11SortKey, setS11SortKey] = useState<'name' | 'lessons' | 'assignments' | 'exams' | 'reviewed' | 'activeRate' | 'score'>('score');
+  const [s11SortDir, setS11SortDir] = useState<'asc' | 'desc'>('desc');
+  const [s11Search, setS11Search] = useState('');
+
+  // Section 12 state
+  const [deepDiveTeacherId, setDeepDiveTeacherId] = useState('');
+
   // Initialize heatmap grade
   const availableGrades = useMemo(() => [...new Set(teachers.map(t => t.grade))].sort((a, b) => Number(a) - Number(b)), [teachers]);
   const activeHeatmapGrade = heatmapGrade ?? availableGrades[0] ?? 1;
@@ -541,6 +600,244 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
   // Growth chart data
   const growthTeachers = useMemo(() => teachers.filter(t => activeGrowthIds.has(t.id)), [teachers, activeGrowthIds]);
   const GROWTH_COLORS = ['#8b5cf6', '#10b981', '#f59e0b', '#f43f5e', '#0ea5e9', '#ec4899'];
+
+  // ─── Section 9 & 10: Platform Monitoring Data ───
+  const platformStats = useMemo(() => {
+    const today = getTodayString();
+    const todayActivities = getTeacherActivityForDate(today);
+    const totalExtTeachers = EXT_TEACHERS.length;
+
+    const allDates = [...new Set(TEACHER_ACTIVITIES.map(a => a.date))].sort();
+    const last5Days = allDates.slice(-5);
+
+    // 1) Avg Weekly Active Time
+    const totalMinutesWeek = last5Days.reduce((sum, d) => {
+      const dayActs = getTeacherActivityForDate(d);
+      return sum + dayActs.reduce((s, a) => s + a.totalMinutes, 0);
+    }, 0);
+    const avgWeeklyMinutes = totalExtTeachers > 0 ? totalMinutesWeek / totalExtTeachers : 0;
+    const avgWeeklyHours = Math.round(avgWeeklyMinutes / 60 * 10) / 10;
+    const sparklineDays = last5Days.map(d => {
+      const dayActs = getTeacherActivityForDate(d);
+      return dayActs.reduce((s, a) => s + a.totalMinutes, 0) / (totalExtTeachers || 1) / 60;
+    });
+
+    // 2) Active Teachers Today
+    const activeTodayCount = todayActivities.filter(a => a.totalMinutes > 0).length;
+
+    // 3) Login Freshness
+    const teacherLastLogin = new Map<string, string>();
+    for (const tch of EXT_TEACHERS) {
+      const acts = TEACHER_ACTIVITIES
+        .filter(a => a.teacherId === tch.id && a.totalMinutes > 0)
+        .sort((a, b) => b.date.localeCompare(a.date));
+      if (acts.length > 0) teacherLastLogin.set(tch.id, acts[0].date);
+    }
+    const todayIdx = allDates.indexOf(today);
+    let loginToday = 0, loginYesterday = 0, login23Days = 0, login4Plus = 0;
+    for (const tch of EXT_TEACHERS) {
+      const lastDate = teacherLastLogin.get(tch.id);
+      if (!lastDate) { login4Plus++; continue; }
+      const lastIdx = allDates.indexOf(lastDate);
+      const diff = todayIdx - lastIdx;
+      if (diff <= 0) loginToday++;
+      else if (diff === 1) loginYesterday++;
+      else if (diff <= 3) login23Days++;
+      else login4Plus++;
+    }
+
+    // 4) Platform Health Score
+    const activeRate = totalExtTeachers > 0 ? activeTodayCount / totalExtTeachers : 0;
+    const weeklyHoursNorm = Math.min(avgWeeklyHours / 20, 1);
+    const totalActionsToday = todayActivities.reduce((s, a) => s + a.actions.length, 0);
+    const actionsNorm = Math.min(totalActionsToday / (totalExtTeachers * 5), 1);
+    const healthScore = Math.round(activeRate * 40 + weeklyHoursNorm * 30 + actionsNorm * 30);
+
+    // 5) Weekly Bar Chart
+    const dayNameKeys = ['sun', 'mon', 'tue', 'wed', 'thu'];
+    const weeklyBars = last5Days.map((d, i) => {
+      const dayActs = getTeacherActivityForDate(d);
+      const totalHours = Math.round(dayActs.reduce((s, a) => s + a.totalMinutes, 0) / 60 * 10) / 10;
+      const barColor = totalHours > 100 ? '#10b981' : totalHours >= 50 ? '#f59e0b' : '#f43f5e';
+      return { label: dayNameKeys[i % 5] || 'sun', value: totalHours, color: barColor };
+    });
+
+    return {
+      avgWeeklyHours, sparklineDays, activeTodayCount, totalExtTeachers,
+      loginToday, loginYesterday, login23Days, login4Plus,
+      healthScore, weeklyBars, today, allDates, teacherLastLogin,
+    };
+  }, [subject]);
+
+  // Section 10: teacher login/presence rows
+  const loginPresenceData = useMemo(() => {
+    const { today, allDates, teacherLastLogin } = platformStats;
+    const todayIdx = allDates.indexOf(today);
+    const last5Days = allDates.slice(-5);
+
+    return EXT_TEACHERS.map(tch => {
+      const weeklyMinutes = last5Days.reduce((sum, d) => {
+        const act = TEACHER_ACTIVITIES.find(a => a.teacherId === tch.id && a.date === d);
+        return sum + (act?.totalMinutes ?? 0);
+      }, 0);
+      const weeklyHours = Math.round(weeklyMinutes / 60 * 10) / 10;
+
+      const allMinutes = TEACHER_ACTIVITIES
+        .filter(a => a.teacherId === tch.id)
+        .reduce((s, a) => s + a.totalMinutes, 0);
+      const avgWkHrs = Math.round(allMinutes / 60 / 2 * 10) / 10;
+
+      const lastLoginDate = teacherLastLogin.get(tch.id);
+      const lastLoginIdx = lastLoginDate ? allDates.indexOf(lastLoginDate) : -1;
+      const daysSinceLogin = lastLoginDate ? Math.max(0, todayIdx - lastLoginIdx) : 999;
+
+      const todayAct = TEACHER_ACTIVITIES.find(a => a.teacherId === tch.id && a.date === today);
+      const todayMinutes = todayAct?.totalMinutes ?? 0;
+      const statusVal: 'active' | 'partial' | 'inactive' =
+        todayMinutes >= 30 ? 'active' : todayMinutes > 0 ? 'partial' : 'inactive';
+
+      let streakCount = 0;
+      for (let i = allDates.length - 1; i >= 0; i--) {
+        const act = TEACHER_ACTIVITIES.find(a => a.teacherId === tch.id && a.date === allDates[i]);
+        if (act && act.totalMinutes > 0) streakCount++;
+        else break;
+      }
+
+      const prevWeekMinutes = TEACHER_ACTIVITIES
+        .filter(a => a.teacherId === tch.id)
+        .slice(0, 5)
+        .reduce((s, a) => s + a.totalMinutes, 0);
+      const trendDir: 'up' | 'down' | 'stable' =
+        weeklyMinutes > prevWeekMinutes * 1.1 ? 'up' : weeklyMinutes < prevWeekMinutes * 0.9 ? 'down' : 'stable';
+
+      const campus = ATT_CAMPUSES.find(c => c.id === tch.campusId);
+      const campusShort = campus ? (campus.type === 'boys' ? 'النور(ب)' : campus.type === 'girls' ? 'النور(ن)' : 'أكاديمية') : '';
+      const campusShortEn = campus ? (campus.type === 'boys' ? 'Noor(B)' : campus.type === 'girls' ? 'Noor(G)' : 'Intl') : '';
+
+      return {
+        id: tch.id, name: tch.name, nameEn: tch.nameEn,
+        campusId: tch.campusId, campusShort, campusShortEn,
+        daysSinceLogin, lastLoginDate, status: statusVal,
+        weeklyHours, avgWeeklyHours: avgWkHrs, streak: streakCount, trendDir,
+      };
+    });
+  }, [platformStats]);
+
+  const filteredPresenceData = useMemo(() => {
+    let list = [...loginPresenceData];
+    if (s10CampusFilter !== 'all') list = list.filter(r => r.campusId === s10CampusFilter);
+    if (s10StatusFilter !== 'all') list = list.filter(r => r.status === s10StatusFilter);
+    list.sort((a, b) => {
+      let cmp = 0;
+      switch (s10SortKey) {
+        case 'name': cmp = a.name.localeCompare(b.name, 'ar'); break;
+        case 'lastLogin': cmp = a.daysSinceLogin - b.daysSinceLogin; break;
+        case 'weeklyHours': cmp = a.weeklyHours - b.weeklyHours; break;
+        case 'streak': cmp = a.streak - b.streak; break;
+      }
+      return s10SortDir === 'desc' ? -cmp : cmp;
+    });
+    return list;
+  }, [loginPresenceData, s10CampusFilter, s10StatusFilter, s10SortKey, s10SortDir]);
+
+  const handleS10Sort = (key: 'name' | 'lastLogin' | 'weeklyHours' | 'streak') => {
+    if (s10SortKey === key) setS10SortDir(d => d === 'asc' ? 'desc' : 'asc');
+    else { setS10SortKey(key); setS10SortDir('desc'); }
+  };
+
+  const maxWeeklyHours = useMemo(() => Math.max(...loginPresenceData.map(r => r.weeklyHours), 1), [loginPresenceData]);
+
+  // Section 11: Content stats (seeded random per teacher)
+  const contentStats = useMemo(() => {
+    return teachers.map(tch => {
+      const seed = tch.id.charCodeAt(4) || 0;
+      const rng = (n: number) => ((seed * 9301 + 49297 + n * 7) % 233280) / 233280;
+      return {
+        ...tch,
+        lessonsCreated: Math.floor(rng(1) * 15) + 2,
+        assignmentsGiven: Math.floor(rng(2) * 20) + 5,
+        examsCreated: Math.floor(rng(3) * 5) + 1,
+        quizzesReviewed: Math.floor(rng(4) * 30) + 10,
+        activeStudentRate: Math.round(60 + rng(5) * 35),
+        contentScore: Math.round(50 + rng(6) * 45),
+      };
+    });
+  }, [teachers]);
+
+  const totalLessons = useMemo(() => contentStats.reduce((s, c) => s + c.lessonsCreated, 0), [contentStats]);
+  const totalAssignments = useMemo(() => contentStats.reduce((s, c) => s + c.assignmentsGiven, 0), [contentStats]);
+  const totalExams = useMemo(() => contentStats.reduce((s, c) => s + c.examsCreated, 0), [contentStats]);
+  const avgActiveRate = useMemo(() => Math.round(contentStats.reduce((s, c) => s + c.activeStudentRate, 0) / (contentStats.length || 1)), [contentStats]);
+
+  // Section 11: sorted/filtered content table
+  const s11Filtered = useMemo(() => {
+    let list = [...contentStats];
+    if (s11Search) list = list.filter(c => c.name.includes(s11Search));
+    list.sort((a, b) => {
+      let cmp = 0;
+      switch (s11SortKey) {
+        case 'name': cmp = a.name.localeCompare(b.name, 'ar'); break;
+        case 'lessons': cmp = a.lessonsCreated - b.lessonsCreated; break;
+        case 'assignments': cmp = a.assignmentsGiven - b.assignmentsGiven; break;
+        case 'exams': cmp = a.examsCreated - b.examsCreated; break;
+        case 'reviewed': cmp = a.quizzesReviewed - b.quizzesReviewed; break;
+        case 'activeRate': cmp = a.activeStudentRate - b.activeStudentRate; break;
+        case 'score': cmp = a.contentScore - b.contentScore; break;
+      }
+      return s11SortDir === 'desc' ? -cmp : cmp;
+    });
+    return list;
+  }, [contentStats, s11Search, s11SortKey, s11SortDir]);
+
+  const s11ContentRanked = useMemo(() => [...contentStats].sort((a, b) => b.contentScore - a.contentScore), [contentStats]);
+
+  // Section 12: deep dive teacher data
+  const deepDiveTeacher = useMemo(() => teachers.find(tch => tch.id === deepDiveTeacherId), [teachers, deepDiveTeacherId]);
+  const deepDiveContent = useMemo(() => contentStats.find(c => c.id === deepDiveTeacherId), [contentStats, deepDiveTeacherId]);
+
+  // Map this teacher to an EXTENDED_TEACHER by matching name
+  const deepDiveExtTeacher = useMemo(() => {
+    if (!deepDiveTeacher) return null;
+    return EXT_TEACHERS.find(et => et.name === deepDiveTeacher.name) ?? null;
+  }, [deepDiveTeacher]);
+
+  // Activities for the deep-dive teacher (last 7 school days)
+  const deepDiveActivities = useMemo(() => {
+    if (!deepDiveExtTeacher) return [];
+    return TEACHER_ACTIVITIES
+      .filter(a => a.teacherId === deepDiveExtTeacher.id)
+      .sort((a, b) => b.date.localeCompare(a.date));
+  }, [deepDiveExtTeacher]);
+
+  // Campus average content stats (for the deep-dive teacher's campus)
+  const campusContentAvg = useMemo(() => {
+    if (!deepDiveTeacher) return { lessons: 0, assignments: 0, exams: 0, reviewed: 0, activeRate: 0 };
+    const campusPeers = contentStats.filter(c => c.campusId === deepDiveTeacher.campusId);
+    const n = campusPeers.length || 1;
+    return {
+      lessons: Math.round(campusPeers.reduce((s, c) => s + c.lessonsCreated, 0) / n),
+      assignments: Math.round(campusPeers.reduce((s, c) => s + c.assignmentsGiven, 0) / n),
+      exams: Math.round(campusPeers.reduce((s, c) => s + c.examsCreated, 0) / n),
+      reviewed: Math.round(campusPeers.reduce((s, c) => s + c.quizzesReviewed, 0) / n),
+      activeRate: Math.round(campusPeers.reduce((s, c) => s + c.activeStudentRate, 0) / n),
+    };
+  }, [deepDiveTeacher, contentStats]);
+
+  // Campus average weekly hours for the deep-dive teacher
+  const campusAvgWeeklyHours = useMemo(() => {
+    if (!deepDiveTeacher) return 0;
+    const campusTeacherIds = new Set(
+      EXT_TEACHERS.filter(et => et.campusId === deepDiveTeacher.campusId).map(et => et.id)
+    );
+    const last5DaysActivities = TEACHER_ACTIVITIES
+      .filter(a => campusTeacherIds.has(a.teacherId))
+      .sort((a, b) => b.date.localeCompare(a.date));
+    // Get unique dates, take last 5
+    const uniqueDates = [...new Set(last5DaysActivities.map(a => a.date))].slice(0, 5);
+    const relevant = last5DaysActivities.filter(a => uniqueDates.includes(a.date));
+    const totalMins = relevant.reduce((s, a) => s + a.totalMinutes, 0);
+    return Math.round((totalMins / (campusTeacherIds.size || 1) / 60) * 10) / 10;
+  }, [deepDiveTeacher]);
 
   const showToast = (msg: string) => {
     setToastMsg(msg);
@@ -1607,6 +1904,751 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
             </div>
           </motion.div>
         </div>
+      </motion.section>
+
+      {/* ─── SECTION 9: Platform Activity Dashboard ─── */}
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+        <SectionHeader icon={Monitor} title={t('platformActivity')} subtitle={t('platformActivitySub')} locale={locale} />
+
+        {/* 4 stat cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {/* Card 1: Avg Weekly Time */}
+          <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible"
+            className="relative bg-white/80 backdrop-blur-sm border border-white/50 shadow-sm rounded-2xl p-5 overflow-hidden group hover:shadow-md transition-shadow duration-300"
+          >
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.04]" style={{ background: '#10b981', transform: 'translate(30%, -30%)' }} />
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-slate-500 mb-1">{t('avgWeeklyTime')}</p>
+                <p className="text-2xl font-extrabold text-slate-800">{platformStats.avgWeeklyHours}{t('hoursAbbr')}</p>
+              </div>
+              <div className="p-2 rounded-xl" style={{ background: '#10b98115' }}>
+                <Clock className="w-5 h-5 text-emerald-500" />
+              </div>
+            </div>
+            <div className="mt-3">
+              <Sparkline data={platformStats.sparklineDays} color="#10b981" width={80} height={24} />
+            </div>
+          </motion.div>
+
+          {/* Card 2: Active Teachers Today */}
+          <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
+            className="relative bg-white/80 backdrop-blur-sm border border-white/50 shadow-sm rounded-2xl p-5 overflow-hidden group hover:shadow-md transition-shadow duration-300"
+          >
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.04]" style={{ background: '#0ea5e9', transform: 'translate(30%, -30%)' }} />
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-slate-500 mb-1">{t('activeTeachersToday')}</p>
+                <p className="text-2xl font-extrabold text-slate-800">
+                  {platformStats.activeTodayCount} / {platformStats.totalExtTeachers}
+                </p>
+              </div>
+              <div className="w-12 h-12">
+                <ProgressRing value={platformStats.activeTodayCount} max={platformStats.totalExtTeachers} size={48} strokeWidth={5} color="#0ea5e9" />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 3: Login Freshness */}
+          <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible"
+            className={`relative bg-white/80 backdrop-blur-sm border shadow-sm rounded-2xl p-5 overflow-hidden group hover:shadow-md transition-shadow duration-300 ${platformStats.login4Plus > 0 ? 'border-rose-200/60' : 'border-white/50'}`}
+          >
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.04]" style={{ background: platformStats.login4Plus > 0 ? '#f43f5e' : '#8b5cf6', transform: 'translate(30%, -30%)' }} />
+            <p className="text-xs text-slate-500 mb-3">{t('loginFreshness')}</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                {t('todayLabel')}: {platformStats.loginToday}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
+                <span className="w-2 h-2 rounded-full bg-amber-400" />
+                {t('yesterdayLabel')}: {platformStats.loginYesterday}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-700">
+                <span className="w-2 h-2 rounded-full bg-orange-400" />
+                {t('daysAgo23')}: {platformStats.login23Days}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-700">
+                <span className="w-2 h-2 rounded-full bg-rose-400" />
+                {t('daysAgo4Plus')}: {platformStats.login4Plus}
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Card 4: Platform Health Score */}
+          <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible"
+            className="relative bg-white/80 backdrop-blur-sm border border-white/50 shadow-sm rounded-2xl p-5 overflow-hidden group hover:shadow-md transition-shadow duration-300"
+          >
+            {(() => {
+              const score = platformStats.healthScore;
+              const scoreColor = score >= 80 ? '#10b981' : score >= 60 ? '#f59e0b' : '#f43f5e';
+              return (
+                <>
+                  <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.04]" style={{ background: scoreColor, transform: 'translate(30%, -30%)' }} />
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-slate-500 mb-1">{t('platformHealth')}</p>
+                      <p className="text-3xl font-extrabold" style={{ color: scoreColor }}>{score}</p>
+                    </div>
+                    <div className="w-14 h-14">
+                      <ProgressRing value={score} max={100} size={56} strokeWidth={5} color={scoreColor} />
+                    </div>
+                  </div>
+                </>
+              );
+            })()}
+          </motion.div>
+        </div>
+
+        {/* Weekly Activity Bar Chart */}
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}
+          className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5"
+        >
+          <p className="text-sm font-bold text-slate-700 mb-4">{t('weeklyPlatformHours')}</p>
+          <VerticalBarChart
+            data={platformStats.weeklyBars.map(b => ({ ...b, label: t(b.label) }))}
+            height={180}
+            showValues
+          />
+        </motion.div>
+      </motion.section>
+
+      {/* ─── SECTION 10: Teacher Login & Presence Tracker ─── */}
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}>
+        <SectionHeader icon={Lock} title={t('loginPresence')} subtitle={t('loginPresenceSub')} locale={locale} />
+
+        {/* Filter row */}
+        <div className="flex flex-wrap items-center gap-3 mb-4" dir={dir}>
+          <select
+            value={s10CampusFilter}
+            onChange={e => setS10CampusFilter(e.target.value)}
+            className="px-4 py-2.5 rounded-xl border border-slate-200 bg-white/70 text-sm font-['Cairo'] focus:outline-none focus:ring-2 focus:ring-purple-300"
+          >
+            <option value="all">{t('allCampuses')}</option>
+            {ATT_CAMPUSES.map(c => (
+              <option key={c.id} value={c.id}>{locale === 'ar' ? c.name : c.nameEn}</option>
+            ))}
+          </select>
+          <select
+            value={s10StatusFilter}
+            onChange={e => setS10StatusFilter(e.target.value as 'all' | 'active' | 'partial' | 'inactive')}
+            className="px-4 py-2.5 rounded-xl border border-slate-200 bg-white/70 text-sm font-['Cairo'] focus:outline-none focus:ring-2 focus:ring-purple-300"
+          >
+            <option value="all">{t('allStatuses')}</option>
+            <option value="active">{t('active')}</option>
+            <option value="partial">{t('partial')}</option>
+            <option value="inactive">{t('inactive')}</option>
+          </select>
+        </div>
+
+        {/* Table */}
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-slate-50/80 border-b border-slate-100">
+                  <th className="px-3 py-3 text-start text-xs font-semibold text-slate-500 w-10">#</th>
+                  {[
+                    { key: 'name' as const, label: t('teacher'), w: 'min-w-[180px]' },
+                    { key: 'name' as const, label: t('campus'), w: 'min-w-[80px]' },
+                    { key: 'lastLogin' as const, label: t('lastLogin'), w: 'min-w-[120px]' },
+                    { key: 'lastLogin' as const, label: t('status'), w: 'min-w-[70px]' },
+                    { key: 'weeklyHours' as const, label: t('thisWeek'), w: 'min-w-[140px]' },
+                    { key: 'weeklyHours' as const, label: t('avgWeekly'), w: 'min-w-[100px]' },
+                    { key: 'streak' as const, label: t('streak'), w: 'min-w-[70px]' },
+                  ].map((col, ci) => (
+                    <th
+                      key={ci}
+                      className={`px-3 py-3 text-start text-xs font-semibold text-slate-500 cursor-pointer select-none hover:text-slate-700 transition ${col.w}`}
+                      onClick={() => handleS10Sort(col.key)}
+                    >
+                      <span className="flex items-center gap-1">
+                        {col.label}
+                        {s10SortKey === col.key && (
+                          s10SortDir === 'desc' ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />
+                        )}
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <motion.tbody variants={staggerContainer} initial="hidden" animate="visible">
+                {filteredPresenceData.map((row, idx) => {
+                  const loginColor = row.daysSinceLogin === 0 ? 'text-emerald-600' : row.daysSinceLogin <= 2 ? 'text-amber-600' : 'text-rose-600';
+                  const loginLabel = row.daysSinceLogin === 0
+                    ? t('todayLabel')
+                    : row.daysSinceLogin === 1
+                      ? t('ago1Day')
+                      : (locale === 'ar' ? `قبل ${row.daysSinceLogin} أيام` : `${row.daysSinceLogin} days ago`);
+                  const statusEmoji = row.status === 'active' ? '\u{1F7E2}' : row.status === 'partial' ? '\u{1F7E1}' : '\u{1F534}';
+                  const trendArrow = row.trendDir === 'up' ? '\u2191' : row.trendDir === 'down' ? '\u2193' : '\u2192';
+                  const isInactive3Plus = row.daysSinceLogin >= 3;
+
+                  return (
+                    <motion.tr
+                      key={row.id}
+                      custom={idx}
+                      variants={fadeUp}
+                      className={isInactive3Plus ? 'bg-rose-50/30' : ''}
+                    >
+                      <td className="px-3 py-3 text-xs text-slate-400 font-mono">{idx + 1}</td>
+                      {/* Teacher */}
+                      <td className="px-3 py-3 min-w-[180px]">
+                        <div className="flex items-center gap-2.5">
+                          <TeacherAvatar name={row.name} size={28} />
+                          <span className="font-semibold text-slate-700 text-xs truncate">{locale === 'ar' ? row.name : row.nameEn}</span>
+                        </div>
+                      </td>
+                      {/* Campus */}
+                      <td className="px-3 py-3 min-w-[80px]">
+                        <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md">
+                          {locale === 'ar' ? row.campusShort : row.campusShortEn}
+                        </span>
+                      </td>
+                      {/* Last Login */}
+                      <td className="px-3 py-3 min-w-[120px]">
+                        <span className={`text-xs font-semibold ${loginColor}`}>{loginLabel}</span>
+                      </td>
+                      {/* Status */}
+                      <td className="px-3 py-3 min-w-[70px] text-center">
+                        <span className="text-sm">{statusEmoji}</span>
+                      </td>
+                      {/* This Week Hours */}
+                      <td className="px-3 py-3 min-w-[140px]">
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <motion.div
+                              className="h-full rounded-full bg-sky-400"
+                              initial={{ width: 0 }}
+                              animate={{ width: `${(row.weeklyHours / maxWeeklyHours) * 100}%` }}
+                              transition={{ duration: 0.8, ease: 'easeOut', delay: idx * 0.02 }}
+                            />
+                          </div>
+                          <span className="text-xs font-bold text-slate-600 w-10 text-end">{row.weeklyHours}{t('hoursAbbr')}</span>
+                        </div>
+                      </td>
+                      {/* Avg Weekly */}
+                      <td className="px-3 py-3 min-w-[100px]">
+                        <span className="text-xs text-slate-600">
+                          {row.avgWeeklyHours}{t('hoursAbbr')} {trendArrow}
+                        </span>
+                      </td>
+                      {/* Streak */}
+                      <td className="px-3 py-3 min-w-[70px]">
+                        <span className="text-xs font-bold text-slate-700">
+                          {row.streak > 3 ? '\u{1F525} ' : ''}{row.streak}
+                        </span>
+                      </td>
+                    </motion.tr>
+                  );
+                })}
+              </motion.tbody>
+            </table>
+          </div>
+          {filteredPresenceData.length === 0 && (
+            <div className="text-center py-12 text-slate-400 text-sm">
+              {locale === 'ar' ? 'لا يوجد معلمون مطابقون' : 'No matching teachers'}
+            </div>
+          )}
+        </div>
+      </motion.section>
+
+      {/* ─── SECTION 11: Teacher Content & Assignment Stats ─── */}
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
+        <SectionHeader
+          icon={FileText}
+          title={locale === 'ar' ? '📝 إنتاج المحتوى' : '📝 Content Production'}
+          subtitle={locale === 'ar' ? 'إحصائيات إنشاء المحتوى والواجبات' : 'Content creation and assignment statistics'}
+          locale={locale}
+        />
+
+        {/* 4 Top Stat Cards */}
+        <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" variants={staggerContainer} initial="hidden" animate="visible">
+          {/* Card 1: Total Lessons Created */}
+          <motion.div custom={0} variants={fadeUp} className="relative bg-white/80 backdrop-blur-sm border border-white/50 shadow-sm rounded-2xl p-5 overflow-hidden group hover:shadow-md transition-shadow duration-300">
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.04]" style={{ background: '#0ea5e9', transform: 'translate(30%, -30%)' }} />
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-slate-500 mb-1">{locale === 'ar' ? 'الدروس المنشأة' : 'Lessons Created'}</p>
+                <p className="text-2xl font-extrabold text-slate-800">{totalLessons}</p>
+              </div>
+              <div className="p-2 rounded-xl" style={{ background: '#0ea5e915' }}>
+                <BookOpen className="w-5 h-5" style={{ color: '#0ea5e9' }} />
+              </div>
+            </div>
+            <div className="mt-3">
+              <span className="text-xs px-2.5 py-1 rounded-full font-semibold bg-sky-100 text-sky-700">
+                {locale === 'ar' ? `هذا الأسبوع: ${totalLessons}` : `This week: ${totalLessons}`}
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Card 2: Total Assignments */}
+          <motion.div custom={1} variants={fadeUp} className="relative bg-white/80 backdrop-blur-sm border border-white/50 shadow-sm rounded-2xl p-5 overflow-hidden group hover:shadow-md transition-shadow duration-300">
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.04]" style={{ background: '#10b981', transform: 'translate(30%, -30%)' }} />
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-slate-500 mb-1">{locale === 'ar' ? 'إجمالي الواجبات' : 'Total Assignments'}</p>
+                <p className="text-2xl font-extrabold text-slate-800">{totalAssignments}</p>
+              </div>
+              <div className="p-2 rounded-xl" style={{ background: '#10b98115' }}>
+                <ClipboardList className="w-5 h-5" style={{ color: '#10b981' }} />
+              </div>
+            </div>
+            <div className="mt-3 flex items-center gap-2">
+              {(() => {
+                const lastWeek = Math.round(totalAssignments * 0.85);
+                const s11delta = totalAssignments - lastWeek;
+                return (
+                  <>
+                    <TrendingUp className="w-4 h-4 text-emerald-500" />
+                    <span className="text-xs font-semibold text-emerald-600">+{s11delta}</span>
+                    <span className="text-xs text-slate-400">{locale === 'ar' ? 'مقابل الأسبوع الماضي' : 'vs last week'}</span>
+                  </>
+                );
+              })()}
+            </div>
+          </motion.div>
+
+          {/* Card 3: Total Exams */}
+          <motion.div custom={2} variants={fadeUp} className="relative bg-white/80 backdrop-blur-sm border border-white/50 shadow-sm rounded-2xl p-5 overflow-hidden group hover:shadow-md transition-shadow duration-300">
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.04]" style={{ background: '#8b5cf6', transform: 'translate(30%, -30%)' }} />
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-slate-500 mb-1">{locale === 'ar' ? 'إجمالي الاختبارات' : 'Total Exams'}</p>
+                <p className="text-2xl font-extrabold text-slate-800">{totalExams}</p>
+              </div>
+              <div className="p-2 rounded-xl" style={{ background: '#8b5cf615' }}>
+                <PenTool className="w-5 h-5" style={{ color: '#8b5cf6' }} />
+              </div>
+            </div>
+            <div className="mt-3">
+              <span className="text-xs px-2.5 py-1 rounded-full font-semibold bg-violet-100 text-violet-700">
+                {locale === 'ar' ? `بمعدل ${Math.round(totalExams / (teachers.length || 1))} لكل معلم` : `Avg ${Math.round(totalExams / (teachers.length || 1))} per teacher`}
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Card 4: Avg Active Student % */}
+          <motion.div custom={3} variants={fadeUp} className="relative bg-white/80 backdrop-blur-sm border border-white/50 shadow-sm rounded-2xl p-5 overflow-hidden group hover:shadow-md transition-shadow duration-300">
+            <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.04]" style={{ background: '#f59e0b', transform: 'translate(30%, -30%)' }} />
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-xs text-slate-500 mb-1">{locale === 'ar' ? 'متوسط نشاط الطلاب' : 'Avg Active Students'}</p>
+                <p className="text-2xl font-extrabold text-slate-800">{avgActiveRate}%</p>
+              </div>
+              <div className="w-12 h-12">
+                <ProgressRing value={avgActiveRate} max={100} size={48} strokeWidth={5} color="#f59e0b" />
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Per-Teacher Content Table */}
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+          {/* Search bar */}
+          <div className="px-4 py-3 border-b border-slate-100">
+            <div className="relative max-w-xs">
+              <Search className="absolute top-1/2 -translate-y-1/2 start-3 w-4 h-4 text-slate-400" />
+              <input
+                type="text"
+                value={s11Search}
+                onChange={e => setS11Search(e.target.value)}
+                placeholder={locale === 'ar' ? 'ابحث عن معلم...' : 'Search teacher...'}
+                className="w-full ps-10 pe-4 py-2 rounded-xl border border-slate-200 bg-white/70 backdrop-blur-sm text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 transition font-['Cairo']"
+              />
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-slate-50/80 border-b border-slate-100">
+                  {([
+                    { key: 'name' as const, label: locale === 'ar' ? 'المعلم' : 'Teacher', w: 'min-w-[180px]' },
+                    { key: 'lessons' as const, label: locale === 'ar' ? 'الدروس' : 'Lessons', w: 'min-w-[80px]' },
+                    { key: 'assignments' as const, label: locale === 'ar' ? 'الواجبات' : 'Assignments', w: 'min-w-[90px]' },
+                    { key: 'exams' as const, label: locale === 'ar' ? 'الاختبارات' : 'Exams', w: 'min-w-[80px]' },
+                    { key: 'reviewed' as const, label: locale === 'ar' ? 'المراجعات' : 'Reviewed', w: 'min-w-[80px]' },
+                    { key: 'activeRate' as const, label: locale === 'ar' ? 'نشاط الطلاب %' : 'Active Students %', w: 'min-w-[140px]' },
+                    { key: 'score' as const, label: locale === 'ar' ? 'نقاط المحتوى' : 'Content Score', w: 'min-w-[100px]' },
+                  ] as const).map((col) => (
+                    <th
+                      key={col.key}
+                      className={`px-3 py-3 text-start text-xs font-semibold text-slate-500 cursor-pointer select-none hover:text-slate-700 transition ${col.w}`}
+                      onClick={() => {
+                        if (s11SortKey === col.key) setS11SortDir(d => d === 'asc' ? 'desc' : 'asc');
+                        else { setS11SortKey(col.key); setS11SortDir('desc'); }
+                      }}
+                    >
+                      <span className="flex items-center gap-1">
+                        {col.label}
+                        {s11SortKey === col.key && (
+                          s11SortDir === 'desc' ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />
+                        )}
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <motion.tbody variants={staggerContainer} initial="hidden" animate="visible">
+                {s11Filtered.map((ct, idx) => {
+                  const rank11 = s11ContentRanked.findIndex(r => r.id === ct.id) + 1;
+                  const medal11 = rank11 === 1 ? '🥇' : rank11 === 2 ? '🥈' : rank11 === 3 ? '🥉' : null;
+                  const scoreBg = ct.contentScore >= 80 ? 'bg-emerald-100 text-emerald-700' : ct.contentScore >= 60 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700';
+                  const rateColor = ct.activeStudentRate >= 85 ? '#10b981' : ct.activeStudentRate >= 70 ? '#0ea5e9' : ct.activeStudentRate >= 55 ? '#f59e0b' : '#f43f5e';
+
+                  return (
+                    <motion.tr key={ct.id} custom={idx} variants={fadeUp} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                      <td className="px-3 py-2.5">
+                        <div className="flex items-center gap-2.5">
+                          {medal11 && <span className="text-sm">{medal11}</span>}
+                          <TeacherAvatar name={ct.name} size={28} />
+                          <span className="font-semibold text-slate-700 text-xs truncate">{ct.name}</span>
+                        </div>
+                      </td>
+                      <td className="px-3 py-2.5 text-slate-600 font-mono text-xs">{ct.lessonsCreated}</td>
+                      <td className="px-3 py-2.5 text-slate-600 font-mono text-xs">{ct.assignmentsGiven}</td>
+                      <td className="px-3 py-2.5 text-slate-600 font-mono text-xs">{ct.examsCreated}</td>
+                      <td className="px-3 py-2.5 text-slate-600 font-mono text-xs">{ct.quizzesReviewed}</td>
+                      <td className="px-3 py-2.5">
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden max-w-[80px]">
+                            <motion.div
+                              className="h-full rounded-full"
+                              style={{ background: rateColor }}
+                              initial={{ width: 0 }}
+                              animate={{ width: `${ct.activeStudentRate}%` }}
+                              transition={{ duration: 0.6, delay: idx * 0.02 }}
+                            />
+                          </div>
+                          <span className="text-xs font-bold" style={{ color: rateColor }}>{ct.activeStudentRate}%</span>
+                        </div>
+                      </td>
+                      <td className="px-3 py-2.5">
+                        <span className={`text-xs px-2.5 py-1 rounded-full font-bold ${scoreBg}`}>
+                          {ct.contentScore}
+                        </span>
+                      </td>
+                    </motion.tr>
+                  );
+                })}
+              </motion.tbody>
+            </table>
+          </div>
+          {s11Filtered.length === 0 && (
+            <div className="text-center py-12 text-slate-400 text-sm">
+              {locale === 'ar' ? 'لا يوجد معلمون مطابقون' : 'No matching teachers'}
+            </div>
+          )}
+        </div>
+      </motion.section>
+
+      {/* ─── SECTION 12: Teacher Engagement Deep Dive ─── */}
+      <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.75 }}>
+        <SectionHeader
+          icon={SearchCheck}
+          title={locale === 'ar' ? '🔍 تحليل معلم محدد' : '🔍 Teacher Deep Dive'}
+          subtitle={locale === 'ar' ? 'اختر معلماً لعرض التفاصيل الكاملة' : 'Select a teacher for full analysis'}
+          locale={locale}
+        />
+
+        {/* Teacher Selector */}
+        <div className="mb-6" dir={dir}>
+          <select
+            value={deepDiveTeacherId}
+            onChange={e => setDeepDiveTeacherId(e.target.value)}
+            className="w-full max-w-md px-4 py-3 rounded-xl border border-purple-200 bg-purple-50/50 text-sm font-['Cairo'] focus:outline-none focus:ring-2 focus:ring-purple-300"
+          >
+            <option value="">{locale === 'ar' ? 'اختر معلماً...' : 'Select a teacher...'}</option>
+            {teachers.map(tch => (
+              <option key={tch.id} value={tch.id}>{tch.name} — {locale === 'ar' ? 'صف' : 'Grade'} {tch.grade}{tch.section}</option>
+            ))}
+          </select>
+        </div>
+
+        <AnimatePresence mode="wait">
+          {!deepDiveTeacher ? (
+            /* Placeholder when no teacher selected */
+            <motion.div
+              key="s12-placeholder"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex flex-col items-center justify-center py-16 bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-100"
+            >
+              <div className="w-20 h-20 rounded-full bg-purple-50 flex items-center justify-center mb-4">
+                <Search className="w-10 h-10 text-purple-300" />
+              </div>
+              <p className="text-lg font-bold text-slate-400 font-['Cairo']">
+                {locale === 'ar' ? 'اختر معلماً لعرض التحليل التفصيلي' : 'Select a teacher to view detailed analysis'}
+              </p>
+            </motion.div>
+          ) : (
+            /* 4 Panels when teacher selected */
+            <motion.div
+              key={`s12-${deepDiveTeacherId}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-5"
+            >
+              {/* Panel A: Activity Timeline */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Clock className="w-4 h-4 text-blue-500" />
+                  <h3 className="text-sm font-bold text-slate-700">
+                    {locale === 'ar' ? 'الجدول الزمني للنشاط' : 'Activity Timeline'}
+                  </h3>
+                </div>
+                <div className="max-h-[400px] overflow-y-auto space-y-4 pr-1">
+                  {(() => {
+                    const byDay = new Map<string, typeof deepDiveActivities>();
+                    for (const act of deepDiveActivities.slice(0, 7)) {
+                      if (!byDay.has(act.date)) byDay.set(act.date, []);
+                      byDay.get(act.date)!.push(act);
+                    }
+
+                    const actionColors: Record<string, string> = {
+                      login: '#3b82f6',
+                      mark_attendance: '#10b981',
+                      open_space: '#8b5cf6',
+                      review_quiz: '#f59e0b',
+                      view_student: '#0ea5e9',
+                      post_content: '#10b981',
+                    };
+
+                    const s12days = [...byDay.entries()].slice(0, 7);
+                    if (s12days.length === 0) {
+                      return (
+                        <p className="text-sm text-slate-400 text-center py-8">
+                          {locale === 'ar' ? 'لا توجد أنشطة مسجلة' : 'No activities recorded'}
+                        </p>
+                      );
+                    }
+
+                    return s12days.map(([dateKey, dayActivities]) => (
+                      <div key={dateKey}>
+                        <p className="text-xs font-bold text-slate-500 mb-2 pb-1 border-b border-slate-100">
+                          {dateKey}
+                        </p>
+                        <div className="space-y-2">
+                          {dayActivities.flatMap(act =>
+                            act.actions.map((action, ai) => {
+                              const time = action.timestamp.split('T')[1]?.slice(0, 5) ?? '';
+                              const color = actionColors[action.type] ?? '#94a3b8';
+                              return (
+                                <div key={`${act.teacherId}-${dateKey}-${ai}`} className="flex items-start gap-3">
+                                  <div className="flex flex-col items-center">
+                                    <div className="w-2.5 h-2.5 rounded-full shrink-0 mt-1" style={{ background: color }} />
+                                    {ai < act.actions.length - 1 && <div className="w-px h-4 bg-slate-200" />}
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2 text-xs">
+                                      <span className="font-mono text-slate-400">{time}</span>
+                                      <span className="font-semibold text-slate-700">{ACTION_LABELS[action.type]}</span>
+                                    </div>
+                                    {action.details && (
+                                      <p className="text-[11px] text-slate-400 mt-0.5 truncate">{action.details}</p>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })
+                          )}
+                        </div>
+                      </div>
+                    ));
+                  })()}
+                </div>
+              </motion.div>
+
+              {/* Panel B: Weekly Hours Breakdown */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Activity className="w-4 h-4 text-emerald-500" />
+                  <h3 className="text-sm font-bold text-slate-700">
+                    {locale === 'ar' ? 'تفصيل الساعات الأسبوعية' : 'Weekly Hours Breakdown'}
+                  </h3>
+                </div>
+                {(() => {
+                  const last5 = deepDiveActivities.slice(0, 5);
+                  const ddTotalMins = last5.reduce((s, a) => s + a.totalMinutes, 0);
+                  const ddTotalHrs = Math.round((ddTotalMins / 60) * 10) / 10;
+                  const ddDailyAvg = Math.round((ddTotalHrs / 5) * 10) / 10;
+                  const ddDelta = Math.round((ddTotalHrs - campusAvgWeeklyHours) * 10) / 10;
+
+                  return (
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="bg-emerald-50 rounded-xl p-4 text-center">
+                        <p className="text-2xl font-extrabold text-emerald-700">{ddTotalHrs}</p>
+                        <p className="text-[10px] text-emerald-600 mt-1">{locale === 'ar' ? 'هذا الأسبوع' : 'This Week'}</p>
+                        <p className="text-[10px] text-slate-400 mt-0.5">{locale === 'ar' ? 'ساعات' : 'hours'}</p>
+                      </div>
+                      <div className="bg-sky-50 rounded-xl p-4 text-center">
+                        <p className="text-2xl font-extrabold text-sky-700">{ddDailyAvg}</p>
+                        <p className="text-[10px] text-sky-600 mt-1">{locale === 'ar' ? 'المعدل اليومي' : 'Daily Average'}</p>
+                        <p className="text-[10px] text-slate-400 mt-0.5">{locale === 'ar' ? 'ساعات/يوم' : 'hrs/day'}</p>
+                      </div>
+                      <div className="bg-purple-50 rounded-xl p-4 text-center">
+                        <p className="text-2xl font-extrabold text-purple-700">
+                          {campusAvgWeeklyHours}
+                        </p>
+                        <p className="text-[10px] text-purple-600 mt-1">{locale === 'ar' ? 'متوسط المبنى' : 'Campus Avg'}</p>
+                        <span className={`inline-block mt-1 text-[10px] px-2 py-0.5 rounded-full font-bold ${ddDelta >= 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
+                          {ddDelta >= 0 ? '+' : ''}{ddDelta}h
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {/* Daily bar chart for last 5 days */}
+                <div className="mt-5">
+                  <p className="text-xs text-slate-500 font-semibold mb-2">{locale === 'ar' ? 'الساعات اليومية' : 'Daily Hours'}</p>
+                  <HorizontalBarChart
+                    data={deepDiveActivities.slice(0, 5).reverse().map(a => ({
+                      label: a.date.slice(5),
+                      value: Math.round((a.totalMinutes / 60) * 10) / 10,
+                    }))}
+                    maxValue={8}
+                    barHeight={18}
+                    valueSuffix="h"
+                  />
+                </div>
+              </motion.div>
+
+              {/* Panel C: Content Production (this teacher) */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <FileText className="w-4 h-4 text-violet-500" />
+                  <h3 className="text-sm font-bold text-slate-700">
+                    {locale === 'ar' ? 'إنتاج المحتوى' : 'Content Production'}
+                  </h3>
+                </div>
+                {deepDiveContent && (
+                  <div className="space-y-4">
+                    {[
+                      { label: locale === 'ar' ? 'الدروس المنشأة' : 'Lessons Created', value: deepDiveContent.lessonsCreated, avg: campusContentAvg.lessons, color: '#0ea5e9' },
+                      { label: locale === 'ar' ? 'الواجبات' : 'Assignments Given', value: deepDiveContent.assignmentsGiven, avg: campusContentAvg.assignments, color: '#10b981' },
+                      { label: locale === 'ar' ? 'الاختبارات' : 'Exams Created', value: deepDiveContent.examsCreated, avg: campusContentAvg.exams, color: '#8b5cf6' },
+                      { label: locale === 'ar' ? 'المراجعات' : 'Quizzes Reviewed', value: deepDiveContent.quizzesReviewed, avg: campusContentAvg.reviewed, color: '#f59e0b' },
+                    ].map((item, barIdx) => {
+                      const maxVal = Math.max(item.value, item.avg, 1);
+                      const valPct = (item.value / (maxVal * 1.2)) * 100;
+                      const avgPct = (item.avg / (maxVal * 1.2)) * 100;
+                      return (
+                        <div key={barIdx}>
+                          <div className="flex justify-between text-xs mb-1">
+                            <span className="text-slate-600 font-semibold">{item.label}</span>
+                            <span className="font-bold" style={{ color: item.color }}>{item.value}</span>
+                          </div>
+                          <div className="relative h-5 bg-slate-100 rounded-full overflow-hidden">
+                            {/* Campus average (faded) */}
+                            <div
+                              className="absolute top-0 left-0 h-full rounded-full opacity-20"
+                              style={{ background: item.color, width: `${avgPct}%` }}
+                            />
+                            {/* Teacher value */}
+                            <motion.div
+                              className="absolute top-0 left-0 h-full rounded-full"
+                              style={{ background: item.color }}
+                              initial={{ width: 0 }}
+                              animate={{ width: `${valPct}%` }}
+                              transition={{ duration: 0.7, delay: barIdx * 0.1 }}
+                            />
+                            {/* Campus avg marker line */}
+                            <div
+                              className="absolute top-0 h-full w-0.5"
+                              style={{ background: `${item.color}80`, left: `${avgPct}%` }}
+                            />
+                          </div>
+                          <div className="flex justify-end mt-0.5">
+                            <span className="text-[9px] text-slate-400">
+                              {locale === 'ar' ? 'متوسط المبنى' : 'Campus avg'}: {item.avg}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Panel D: Student Impact */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Users className="w-4 h-4 text-amber-500" />
+                  <h3 className="text-sm font-bold text-slate-700">
+                    {locale === 'ar' ? 'تأثير الطلاب' : 'Student Impact'}
+                  </h3>
+                </div>
+                {deepDiveContent && (() => {
+                  const seed12 = deepDiveTeacherId.charCodeAt(4) || 0;
+                  const rng12 = (n: number) => ((seed12 * 9301 + 49297 + n * 7) % 233280) / 233280;
+                  const improving = Math.round(60 + rng12(10) * 25);
+                  const declining = Math.round(5 + rng12(11) * 15);
+                  const campusDeltaRate = deepDiveContent.activeStudentRate - campusContentAvg.activeRate;
+
+                  return (
+                    <div className="grid grid-cols-2 gap-3">
+                      {/* Active Students */}
+                      <div className="bg-amber-50 rounded-xl p-4 flex flex-col items-center">
+                        <div className="w-14 h-14 mb-2">
+                          <ProgressRing value={deepDiveContent.activeStudentRate} max={100} size={56} strokeWidth={5} color="#f59e0b" />
+                        </div>
+                        <p className="text-lg font-extrabold text-amber-700">{deepDiveContent.activeStudentRate}%</p>
+                        <p className="text-[10px] text-amber-600">{locale === 'ar' ? 'طلاب نشطون' : 'Active Students'}</p>
+                      </div>
+
+                      {/* Students Improving */}
+                      <div className="bg-emerald-50 rounded-xl p-4 flex flex-col items-center">
+                        <TrendingUp className="w-8 h-8 text-emerald-400 mb-2" />
+                        <p className="text-lg font-extrabold text-emerald-700">{improving}%</p>
+                        <p className="text-[10px] text-emerald-600">{locale === 'ar' ? 'طلاب يتحسنون' : 'Improving'}</p>
+                      </div>
+
+                      {/* Students Declining */}
+                      <div className="bg-rose-50 rounded-xl p-4 flex flex-col items-center">
+                        <TrendingDown className="w-8 h-8 text-rose-400 mb-2" />
+                        <p className="text-lg font-extrabold text-rose-700">{declining}%</p>
+                        <p className="text-[10px] text-rose-600">{locale === 'ar' ? 'طلاب متراجعون' : 'Declining'}</p>
+                      </div>
+
+                      {/* vs Campus Average */}
+                      <div className="bg-purple-50 rounded-xl p-4 flex flex-col items-center">
+                        <BarChart3 className="w-8 h-8 text-purple-400 mb-2" />
+                        <span className={`text-lg font-extrabold ${campusDeltaRate >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
+                          {campusDeltaRate >= 0 ? '+' : ''}{campusDeltaRate}%
+                        </span>
+                        <p className="text-[10px] text-purple-600">{locale === 'ar' ? 'مقابل المبنى' : 'vs Campus'}</p>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.section>
 
       {/* Toast */}
