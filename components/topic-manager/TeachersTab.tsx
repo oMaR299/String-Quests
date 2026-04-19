@@ -284,7 +284,7 @@ const translations: Record<string, { ar: string; en: string }> = {
   totalScore: { ar: 'النقاط الإجمالية', en: 'Total Score' },
   weeklyHoursLabel: { ar: 'الساعات الأسبوعية', en: 'Weekly Hours' },
   lessonsCreatedLabel: { ar: 'الدروس المنشأة', en: 'Lessons Created' },
-  aiUsageLabel: { ar: 'استخدام AI %', en: 'AI Usage %' },
+  aiUsageLabel: { ar: 'تبني المنصة %', en: 'Platform Adoption %' },
   studentActiveLabel: { ar: 'نشاط الطلاب %', en: 'Student Active %' },
   loginStreakLabel: { ar: 'سلسلة الدخول', en: 'Login Streak' },
   // Section 15
@@ -2373,7 +2373,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
                     { key: 'lessons' as const, label: locale === 'ar' ? 'الدروس' : 'Lessons', w: 'min-w-[80px]' },
                     { key: 'assignments' as const, label: locale === 'ar' ? 'الواجبات' : 'Assignments', w: 'min-w-[90px]' },
                     { key: 'exams' as const, label: locale === 'ar' ? 'الاختبارات' : 'Exams', w: 'min-w-[80px]' },
-                    { key: 'reviewed' as const, label: locale === 'ar' ? 'المراجعات' : 'Reviewed', w: 'min-w-[80px]' },
+                    { key: 'reviewed' as const, label: locale === 'ar' ? 'سترنغز' : 'Strings', w: 'min-w-[80px]' },
                     { key: 'activeRate' as const, label: locale === 'ar' ? 'نشاط الطلاب %' : 'Active Students %', w: 'min-w-[140px]' },
                     { key: 'score' as const, label: locale === 'ar' ? 'نقاط المحتوى' : 'Content Score', w: 'min-w-[100px]' },
                   ] as const).map((col) => (
@@ -2651,7 +2651,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
                       { label: locale === 'ar' ? 'الدروس المنشأة' : 'Lessons Created', value: deepDiveContent.lessonsCreated, avg: campusContentAvg.lessons, color: '#0ea5e9' },
                       { label: locale === 'ar' ? 'الواجبات' : 'Assignments Given', value: deepDiveContent.assignmentsGiven, avg: campusContentAvg.assignments, color: '#10b981' },
                       { label: locale === 'ar' ? 'الاختبارات' : 'Exams Created', value: deepDiveContent.examsCreated, avg: campusContentAvg.exams, color: '#8b5cf6' },
-                      { label: locale === 'ar' ? 'المراجعات' : 'Quizzes Reviewed', value: deepDiveContent.quizzesReviewed, avg: campusContentAvg.reviewed, color: '#f59e0b' },
+                      { label: locale === 'ar' ? 'سترنغز' : 'Strings', value: deepDiveContent.quizzesReviewed, avg: campusContentAvg.reviewed, color: '#f59e0b' },
                     ].map((item, barIdx) => {
                       const maxVal = Math.max(item.value, item.avg, 1);
                       const valPct = (item.value / (maxVal * 1.2)) * 100;

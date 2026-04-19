@@ -109,6 +109,11 @@ function getContentStats(teacherId: string) {
     contentScore: Math.round(50 + rng(6) * 45),
     aiUsage: Math.round(rng(7) * 80),
     loginStreak: Math.floor(rng(8) * 14) + 1,
+    classUsageTotal: Math.max(2, Math.floor(rng(8) * 4) + 2),
+    classUsageActive: (() => {
+      const t = Math.max(2, Math.floor(rng(8) * 4) + 2);
+      return Math.max(0, Math.min(t, Math.floor(rng(7) * (t + 1))));
+    })(),
   };
 }
 
@@ -189,7 +194,7 @@ export const TeacherProfilePage: React.FC<TeacherProfilePageProps> = ({
       { label: ar ? 'مراجعة اختبارات' : 'Review Quizzes', done: rng(102) > 0.15, icon: SearchCheck },
       { label: ar ? 'عرض تقارير' : 'View Reports', done: rng(103) > 0.3, icon: BarChart3 },
       { label: ar ? 'تسجيل حضور' : 'Mark Attendance', done: teacher.attendanceMarked, icon: UserCheck },
-      { label: ar ? 'استخدام AI' : 'Use AI Features', done: rng(105) > 0.4, icon: BrainCircuit },
+      { label: ar ? 'يستخدم String في الفصل' : 'Uses String in class', done: rng(105) > 0.4, icon: BookOpen },
       { label: ar ? 'عرض بيانات الطلاب' : 'View Student Data', done: rng(106) > 0.1, icon: Users },
       { label: ar ? 'نشر محتوى' : 'Post Content', done: rng(107) > 0.35, icon: BookOpen },
     ];
@@ -584,7 +589,7 @@ function ActivityTab({ teacher, locale, contentStats, activities, adoptionFeatur
               { label: ar ? 'دروس منشأة' : 'Lessons', value: contentStats.lessonsCreated, icon: <BookOpen className="w-4 h-4 text-sky-500" /> },
               { label: ar ? 'واجبات' : 'Assignments', value: contentStats.assignmentsGiven, icon: <ClipboardList className="w-4 h-4 text-violet-500" /> },
               { label: ar ? 'اختبارات' : 'Exams', value: contentStats.examsCreated, icon: <FileText className="w-4 h-4 text-amber-500" /> },
-              { label: ar ? 'اختبارات مراجعة' : 'Quizzes Reviewed', value: contentStats.quizzesReviewed, icon: <SearchCheck className="w-4 h-4 text-emerald-500" /> },
+              { label: ar ? 'سترنغز' : 'Strings', value: contentStats.quizzesReviewed, icon: <SearchCheck className="w-4 h-4 text-emerald-500" /> },
             ].map((stat, i) => (
               <div key={i} className="bg-slate-50 rounded-xl p-3 flex items-center gap-3">
                 {stat.icon}
@@ -618,12 +623,14 @@ function ActivityTab({ teacher, locale, contentStats, activities, adoptionFeatur
         </SectionCard>
       </div>
 
-      {/* AI Usage & Login Streak */}
+      {/* Platform Adoption & Login Streak */}
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-white rounded-2xl border border-slate-200 p-5 text-center">
-          <BrainCircuit className="w-8 h-8 text-violet-500 mx-auto mb-2" />
-          <p className="text-2xl font-black text-slate-800 font-['Cairo']">{contentStats.aiUsage}%</p>
-          <p className="text-xs text-slate-500 font-['Cairo']">{ar ? 'استخدام AI' : 'AI Usage Rate'}</p>
+          <BookOpen className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
+          <p className="text-2xl font-black text-slate-800 font-['Cairo'] tabular-nums">
+            {contentStats.classUsageActive}<span className="text-slate-300">/{contentStats.classUsageTotal}</span>
+          </p>
+          <p className="text-xs text-slate-500 font-['Cairo']">{ar ? 'فصول تستخدم String' : 'Classes Using String'}</p>
         </div>
         <div className="bg-white rounded-2xl border border-slate-200 p-5 text-center">
           <Calendar className="w-8 h-8 text-amber-500 mx-auto mb-2" />

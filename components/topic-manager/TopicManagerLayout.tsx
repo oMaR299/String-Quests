@@ -2,7 +2,7 @@ import React, { useState, Suspense, lazy, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutGrid, GraduationCap, Users, BookOpen, BrainCircuit,
-  FileText, LogOut, Menu, X, Search, Globe, ChevronDown,
+  FileText, LogOut, Menu, X, Search, Globe, ChevronDown, Sparkles, Activity,
 } from 'lucide-react';
 import { SUBJECT_UNITS, type Subject } from '../../data/complexLeaderboardData';
 
@@ -53,12 +53,14 @@ const TeachersTab  = lazy(() => import('./TeachersTab'));
 const UnitsTab     = lazy(() => import('./UnitsTab'));
 const SkillMapTab  = lazy(() => import('./SkillMapTab'));
 const ReportsTab   = lazy(() => import('./ReportsTab'));
+const PrincipalTab = lazy(() => import('./PrincipalTab'));
+const PulseTab     = lazy(() => import('./PulseTab'));
 
 /* ═══════════════════════════════════════════════════════════════
    Types
    ═══════════════════════════════════════════════════════════════ */
 
-type Tab = 'overview' | 'grades' | 'teachers' | 'units' | 'skills' | 'reports';
+type Tab = 'overview' | 'grades' | 'teachers' | 'units' | 'skills' | 'reports' | 'principal' | 'pulse';
 
 interface TopicManagerLayoutProps {
   onExit: () => void;
@@ -86,6 +88,8 @@ export function TopicManagerLayout({ onExit }: TopicManagerLayoutProps) {
     { id: 'units',     label: 'الوحدات',     labelEn: 'Units',      icon: BookOpen,      enabled: true },
     { id: 'skills',    label: 'المهارات',    labelEn: 'Skill Map',  icon: BrainCircuit,  enabled: true },
     { id: 'reports',   label: 'التقارير',    labelEn: 'Reports',    icon: FileText,      enabled: true },
+    { id: 'principal', label: 'لوحة المدير',  labelEn: 'Principal',  icon: Sparkles,      enabled: true },
+    { id: 'pulse',     label: 'نبض اليوم',    labelEn: "Today's Pulse", icon: Activity,    enabled: true },
   ];
 
   /* ── NavItem ─────────────────────────────────────── */
@@ -146,6 +150,10 @@ export function TopicManagerLayout({ onExit }: TopicManagerLayoutProps) {
         return <Suspense fallback={<TabFallback />}><SkillMapTab subject={selectedSubject} locale={locale} /></Suspense>;
       case 'reports':
         return <Suspense fallback={<TabFallback />}><ReportsTab subject={selectedSubject} locale={locale} /></Suspense>;
+      case 'principal':
+        return <Suspense fallback={<TabFallback />}><PrincipalTab subject={selectedSubject} locale={locale} onNavigate={setActiveTab} /></Suspense>;
+      case 'pulse':
+        return <Suspense fallback={<TabFallback />}><PulseTab subject={selectedSubject} locale={locale} /></Suspense>;
       default:
         return null;
     }
