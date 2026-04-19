@@ -13,6 +13,7 @@ import { useQuizSession } from '../contexts/QuizSessionContext';
 import { useI18n } from '../contexts/I18nContext';
 import { slugToSubject, slugToLesson } from '../utils/slugify';
 import { getLevelForXP } from '../data/levelThresholds';
+import { useSkillModel } from '../contexts/SkillModelContext';
 import { Eye, X, Heart, HeartCrack, Gem } from 'lucide-react';
 
 const QuizSessionPage: React.FC = () => {
@@ -21,6 +22,7 @@ const QuizSessionPage: React.FC = () => {
   const { state: userState, dispatch: userDispatch, level } = useUser();
   const { state: quizState, dispatch: quizDispatch, currentQuestion, maxScore } = useQuizSession();
   const { locale } = useI18n();
+  const { recordAttempt } = useSkillModel();
 
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [levelUpInfo, setLevelUpInfo] = useState({ level: 1, titleAr: '', titleEn: '' });
@@ -93,6 +95,15 @@ const QuizSessionPage: React.FC = () => {
     if (!currentQuestion) return;
 
     const isCorrect = pointsAwarded > 0;
+
+    // Record in skill model (BKT + FSRS + IRT updates)
+    recordAttempt(
+      currentQuestion.id,
+      isCorrect,
+      0, // responseTimeMs - not tracked yet
+      lessonSlug ?? '',
+      subjectSlug ?? '',
+    );
 
     // Record answer in user state
     userDispatch({

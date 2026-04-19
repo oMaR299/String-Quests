@@ -30,6 +30,7 @@ import {
 } from '../../data/mockAttendanceData';
 import AccuracyVsXpScatter from '../leaderboard-widgets/AccuracyVsXpScatter';
 import { StudentProfileModal } from '../StudentProfileModal';
+import { TeacherProfileModal, type TeacherProfileData } from '../teacher-profile/TeacherProfileModal';
 import { ExpandableWidget } from './ExpandableWidget';
 
 /* ═══════════════════════════════════════════════════════════════
@@ -552,6 +553,7 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
   const [growthHover, setGrowthHover] = useState<number | null>(null);
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const [selectedStudent, setSelectedStudent] = useState<StudentProfile | null>(null);
+  const [selectedTeacher, setSelectedTeacher] = useState<TeacherProfileData | null>(null);
 
   // Section 10 state
   const [s10SortKey, setS10SortKey] = useState<'name' | 'lastLogin' | 'weeklyHours' | 'streak'>('lastLogin');
@@ -1095,7 +1097,12 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
                           <div className="flex items-center gap-2.5 min-w-[180px] flex-1">
                             <span className="text-xs text-slate-400 w-5 text-center font-mono">{medal ?? rank}</span>
                             <TeacherAvatar name={teacher.name} size={32} />
-                            <span className="font-semibold text-slate-700 truncate">{teacher.name}</span>
+                            <button
+                              className="font-semibold text-slate-700 truncate hover:text-sky-600 hover:underline transition-colors text-left"
+                              onClick={(e) => { e.stopPropagation(); setSelectedTeacher(teacher); }}
+                            >
+                              {teacher.name}
+                            </button>
                           </div>
                           {/* Campus */}
                           <div className="min-w-[80px] px-3">
@@ -3110,6 +3117,20 @@ export function TeachersTab({ subject, locale }: TeachersTabProps) {
           student={selectedStudent}
           onClose={() => setSelectedStudent(null)}
           locale={locale}
+        />
+      )}
+
+      {/* Teacher Profile Modal */}
+      {selectedTeacher && (
+        <TeacherProfileModal
+          teacher={selectedTeacher}
+          onClose={() => setSelectedTeacher(null)}
+          locale={locale}
+          subject={subject}
+          onViewFull={(tch) => {
+            setSelectedTeacher(null);
+            window.location.href = `/teacher-profile?id=${tch.id}&subject=${subject}`;
+          }}
         />
       )}
     </div>

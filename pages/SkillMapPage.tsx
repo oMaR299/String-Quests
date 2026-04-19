@@ -1,10 +1,10 @@
 import React from 'react';
-import { SkillMapLayout } from '../components/skillmap/SkillMapLayout';
+import { NewSkillMapPage } from '../components/skillmap/NewSkillMapPage';
 
 const SkillMapPage: React.FC = () => {
   return (
     <div className="w-full">
-      <SkillMapLayout />
+      <NewSkillMapPage />
     </div>
   );
 };
