@@ -654,11 +654,23 @@ export const MOCK_FORM_RESPONSES: FormResponse[] = [
 
 // --- Initial State ---
 
+import { buildGeneratedFormResponses, getFormEstimatedRecipients } from './mockFormResponses';
+
+// Build the generated responses lazily on first call, after MOCK_FORMS is
+// fully initialized. This avoids the ESM hoisting hazard where a top-level
+// expression in `./mockFormResponses` would observe MOCK_FORMS as undefined.
+const generatedResponses = buildGeneratedFormResponses(MOCK_FORMS);
+
+export const FORM_ESTIMATED_RECIPIENTS: Record<string, number> =
+  getFormEstimatedRecipients(generatedResponses);
+
 export const INITIAL_NOTIFICATION_STATE: NotificationState = {
   notifications: MOCK_NOTIFICATIONS,
   templates: MOCK_TEMPLATES,
   savedAudiences: MOCK_SAVED_AUDIENCES,
   forms: MOCK_FORMS,
-  formResponses: MOCK_FORM_RESPONSES,
+  // Combine the small hand-curated set with the seeded large set so the
+  // dashboard has enough volume to feel useful out of the box.
+  formResponses: [...MOCK_FORM_RESPONSES, ...generatedResponses],
   activeDraft: null,
 };
