@@ -21,6 +21,9 @@ const ParentReportPage = lazy(() => import('./pages/ParentReportPage'));
 // Curriculum admin (lazy, full-screen)
 const CurriculumAdminPage = lazy(() => import('./components/curriculum-admin/CurriculumAdminPage').then(m => ({ default: m.CurriculumAdminPage })));
 
+// Phone App onboarding (lazy)
+const PhoneAppLayout = lazy(() => import('./components/phone-app/PhoneAppLayout').then(m => ({ default: m.PhoneAppLayout })));
+
 // Role-based layouts (keep as-is)
 import { TeacherLayout } from './components/teacher/TeacherLayout';
 import { EduMatrixAllocation } from './components/admin/EduMatrixAllocation';
@@ -29,6 +32,7 @@ import { NotificationLayout } from './components/notification-admin/Notification
 import { AdminHubLayout } from './components/admin-hub/AdminHubLayout';
 import { LeaderboardShowcase } from './components/leaderboard-widgets/LeaderboardShowcase';
 import { TopicManagerLayout } from './components/topic-manager/TopicManagerLayout';
+import { ScheduleLayout } from './components/schedule/ScheduleLayout';
 import { SkillMapPremiumPage } from './components/skill-map-premium/SkillMapPremiumPage';
 import { EdisonProposal } from './components/proposal/EdisonProposal';
 import { TeacherProfileRoute } from './components/teacher-profile/TeacherProfileRoute';
@@ -75,6 +79,12 @@ const App: React.FC = () => {
 
               {/* Topic Manager */}
               <Route path="/topic-manager/*" element={<TopicManagerLayout onExit={() => window.location.href = '/home'} />} />
+
+              {/* Schedule */}
+              <Route path="/schedule/*" element={<ScheduleLayout onExit={() => window.location.href = '/home'} />} />
+
+              {/* Phone App onboarding */}
+              <Route path="/phone-app/*" element={<PhoneAppLayout onExit={() => window.location.href = '/home'} />} />
 
               {/* Premium Skill Map */}
               <Route path="/skill-map-premium" element={<SkillMapPremiumPage onExit={() => window.location.href = '/home'} />} />
