@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import {
   Trash2, Plus, GripVertical, X, AlertCircle,
@@ -42,7 +42,8 @@ export const FormFieldEditor: React.FC<FormFieldEditorProps> = ({
   onChange,
   onDelete,
 }) => {
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  // Inline confirm UI removed — parent (FormBuilder) wires `onDelete` through
+  // the shared <useConfirmDialog> destructive flow now.
   const typeConfig = FIELD_TYPE_CONFIG[field.type];
   const TypeIcon = typeConfig.icon;
 
@@ -102,33 +103,13 @@ export const FormFieldEditor: React.FC<FormFieldEditorProps> = ({
             <span className="text-xs font-bold text-slate-400">{typeConfig.label}</span>
           </div>
           <div className="flex items-center gap-2">
-            {!showDeleteConfirm ? (
-              <button
-                onClick={() => setShowDeleteConfirm(true)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            ) : (
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs font-bold text-red-500">حذف؟</span>
-                <button
-                  onClick={() => {
-                    setShowDeleteConfirm(false);
-                    onDelete();
-                  }}
-                  className="px-2 py-1 rounded-lg bg-red-500 text-white text-xs font-bold hover:bg-red-600 transition-colors"
-                >
-                  نعم
-                </button>
-                <button
-                  onClick={() => setShowDeleteConfirm(false)}
-                  className="px-2 py-1 rounded-lg bg-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-300 transition-colors"
-                >
-                  لا
-                </button>
-              </div>
-            )}
+            <button
+              onClick={onDelete}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+              title="حذف الحقل"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
           </div>
         </div>
 

@@ -73,6 +73,11 @@ export function getUsersByFilter(filter: {
   roles?: string[];
   grades?: number[];
   sections?: string[];
+  /**
+   * Per-grade section filter. When provided alongside `grades`, narrows
+   * each grade independently (e.g. {1: ['A','B'], 2: ['C']}).
+   */
+  gradeSections?: Record<number, string[]>;
   campusIds?: string[];
   individualIds?: string[];
 }): DirectoryUser[] {
@@ -85,12 +90,40 @@ export function getUsersByFilter(filter: {
   if (filter.roles && filter.roles.length > 0) {
     users = users.filter(u => filter.roles!.includes(u.role));
   }
-  if (filter.grades && filter.grades.length > 0) {
-    users = users.filter(u => u.gradeLevel !== undefined && filter.grades!.includes(u.gradeLevel));
+
+  // Per-grade section filtering takes precedence over the legacy flat
+  // sections array — when present, each grade's bucket narrows the match
+  // for users *in that grade*. Users in grades not in the map are kept
+  // only if `grades` includes them with no per-grade restriction.
+  const hasPerGrade =
+    filter.gradeSections && Object.keys(filter.gradeSections).length > 0;
+
+  if (hasPerGrade) {
+    users = users.filter((u) => {
+      // Users without grades (admin) pass through unless `grades` is set.
+      if (u.gradeLevel === undefined) {
+        return !filter.grades || filter.grades.length === 0;
+      }
+      const allowedGrades = filter.grades && filter.grades.length > 0
+        ? filter.grades
+        : Object.keys(filter.gradeSections!).map(Number);
+      if (!allowedGrades.includes(u.gradeLevel)) return false;
+      const sectionsForGrade = filter.gradeSections![u.gradeLevel];
+      // No bucket → grade selected with no sections → exclude (matches
+      // validation rule that a grade w/ 0 sections is "incomplete").
+      if (!sectionsForGrade || sectionsForGrade.length === 0) return false;
+      if (u.section === undefined) return false;
+      return sectionsForGrade.includes(u.section);
+    });
+  } else {
+    if (filter.grades && filter.grades.length > 0) {
+      users = users.filter(u => u.gradeLevel !== undefined && filter.grades!.includes(u.gradeLevel));
+    }
+    if (filter.sections && filter.sections.length > 0) {
+      users = users.filter(u => u.section !== undefined && filter.sections!.includes(u.section));
+    }
   }
-  if (filter.sections && filter.sections.length > 0) {
-    users = users.filter(u => u.section !== undefined && filter.sections!.includes(u.section));
-  }
+
   if (filter.campusIds && filter.campusIds.length > 0) {
     users = users.filter(u => u.campusId === 'all' || filter.campusIds!.includes(u.campusId));
   }
@@ -108,6 +141,7 @@ export function estimateAudienceCount(filter: {
   roles?: string[];
   grades?: number[];
   sections?: string[];
+  gradeSections?: Record<number, string[]>;
   campusIds?: string[];
   individualIds?: string[];
 }): number {

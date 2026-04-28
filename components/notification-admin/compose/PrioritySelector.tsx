@@ -43,7 +43,6 @@ const PRIORITY_OPTIONS: {
 export const PrioritySelector: React.FC<PrioritySelectorProps> = ({ value, onChange }) => {
   return (
     <div className="space-y-3">
-      <h3 className="text-base font-bold text-slate-800">أولوية الإرسال</h3>
       <div className="grid grid-cols-2 gap-3">
         {PRIORITY_OPTIONS.map((option) => {
           const isSelected = value === option.id;
@@ -86,7 +85,7 @@ export const PrioritySelector: React.FC<PrioritySelectorProps> = ({ value, onCha
                 <Icon className={`w-5 h-5 ${option.iconColor}`} />
               </div>
 
-              <div className="text-right">
+              <div className="text-start">
                 <div className="text-sm font-bold text-slate-800">{option.label}</div>
                 <div className="text-[11px] font-medium text-slate-400 leading-tight">
                   {option.description}

@@ -27,8 +27,7 @@ interface BannerColorPickerProps {
 export const BannerColorPicker: React.FC<BannerColorPickerProps> = ({ value, onChange }) => {
   return (
     <div className="space-y-3">
-      <h3 className="text-base font-bold text-slate-800">لون الشريط الإعلاني</h3>
-      <div className="bg-white rounded-2xl border border-slate-100 p-5">
+      <div>
         <div className="grid grid-cols-4 gap-3">
           {GRADIENT_OPTIONS.map((option) => {
             const isSelected = value === option.id;
@@ -44,7 +43,7 @@ export const BannerColorPicker: React.FC<BannerColorPickerProps> = ({ value, onC
                 <div
                   className={`h-14 rounded-xl ${option.classes} transition-all duration-200 ${
                     isSelected
-                      ? 'ring-2 ring-offset-2 ring-sky-500 shadow-lg'
+                      ? 'ring-2 ring-offset-2 ring-duo-purple shadow-lg'
                       : 'hover:shadow-md hover:scale-105'
                   }`}
                 >

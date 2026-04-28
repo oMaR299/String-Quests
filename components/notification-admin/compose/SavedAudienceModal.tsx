@@ -4,6 +4,7 @@ import { X, Users, Trash2, Save, FolderOpen } from 'lucide-react';
 import type { AudienceTarget, SavedAudience } from '../../../types/notification';
 import { useNotifications } from '../../../contexts/NotificationContext';
 import { estimateAudienceCount } from '../../../data/mockUserDirectory';
+import { useConfirmDialog } from '../../ui/useConfirmDialog';
 
 interface SavedAudienceModalProps {
   isOpen: boolean;
@@ -19,8 +20,20 @@ export const SavedAudienceModal: React.FC<SavedAudienceModalProps> = ({
   onSelect,
 }) => {
   const { state, dispatch } = useNotifications();
+  const { confirm, dialog: confirmDialog } = useConfirmDialog();
   const [saveName, setSaveName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+
+  // Cross-reference saved audiences with scheduled/draft notifications so we
+  // can warn the admin when deleting an audience that's still in use.
+  const audienceUsageById = React.useMemo(() => {
+    const usage = new Map<string, number>();
+    for (const n of state.notifications) {
+      const id = n.audience?.savedAudienceId;
+      if (id) usage.set(id, (usage.get(id) ?? 0) + 1);
+    }
+    return usage;
+  }, [state.notifications]);
 
   const handleSave = () => {
     if (!saveName.trim()) return;
@@ -29,6 +42,7 @@ export const SavedAudienceModal: React.FC<SavedAudienceModalProps> = ({
       roles: currentAudience.roles,
       grades: currentAudience.grades,
       sections: currentAudience.sections,
+      gradeSections: currentAudience.gradeSections,
       campusIds: currentAudience.campusIds,
       individualIds: currentAudience.individualIds,
     });
@@ -46,7 +60,26 @@ export const SavedAudienceModal: React.FC<SavedAudienceModalProps> = ({
     setIsSaving(false);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
+    const audience = state.savedAudiences.find((a) => a.id === id);
+    if (!audience) return;
+    const usageCount = audienceUsageById.get(id) ?? 0;
+    const usageSuffixAr = usageCount > 0
+      ? ` ⚠️ هذا الجمهور مرتبط بـ ${usageCount} ${usageCount === 1 ? 'إشعار' : 'إشعارات'}.`
+      : '';
+    const usageSuffixEn = usageCount > 0
+      ? ` Warning: this audience is referenced by ${usageCount} ${usageCount === 1 ? 'notification' : 'notifications'}.`
+      : '';
+    const ok = await confirm({
+      titleAr: 'حذف جمهور محفوظ',
+      titleEn: 'Delete saved audience',
+      bodyAr: `سيتم حذف "${audience.name}" نهائيًا.${usageSuffixAr}`,
+      bodyEn: `Will permanently delete "${audience.name}".${usageSuffixEn}`,
+      confirmLabelAr: 'حذف نهائيًا',
+      confirmLabelEn: 'Delete permanently',
+      destructive: true,
+    });
+    if (!ok) return;
     dispatch({ type: 'DELETE_AUDIENCE', payload: id });
   };
 
@@ -54,9 +87,14 @@ export const SavedAudienceModal: React.FC<SavedAudienceModalProps> = ({
     onSelect(saved.target);
   };
 
+  const gradeSecsValues: string[][] = Object.values(
+    currentAudience.gradeSections ?? {}
+  );
   const currentHasFilters =
     currentAudience.roles.length > 0 ||
-    currentAudience.individualIds.length > 0;
+    currentAudience.individualIds.length > 0 ||
+    currentAudience.campusIds.length > 0 ||
+    gradeSecsValues.some((arr: string[]) => arr.length > 0);
 
   return (
     <AnimatePresence>
@@ -197,6 +235,7 @@ export const SavedAudienceModal: React.FC<SavedAudienceModalProps> = ({
               </div>
             </div>
           </motion.div>
+          {confirmDialog}
         </>
       )}
     </AnimatePresence>

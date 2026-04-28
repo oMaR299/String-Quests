@@ -10,8 +10,9 @@ import { useNotifications } from '../../../contexts/NotificationContext';
 import { FormFieldPalette } from './FormFieldPalette';
 import { FormFieldEditor } from './FormFieldEditor';
 import { FormPreview } from './FormPreview';
-import { FormResponsesView } from './FormResponsesView';
+import { FormResponsesDashboard } from './responses/FormResponsesDashboard';
 import { FormTemplateModal } from './FormTemplateModal';
+import { useConfirmDialog } from '../../ui/useConfirmDialog';
 import type { FormDefinition, FormField, FormFieldType } from '../../../types/notification';
 
 // --- Field type icons ---
@@ -44,6 +45,7 @@ type ViewMode = 'list' | 'editor' | 'responses';
 
 export const FormBuilder: React.FC = () => {
   const { state, dispatch } = useNotifications();
+  const { confirm, dialog: confirmDialog } = useConfirmDialog();
 
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [editingFormId, setEditingFormId] = useState<string | null>(null);
@@ -98,7 +100,26 @@ export const FormBuilder: React.FC = () => {
     setEditingFormId(null);
   };
 
-  const handleDeleteForm = (formId: string) => {
+  const handleDeleteForm = async (formId: string) => {
+    const form = state.forms.find((f) => f.id === formId);
+    if (!form) return;
+    const responseCount = state.formResponses.filter((r) => r.formId === formId).length;
+    const responseSuffixAr = responseCount > 0
+      ? ` و${responseCount} ${responseCount === 1 ? 'رد مرتبط' : 'ردًا مرتبطًا'} به`
+      : '';
+    const responseSuffixEn = responseCount > 0
+      ? ` and ${responseCount} linked ${responseCount === 1 ? 'response' : 'responses'}`
+      : '';
+    const ok = await confirm({
+      titleAr: 'حذف نموذج',
+      titleEn: 'Delete form',
+      bodyAr: `سيتم حذف "${form.title || 'نموذج بدون عنوان'}"${responseSuffixAr} نهائيًا. هذا الإجراء لا يمكن التراجع عنه.`,
+      bodyEn: `Will permanently delete "${form.title || 'Untitled form'}"${responseSuffixEn}. This action cannot be undone.`,
+      confirmLabelAr: 'حذف نهائيًا',
+      confirmLabelEn: 'Delete permanently',
+      destructive: true,
+    });
+    if (!ok) return;
     dispatch({ type: 'DELETE_FORM', payload: formId });
   };
 
@@ -141,14 +162,26 @@ export const FormBuilder: React.FC = () => {
     });
   }, [formDraft]);
 
-  const handleDeleteField = useCallback((fieldId: string) => {
+  const handleDeleteField = useCallback(async (fieldId: string) => {
     if (!formDraft) return;
+    const field = formDraft.fields.find((f) => f.id === fieldId);
+    if (!field) return;
+    const ok = await confirm({
+      titleAr: 'حذف حقل',
+      titleEn: 'Delete field',
+      bodyAr: `سيتم حذف الحقل "${field.label || 'حقل بدون عنوان'}" من النموذج. لن تفقد البيانات حتى تحفظ النموذج.`,
+      bodyEn: `Will remove field "${field.label || 'Untitled field'}" from the form. Data is not lost until the form is saved.`,
+      confirmLabelAr: 'حذف الحقل',
+      confirmLabelEn: 'Delete field',
+      destructive: true,
+    });
+    if (!ok) return;
     const newFields = formDraft.fields
       .filter((f) => f.id !== fieldId)
       .map((f, i) => ({ ...f, order: i + 1 }));
     setFormDraft({ ...formDraft, fields: newFields });
     if (editingFieldId === fieldId) setEditingFieldId(null);
-  }, [formDraft, editingFieldId]);
+  }, [formDraft, editingFieldId, confirm]);
 
   const handleReorderFields = useCallback((newOrder: FormField[]) => {
     if (!formDraft) return;
@@ -566,44 +599,32 @@ export const FormBuilder: React.FC = () => {
 
   const renderResponsesView = () => {
     if (!responsesFormId) return null;
-    const form = state.forms.find((f) => f.id === responsesFormId);
-
     return (
-      <div className="p-6 lg:p-8 space-y-6">
-        {/* Back */}
-        <div className="flex items-center justify-between">
-          <button
-            onClick={handleBackToList}
-            className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors"
-          >
-            <ArrowRight className="w-4 h-4" />
-            <span>العودة للنماذج</span>
-          </button>
-          {form && (
-            <h2 className="text-lg font-black text-slate-800">{form.title}</h2>
-          )}
-        </div>
-
-        <FormResponsesView formId={responsesFormId} />
-      </div>
+      <FormResponsesDashboard
+        formId={responsesFormId}
+        onBackToList={handleBackToList}
+      />
     );
   };
 
   // --- Main Render ---
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={viewMode + (editingFormId || '') + (responsesFormId || '')}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.2 }}
-      >
-        {viewMode === 'list' && renderFormList()}
-        {viewMode === 'editor' && renderFormEditor()}
-        {viewMode === 'responses' && renderResponsesView()}
-      </motion.div>
-    </AnimatePresence>
+    <>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={viewMode + (editingFormId || '') + (responsesFormId || '')}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.2 }}
+        >
+          {viewMode === 'list' && renderFormList()}
+          {viewMode === 'editor' && renderFormEditor()}
+          {viewMode === 'responses' && renderResponsesView()}
+        </motion.div>
+      </AnimatePresence>
+      {confirmDialog}
+    </>
   );
 };

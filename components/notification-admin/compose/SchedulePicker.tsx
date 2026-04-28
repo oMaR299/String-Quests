@@ -77,10 +77,8 @@ export const SchedulePicker: React.FC<SchedulePickerProps> = ({
   ];
 
   return (
-    <div className="space-y-3">
-      <h3 className="text-base font-bold text-slate-800">موعد الإرسال</h3>
-
-      <div className="bg-white rounded-2xl border border-slate-100 p-5 space-y-4">
+    <div className="space-y-4">
+      <div className="space-y-4">
         {/* Mode Selection */}
         <div className="grid grid-cols-2 gap-3">
           {options.map((option) => {
@@ -95,30 +93,30 @@ export const SchedulePicker: React.FC<SchedulePickerProps> = ({
                 className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all duration-200
                   ${
                     isSelected
-                      ? 'border-sky-400 bg-sky-50 shadow-sm'
+                      ? 'border-rose-400 bg-rose-50 shadow-sm'
                       : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
                   }
                 `}
               >
                 <div
                   className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all
-                    ${isSelected ? 'border-sky-400' : 'border-slate-300'}
+                    ${isSelected ? 'border-rose-400' : 'border-slate-300'}
                   `}
                 >
                   {isSelected && (
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="w-2.5 h-2.5 rounded-full bg-sky-500"
+                      className="w-2.5 h-2.5 rounded-full bg-rose-500"
                     />
                   )}
                 </div>
 
-                <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${isSelected ? 'bg-sky-100' : 'bg-slate-100'}`}>
-                  <Icon className={`w-4.5 h-4.5 ${isSelected ? 'text-sky-500' : 'text-slate-400'}`} />
+                <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${isSelected ? 'bg-rose-100' : 'bg-slate-100'}`}>
+                  <Icon className={`w-4.5 h-4.5 ${isSelected ? 'text-rose-500' : 'text-slate-400'}`} />
                 </div>
 
-                <div className="text-right">
+                <div className="text-start">
                   <div className="text-sm font-bold text-slate-800">{option.label}</div>
                   <div className="text-[11px] font-medium text-slate-400">{option.description}</div>
                 </div>
@@ -142,7 +140,7 @@ export const SchedulePicker: React.FC<SchedulePickerProps> = ({
                   type="datetime-local"
                   value={sendAt?.slice(0, 16) || ''}
                   onChange={(e) => handleDateTimeChange(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 transition-all"
+                  className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-duo-purple/30 focus:border-duo-purple transition"
                   dir="ltr"
                 />
               </div>
@@ -167,7 +165,7 @@ export const SchedulePicker: React.FC<SchedulePickerProps> = ({
                 >
                   <div
                     className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all
-                      ${hasExpiry ? 'border-sky-400 bg-sky-500' : 'border-slate-300 bg-white'}
+                      ${hasExpiry ? 'border-duo-purple bg-duo-purple' : 'border-slate-300 bg-white'}
                     `}
                   >
                     {hasExpiry && (
@@ -202,7 +200,7 @@ export const SchedulePicker: React.FC<SchedulePickerProps> = ({
                           type="datetime-local"
                           value={expiresAt?.slice(0, 16) || ''}
                           onChange={(e) => handleExpiryChange(e.target.value)}
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 transition-all"
+                          className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-duo-purple/30 focus:border-duo-purple transition"
                           dir="ltr"
                         />
                       </div>

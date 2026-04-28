@@ -10,6 +10,14 @@ interface CtaButton {
   url: string;
 }
 
+type FocusableField =
+  | 'title'
+  | 'shortMessage'
+  | 'body'
+  | 'imageUrl'
+  | 'ctaButton'
+  | null;
+
 interface ContentEditorProps {
   title: string;
   shortMessage: string;
@@ -17,6 +25,12 @@ interface ContentEditorProps {
   imageUrl: string;
   ctaButton: CtaButton | null;
   onChange: (field: string, value: any) => void;
+  /**
+   * Reports the currently-focused content field up to the parent so the
+   * live preview can pulse the matching element + render a caret-mirror.
+   * Null when no field is focused.
+   */
+  onFocusField?: (field: FocusableField) => void;
 }
 
 interface AiResult {
@@ -28,6 +42,10 @@ interface AiResult {
 const GEMINI_API_URL =
   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCuwJocZ-0ePR3N6uykjo6c01_5CbHoJuo';
 
+// Shared input/textarea base — unified violet focus ring across the page.
+const INPUT_CLASSES =
+  'w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-bold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-duo-purple/30 focus:border-duo-purple transition';
+
 export const ContentEditor: React.FC<ContentEditorProps> = ({
   title,
   shortMessage,
@@ -35,7 +53,18 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   imageUrl,
   ctaButton,
   onChange,
+  onFocusField,
 }) => {
+  // Helper: build {onFocus, onBlur} pair that reports field focus to the
+  // parent, but only when the consumer wired the callback. Keeps the
+  // rest of the form intact when the prop is omitted (no-op).
+  const focusHandlers = (field: Exclude<FocusableField, null>) =>
+    onFocusField
+      ? {
+          onFocus: () => onFocusField(field),
+          onBlur: () => onFocusField(null),
+        }
+      : {};
   const [ctaExpanded, setCtaExpanded] = useState(!!ctaButton);
   const [imageError, setImageError] = useState(false);
 
@@ -214,21 +243,19 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
   );
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-base font-bold text-slate-800">محتوى الإشعار</h3>
-
+    <div className="space-y-5">
       {/* Title */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5 space-y-2">
+      <div className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <label className="text-sm font-bold text-slate-700">
-              عنوان <span className="text-red-400">*</span>
+              عنوان <span className="text-rose-500">*</span>
             </label>
             <SparkleButton />
           </div>
           <span
             className={`text-xs font-bold tabular-nums ${
-              title.length > 90 ? 'text-red-400' : 'text-slate-400'
+              title.length > 90 ? 'text-rose-500' : 'text-slate-400'
             }`}
           >
             {title.length}/100
@@ -240,21 +267,22 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
           onChange={(e) => {
             if (e.target.value.length <= 100) onChange('title', e.target.value);
           }}
+          {...focusHandlers('title')}
           placeholder="عنوان الإشعار..."
-          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 transition-all"
+          className={INPUT_CLASSES}
           dir="rtl"
         />
       </div>
 
       {/* Short Message */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5 space-y-2">
+      <div className="space-y-2">
         <div className="flex items-center justify-between">
           <label className="text-sm font-bold text-slate-700">
-            رسالة مختصرة <span className="text-red-400">*</span>
+            رسالة مختصرة <span className="text-rose-500">*</span>
           </label>
           <span
             className={`text-xs font-bold tabular-nums ${
-              shortMessage.length > 180 ? 'text-red-400' : 'text-slate-400'
+              shortMessage.length > 180 ? 'text-rose-500' : 'text-slate-400'
             }`}
           >
             {shortMessage.length}/200
@@ -265,15 +293,16 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
           onChange={(e) => {
             if (e.target.value.length <= 200) onChange('shortMessage', e.target.value);
           }}
+          {...focusHandlers('shortMessage')}
           placeholder="رسالة مختصرة تظهر في الإشعارات السريعة..."
           rows={2}
-          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 transition-all resize-none"
+          className={`${INPUT_CLASSES} resize-none`}
           dir="rtl"
         />
       </div>
 
       {/* Full Message */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5 space-y-2">
+      <div className="space-y-2">
         <div className="flex items-center gap-2">
           <label className="text-sm font-bold text-slate-700">الرسالة الكاملة</label>
           <SparkleButton />
@@ -305,19 +334,21 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
         <textarea
           value={body}
           onChange={(e) => onChange('body', e.target.value)}
+          {...focusHandlers('body')}
           placeholder="اكتب الرسالة الكاملة هنا... (اختياري)"
           rows={6}
-          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 transition-all resize-none"
+          className={`${INPUT_CLASSES} resize-none`}
           dir="rtl"
         />
       </div>
 
       {/* Image Upload */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5 space-y-3">
+      <div className="space-y-3">
         <label className="text-sm font-bold text-slate-700 flex items-center gap-2">
           <Image className="w-4 h-4 text-slate-400" />
           صورة
         </label>
+        <p className="text-xs text-slate-400">PNG, JPEG, WebP, GIF — حتى 5 ميجابايت</p>
 
         {/* Show preview if image exists, otherwise show upload zone */}
         {imageUrl ? (
@@ -336,13 +367,13 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   src={imageUrl}
                   alt="معاينة"
                   onError={() => setImageError(true)}
-                  className="w-full max-h-48 object-cover rounded-xl border border-slate-100"
+                  className="w-full max-h-48 object-cover rounded-xl border border-slate-200"
                 />
               )}
               <button
                 type="button"
                 onClick={handleRemoveImage}
-                className="absolute top-2 left-2 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-500 text-white text-xs font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                className="absolute top-2 start-2 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-rose-500 text-white text-xs font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-rose-600"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 حذف
@@ -359,15 +390,15 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
               onClick={() => fileInputRef.current?.click()}
               className={`relative flex flex-col items-center justify-center gap-3 p-8 border-2 border-dashed rounded-xl cursor-pointer transition-all ${
                 isDragging
-                  ? 'border-sky-400 bg-sky-50/50'
+                  ? 'border-duo-purple bg-violet-50/60'
                   : 'border-slate-200 bg-slate-50/50 hover:border-slate-300 hover:bg-slate-50'
               }`}
             >
               <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
-                isDragging ? 'bg-sky-100' : 'bg-slate-100'
+                isDragging ? 'bg-violet-100' : 'bg-slate-100'
               }`}>
                 <Upload className={`w-6 h-6 transition-colors ${
-                  isDragging ? 'text-sky-500' : 'text-slate-400'
+                  isDragging ? 'text-duo-purple' : 'text-slate-400'
                 }`} />
               </div>
               <div className="text-center">
@@ -380,14 +411,11 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                     e.stopPropagation();
                     fileInputRef.current?.click();
                   }}
-                  className="mt-1.5 text-sm font-bold text-sky-500 hover:text-sky-600 transition-colors underline underline-offset-2"
+                  className="mt-1.5 text-sm font-bold text-duo-purple hover:text-purple-600 transition-colors underline underline-offset-2"
                 >
                   اختر ملف
                 </button>
               </div>
-              <p className="text-[10px] font-bold text-slate-400">
-                PNG, JPEG, WebP, GIF - حتى 5 ميجابايت
-              </p>
             </div>
 
             {/* Hidden File Input */}
@@ -408,9 +436,9 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   exit={{ opacity: 0, height: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="flex items-center gap-2 px-3 py-2 bg-red-50 border border-red-100 rounded-xl">
-                    <X className="w-3.5 h-3.5 text-red-400 shrink-0" />
-                    <p className="text-xs font-bold text-red-500">{uploadError}</p>
+                  <div className="flex items-center gap-2 px-3 py-2 bg-rose-50 border border-rose-100 rounded-xl">
+                    <X className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                    <p className="text-xs font-bold text-rose-500">{uploadError}</p>
                   </div>
                 </motion.div>
               )}
@@ -443,8 +471,9 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                       onChange('imageUrl', e.target.value);
                       setImageError(false);
                     }}
+                    {...focusHandlers('imageUrl')}
                     placeholder="https://example.com/image.png"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 transition-all"
+                    className={INPUT_CLASSES}
                     dir="ltr"
                   />
                 </motion.div>
@@ -455,7 +484,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
       </div>
 
       {/* CTA Button */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5 space-y-3">
+      <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
         <button
           type="button"
           onClick={handleCtaToggle}
@@ -487,8 +516,9 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   type="text"
                   value={ctaButton?.label || ''}
                   onChange={(e) => handleCtaChange('label', e.target.value)}
+                  {...focusHandlers('ctaButton')}
                   placeholder="مثال: عرض التفاصيل"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 transition-all"
+                  className={INPUT_CLASSES}
                   dir="rtl"
                 />
               </div>
@@ -498,8 +528,9 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                   type="url"
                   value={ctaButton?.url || ''}
                   onChange={(e) => handleCtaChange('url', e.target.value)}
+                  {...focusHandlers('ctaButton')}
                   placeholder="https://..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm font-bold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400 transition-all"
+                  className={INPUT_CLASSES}
                   dir="ltr"
                 />
               </div>
@@ -563,7 +594,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                     onChange={(e) => setAiPrompt(e.target.value)}
                     placeholder="صف ما تريد كتابته..."
                     rows={3}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-400 transition-all resize-none"
+                    className={`${INPUT_CLASSES} resize-none`}
                     dir="rtl"
                     disabled={aiLoading}
                   />
@@ -598,9 +629,9 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="flex items-center gap-2 px-3 py-2.5 bg-red-50 border border-red-100 rounded-xl">
-                        <X className="w-3.5 h-3.5 text-red-400 shrink-0" />
-                        <p className="text-xs font-bold text-red-500">{aiError}</p>
+                      <div className="flex items-center gap-2 px-3 py-2.5 bg-rose-50 border border-rose-100 rounded-xl">
+                        <X className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                        <p className="text-xs font-bold text-rose-500">{aiError}</p>
                       </div>
                     </motion.div>
                   )}

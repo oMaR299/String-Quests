@@ -10,6 +10,7 @@ import { useNotifications } from '../../../contexts/NotificationContext';
 import { ChannelIcon } from '../shared/ChannelIcon';
 import { StatusBadge } from '../shared/StatusBadge';
 import { DeliveryAnalyticsCard } from './DeliveryAnalyticsCard';
+import { useConfirmDialog } from '../../ui/useConfirmDialog';
 import type { Notification, UserRole, NotificationChannel } from '../../../types/notification';
 
 interface NotificationDetailViewProps {
@@ -63,6 +64,7 @@ export const NotificationDetailView: React.FC<NotificationDetailViewProps> = ({
   onEdit,
 }) => {
   const { state, dispatch } = useNotifications();
+  const { confirm, dialog: confirmDialog } = useConfirmDialog();
   const [previewRole, setPreviewRole] = useState<'student' | 'teacher' | 'parent'>('student');
 
   const notification = useMemo(
@@ -75,7 +77,18 @@ export const NotificationDetailView: React.FC<NotificationDetailViewProps> = ({
     return state.forms.find((f) => f.id === notification.attachedFormId) ?? null;
   }, [state.forms, notification]);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    if (!notification) return;
+    const ok = await confirm({
+      titleAr: 'حذف إشعار',
+      titleEn: 'Delete notification',
+      bodyAr: `سيتم حذف "${notification.title}" نهائيًا. هذا الإجراء لا يمكن التراجع عنه.`,
+      bodyEn: `Will permanently delete "${notification.title}". This action cannot be undone.`,
+      confirmLabelAr: 'حذف نهائيًا',
+      confirmLabelEn: 'Delete permanently',
+      destructive: true,
+    });
+    if (!ok) return;
     dispatch({ type: 'DELETE_NOTIFICATION', payload: notificationId });
     onClose();
   };
@@ -267,17 +280,49 @@ export const NotificationDetailView: React.FC<NotificationDetailViewProps> = ({
                     </div>
                   )}
 
-                  {/* Sections */}
-                  {notification.audience.sections.length > 0 && (
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-bold text-slate-400">الشُعب:</span>
-                      {notification.audience.sections.map((s) => (
-                        <span key={s} className="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-600">
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  {/* Per-grade sections (new shape) */}
+                  {notification.audience.gradeSections &&
+                    Object.values(notification.audience.gradeSections).some(
+                      (arr: string[]) => arr.length > 0
+                    ) && (
+                      <div className="space-y-1.5">
+                        <span className="text-xs font-bold text-slate-400">الشُعب لكل صف:</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {Object.entries(notification.audience.gradeSections)
+                            .map(([g, secs]) => ({
+                              grade: Number(g),
+                              sections: secs as string[],
+                            }))
+                            .filter((e) => e.sections.length > 0)
+                            .sort((a, b) => a.grade - b.grade)
+                            .map(({ grade, sections }) => (
+                              <span
+                                key={grade}
+                                className="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-600"
+                              >
+                                الصف {grade}: {sections.join('، ')}
+                              </span>
+                            ))}
+                        </div>
+                      </div>
+                    )}
+
+                  {/* Legacy flat sections — fallback for older notifications */}
+                  {(!notification.audience.gradeSections ||
+                    Object.keys(notification.audience.gradeSections).length === 0) &&
+                    notification.audience.sections.length > 0 && (
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-xs font-bold text-slate-400">الشُعب:</span>
+                        {notification.audience.sections.map((s) => (
+                          <span
+                            key={s}
+                            className="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-600"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    )}
 
                   {/* Estimated reach */}
                   <div className="flex items-center gap-2 pt-1 border-t border-slate-200">
@@ -562,6 +607,7 @@ export const NotificationDetailView: React.FC<NotificationDetailViewProps> = ({
           </motion.div>
         </motion.div>
       )}
+      {confirmDialog}
     </AnimatePresence>
   );
 };

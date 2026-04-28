@@ -8,6 +8,7 @@ import { useNotifications } from '../../../contexts/NotificationContext';
 import { StatusBadge } from '../shared/StatusBadge';
 import { ChannelIcon } from '../shared/ChannelIcon';
 import { NotificationDetailView } from './NotificationDetailView';
+import { useConfirmDialog } from '../../ui/useConfirmDialog';
 import type {
   Notification,
   NotificationStatus,
@@ -63,7 +64,14 @@ function getAudienceSummary(notification: Notification): string {
   const allRoles: UserRole[] = ['student', 'teacher', 'parent', 'admin'];
   const hasAllRoles = allRoles.every((r) => audience.roles.includes(r));
 
-  if (hasAllRoles && audience.grades.length === 0 && audience.sections.length === 0) {
+  const gradeSecsValues: string[][] = Object.values(audience.gradeSections ?? {});
+  const hasAnyGradeSection = gradeSecsValues.some((arr: string[]) => arr.length > 0);
+  if (
+    hasAllRoles &&
+    audience.grades.length === 0 &&
+    audience.sections.length === 0 &&
+    !hasAnyGradeSection
+  ) {
     return 'الجميع';
   }
 
@@ -105,6 +113,7 @@ type SortDir = 'asc' | 'desc';
 
 export const NotificationHistoryTable: React.FC<NotificationHistoryTableProps> = ({ onCompose }) => {
   const { state, dispatch } = useNotifications();
+  const { confirm, dialog: confirmDialog } = useConfirmDialog();
 
   // Filters
   const [statusFilter, setStatusFilter] = useState<NotificationStatus | 'all'>('all');
@@ -187,8 +196,20 @@ export const NotificationHistoryTable: React.FC<NotificationHistoryTableProps> =
     dispatch({ type: 'DUPLICATE_NOTIFICATION', payload: id });
   };
 
-  const handleDelete = (id: string, e?: React.MouseEvent) => {
+  const handleDelete = async (id: string, e?: React.MouseEvent) => {
     e?.stopPropagation();
+    const notif = state.notifications.find((n) => n.id === id);
+    if (!notif) return;
+    const ok = await confirm({
+      titleAr: 'حذف إشعار',
+      titleEn: 'Delete notification',
+      bodyAr: `سيتم حذف "${notif.title}" نهائيًا. هذا الإجراء لا يمكن التراجع عنه.`,
+      bodyEn: `Will permanently delete "${notif.title}". This action cannot be undone.`,
+      confirmLabelAr: 'حذف نهائيًا',
+      confirmLabelEn: 'Delete permanently',
+      destructive: true,
+    });
+    if (!ok) return;
     dispatch({ type: 'DELETE_NOTIFICATION', payload: id });
     if (selectedNotificationId === id) {
       setSelectedNotificationId(null);
@@ -464,6 +485,8 @@ export const NotificationHistoryTable: React.FC<NotificationHistoryTableProps> =
           }}
         />
       )}
+
+      {confirmDialog}
     </div>
   );
 };

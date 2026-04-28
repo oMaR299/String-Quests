@@ -44,6 +44,17 @@ export type UserRole = 'student' | 'teacher' | 'parent' | 'admin';
 export interface AudienceTarget {
   roles: UserRole[];
   grades: number[];
+  /**
+   * Per-grade section selection — keys are grade numbers, values are arrays
+   * of section letters targeted *for that grade*. Lets the admin express
+   * "Grade 1 → A, B + Grade 2 → C, D" without sections leaking globally.
+   *
+   * Backward-compat: when the older flat `sections` field is present and
+   * `gradeSections` is empty, AudienceBuilder migrates the flat array into
+   * every selected grade's bucket on first interaction.
+   */
+  gradeSections?: Record<number, string[]>;
+  /** @deprecated — use `gradeSections` instead. Kept for migration only. */
   sections: string[];
   campusIds: string[];
   individualIds: string[];
@@ -156,6 +167,32 @@ export interface NotificationTemplate {
   createdAt: string;
 }
 
+// --- Interaction Options (recipient-side defer affordances) ---
+
+export type SnoozeOption = '1h' | '3h' | 'tomorrow' | '3d' | 'custom';
+export type DeadlineReminderInterval = '1h' | '1d' | '1w';
+
+export interface NotificationInteraction {
+  /** When true, recipient may snooze this notification. */
+  allowSnooze: boolean;
+  /** Which snooze choices the school enables for the student. */
+  snoozeOptions: SnoozeOption[];
+  /** When true, surfaces an "add to my to-dos" affordance for the student. */
+  allowAddToTasks: boolean;
+  /** Optional ISO datetime — when set, "reminder before deadline" is shown. */
+  deadlineAt: string | null;
+  /** Which "before deadline" reminder intervals the school enables. */
+  reminderBeforeDeadline: DeadlineReminderInterval[];
+}
+
+export const DEFAULT_INTERACTION: NotificationInteraction = {
+  allowSnooze: true,
+  snoozeOptions: ['1h', 'tomorrow'],
+  allowAddToTasks: true,
+  deadlineAt: null,
+  reminderBeforeDeadline: ['1d'],
+};
+
 // --- Delivery Analytics ---
 
 export interface ChannelStats {
@@ -205,7 +242,14 @@ export interface Notification {
 
   imageUrl?: string;
   ctaButton?: { label: string; url: string };
-  attachedFormId?: string;
+  attachedFormId?: string | null;
+
+  /**
+   * Recipient-side interaction options. Sender opts the notification into
+   * "do it later" affordances (snooze, add-to-tasks, deadline reminders)
+   * so students can defer when they can't act on a request immediately.
+   */
+  interaction?: NotificationInteraction;
 
   createdAt: string;
   updatedAt: string;
