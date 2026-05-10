@@ -1,219 +1,43 @@
-import React, { createContext, useContext } from 'react';
-import { useUser } from './UserContext';
+// parentAppI18n.ts
+// ─────────────────────────────────────────────────────────────────────────────
+// Co-located bilingual dict for the Parent App home shell. AR is source-of-
+// truth (Levantine / Jordan dialect); EN mirrors. Keys are flat under the
+// `parentApp.*` namespace.
+//
+// These strings are also mirrored into `contexts/I18nContext.tsx` so the
+// rest of the app can read them through the global `useI18n().t()`. The
+// local dict here is for fast iteration during this v1 build — editing
+// strings here is a single-file change.
+//
+// Copy principles:
+//   • Benefit-first headlines (what does the parent see?).
+//   • Short, action-led, no jargon.
+//   • Levantine ("اليوم", "احتفلوا"), Jordan home market.
 
-// Translation dictionaries
-const translations: Record<'ar' | 'en', Record<string, string>> = {
+export type Locale = 'ar' | 'en';
+
+export const parentAppI18n: Record<Locale, Record<string, string>> = {
   ar: {
-    // Navigation
-    'nav.home': 'الرئيسية',
-    'nav.learn': 'تعلم',
-    'nav.leaderboard': 'المتصدرين',
-    'nav.profile': 'الملف',
-    'nav.settings': 'إعدادات',
-    'nav.skillmap': 'خريطة المهارات',
-    'nav.textbook': 'الكتاب',
-
-    // Platform navbar
-    'platform.dashboard': 'لوحة المعلومات',
-    'platform.quests': 'التحديات',
-    'platform.grades': 'الدرجات',
-    'platform.calendar': 'التقويم',
-    'platform.messages': 'الرسائل',
-
-    // TopBar
-    'topbar.hearts': 'القلوب',
-    'topbar.gems': 'الأحجار',
-    'topbar.streak': 'الحماس',
-    'topbar.level': 'المستوى',
-
-    // Learning Path
-    'path.locked': 'مقفل',
-    'path.completed': 'مكتمل',
-    'path.start': 'ابدأ',
-    'path.continue': 'تابع',
-
-    // Lesson
-    'lesson.confirm': 'تأكيد الإجابة',
-    'lesson.unsure': 'لست متأكداً تماماً',
-    'lesson.hint': 'تلميح',
-    'lesson.next': 'التالي',
-    'lesson.exit': 'خروج',
-    'lesson.exit_confirm': 'هل تريد الخروج؟ سيتم فقدان تقدمك.',
-
-    // End Screen
-    'end.score': 'النتيجة',
-    'end.stars': 'النجوم',
-    'end.xp_earned': 'نقاط الخبرة',
-    'end.retry': 'إعادة المحاولة',
-    'end.back': 'العودة',
-    'end.review': 'مراجعة الأخطاء',
-    'end.perfect': 'ممتاز! درجة كاملة!',
-
-    // Home
-    'home.welcome': 'مرحباً!',
-    'home.continue_learning': 'واصل رحلة التعلم',
-    'home.daily_challenge': 'تحدي اليوم',
-    'home.weekly_challenge': 'تحدي الأسبوع',
-    'home.total_xp': 'مجموع النقاط',
-    'home.accuracy': 'الدقة',
-    'home.daily_streak': 'حماس يومي',
-    'home.boosts': 'التعزيزات',
-    'home.continue_where_left_off': 'أكمل من حيث توقفت',
-    'home.explore_topics': 'استكشف المواضيع',
-    'home.start_first_quest': 'ابدأ أول تحدي لك!',
-    'home.start_first_quest_desc': 'اختر موضوعاً وابدأ رحلة التعلم',
-    'home.questions_answered': 'أسئلة مُجابة',
-    'home.next_quest': 'التحدي التالي',
-    'home.all_completed': 'أحسنت! أكملت جميع التحديات',
-    'home.review_weakest': 'راجع نقاط الضعف',
-    'home.new_badge': 'جديد',
-    'home.continue_btn': 'تابع',
-    'home.start_btn': 'ابدأ',
-    'home.how_to_play': 'كيف ألعب؟',
-    'home.streak_title': 'أيام متتالية من الحماس 🔥',
-    'home.streak_badge': 'أداء مذهل!',
-    'home.streak_days': 'يوماً متتالياً',
-    'home.streak_daily_goal': 'هدف اليوم',
-    'home.streak_accuracy': 'الدقة',
-    'home.streak_total': 'إجمالي',
-    'home.practice_mode_title': 'وضع التدريب المفتوح',
-    'home.practice_mode_desc': 'تمرن بلا حدود على جميع الأسئلة المتاحة بدون وقت وبدون خسارة.',
-    'home.practice_mode_badge': 'الأكثر تميزاً',
-    'home.daily_challenge_title': 'التحدي اليومي',
-    'home.daily_challenge_empty': 'لا تحديات لليوم.',
-    'home.weekly_champion_title': 'بطل الأسبوع',
-    'home.weekly_champion_desc': 'تحدي شامل للمحترفين فقط.',
-    'home.coming_soon': 'قريباً',
-
-    // Profile
-    'profile.stats': 'الإحصائيات',
-    'profile.achievements': 'الإنجازات',
-    'profile.activity': 'النشاط',
-
-    // Settings
-    'settings.language': 'اللغة',
-    'settings.sound': 'الصوت',
-    'settings.daily_goal': 'الهدف اليومي',
-
-    // Gamification
-    'hearts.depleted': 'انتهت القلوب!',
-    'hearts.wait': 'انتظر التعبئة أو استخدم الأحجار',
-    'hearts.refill': 'تعبئة القلوب',
-    'hearts.refill_cost': '350 حجر',
-    'levelup.congrats': 'مبروك! ارتقيت!',
-    'streak.freeze': 'تجميد السلسلة',
-    'streak.milestone': 'إنجاز جديد!',
-
-    // Skill Map
-    'skillmap.title': 'خريطة المهارات',
-    'skillmap.knowledge_score': 'نقاط المعرفة',
-    'skillmap.strongest': 'الأقوى',
-    'skillmap.weakest': 'الأضعف',
-    'skillmap.mastered': 'مهارات متقنة',
-    'skillmap.depth': 'العمق المعرفي',
-    'skillmap.age': 'العمر المعرفي',
-    'skillmap.galaxy': 'المجرة',
-    'skillmap.radar': 'الرادار',
-    'skillmap.tree': 'الشجرة',
-    'skillmap.heatmap': 'الخريطة الحرارية',
-    'skillmap.dna': 'الحمض النووي',
-    'skillmap.gaps': 'الفجوات',
-    'skillmap.strengths': 'نقاط القوة',
-    'skillmap.practice': 'تمرّن',
-
-    // Teacher Skill Map
-    'teacher.skillmap.title': 'خريطة مهارات الفصل',
-    'teacher.skillmap.class_avg': 'متوسط الفصل',
-    'teacher.skillmap.struggling': 'طلاب يحتاجون مساعدة',
-    'teacher.skillmap.mastered_kcs': 'مهارات مكتملة',
-    'teacher.skillmap.filter_subject': 'المادة',
-    'teacher.skillmap.alert_prefix': 'تنبيه',
-    'teacher.skillmap.mastered': 'متقن',
-    'teacher.skillmap.proficient': 'جيد',
-    'teacher.skillmap.developing': 'نامٍ',
-    'teacher.skillmap.weak': 'ضعيف',
-    'teacher.skillmap.not_started': 'لم يبدأ',
-
-    // Parent Report
-    'parent.report.title': 'تقرير أداء الطالب',
-    'parent.report.progress': 'التقدم في المواد الدراسية',
-    'parent.report.strengths': 'نقاط القوة',
-    'parent.report.needs_practice': 'يحتاج إلى تدريب',
-    'parent.report.this_week': 'هذا الأسبوع تعلم ابنك/ابنتك',
-    'parent.report.print': 'طباعة التقرير',
-    'parent.report.select_student': 'اختر الطالب',
-    'parent.report.overall': 'التقدير العام',
-    'parent.report.school': 'مدارس الخضر الحديثة',
-
-    // Principal Skill Map
-    'principal.skillmap.title': 'خريطة المهارات المدرسية',
-    'principal.skillmap.school_avg': 'متوسط الإتقان',
-    'principal.skillmap.best_class': 'أفضل فصل',
-    'principal.skillmap.attention': 'مواد تحتاج تدخلاً',
-    'principal.skillmap.kcs_at_risk': 'مهارات بخطر',
-    'principal.skillmap.class_comparison': 'مقارنة الفصول',
-    'principal.skillmap.subject_performance': 'أداء المواد',
-
-    // Parent Onboarding (mirrored from components/parent-onboarding/parentOnboardingI18n.ts)
-    'parentOnboarding.localeToggle.ar': 'عربي',
-    'parentOnboarding.localeToggle.en': 'English',
-    'parentOnboarding.back': 'رجوع',
-    'parentOnboarding.phone.title': 'ما رقم هاتفك؟',
-    'parentOnboarding.phone.subtitle': 'نرسل لك رمز التأكيد على واتساب — يصل خلال ثوانٍ',
-    'parentOnboarding.phone.viaWhatsapp': 'عبر واتساب',
-    'parentOnboarding.phone.numberLabel': 'رقم الهاتف',
-    'parentOnboarding.phone.countryLabel': 'الدولة',
-    'parentOnboarding.phone.helperGeneric': 'أدخل {digits} أرقام لرقم هاتفك في {country}',
-    'parentOnboarding.phone.cta': 'أرسل لي الرمز',
-    'parentOnboarding.phone.ctaSending': 'جارٍ الإرسال...',
-    'parentOnboarding.phone.reassurance': 'رقمك آمن. نستخدمه فقط لربط حسابك بأبنائك على String.',
-    'parentOnboarding.otp.title': 'أدخل الرمز',
-    'parentOnboarding.otp.subtitle': 'أرسلنا رمزاً مكوناً من 6 أرقام عبر واتساب إلى',
-    'parentOnboarding.otp.viaWhatsapp': 'وصلك على واتساب',
-    'parentOnboarding.otp.cta': 'تأكيد',
-    'parentOnboarding.otp.change': 'تغيير',
-    'parentOnboarding.otp.didntGet': 'لم يصلك الرمز؟',
-    'parentOnboarding.otp.resendIn': 'إعادة الإرسال خلال {seconds} ثانية',
-    'parentOnboarding.otp.resendNow': 'إعادة إرسال الرمز',
-    'parentOnboarding.otp.verifying': 'جارٍ التحقق...',
-    'parentOnboarding.connect.title': 'اربط حساب طفلك بـ String',
-    'parentOnboarding.connect.subtitle': 'امسح الرمز من تطبيق طفلك أو من ورقة الدعوة',
-    'parentOnboarding.connect.scanLabel': 'امسح رمز QR',
-    'parentOnboarding.connect.scanHint': 'وجّه الكاميرا نحو الرمز',
-    'parentOnboarding.connect.scanCta': 'افتح الكاميرا',
-    'parentOnboarding.connect.scanning': 'جارٍ المسح...',
-    'parentOnboarding.connect.divider': 'أو',
-    'parentOnboarding.connect.codeTitle': 'أو أدخل الرمز يدوياً',
-    'parentOnboarding.connect.codePlaceholder': 'الرمز من ورقة الدعوة',
-    'parentOnboarding.connect.codeHelper': 'الرمز مكوّن من 6 خانات على الأقل',
-    'parentOnboarding.connect.codeCta': 'تابع',
-    'parentOnboarding.connect.linking': 'جارٍ الربط...',
-    'parentOnboarding.connect.linkedToast': 'تم ربط {name}',
-    'parentOnboarding.list.title': 'أبناؤك على String',
-    'parentOnboarding.list.subtitle': 'يمكنك ربط المزيد لاحقاً من الإعدادات',
-    'parentOnboarding.list.linkedTag': 'مرتبط',
-    'parentOnboarding.list.removeAria': 'إلغاء الربط',
-    'parentOnboarding.list.addAnother': 'إضافة طفل آخر',
-    'parentOnboarding.list.cta': 'ابدأ',
-    'parentOnboarding.list.doneToast': 'كل شيء جاهز 🎉',
-    'parentOnboarding.list.removeTitle': 'إلغاء ربط {name}؟',
-    'parentOnboarding.list.removeBody': 'يمكنك ربط حسابه مرة أخرى في أي وقت.',
-    'parentOnboarding.list.removeConfirm': 'إلغاء الربط',
-    'parentOnboarding.list.removeCancel': 'تراجع',
-
-    // Parent App (mirrored from components/parent-app/parentAppI18n.ts)
+    // Tabs
     'parentApp.tab.home': 'الرئيسية',
     'parentApp.tab.awareAi': 'مساعد ذكي',
     'parentApp.tab.skillMap': 'خريطة المهارات',
     'parentApp.tab.profile': 'الملف',
     'parentApp.tab.messages': 'الرسائل',
+
+    // Header
     'parentApp.header.addChild': '+ إضافة',
     'parentApp.header.refreshNow': 'تحديث',
     'parentApp.header.justUpdated': 'تم التحديث الآن',
     'parentApp.header.notificationsAria': 'الإشعارات',
     'parentApp.header.profileAria': 'الملف الشخصي',
+
+    // Greeting strip (dynamic per time band — phrases live in
+    // data/parentAppGreetings.ts; only fixed labels go here)
     'parentApp.greeting.parentNameFallback': 'هلا',
     'parentApp.greeting.refreshHint': 'حدّث للحصول على رسالة جديدة',
+
+    // Hero card
     'parentApp.hero.todayPill': 'اليوم',
     'parentApp.hero.lessonsHeadline': '{name} أنجزت {n} دروس اليوم 🎉',
     'parentApp.hero.lessonsHeadlineMale': '{name} أنجز {n} دروس اليوم 🎉',
@@ -224,34 +48,52 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.hero.weakAreaLabel': 'نقطة تركيز',
     'parentApp.hero.cheerCta': 'احتفلوا معاً 🎉',
     'parentApp.hero.cheeredToast': 'تم! 🎉',
+
+    // Celebration card
     'parentApp.celebration.streak': 'سلسلة {days} أيام متواصلة! 🔥',
     'parentApp.celebration.mastery': 'أتقن {name} مهارة جديدة 🌟',
     'parentApp.celebration.teacherPraise': 'الأستاذة أشادت بـ {name} 👏',
+
+    // AI convo starter
     'parentApp.ai.title': 'سؤال اليوم',
     'parentApp.ai.suggestedBy': 'اقترح بواسطة AI',
     'parentApp.ai.defaultPrompt': 'اسألوا سارة عن درس الرياضيات اليوم — ما الذي أحبته أكثر؟',
+
+    // Deadline card
     'parentApp.deadline.title': 'موعد قادم',
     'parentApp.deadline.dueIn': 'متبقٍ {days} أيام',
     'parentApp.deadline.dueToday': 'اليوم',
     'parentApp.deadline.dueTomorrow': 'غداً',
     'parentApp.deadline.moreLink': '+{n} مواعيد أخرى',
+
+    // Announcement card
     'parentApp.announcement.tag': 'إعلان مدرسي',
+
+    // Message preview
     'parentApp.message.preview': 'رسالة جديدة',
     'parentApp.message.unread': 'غير مقروءة',
+
+    // Supernova teaser (gated off in v1)
     'parentApp.supernova.title': 'افتح Supernova',
     'parentApp.supernova.body': 'تحليلات أعمق + جلسات AI مع طفلك',
     'parentApp.supernova.cta': 'اعرف المزيد',
+
+    // Aware AI placeholder
     'parentApp.awareAi.headline': 'مساعد ذكي قادم قريباً',
     'parentApp.awareAi.value': 'سيقترح عليك أسئلة يومية، تحليلات أسبوعية، وردود على أي سؤال',
     'parentApp.awareAi.feature1': 'أسئلة تبدأ بها حواراً مع طفلك',
     'parentApp.awareAi.feature2': 'تحليلات أسبوعية تكشف الأنماط',
     'parentApp.awareAi.feature3': 'اسأل أي شيء حول تعلم طفلك',
+
+    // Skill Map placeholder
     'parentApp.skillMap.headline': 'خريطة مهارات طفلك',
     'parentApp.skillMap.value': 'شاهد نقاط القوة، الفجوات، وعمق الإتقان لكل مهارة',
     'parentApp.skillMap.feature1': 'تعرّف على نقاط القوة والضعف',
     'parentApp.skillMap.feature2': 'عمق Bloom لكل مهارة',
     'parentApp.skillMap.feature3': 'تقدم الإتقان بالوقت',
     'parentApp.skillMap.openFull': 'افتح الخريطة الكاملة',
+
+    // Profile placeholder
     'parentApp.profile.childTitle': 'ملف الطفل',
     'parentApp.profile.accountTitle': 'إعدادات الحساب',
     'parentApp.profile.streakStat': 'سلسلة',
@@ -263,12 +105,15 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.profile.upgradeCta': 'ترقية إلى Supernova',
     'parentApp.profile.phoneLabel': 'رقم الهاتف',
     'parentApp.profile.phoneNotSet': 'غير مضاف',
+
+    // Messages placeholder
     'parentApp.messages.headline': 'الرسائل',
     'parentApp.messages.empty': 'لا توجد رسائل بعد',
     'parentApp.messages.value': 'إعلانات المدرسة، رسائل المعلمين، وإشعارات النظام تصل هنا',
     'parentApp.messages.feature1': 'إعلانات مدرسية',
     'parentApp.messages.feature2': 'رسائل من المعلمين',
     'parentApp.messages.feature3': 'إشعارات النظام',
+
     // Action items (v1.1 Home)
     'parentApp.actions.sectionHeader': 'ينتظر إجراءك',
     'parentApp.actions.signPermissionTitle': 'توقيع نموذج إذن',
@@ -296,6 +141,7 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.actions.rsvpYes': 'نعم',
     'parentApp.actions.rsvpNo': 'لا',
     'parentApp.actions.rsvpResolvedToast': 'تم التأكيد ✓',
+
     // Footer (v1.1 Home)
     'parentApp.footer.lastSynced': 'آخر مزامنة قبل {duration}',
     'parentApp.footer.privacy': 'بياناتك خاصة.',
@@ -306,7 +152,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.footer.hoursAgo': '{n} ساعات',
     'parentApp.footer.hourAgo': 'ساعة',
     'parentApp.footer.refreshAria': 'تحديث',
-    // School logistics shortcuts (mirrored from parentAppI18n.ts)
+
+    // School logistics shortcuts (2x2 strip)
     'parentApp.school.shortcutsLabel': 'مهامّ المدرسة',
     'parentApp.school.calendar.title': 'التقويم',
     'parentApp.school.calendar.subtitle': 'الأحداث القادمة',
@@ -320,6 +167,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.formsSubtitle': 'للتعبئة والتوقيع',
     'parentApp.school.attendanceTitle': 'الحضور',
     'parentApp.school.attendanceSubtitle': 'سجل الحضور والغياب',
+
+    // Forms drawer
     'parentApp.school.forms.drawerTitle': 'النماذج',
     'parentApp.school.forms.statusPending': 'بانتظار التعبئة',
     'parentApp.school.forms.statusCompleted': 'مكتمل',
@@ -329,6 +178,7 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.forms.noFormsEmpty': 'لا توجد نماذج حالياً',
     'parentApp.school.forms.noDeadline': 'بدون موعد',
     'parentApp.school.forms.submittedToast': 'تم! ✓',
+    // Forms drawer — fill mode (v1.3)
     'parentApp.school.forms.questionsMeta': '{n} أسئلة · ~{m} دقائق',
     'parentApp.school.forms.backToList': 'العودة إلى النماذج',
     'parentApp.school.forms.submit': 'إرسال',
@@ -341,6 +191,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.forms.field.signed': 'موقّع',
     'parentApp.school.forms.field.tapToUpload': 'اضغط لرفع ملف',
     'parentApp.school.forms.field.fileAttached': 'ملف مرفق',
+
+    // Attendance drawer
     'parentApp.school.attendance.drawerTitle': 'الحضور',
     'parentApp.school.attendance.statPresent': 'أيام الحضور',
     'parentApp.school.attendance.statAbsent': 'أيام الغياب',
@@ -360,12 +212,15 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.attendance.dayWeekend': 'عطلة',
     'parentApp.school.attendance.dayHoliday': 'عطلة رسمية',
     'parentApp.school.attendance.dayFuture': 'يوم قادم',
+    // Attendance drawer — per-session details (v1.3)
     'parentApp.school.attendance.session.label': 'حصص اليوم',
     'parentApp.school.attendance.session.present': 'حاضر',
     'parentApp.school.attendance.session.late': 'متأخر',
     'parentApp.school.attendance.session.absent': 'غائب',
     'parentApp.school.attendance.session.excused': 'بعذر',
     'parentApp.school.attendance.session.tapHint': 'اضغط على يوم لرؤية الحصص',
+
+    // Calendar drawer
     'parentApp.school.calendar.drawerTitle': 'تقويم المدرسة',
     'parentApp.school.calendar.todayLabel': 'اليوم',
     'parentApp.school.calendar.noEvents': 'لا توجد أحداث في هذا اليوم',
@@ -391,6 +246,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.calendar.dow.4': 'خمي',
     'parentApp.school.calendar.dow.5': 'جمع',
     'parentApp.school.calendar.dow.6': 'سبت',
+
+    // Assignments drawer (5-state status taxonomy in v1.3)
     'parentApp.school.assignments.drawerTitle': 'الواجبات القادمة',
     'parentApp.school.assignments.empty': 'لا توجد واجبات حالياً',
     'parentApp.school.assignments.statusNotStarted': 'لم يبدأ',
@@ -404,6 +261,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.assignments.dueInDays': 'بعد {n} أيام',
     'parentApp.school.assignments.dueOverdue': 'فات الموعد',
     'parentApp.school.assignments.descriptionLabel': 'الوصف',
+
+    // Exams drawer
     'parentApp.school.exams.drawerTitle': 'الاختبارات القادمة',
     'parentApp.school.exams.empty': 'لا توجد اختبارات قريبة',
     'parentApp.school.exams.inDays': 'في غضون {n} أيام',
@@ -412,6 +271,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.exams.topicsLabel': 'المواضيع',
     'parentApp.school.exams.tipsLabel': 'نصائح للدراسة',
     'parentApp.school.exams.toggleTipsAria': 'إظهار النصائح',
+
+    // Tomorrow's books drawer
     'parentApp.school.books.drawerTitle': 'حقيبة الغد',
     'parentApp.school.books.headerOne': 'غداً ({day}) {name} بحاجة إلى…',
     'parentApp.school.books.headerNext': '{day} {name} بحاجة إلى…',
@@ -421,282 +282,52 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.books.cta': 'هل جهّزت كل شيء؟',
     'parentApp.school.books.itemsCount': '{n} غرض',
     'parentApp.school.books.booksCount': '{n} كتب',
+
+    // Add child sheet (tapped from the "+" pill on Home)
+    'parentApp.addChild.title': 'إضافة طفل',
+    'parentApp.addChild.subtitle': 'اربط طفلاً آخر بحسابك بسرعة',
+    'parentApp.addChild.scanLabel': 'امسح رمز QR',
+    'parentApp.addChild.scanHint': 'وجّه الكاميرا نحو الرمز',
+    'parentApp.addChild.scanCta': 'محاكاة المسح',
+    'parentApp.addChild.scanning': 'جارٍ المسح...',
+    'parentApp.addChild.divider': 'أو',
+    'parentApp.addChild.codeTitle': 'أدخل رمز الدعوة',
+    'parentApp.addChild.codePlaceholder': 'الرمز من ورقة الدعوة',
+    'parentApp.addChild.codeHelper': 'الرمز مكوّن من 6 خانات على الأقل',
+    'parentApp.addChild.codeCta': 'ربط',
+    'parentApp.addChild.linking': 'جارٍ الربط...',
+    'parentApp.addChild.addedToast': 'تم إضافة {name} 🎉',
+    'parentApp.addChild.closeAria': 'إغلاق',
+
+    // BottomSheet — drawer-to-drawer swipe affordance (Fix 2)
+    'parentApp.sheet.nextDrawerAria': 'القائمة التالية',
+    'parentApp.sheet.prevDrawerAria': 'القائمة السابقة',
+
+    // Common
     'parentApp.common.backToHome': 'العودة إلى الرئيسية',
     'parentApp.common.comingSoon': 'قريباً',
-
-    // ---- Power-ups (Wave A foundation) ----
-    // Names
-    'powerups.name.freeze': 'تجميد',
-    'powerups.name.restart_shield': 'درع الإعادة',
-    'powerups.name.xp_double': 'مضاعف الخبرة',
-    'powerups.name.lucky_dice': 'النرد المحظوظ',
-    'powerups.name.combo_lock': 'قفل الكومبو',
-    'powerups.name.streak_shield': 'درع السلسلة',
-    'powerups.name.streak_revive': 'العنقاء',
-    'powerups.name.fifty_fifty': 'خمسين خمسين',
-    'powerups.name.hint_reveal': 'كشف التلميح',
-    'powerups.name.skip': 'تخطّي',
-    'powerups.name.second_chance': 'فرصة ثانية',
-    'powerups.name.eraser': 'الممحاة',
-    'powerups.name.auto_complete': 'حل تلقائي',
-    // Descriptions
-    'powerups.desc.freeze': 'يمتص أول إجابة خاطئة دون فقدان قلب.',
-    'powerups.desc.restart_shield': 'يعيد ملء قلوبك إذا نفدت أثناء الجلسة.',
-    'powerups.desc.xp_double': 'يضاعف نقاط الخبرة لأول إجابة صحيحة.',
-    'powerups.desc.lucky_dice': 'نرد عشوائي يضاعف خبرة كل إجابة صحيحة.',
-    'powerups.desc.combo_lock': 'يحافظ على عدّاد الكومبو عند أول خطأ.',
-    'powerups.desc.streak_shield': 'يحمي سلسلتك إذا فاتك يوم.',
-    'powerups.desc.streak_revive': 'يستعيد سلسلة منكسرة بالأمس.',
-    'powerups.desc.fifty_fifty': 'يخفي خيارين خاطئين في سؤال متعدد الاختيارات.',
-    'powerups.desc.hint_reveal': 'يكشف التلميح بدون خصم من الخبرة.',
-    'powerups.desc.skip': 'يتخطى السؤال ويلغي مكافأة الإتقان.',
-    'powerups.desc.second_chance': 'يمتص خطأً واحداً على السؤال المُجهَّز.',
-    'powerups.desc.eraser': 'يستعيد قلباً واحداً مفقوداً.',
-    'powerups.desc.auto_complete': 'يحل السؤال تلقائياً ويلغي مكافأة الإتقان.',
-    // Group titles (visual buckets in shop)
-    'powerups.groups.defensive': 'دفاعية',
-    'powerups.groups.xp_booster': 'معزّزات الخبرة',
-    'powerups.groups.question_helper': 'مساعدات الأسئلة',
-    'powerups.groups.reactive': 'تفاعلية',
-    'powerups.groups.combo_streak': 'الكومبو والسلسلة',
-    'powerups.groups.power_solve': 'حلول قوية',
-    // Shop UI
-    'powerups.shop.title': 'متجر النجوم',
-    'powerups.shop.balance': 'رصيدك',
-    'powerups.shop.buy': 'شراء',
-    'powerups.shop.max_owned': 'الحد الأقصى',
-    'powerups.shop.coming_soon': 'قريباً',
-    // Loadout modal
-    'powerups.loadout.title': 'جهّز عُدَّتك',
-    'powerups.loadout.subtitle': 'اختر الترقيات قبل بدء التحدي',
-    'powerups.loadout.start': 'ابدأ',
-    'powerups.loadout.cancel': 'إلغاء',
-    'powerups.loadout.buy_in_shop': 'اشترِ من المتجر',
-    // In-question HUD
-    'powerups.hud.use': 'استخدم',
-    'powerups.hud.confirm': 'تأكيد',
-    'powerups.hud.cost': 'التكلفة',
-    'powerups.hud.owned': 'لديك',
-    // Toasts
-    'powerups.toast.bought': 'تمت الإضافة',
-    'powerups.toast.absorbed': 'تم الامتصاص!',
-    'powerups.toast.armed': 'تم التجهيز',
-    'powerups.toast.no_perfect_bonus': 'لن تحصل على مكافأة الإتقان',
-    // Streak addons
-    'powerups.streak.shield_owned': 'الدروع المملوكة',
-    'powerups.streak.restore': 'استعد سلسلتك',
   },
   en: {
-    // Navigation
-    'nav.home': 'Home',
-    'nav.learn': 'Learn',
-    'nav.leaderboard': 'Leaderboard',
-    'nav.profile': 'Profile',
-    'nav.settings': 'Settings',
-    'nav.skillmap': 'Skill Map',
-    'nav.textbook': 'Textbook',
-
-    // Platform navbar
-    'platform.dashboard': 'Dashboard',
-    'platform.quests': 'Quests',
-    'platform.grades': 'Grades',
-    'platform.calendar': 'Calendar',
-    'platform.messages': 'Messages',
-
-    // TopBar
-    'topbar.hearts': 'Hearts',
-    'topbar.gems': 'Gems',
-    'topbar.streak': 'Streak',
-    'topbar.level': 'Level',
-
-    // Learning Path
-    'path.locked': 'Locked',
-    'path.completed': 'Completed',
-    'path.start': 'START',
-    'path.continue': 'Continue',
-
-    // Lesson
-    'lesson.confirm': 'Confirm Answer',
-    'lesson.unsure': 'Not sure',
-    'lesson.hint': 'Hint',
-    'lesson.next': 'Next',
-    'lesson.exit': 'Exit',
-    'lesson.exit_confirm': 'Exit lesson? Your progress will be lost.',
-
-    // End Screen
-    'end.score': 'Score',
-    'end.stars': 'Stars',
-    'end.xp_earned': 'XP Earned',
-    'end.retry': 'Retry',
-    'end.back': 'Back',
-    'end.review': 'Review Mistakes',
-    'end.perfect': 'Perfect Score!',
-
-    // Home
-    'home.welcome': 'Welcome!',
-    'home.continue_learning': 'Continue Learning',
-    'home.daily_challenge': 'Daily Challenge',
-    'home.weekly_challenge': 'Weekly Challenge',
-    'home.total_xp': 'Total XP',
-    'home.accuracy': 'Accuracy',
-    'home.daily_streak': 'Daily Streak',
-    'home.boosts': 'Boosts',
-    'home.continue_where_left_off': 'Continue where you left off',
-    'home.explore_topics': 'Explore Topics',
-    'home.start_first_quest': 'Start Your First Quest!',
-    'home.start_first_quest_desc': 'Pick a topic and begin your learning journey',
-    'home.questions_answered': 'questions answered',
-    'home.next_quest': 'Next Quest',
-    'home.all_completed': 'All quests completed!',
-    'home.review_weakest': 'Review your weakest area',
-    'home.new_badge': 'New',
-    'home.continue_btn': 'Continue',
-    'home.start_btn': 'Start',
-    'home.how_to_play': 'How to play?',
-    'home.streak_title': 'Consecutive Days of Enthusiasm 🔥',
-    'home.streak_badge': 'Amazing!',
-    'home.streak_days': 'days in a row',
-    'home.streak_daily_goal': 'Daily Goal',
-    'home.streak_accuracy': 'Accuracy',
-    'home.streak_total': 'Total',
-    'home.practice_mode_title': 'Open Practice Mode',
-    'home.practice_mode_desc': 'Practice unlimited on all available questions without time and without loss.',
-    'home.practice_mode_badge': 'Most Distinctive',
-    'home.daily_challenge_title': 'Daily Challenge',
-    'home.daily_challenge_empty': 'No quests for today.',
-    'home.weekly_champion_title': 'Weekly Champion',
-    'home.weekly_champion_desc': 'Comprehensive challenge for experts only.',
-    'home.coming_soon': 'Coming Soon',
-
-    // Profile
-    'profile.stats': 'Statistics',
-    'profile.achievements': 'Achievements',
-    'profile.activity': 'Activity',
-
-    // Settings
-    'settings.language': 'Language',
-    'settings.sound': 'Sound',
-    'settings.daily_goal': 'Daily Goal',
-
-    // Gamification
-    'hearts.depleted': 'Out of Hearts!',
-    'hearts.wait': 'Wait to refill or use gems',
-    'hearts.refill': 'Refill Hearts',
-    'hearts.refill_cost': '350 Gems',
-    'levelup.congrats': 'Level Up!',
-    'streak.freeze': 'Streak Freeze',
-    'streak.milestone': 'New Milestone!',
-
-    // Skill Map
-    'skillmap.title': 'Skill Map',
-    'skillmap.knowledge_score': 'Knowledge Score',
-    'skillmap.strongest': 'Strongest',
-    'skillmap.weakest': 'Weakest',
-    'skillmap.mastered': 'Skills Mastered',
-    'skillmap.depth': 'Cognitive Depth',
-    'skillmap.age': 'Knowledge Age',
-    'skillmap.galaxy': 'Galaxy',
-    'skillmap.radar': 'Radar',
-    'skillmap.tree': 'Tree',
-    'skillmap.heatmap': 'Heat Map',
-    'skillmap.dna': 'DNA',
-    'skillmap.gaps': 'Gaps',
-    'skillmap.strengths': 'Strengths',
-    'skillmap.practice': 'Practice',
-
-    // Teacher Skill Map
-    'teacher.skillmap.title': 'Class Skill Map',
-    'teacher.skillmap.class_avg': 'Class Avg Mastery',
-    'teacher.skillmap.struggling': 'Need Support',
-    'teacher.skillmap.mastered_kcs': 'KCs Mastered',
-    'teacher.skillmap.filter_subject': 'Subject',
-    'teacher.skillmap.alert_prefix': 'Alert',
-    'teacher.skillmap.mastered': 'Mastered',
-    'teacher.skillmap.proficient': 'Proficient',
-    'teacher.skillmap.developing': 'Developing',
-    'teacher.skillmap.weak': 'Weak',
-    'teacher.skillmap.not_started': 'Not started',
-
-    // Parent Report
-    'parent.report.title': 'Student Report Card',
-    'parent.report.progress': 'Progress by Subject',
-    'parent.report.strengths': 'Strengths (Top 5 Skills)',
-    'parent.report.needs_practice': 'Needs Practice (5 Skills)',
-    'parent.report.this_week': 'This week your child learned',
-    'parent.report.print': 'Print Report',
-    'parent.report.select_student': 'Select student',
-    'parent.report.overall': 'Overall Grade',
-    'parent.report.school': 'Al-Khadr Modern Schools',
-
-    // Principal Skill Map
-    'principal.skillmap.title': 'School-Wide Skill Map',
-    'principal.skillmap.school_avg': 'School Avg Mastery',
-    'principal.skillmap.best_class': 'Best Performing Class',
-    'principal.skillmap.attention': 'Subjects Need Attention',
-    'principal.skillmap.kcs_at_risk': 'KCs At Risk',
-    'principal.skillmap.class_comparison': 'Class Comparison',
-    'principal.skillmap.subject_performance': 'Subject Performance',
-
-    // Parent Onboarding (mirrored from components/parent-onboarding/parentOnboardingI18n.ts)
-    'parentOnboarding.localeToggle.ar': 'عربي',
-    'parentOnboarding.localeToggle.en': 'English',
-    'parentOnboarding.back': 'Back',
-    'parentOnboarding.phone.title': "What's your phone number?",
-    'parentOnboarding.phone.subtitle': "We'll send your code on WhatsApp — arrives in seconds",
-    'parentOnboarding.phone.viaWhatsapp': 'via WhatsApp',
-    'parentOnboarding.phone.numberLabel': 'Phone number',
-    'parentOnboarding.phone.countryLabel': 'Country',
-    'parentOnboarding.phone.helperGeneric': 'Enter your {digits}-digit phone number for {country}',
-    'parentOnboarding.phone.cta': 'Send my code',
-    'parentOnboarding.phone.ctaSending': 'Sending...',
-    'parentOnboarding.phone.reassurance': 'Your number is safe — used only to connect you to your children.',
-    'parentOnboarding.otp.title': 'Enter the code',
-    'parentOnboarding.otp.subtitle': 'We sent a 6-digit code via WhatsApp to',
-    'parentOnboarding.otp.viaWhatsapp': 'sent on WhatsApp',
-    'parentOnboarding.otp.cta': 'Confirm',
-    'parentOnboarding.otp.change': 'Change',
-    'parentOnboarding.otp.didntGet': "Didn't get the code?",
-    'parentOnboarding.otp.resendIn': 'Resend in {seconds}s',
-    'parentOnboarding.otp.resendNow': 'Resend code',
-    'parentOnboarding.otp.verifying': 'Verifying...',
-    'parentOnboarding.connect.title': 'Connect your child to String',
-    'parentOnboarding.connect.subtitle': "Scan the code from your child's app or the school's invite paper",
-    'parentOnboarding.connect.scanLabel': 'Scan QR code',
-    'parentOnboarding.connect.scanHint': 'Point the camera at the code',
-    'parentOnboarding.connect.scanCta': 'Open camera',
-    'parentOnboarding.connect.scanning': 'Scanning...',
-    'parentOnboarding.connect.divider': 'or',
-    'parentOnboarding.connect.codeTitle': 'Or enter it manually',
-    'parentOnboarding.connect.codePlaceholder': 'Code from the invite paper',
-    'parentOnboarding.connect.codeHelper': 'Codes are at least 6 characters',
-    'parentOnboarding.connect.codeCta': 'Continue',
-    'parentOnboarding.connect.linking': 'Linking...',
-    'parentOnboarding.connect.linkedToast': '{name} linked',
-    'parentOnboarding.list.title': 'Your children on String',
-    'parentOnboarding.list.subtitle': 'You can link more later from settings',
-    'parentOnboarding.list.linkedTag': 'Linked',
-    'parentOnboarding.list.removeAria': 'Unlink',
-    'parentOnboarding.list.addAnother': 'Add another child',
-    'parentOnboarding.list.cta': "Let's go",
-    'parentOnboarding.list.doneToast': "You're all set 🎉",
-    'parentOnboarding.list.removeTitle': 'Unlink {name}?',
-    'parentOnboarding.list.removeBody': 'You can reconnect their account anytime.',
-    'parentOnboarding.list.removeConfirm': 'Unlink',
-    'parentOnboarding.list.removeCancel': 'Cancel',
-
-    // Parent App (mirrored from components/parent-app/parentAppI18n.ts)
+    // Tabs
     'parentApp.tab.home': 'Home',
     'parentApp.tab.awareAi': 'Aware AI',
     'parentApp.tab.skillMap': 'Skill Map',
     'parentApp.tab.profile': 'Profile',
     'parentApp.tab.messages': 'Messages',
+
+    // Header
     'parentApp.header.addChild': '+ Add',
     'parentApp.header.refreshNow': 'Refresh',
     'parentApp.header.justUpdated': 'Updated just now',
     'parentApp.header.notificationsAria': 'Notifications',
     'parentApp.header.profileAria': 'Profile',
+
+    // Greeting strip (dynamic per time band — phrases live in
+    // data/parentAppGreetings.ts; only fixed labels go here)
     'parentApp.greeting.parentNameFallback': 'Hi',
     'parentApp.greeting.refreshHint': 'Refresh for a new message',
+
+    // Hero card
     'parentApp.hero.todayPill': 'Today',
     'parentApp.hero.lessonsHeadline': '{name} finished {n} lessons today 🎉',
     'parentApp.hero.lessonsHeadlineMale': '{name} finished {n} lessons today 🎉',
@@ -707,34 +338,52 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.hero.weakAreaLabel': 'Focus',
     'parentApp.hero.cheerCta': 'Cheer {name} 🎉',
     'parentApp.hero.cheeredToast': 'Done! 🎉',
+
+    // Celebration card
     'parentApp.celebration.streak': '{days}-day streak! 🔥',
     'parentApp.celebration.mastery': '{name} mastered a new skill 🌟',
     'parentApp.celebration.teacherPraise': 'Teacher praised {name} 👏',
+
+    // AI convo starter
     'parentApp.ai.title': "Today's prompt",
     'parentApp.ai.suggestedBy': 'Suggested by AI',
     'parentApp.ai.defaultPrompt': 'Ask Sara about her math lesson today — what did she love most?',
+
+    // Deadline card
     'parentApp.deadline.title': 'Upcoming',
     'parentApp.deadline.dueIn': 'Due in {days} days',
     'parentApp.deadline.dueToday': 'Today',
     'parentApp.deadline.dueTomorrow': 'Tomorrow',
     'parentApp.deadline.moreLink': '+{n} more deadlines',
+
+    // Announcement card
     'parentApp.announcement.tag': 'School announcement',
+
+    // Message preview
     'parentApp.message.preview': 'New message',
     'parentApp.message.unread': 'unread',
+
+    // Supernova teaser
     'parentApp.supernova.title': 'Unlock Supernova',
     'parentApp.supernova.body': 'Deeper analytics + AI sessions with your child',
     'parentApp.supernova.cta': 'Learn more',
+
+    // Aware AI placeholder
     'parentApp.awareAi.headline': 'Smart AI coach coming soon',
     'parentApp.awareAi.value': 'Daily prompts, weekly insights, and answers to anything you wonder',
     'parentApp.awareAi.feature1': 'Daily conversation starters',
     'parentApp.awareAi.feature2': 'Weekly insights & patterns',
     'parentApp.awareAi.feature3': 'Ask anything about your child',
+
+    // Skill Map placeholder
     'parentApp.skillMap.headline': "Your child's skill map",
     'parentApp.skillMap.value': "See strengths, gaps, and Bloom's depth across every skill",
     'parentApp.skillMap.feature1': 'See strengths & weaknesses',
     "parentApp.skillMap.feature2": "Bloom's depth per skill",
     'parentApp.skillMap.feature3': 'Mastery progress over time',
     'parentApp.skillMap.openFull': 'Open full skill map',
+
+    // Profile placeholder
     'parentApp.profile.childTitle': 'Child profile',
     'parentApp.profile.accountTitle': 'Account settings',
     'parentApp.profile.streakStat': 'Streak',
@@ -746,12 +395,15 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.profile.upgradeCta': 'Upgrade to Supernova',
     'parentApp.profile.phoneLabel': 'Phone',
     'parentApp.profile.phoneNotSet': 'Not set',
+
+    // Messages placeholder
     'parentApp.messages.headline': 'Inbox',
     'parentApp.messages.empty': 'No messages yet',
     'parentApp.messages.value': 'School announcements, teacher messages, and system notifications land here',
     'parentApp.messages.feature1': 'School announcements',
     'parentApp.messages.feature2': 'Messages from teachers',
     'parentApp.messages.feature3': 'System notifications',
+
     // Action items (v1.1 Home)
     'parentApp.actions.sectionHeader': 'Needs your action',
     'parentApp.actions.signPermissionTitle': 'Sign permission slip',
@@ -779,6 +431,7 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.actions.rsvpYes': 'Yes',
     'parentApp.actions.rsvpNo': 'No',
     'parentApp.actions.rsvpResolvedToast': 'Confirmed ✓',
+
     // Footer (v1.1 Home)
     'parentApp.footer.lastSynced': 'Last synced {duration} ago',
     'parentApp.footer.privacy': 'Your data is private.',
@@ -789,7 +442,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.footer.hoursAgo': '{n} hours',
     'parentApp.footer.hourAgo': '1 hour',
     'parentApp.footer.refreshAria': 'Refresh',
-    // School logistics shortcuts (mirrored from parentAppI18n.ts)
+
+    // School logistics shortcuts (2x2 strip)
     'parentApp.school.shortcutsLabel': 'School logistics',
     'parentApp.school.calendar.title': 'Calendar',
     'parentApp.school.calendar.subtitle': 'Upcoming events',
@@ -803,6 +457,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.formsSubtitle': 'Fill & sign',
     'parentApp.school.attendanceTitle': 'Attendance',
     'parentApp.school.attendanceSubtitle': 'Present & absent record',
+
+    // Forms drawer
     'parentApp.school.forms.drawerTitle': 'Forms',
     'parentApp.school.forms.statusPending': 'Awaiting fill',
     'parentApp.school.forms.statusCompleted': 'Completed',
@@ -812,6 +468,7 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.forms.noFormsEmpty': 'No forms right now',
     'parentApp.school.forms.noDeadline': 'No deadline',
     'parentApp.school.forms.submittedToast': 'Done! ✓',
+    // Forms drawer — fill mode (v1.3)
     'parentApp.school.forms.questionsMeta': '{n} questions · ~{m} min',
     'parentApp.school.forms.backToList': 'Back to forms',
     'parentApp.school.forms.submit': 'Submit',
@@ -824,6 +481,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.forms.field.signed': 'Signed',
     'parentApp.school.forms.field.tapToUpload': 'Tap to upload',
     'parentApp.school.forms.field.fileAttached': 'File attached',
+
+    // Attendance drawer
     'parentApp.school.attendance.drawerTitle': 'Attendance',
     'parentApp.school.attendance.statPresent': 'Present days',
     'parentApp.school.attendance.statAbsent': 'Absent days',
@@ -843,12 +502,15 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.attendance.dayWeekend': 'Weekend',
     'parentApp.school.attendance.dayHoliday': 'Holiday',
     'parentApp.school.attendance.dayFuture': 'Upcoming',
-    'parentApp.school.attendance.session.label': "Today's sessions",
+    // Attendance drawer — per-session details (v1.3)
+    'parentApp.school.attendance.session.label': 'Today\'s sessions',
     'parentApp.school.attendance.session.present': 'Present',
     'parentApp.school.attendance.session.late': 'Late',
     'parentApp.school.attendance.session.absent': 'Absent',
     'parentApp.school.attendance.session.excused': 'Excused',
     'parentApp.school.attendance.session.tapHint': 'Tap a day to see sessions',
+
+    // Calendar drawer
     'parentApp.school.calendar.drawerTitle': 'School calendar',
     'parentApp.school.calendar.todayLabel': 'Today',
     'parentApp.school.calendar.noEvents': 'No events on this day',
@@ -874,6 +536,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.calendar.dow.4': 'Thu',
     'parentApp.school.calendar.dow.5': 'Fri',
     'parentApp.school.calendar.dow.6': 'Sat',
+
+    // Assignments drawer (5-state status taxonomy in v1.3)
     'parentApp.school.assignments.drawerTitle': 'Upcoming assignments',
     'parentApp.school.assignments.empty': 'No assignments right now',
     'parentApp.school.assignments.statusNotStarted': 'Not started',
@@ -887,6 +551,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.assignments.dueInDays': 'In {n} days',
     'parentApp.school.assignments.dueOverdue': 'Past due',
     'parentApp.school.assignments.descriptionLabel': 'Description',
+
+    // Exams drawer
     'parentApp.school.exams.drawerTitle': 'Upcoming exams',
     'parentApp.school.exams.empty': 'No exams coming up',
     'parentApp.school.exams.inDays': 'In {n} days',
@@ -895,6 +561,8 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.exams.topicsLabel': 'Topics',
     'parentApp.school.exams.tipsLabel': 'Study tips',
     'parentApp.school.exams.toggleTipsAria': 'Show study tips',
+
+    // Tomorrow's books drawer
     'parentApp.school.books.drawerTitle': "Tomorrow's bag",
     'parentApp.school.books.headerOne': 'Tomorrow ({day}) {name} needs…',
     'parentApp.school.books.headerNext': '{day} {name} needs…',
@@ -904,106 +572,41 @@ const translations: Record<'ar' | 'en', Record<string, string>> = {
     'parentApp.school.books.cta': 'All packed?',
     'parentApp.school.books.itemsCount': '{n} items',
     'parentApp.school.books.booksCount': '{n} books',
+
+    // Add child sheet (tapped from the "+" pill on Home)
+    'parentApp.addChild.title': 'Add a child',
+    'parentApp.addChild.subtitle': 'Link another child to your account in seconds',
+    'parentApp.addChild.scanLabel': 'Scan QR code',
+    'parentApp.addChild.scanHint': 'Point the camera at the code',
+    'parentApp.addChild.scanCta': 'Simulate scan',
+    'parentApp.addChild.scanning': 'Scanning...',
+    'parentApp.addChild.divider': 'or',
+    'parentApp.addChild.codeTitle': 'Enter invite code',
+    'parentApp.addChild.codePlaceholder': 'Code from the invite paper',
+    'parentApp.addChild.codeHelper': 'Codes are at least 6 characters',
+    'parentApp.addChild.codeCta': 'Link',
+    'parentApp.addChild.linking': 'Linking...',
+    'parentApp.addChild.addedToast': '{name} added 🎉',
+    'parentApp.addChild.closeAria': 'Close',
+
+    // BottomSheet — drawer-to-drawer swipe affordance (Fix 2)
+    'parentApp.sheet.nextDrawerAria': 'Next sheet',
+    'parentApp.sheet.prevDrawerAria': 'Previous sheet',
+
+    // Common
     'parentApp.common.backToHome': 'Back to Home',
     'parentApp.common.comingSoon': 'Coming soon',
-
-    // ---- Power-ups (Wave A foundation) ----
-    // Names
-    'powerups.name.freeze': 'Freeze',
-    'powerups.name.restart_shield': 'Restart Shield',
-    'powerups.name.xp_double': 'XP Doubler',
-    'powerups.name.lucky_dice': 'Lucky Dice',
-    'powerups.name.combo_lock': 'Combo Lock',
-    'powerups.name.streak_shield': 'Streak Shield',
-    'powerups.name.streak_revive': 'Phoenix',
-    'powerups.name.fifty_fifty': '50 / 50',
-    'powerups.name.hint_reveal': 'Hint Reveal',
-    'powerups.name.skip': 'Skip',
-    'powerups.name.second_chance': 'Second Chance',
-    'powerups.name.eraser': 'Eraser',
-    'powerups.name.auto_complete': 'Auto-Complete',
-    // Descriptions
-    'powerups.desc.freeze': 'Absorbs the first wrong answer this session.',
-    'powerups.desc.restart_shield': 'Refills your hearts if they run out mid-session.',
-    'powerups.desc.xp_double': 'Doubles XP on your first correct answer.',
-    'powerups.desc.lucky_dice': 'Rolls a random XP multiplier on each correct answer.',
-    'powerups.desc.combo_lock': 'Preserves your combo on the first wrong answer.',
-    'powerups.desc.streak_shield': 'Auto-protects your streak when you miss a day.',
-    'powerups.desc.streak_revive': 'Restores a streak that broke yesterday.',
-    'powerups.desc.fifty_fifty': 'Hides two wrong options on a multiple-choice question.',
-    'powerups.desc.hint_reveal': 'Reveals the hint without the usual XP penalty.',
-    'powerups.desc.skip': 'Skips the question — cancels perfect-bonus eligibility.',
-    'powerups.desc.second_chance': 'Absorbs one wrong answer on the armed question.',
-    'powerups.desc.eraser': 'Regenerates one lost heart.',
-    'powerups.desc.auto_complete': 'Auto-solves the question — cancels perfect bonus.',
-    // Group titles (visual buckets in shop)
-    'powerups.groups.defensive': 'Defensive',
-    'powerups.groups.xp_booster': 'XP Boosters',
-    'powerups.groups.question_helper': 'Question Helpers',
-    'powerups.groups.reactive': 'Reactive',
-    'powerups.groups.combo_streak': 'Combo & Streak',
-    'powerups.groups.power_solve': 'Power Solves',
-    // Shop UI
-    'powerups.shop.title': 'Stardust Shop',
-    'powerups.shop.balance': 'Balance',
-    'powerups.shop.buy': 'Buy',
-    'powerups.shop.max_owned': 'Max owned',
-    'powerups.shop.coming_soon': 'Coming soon',
-    // Loadout modal
-    'powerups.loadout.title': 'Equip your loadout',
-    'powerups.loadout.subtitle': 'Pick power-ups before you start.',
-    'powerups.loadout.start': 'Start',
-    'powerups.loadout.cancel': 'Cancel',
-    'powerups.loadout.buy_in_shop': 'Buy in shop',
-    // In-question HUD
-    'powerups.hud.use': 'Use',
-    'powerups.hud.confirm': 'Confirm',
-    'powerups.hud.cost': 'Cost',
-    'powerups.hud.owned': 'Owned',
-    // Toasts
-    'powerups.toast.bought': 'Added to inventory',
-    'powerups.toast.absorbed': 'Absorbed!',
-    'powerups.toast.armed': 'Armed',
-    'powerups.toast.no_perfect_bonus': 'Perfect bonus disabled',
-    // Streak addons
-    'powerups.streak.shield_owned': 'Shields owned',
-    'powerups.streak.restore': 'Restore streak',
   },
 };
 
-// ---- Context ----
-
-interface I18nContextValue {
-  locale: 'ar' | 'en';
-  dir: 'rtl' | 'ltr';
-  t: (key: string) => string;
-  toggleLocale: () => void;
+/** Lookup helper. Falls back to the key when missing. */
+export function getParentAppString(locale: Locale, key: string): string {
+  return parentAppI18n[locale][key] ?? key;
 }
 
-const I18nContext = createContext<I18nContextValue | null>(null);
-
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const { state, dispatch } = useUser();
-  const locale = state.language;
-  const dir = locale === 'ar' ? 'rtl' : 'ltr';
-
-  const t = (key: string): string => {
-    return translations[locale][key] || key;
-  };
-
-  const toggleLocale = () => {
-    dispatch({ type: 'SET_LANGUAGE', payload: locale === 'ar' ? 'en' : 'ar' });
-  };
-
-  return (
-    <I18nContext.Provider value={{ locale, dir, t, toggleLocale }}>
-      {children}
-    </I18nContext.Provider>
+/** Tiny `{name}` template substitution. Missing vars are left untouched. */
+export function interpolate(template: string, vars: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (_, key) =>
+    Object.prototype.hasOwnProperty.call(vars, key) ? String(vars[key]) : `{${key}}`
   );
-}
-
-export function useI18n() {
-  const ctx = useContext(I18nContext);
-  if (!ctx) throw new Error('useI18n must be used within I18nProvider');
-  return ctx;
 }

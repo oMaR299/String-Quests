@@ -17,9 +17,35 @@ const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const SkillMapPage = lazy(() => import('./pages/SkillMapPage'));
 const TextbookPage = lazy(() => import('./pages/TextbookPage'));
 const ParentReportPage = lazy(() => import('./pages/ParentReportPage'));
+const StardustShopPage = lazy(() => import('./pages/StardustShopPage'));
 
 // Curriculum admin (lazy, full-screen)
 const CurriculumAdminPage = lazy(() => import('./components/curriculum-admin/CurriculumAdminPage').then(m => ({ default: m.CurriculumAdminPage })));
+
+// Parent onboarding (lazy, full-screen mobile-first flow)
+const ParentOnboardingLayout = lazy(() =>
+  import('./components/parent-onboarding/ParentOnboardingLayout').then(m => ({ default: m.ParentOnboardingLayout }))
+);
+
+// Parent app (lazy, post-onboarding home shell with bottom tab bar)
+const ParentHomeLayout = lazy(() =>
+  import('./components/parent-app/ParentHomeLayout').then(m => ({ default: m.ParentHomeLayout }))
+);
+const HomeTab = lazy(() =>
+  import('./components/parent-app/screens/HomeTab').then(m => ({ default: m.HomeTab }))
+);
+const AwareAiPlaceholder = lazy(() =>
+  import('./components/parent-app/screens/AwareAiPlaceholder').then(m => ({ default: m.AwareAiPlaceholder }))
+);
+const ParentSkillMapPlaceholder = lazy(() =>
+  import('./components/parent-app/screens/SkillMapPlaceholder').then(m => ({ default: m.SkillMapPlaceholder }))
+);
+const ParentProfilePlaceholder = lazy(() =>
+  import('./components/parent-app/screens/ProfilePlaceholder').then(m => ({ default: m.ProfilePlaceholder }))
+);
+const ParentMessagesPlaceholder = lazy(() =>
+  import('./components/parent-app/screens/MessagesPlaceholder').then(m => ({ default: m.MessagesPlaceholder }))
+);
 
 // Design System showcase (lazy)
 const DesignSystemLayout = lazy(() => import('./components/design-system/showcase/DesignSystemLayout').then(m => ({ default: m.DesignSystemLayout })));
@@ -61,6 +87,7 @@ const App: React.FC = () => {
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/skill-map" element={<SkillMapPage />} />
                 <Route path="/textbook" element={<TextbookPage />} />
+                <Route path="/shop" element={<StardustShopPage />} />
               </Route>
 
               {/* Immersive routes (no sidebar, full-screen) */}
@@ -97,6 +124,23 @@ const App: React.FC = () => {
 
               {/* Stakeholder report routes */}
               <Route path="/parent-report" element={<ParentReportPage />} />
+
+              {/* Parent onboarding (mobile-first phone shell). The onboarding
+                  flow now lives at /parent/onboarding/* — the new Parent App
+                  home + tab shell mounts at /parent. */}
+              <Route path="/parent/onboarding/*" element={<ParentOnboardingLayout />} />
+
+              {/* Parent app — post-onboarding home + bottom-tab shell. The
+                  layout renders the shared PhoneShell + sticky header + tab
+                  bar; the matched child route renders inside <Outlet />. */}
+              <Route path="/parent" element={<ParentHomeLayout />}>
+                <Route index element={<Navigate to="/parent/home" replace />} />
+                <Route path="home" element={<HomeTab />} />
+                <Route path="aware-ai" element={<AwareAiPlaceholder />} />
+                <Route path="skill-map" element={<ParentSkillMapPlaceholder />} />
+                <Route path="profile" element={<ParentProfilePlaceholder />} />
+                <Route path="messages" element={<ParentMessagesPlaceholder />} />
+              </Route>
 
               {/* Default redirect */}
               <Route path="/" element={<Navigate to="/home" replace />} />
