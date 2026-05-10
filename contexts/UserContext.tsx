@@ -23,12 +23,6 @@ export interface UserState {
   completedLessons: string[]; // "subjectSlug::lessonSlug"
   language: 'ar' | 'en';
   achievements: Record<string, { unlocked: boolean; unlockedAt: string | null }>;
-  // ── Phone App onboarding (v1) ─────────────────────────
-  phoneAppRole: 'student' | 'parent' | 'teacher' | null;
-  phoneAppOnboardingStep: number; // 1..5 in v1
-  phoneAppPainPoints: string[];   // ids of selected pains (multi-select)
-  phoneAppBiggestPain: string | null;
-  phoneAppMuted: boolean;
 }
 
 const getToday = () => new Date().toISOString().split('T')[0];
@@ -94,12 +88,6 @@ const DEFAULT_USER_STATE: UserState = {
     'first-lesson': { unlocked: true, unlockedAt: '2026-02-01T10:00:00Z' },
     'streak-7': { unlocked: true, unlockedAt: '2026-03-15T14:00:00Z' },
   },
-  // Phone App onboarding (v1) defaults
-  phoneAppRole: null,
-  phoneAppOnboardingStep: 1,
-  phoneAppPainPoints: [],
-  phoneAppBiggestPain: null,
-  phoneAppMuted: false,
 };
 
 // ---- Actions ----
@@ -117,14 +105,7 @@ export type UserAction =
   | { type: 'UNLOCK_ACHIEVEMENT'; payload: string }
   | { type: 'ADD_GEMS'; payload: number }
   | { type: 'SPEND_GEMS'; payload: number }
-  | { type: 'DAILY_RESET' }
-  // ── Phone App onboarding (v1) ─────────────────────────
-  | { type: 'SET_PHONE_APP_ROLE'; payload: 'student' | 'parent' | 'teacher' | null }
-  | { type: 'SET_PHONE_APP_STEP'; payload: number }
-  | { type: 'TOGGLE_PHONE_APP_PAIN'; payload: string }
-  | { type: 'SET_PHONE_APP_BIGGEST_PAIN'; payload: string | null }
-  | { type: 'SET_PHONE_APP_MUTED'; payload: boolean }
-  | { type: 'RESET_PHONE_APP_ONBOARDING' };
+  | { type: 'DAILY_RESET' };
 
 // ---- Reducer ----
 
@@ -247,39 +228,6 @@ function userReducer(state: UserState, action: UserAction): UserState {
         ...state,
         dailyCorrectAnswers: 0,
         dailyXP: 0,
-      };
-
-    // ── Phone App onboarding (v1) ─────────────────────────
-    case 'SET_PHONE_APP_ROLE':
-      return { ...state, phoneAppRole: action.payload };
-
-    case 'SET_PHONE_APP_STEP':
-      return { ...state, phoneAppOnboardingStep: Math.max(1, Math.min(5, action.payload)) };
-
-    case 'TOGGLE_PHONE_APP_PAIN': {
-      const id = action.payload;
-      const exists = state.phoneAppPainPoints.includes(id);
-      return {
-        ...state,
-        phoneAppPainPoints: exists
-          ? state.phoneAppPainPoints.filter(p => p !== id)
-          : [...state.phoneAppPainPoints, id],
-      };
-    }
-
-    case 'SET_PHONE_APP_BIGGEST_PAIN':
-      return { ...state, phoneAppBiggestPain: action.payload };
-
-    case 'SET_PHONE_APP_MUTED':
-      return { ...state, phoneAppMuted: action.payload };
-
-    case 'RESET_PHONE_APP_ONBOARDING':
-      return {
-        ...state,
-        phoneAppRole: null,
-        phoneAppOnboardingStep: 1,
-        phoneAppPainPoints: [],
-        phoneAppBiggestPain: null,
       };
 
     default:

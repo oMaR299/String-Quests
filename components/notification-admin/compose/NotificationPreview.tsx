@@ -150,7 +150,7 @@ export const NotificationPreview: React.FC<NotificationPreviewProps> = ({
   const effectiveDeviceMode: DeviceMode =
     activeChannel === 'email' && deviceMode === 'mobile' ? 'desktop' : deviceMode;
 
-  // Premium previews always render in mobile (they're phone-app mocks).
+  // Premium previews always render in mobile (they're locked-tier mocks).
   const previewDeviceMode: DeviceMode = isPremiumTab(activeChannel)
     ? 'mobile'
     : effectiveDeviceMode;

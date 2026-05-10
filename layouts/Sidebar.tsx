@@ -14,7 +14,7 @@ import {
   Database,
   Megaphone,
   CalendarDays,
-  Smartphone,
+  Palette,
 } from 'lucide-react';
 import { useI18n } from '../contexts/I18nContext';
 
@@ -52,10 +52,10 @@ const DEV_TOGGLES: DevToggle[] = [
   { label: 'Leaderboards', icon: Trophy, route: '/leaderboard-widgets', color: 'text-amber-400' },
   { label: 'Topic Manager', icon: BookOpen, route: '/topic-manager', color: 'text-orange-400' },
   { label: 'Schedule', icon: CalendarDays, route: '/schedule', color: 'text-duo-blue-dark' },
-  { label: 'Phone App', icon: Smartphone, route: '/phone-app', color: 'text-duo-blue-dark' },
   { label: 'Skill Map Pro', icon: BrainCircuit, route: '/skill-map-premium', color: 'text-violet-400' },
   { label: 'Teacher Profile', icon: User, route: '/teacher-profile', color: 'text-sky-400' },
   { label: 'Edison Proposal', icon: FileText, route: '/proposal/edison', color: 'text-emerald-400' },
+  { label: 'Design System', icon: Palette, route: '/design-system', color: 'text-sq-brand-500' },
 ];
 
 export const Sidebar: React.FC = () => {

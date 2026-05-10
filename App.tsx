@@ -21,8 +21,8 @@ const ParentReportPage = lazy(() => import('./pages/ParentReportPage'));
 // Curriculum admin (lazy, full-screen)
 const CurriculumAdminPage = lazy(() => import('./components/curriculum-admin/CurriculumAdminPage').then(m => ({ default: m.CurriculumAdminPage })));
 
-// Phone App onboarding (lazy)
-const PhoneAppLayout = lazy(() => import('./components/phone-app/PhoneAppLayout').then(m => ({ default: m.PhoneAppLayout })));
+// Design System showcase (lazy)
+const DesignSystemLayout = lazy(() => import('./components/design-system/showcase/DesignSystemLayout').then(m => ({ default: m.DesignSystemLayout })));
 
 // Role-based layouts (keep as-is)
 import { TeacherLayout } from './components/teacher/TeacherLayout';
@@ -83,8 +83,8 @@ const App: React.FC = () => {
               {/* Schedule */}
               <Route path="/schedule/*" element={<ScheduleLayout onExit={() => window.location.href = '/home'} />} />
 
-              {/* Phone App onboarding */}
-              <Route path="/phone-app/*" element={<PhoneAppLayout onExit={() => window.location.href = '/home'} />} />
+              {/* Design System showcase */}
+              <Route path="/design-system/*" element={<DesignSystemLayout onExit={() => window.location.href = '/home'} />} />
 
               {/* Premium Skill Map */}
               <Route path="/skill-map-premium" element={<SkillMapPremiumPage onExit={() => window.location.href = '/home'} />} />
