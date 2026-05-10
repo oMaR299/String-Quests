@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useRef } from 'react';
+import React, { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuizCard from '../components/QuizCard';
@@ -15,21 +15,44 @@ import { slugToSubject, slugToLesson } from '../utils/slugify';
 import { getLevelForXP } from '../data/levelThresholds';
 import { useSkillModel } from '../contexts/SkillModelContext';
 import { Eye, X, Heart, HeartCrack, Gem } from 'lucide-react';
+import LoadoutModal, { type LoadoutSelection } from '../components/quiz/LoadoutModal';
+import InQuestionPowerupBar from '../components/quiz/InQuestionPowerupBar';
+import { SqToast } from '../components/design-system/components/Toast';
+import { usePowerups } from '../hooks/usePowerups';
 
 const QuizSessionPage: React.FC = () => {
   const { subjectSlug, lessonSlug } = useParams<{ subjectSlug: string; lessonSlug: string }>();
   const navigate = useNavigate();
   const { state: userState, dispatch: userDispatch, level } = useUser();
   const { state: quizState, dispatch: quizDispatch, currentQuestion, maxScore } = useQuizSession();
-  const { locale } = useI18n();
+  const { locale, t } = useI18n();
   const { recordAttempt } = useSkillModel();
+  const { consume: consumePowerup } = usePowerups();
 
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [levelUpInfo, setLevelUpInfo] = useState({ level: 1, titleAr: '', titleEn: '' });
   const prevLevelRef = useRef(level);
 
+  // ─── Power-ups (Wave C) ─────────────────────────────────────────────────
+  // LoadoutModal opens once per fresh session. Gated by `questionsAnswered`
+  // so it can't reopen mid-session.
+  const [loadoutOpen, setLoadoutOpen] = useState(true);
+  // First-correct flag for XP Doubler — tracked here because the doubler is
+  // keyed to "first correct answer of the artifact", not Q1 specifically.
+  const firstCorrectAppliedRef = useRef(false);
+  // Toast bus for absorbed-events (Freeze, Second Chance, Restart Shield).
+  const [absorbToast, setAbsorbToast] = useState<{ open: boolean; title: string; body?: string }>({
+    open: false,
+    title: '',
+  });
+  const fireAbsorbToast = useCallback(
+    (title: string, body?: string) => setAbsorbToast({ open: true, title, body }),
+    []
+  );
+
   const subject = subjectSlug ? slugToSubject(subjectSlug) : '';
   const lesson = lessonSlug && lessonSlug !== 'all' ? slugToLesson(lessonSlug) : null;
+  const lessonTitle = lesson || (locale === 'ar' ? 'تحدّي شامل' : 'All Questions');
 
   // Filter questions for this session
   const sessionQuestions = useMemo(() => {
@@ -91,10 +114,112 @@ const QuizSessionPage: React.FC = () => {
     }
   }, [userState.hearts, quizState.active, quizState.phase]);
 
+  /**
+   * Cryptographic Lucky-Dice roll. window.crypto.getRandomValues per spec —
+   * the value is purely cosmetic (multiplier picker) but consistency keeps
+   * the same RNG bar as the 50/50 picker in the HUD.
+   */
+  const rollLuckyDice = useCallback((): number => {
+    const buckets = [1.5, 2.0, 3.0];
+    if (typeof window !== 'undefined' && window.crypto?.getRandomValues) {
+      const u32 = new Uint32Array(1);
+      window.crypto.getRandomValues(u32);
+      const r = u32[0] / 0x100000000;
+      return buckets[Math.floor(r * buckets.length)];
+    }
+    return buckets[Math.floor(Math.random() * buckets.length)];
+  }, []);
+
+  /**
+   * Wrong-answer intercept order (Wave C spec):
+   *   1. Freeze armed → consume freeze, suppress heart loss + wrong counter.
+   *   2. Second Chance armed on this Q → consume, suppress heart loss only.
+   *   3. About to hit 0 hearts AND restart_shield in loadout → REGEN_HEART
+   *      (we use REGEN_HEART repeatedly to refill since REFILL_HEARTS costs
+   *      gems; a small loop is the cleanest way to top up using existing
+   *      reducer surface). Suppresses force-end.
+   *   4. Else: normal LOSE_HEART.
+   *
+   * Returns `{ suppressHeart, isSyntheticSkip }` so the caller knows whether
+   * to dispatch LOSE_HEART or skip the wrong-counter logic.
+   */
+  const interceptWrongAnswer = useCallback((): { suppressHeart: boolean } => {
+    // 1) Freeze
+    if (quizState.freezeArmed) {
+      quizDispatch({ type: 'CONSUME_FREEZE' });
+      consumePowerup('freeze');
+      fireAbsorbToast(t('powerups.toast.absorbed'), t('powerups.name.freeze'));
+      return { suppressHeart: true };
+    }
+    // 2) Second Chance — only the per-Q armed flag.
+    if (currentQuestion && quizState.secondChanceArmedQId === currentQuestion.id) {
+      quizDispatch({ type: 'CLEAR_SECOND_CHANCE' });
+      consumePowerup('second_chance');
+      fireAbsorbToast(t('powerups.toast.absorbed'), t('powerups.name.second_chance'));
+      return { suppressHeart: true };
+    }
+    // 3) Restart Shield — only triggers when we'd hit 0 hearts.
+    if (userState.hearts <= 1 && quizState.loadout.restart_shield) {
+      const missing = userState.maxHearts - Math.max(0, userState.hearts - 1);
+      // Dispatch REGEN_HEART per missing slot (caps at maxHearts).
+      for (let i = 0; i < missing; i++) {
+        userDispatch({ type: 'REGEN_HEART' });
+      }
+      consumePowerup('restart_shield');
+      // Mutate loadout flag so the shield can't fire twice this artifact.
+      // (We synthesize an APPLY_LOADOUT with restart_shield flipped off.)
+      quizDispatch({
+        type: 'APPLY_LOADOUT',
+        payload: {
+          loadout: { ...quizState.loadout, restart_shield: false },
+        },
+      });
+      fireAbsorbToast(t('powerups.toast.absorbed'), t('powerups.name.restart_shield'));
+      return { suppressHeart: true };
+    }
+    return { suppressHeart: false };
+  }, [
+    quizState.freezeArmed,
+    quizState.secondChanceArmedQId,
+    quizState.loadout,
+    currentQuestion,
+    userState.hearts,
+    userState.maxHearts,
+    quizDispatch,
+    userDispatch,
+    consumePowerup,
+    fireAbsorbToast,
+    t,
+  ]);
+
   const handleAnswer = (pointsAwarded: number) => {
     if (!currentQuestion) return;
 
+    let finalPoints = pointsAwarded;
     const isCorrect = pointsAwarded > 0;
+
+    // ─── XP multipliers (correct answers only) ───────────────────────────
+    if (isCorrect && quizState.phase !== 'reviewing') {
+      let mult = 1;
+
+      // XP Doubler — first correct of the artifact.
+      if (quizState.xpDoublerPending && !firstCorrectAppliedRef.current) {
+        mult *= 2;
+        firstCorrectAppliedRef.current = true;
+        quizDispatch({ type: 'CONSUME_XP_DOUBLER' });
+      }
+
+      // Lucky Dice — every correct answer rolls a fresh multiplier.
+      if (quizState.loadout.lucky_dice) {
+        const roll = rollLuckyDice();
+        quizDispatch({ type: 'ROLL_LUCKY_DICE', payload: { multiplier: roll } });
+        mult *= roll;
+      }
+
+      // Cap product at 6× per spec.
+      mult = Math.min(mult, 6);
+      finalPoints = Math.round(pointsAwarded * mult);
+    }
 
     // Record in skill model (BKT + FSRS + IRT updates)
     recordAttempt(
@@ -110,24 +235,72 @@ const QuizSessionPage: React.FC = () => {
       type: 'RECORD_ANSWER',
       payload: {
         questionId: currentQuestion.id,
-        points: pointsAwarded,
+        points: finalPoints,
         maxPoints: currentQuestion.points,
         correct: isCorrect,
       },
     });
 
-    // Lose heart on wrong answer
+    // ─── Wrong-answer intercept chain (Wave C) ───────────────────────────
     if (!isCorrect && quizState.phase !== 'reviewing') {
-      userDispatch({ type: 'LOSE_HEART' });
+      const { suppressHeart } = interceptWrongAnswer();
+      if (!suppressHeart) {
+        userDispatch({ type: 'LOSE_HEART' });
+      }
     }
 
-    // Advance quiz
+    // Advance quiz — the ANSWER reducer also clears per-question 50/50,
+    // free-hint, and Second Chance flags.
     if (quizState.phase === 'reviewing') {
-      quizDispatch({ type: 'REVIEW_ANSWER', payload: { points: pointsAwarded } });
+      quizDispatch({ type: 'REVIEW_ANSWER', payload: { points: finalPoints } });
     } else {
-      quizDispatch({ type: 'ANSWER', payload: { points: pointsAwarded, questionId: currentQuestion.id } });
+      quizDispatch({ type: 'ANSWER', payload: { points: finalPoints, questionId: currentQuestion.id } });
     }
   };
+
+  /**
+   * Synthetic answer — fired by InQuestionPowerupBar when the user hits
+   * Skip or Auto-Complete. We dispatch ANSWER with points=0 so the existing
+   * advance pipeline kicks in. The SKIP_QUESTION / AUTO_COMPLETE_QUESTION
+   * actions (already dispatched by the bar before this fires) handle the
+   * `perfect_bonus_disqualified` flag and `powerupsUsedThisArtifact` logging.
+   *
+   * Note: Wave A's ANSWER reducer pushes points==0 questions into
+   * `incorrectQuestionIds` so the user can review them. That is the desired
+   * behavior — skipped questions should appear in the review queue too.
+   */
+  const handleSyntheticAnswer = useCallback(() => {
+    if (!currentQuestion) return;
+    quizDispatch({
+      type: 'ANSWER',
+      payload: { points: 0, questionId: currentQuestion.id },
+    });
+  }, [currentQuestion, quizDispatch]);
+
+  /** Loadout modal start handler — applies the loadout to the session. */
+  const handleLoadoutStart = useCallback(
+    (loadout: LoadoutSelection) => {
+      quizDispatch({ type: 'APPLY_LOADOUT', payload: { loadout } });
+      setLoadoutOpen(false);
+    },
+    [quizDispatch]
+  );
+
+  /**
+   * Loadout dismiss — closes the modal WITHOUT navigating away. The user
+   * can still play the artifact without any bonuses (every loadout flag
+   * defaults to false). To explicitly leave the quest the user clicks the
+   * in-quiz X header button (handleExit) instead.
+   *
+   * IMPORTANT: do not navigate from here. handleLoadoutStart used to land
+   * here too via LoadoutModal calling onClose() after onStart(); navigating
+   * meant pressing Start kicked the user back to /learn before the quiz
+   * could render. The modal no longer chains onClose() after onStart, but
+   * even if it did, a no-op close keeps Start safe.
+   */
+  const handleLoadoutClose = useCallback(() => {
+    setLoadoutOpen(false);
+  }, []);
 
   const handleRestart = () => {
     quizDispatch({ type: 'RESTART' });
@@ -212,6 +385,23 @@ const QuizSessionPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#f8fafc] font-['Cairo']">
+      {/* Pre-quest LoadoutModal — opens on mount, gated against re-open mid-session. */}
+      <LoadoutModal
+        open={loadoutOpen && quizState.questionsAnswered === 0}
+        onClose={handleLoadoutClose}
+        onStart={handleLoadoutStart}
+        lessonTitle={lessonTitle}
+      />
+
+      {/* Power-up absorb-toast (Freeze / Second Chance / Restart Shield). */}
+      <SqToast
+        open={absorbToast.open}
+        variant="info"
+        title={absorbToast.title}
+        body={absorbToast.body}
+        onClose={() => setAbsorbToast((s) => ({ ...s, open: false }))}
+      />
+
       {/* Level Up Modal */}
       <LevelUpModal
         isOpen={showLevelUp}
@@ -243,6 +433,13 @@ const QuizSessionPage: React.FC = () => {
                 {renderHearts()}
               </div>
             </div>
+
+            {/* In-question power-up dock (Wave C). Mounted above the card so
+                it can intercept activations before any answer is submitted. */}
+            <InQuestionPowerupBar
+              question={currentQuestion}
+              onSyntheticAnswer={handleSyntheticAnswer}
+            />
 
             <QuizCard
               currentIndex={quizState.currentQuestionIndex}

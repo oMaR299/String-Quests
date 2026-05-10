@@ -1,6 +1,13 @@
 import React, { createContext, useContext, useEffect } from 'react';
 import { usePersistedReducer } from '../hooks/usePersistedReducer';
 import { getLevelForXP, DailyGoalTier, DAILY_GOALS } from '../data/levelThresholds';
+import {
+  POWERUP_CATALOG,
+  POWERUP_CAP,
+  MOCK_STARDUST_BALANCE,
+  MOCK_INITIAL_INVENTORY,
+  type PowerupSlug,
+} from '../data/mockPowerupsData';
 
 // ---- State Interface ----
 
@@ -23,6 +30,13 @@ export interface UserState {
   completedLessons: string[]; // "subjectSlug::lessonSlug"
   language: 'ar' | 'en';
   achievements: Record<string, { unlocked: boolean; unlockedAt: string | null }>;
+  // ---- Stardust economy + power-ups (Wave A foundation) ----
+  /** Current Stardust balance (premium learning currency, distinct from gems). */
+  stardust: number;
+  /** Owned counts per power-up slug. Capped at POWERUP_CAP per slug (silent clip). */
+  powerups: Record<PowerupSlug, number>;
+  /** Whether a Streak Shield is active (auto-consumed on missed-day). v2 stub. */
+  streakShieldActive: boolean;
 }
 
 const getToday = () => new Date().toISOString().split('T')[0];
@@ -88,6 +102,9 @@ const DEFAULT_USER_STATE: UserState = {
     'first-lesson': { unlocked: true, unlockedAt: '2026-02-01T10:00:00Z' },
     'streak-7': { unlocked: true, unlockedAt: '2026-03-15T14:00:00Z' },
   },
+  stardust: MOCK_STARDUST_BALANCE,
+  powerups: { ...MOCK_INITIAL_INVENTORY },
+  streakShieldActive: false,
 };
 
 // ---- Actions ----
@@ -105,14 +122,20 @@ export type UserAction =
   | { type: 'UNLOCK_ACHIEVEMENT'; payload: string }
   | { type: 'ADD_GEMS'; payload: number }
   | { type: 'SPEND_GEMS'; payload: number }
-  | { type: 'DAILY_RESET' };
+  | { type: 'DAILY_RESET' }
+  // ---- Stardust + power-ups (Wave A) ----
+  | { type: 'BUY_POWERUP'; payload: { slug: PowerupSlug } }
+  | { type: 'CONSUME_POWERUP'; payload: { slug: PowerupSlug } }
+  | { type: 'EARN_STARDUST'; payload: { amount: number } }
+  | { type: 'SPEND_STARDUST'; payload: { amount: number } }
+  | { type: 'RESTORE_STREAK' };
 
 // ---- Reducer ----
 
 function userReducer(state: UserState, action: UserAction): UserState {
   switch (action.type) {
     case 'RECORD_ANSWER': {
-      const { questionId, points, maxPoints, correct } = action.payload;
+      const { questionId, points, correct } = action.payload;
       const today = getToday();
       const oldBest = state.globalHistory[questionId] || 0;
 
@@ -131,6 +154,9 @@ function userReducer(state: UserState, action: UserAction): UserState {
         }
         lastActive = today;
       }
+
+      // Stardust earn rate: 1 SD per 10 XP (rounded), only on correct answers.
+      const sdEarned = correct ? Math.round(points / 10) : 0;
 
       return {
         ...state,
@@ -151,6 +177,7 @@ function userReducer(state: UserState, action: UserAction): UserState {
         totalBoosts: (state.dailyCorrectAnswers + (correct ? 1 : 0)) === 25
           ? state.totalBoosts + 1
           : state.totalBoosts,
+        stardust: state.stardust + sdEarned,
       };
     }
 
@@ -229,6 +256,69 @@ function userReducer(state: UserState, action: UserAction): UserState {
         dailyCorrectAnswers: 0,
         dailyXP: 0,
       };
+
+    // ---- Stardust + power-ups ----
+
+    case 'BUY_POWERUP': {
+      const { slug } = action.payload;
+      const entry = POWERUP_CATALOG[slug];
+      if (!entry) return state;
+      // Insufficient Stardust → no-op (UI guards this too).
+      if (state.stardust < entry.costSD) return state;
+      const owned = state.powerups[slug] ?? 0;
+      // Silent cap-clip: debit Stardust regardless, but inventory capped at POWERUP_CAP.
+      const nextOwned = Math.min(POWERUP_CAP, owned + 1);
+      return {
+        ...state,
+        stardust: state.stardust - entry.costSD,
+        powerups: {
+          ...state.powerups,
+          [slug]: nextOwned,
+        },
+      };
+    }
+
+    case 'CONSUME_POWERUP': {
+      const { slug } = action.payload;
+      const owned = state.powerups[slug] ?? 0;
+      if (owned <= 0) return state;
+      return {
+        ...state,
+        powerups: {
+          ...state.powerups,
+          [slug]: Math.max(0, owned - 1),
+        },
+      };
+    }
+
+    case 'EARN_STARDUST': {
+      const amount = Math.max(0, action.payload.amount);
+      if (amount === 0) return state;
+      return { ...state, stardust: state.stardust + amount };
+    }
+
+    case 'SPEND_STARDUST': {
+      const amount = Math.max(0, action.payload.amount);
+      return { ...state, stardust: Math.max(0, state.stardust - amount) };
+    }
+
+    case 'RESTORE_STREAK': {
+      // Phoenix consume stub — bridges to "yesterday" so the next correct answer increments the streak.
+      const owned = state.powerups.streak_revive ?? 0;
+      if (owned <= 0) return state;
+      const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+      return {
+        ...state,
+        powerups: {
+          ...state.powerups,
+          streak_revive: owned - 1,
+        },
+        // +1 to the broken streak (rebuilds yesterday's lost day) and bridge lastActiveDate.
+        currentStreak: state.currentStreak + 1,
+        longestStreak: Math.max(state.longestStreak, state.currentStreak + 1),
+        lastActiveDate: yesterday,
+      };
+    }
 
     default:
       return state;

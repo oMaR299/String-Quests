@@ -1,12 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heart, Flame } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import { useI18n } from '../contexts/I18nContext';
 import { PinkDiamondIcon } from '../components/ui/PinkDiamondIcon';
+import { StardustBadge } from '../components/powerups/StardustBadge';
+import { useStardust } from '../hooks/useStardust';
 
 export const TopBar: React.FC = () => {
   const { state, level, xpInLevel, xpForNextLevel } = useUser();
   const { locale, toggleLocale } = useI18n();
+  const navigate = useNavigate();
+  const { balance: stardustBalance } = useStardust();
 
   const xpProgress = xpForNextLevel > 0 ? (xpInLevel / xpForNextLevel) * 100 : 0;
 
@@ -43,6 +48,19 @@ export const TopBar: React.FC = () => {
             {state.gems}
           </span>
         </div>
+
+        {/* Stardust Display — pulses on EARN_STARDUST, click → shop */}
+        <StardustBadge
+          balance={stardustBalance}
+          animateOnChange
+          size="sm"
+          onClick={() => navigate('/shop')}
+          ariaLabel={
+            locale === 'ar'
+              ? `رصيد النجوم: ${stardustBalance}`
+              : `Stardust balance: ${stardustBalance}`
+          }
+        />
 
         {/* Streak Display */}
         <div className="flex items-center gap-1">

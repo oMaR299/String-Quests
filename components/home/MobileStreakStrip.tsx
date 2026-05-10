@@ -7,6 +7,7 @@ import { useI18n } from '../../contexts/I18nContext';
 import { PinkDiamondIcon } from '../ui/PinkDiamondIcon';
 import { DAILY_GOALS } from '../../data/levelThresholds';
 import { computeWeekDays } from '../../utils/weekDays';
+import { StreakShieldBadge } from '../streak/StreakShieldBadge';
 
 export const MobileStreakStrip: React.FC = () => {
   const { state } = useUser();
@@ -35,6 +36,11 @@ export const MobileStreakStrip: React.FC = () => {
           <Flame className="w-5 h-5 text-orange-400" />
           <span className="text-lg font-black text-orange-400">{state.currentStreak}</span>
           <span className="text-[10px] font-bold text-slate-400">{t('home.streak_days')}</span>
+        </div>
+
+        {/* Compact Streak Shield indicator — null-renders when not owned. */}
+        <div onClick={(e) => e.stopPropagation()} className="shrink-0">
+          <StreakShieldBadge size="sm" />
         </div>
 
         {/* XP */}

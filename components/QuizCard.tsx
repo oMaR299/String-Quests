@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Lightbulb, CheckCircle, X, Gift, Check, RefreshCw, BookOpen, Highlighter, MousePointerClick, Eraser, Type, BrainCircuit } from 'lucide-react';
 import { Question } from '../types';
 import { Button } from './Button';
@@ -8,6 +8,7 @@ import { useSounds } from '../hooks/useSounds';
 import { HighlightableParagraph, ClickableWordParagraph } from './ReadingRenderers';
 import { PinkDiamondIcon } from './ui/PinkDiamondIcon';
 import { saveAttempt } from '../utils/skillMapStorage';
+import { useQuizSession } from '../contexts/QuizSessionContext';
 
 interface QuizCardProps {
   question: Question;
@@ -65,18 +66,40 @@ const QuizCard: React.FC<QuizCardProps> = ({
   const [readingAnswer, setReadingAnswer] = useState<string | null>(null);
   const [textAreaAnswer, setTextAreaAnswer] = useState<string>('');
 
-  const { 
-    playSure, 
-    playUnsure, 
-    playHint, 
-    playTransition, 
+  const {
+    playSure,
+    playUnsure,
+    playHint,
+    playTransition,
     playClick,
     playSuccessShort,
     playGentleError,
     playPop
   } = useSounds();
 
+  // Power-ups (Wave C) — read in-question session flags so the card can:
+  //   1) grey out 50/50 hidden indices on multi-choice
+  //   2) auto-open the hint and bypass the 20% penalty when REVEAL_HINT_FREE
+  //      is armed for this question
+  //   3) surface the active multiplier visually (XP Doubler / Lucky Dice)
+  const { state: quizPowerState } = useQuizSession();
+  const hiddenOptionIndices = quizPowerState.hiddenOptionIndices;
+  const hintRevealedNoPenalty = quizPowerState.hintRevealedNoPenalty;
+  const xpDoublerPending = quizPowerState.xpDoublerPending;
+  const luckyDiceActive = quizPowerState.loadout.lucky_dice;
+  const luckyDiceLastRoll = quizPowerState.luckyDiceLastRoll;
+  const reduceMotion = useReducedMotion();
+
   const currentMaxPoints = Math.round(question.points * scoreMultiplier);
+
+  // Auto-open the lightbulb hint when the free-hint power-up is active for
+  // this question. We DON'T flip `hintUsed` so the existing 20% XP penalty
+  // is bypassed (the penalty branch checks `hintUsed`, not `showHint`).
+  useEffect(() => {
+    if (hintRevealedNoPenalty) {
+      setShowHint(true);
+    }
+  }, [hintRevealedNoPenalty]);
 
   useEffect(() => {
     setHintUsed(false);
@@ -275,7 +298,8 @@ const QuizCard: React.FC<QuizCardProps> = ({
     }
     
     let pointsToAward = currentMaxPoints * pointsFactor;
-    if (hintUsed) pointsToAward = Math.round(pointsToAward * 0.8);
+    // Hint penalty — bypassed entirely when REVEAL_HINT_FREE armed this Q.
+    if (hintUsed && !hintRevealedNoPenalty) pointsToAward = Math.round(pointsToAward * 0.8);
     
     let finalPoints = 0;
     let feedbackData: FeedbackState;
@@ -348,15 +372,23 @@ const QuizCard: React.FC<QuizCardProps> = ({
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
       {question.options?.map((option, idx) => {
         const isSelected = selectedOption === option;
+        // 50/50 power-up — these indices are hidden from interaction but
+        // remain in the DOM so layout doesn't collapse mid-question.
+        const isHidden = hiddenOptionIndices.includes(idx);
         return (
-            <button
+            <motion.button
             key={idx}
-            onClick={() => handleOptionSelect(option)}
+            onClick={() => !isHidden && handleOptionSelect(option)}
+            animate={{ opacity: isHidden ? 0.3 : 1 }}
+            transition={reduceMotion ? { duration: 0 } : { duration: 0.25 }}
+            aria-hidden={isHidden}
+            tabIndex={isHidden ? -1 : 0}
             className={`
-                group relative p-6 rounded-2xl text-right font-bold text-lg transition-all duration-200 border-2 
+                group relative p-6 rounded-2xl text-right font-bold text-lg transition-all duration-200 border-2
                 flex items-center justify-between overflow-hidden
-                ${isSelected 
-                    ? 'bg-blue-50 border-blue-400 text-blue-700 shadow-md scale-[1.02]' 
+                ${isHidden ? 'pointer-events-none' : ''}
+                ${isSelected
+                    ? 'bg-blue-50 border-blue-400 text-blue-700 shadow-md scale-[1.02]'
                     : 'bg-white border-slate-100 text-slate-600 hover:border-blue-200 hover:bg-slate-50 hover:shadow-sm'}
             `}
             >
@@ -372,7 +404,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
             {isSelected && (
                 <motion.div layoutId="check" className="absolute top-0 left-0 bottom-0 w-1.5 bg-blue-500" />
             )}
-            </button>
+            </motion.button>
         )
       })}
     </div>
@@ -737,9 +769,26 @@ const QuizCard: React.FC<QuizCardProps> = ({
                     </motion.div>
 
                     <h3 className="text-3xl font-black text-slate-800 mb-2">{feedback.message}</h3>
-                    <div className="flex justify-center items-center gap-2 mb-8">
+                    <div className="relative flex justify-center items-center gap-2 mb-8">
                         <span className="text-5xl font-black text-slate-400 tracking-tight">+{feedback.points}</span>
                         <PinkDiamondIcon className="w-8 h-8" />
+                        {/* XP-multiplier burst — shown when xp_double or lucky_dice
+                            paid out on this correct answer. The actual score math
+                            lives in QuizSessionPage; this is purely the celebrate. */}
+                        {feedback.type === 'success' && (xpDoublerPending || (luckyDiceActive && luckyDiceLastRoll && luckyDiceLastRoll > 1)) && (
+                            <motion.div
+                                initial={reduceMotion ? false : { scale: 0, rotate: -12 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 520, damping: 18, mass: 0.6 }}
+                                className="absolute -top-3 -right-2 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-white text-xs font-black shadow-lg shadow-amber-500/40 border-2 border-white"
+                            >
+                                ×{xpDoublerPending && luckyDiceActive && luckyDiceLastRoll
+                                    ? Math.min(6, 2 * luckyDiceLastRoll)
+                                    : xpDoublerPending
+                                        ? 2
+                                        : (luckyDiceLastRoll ?? 1)}!
+                            </motion.div>
+                        )}
                     </div>
 
                     {feedback.type !== 'success' && !isQuestionWritingType && question.type !== 'matching' && question.type !== 'reading-highlight' && (

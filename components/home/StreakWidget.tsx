@@ -7,6 +7,8 @@ import { useI18n } from '../../contexts/I18nContext';
 import { PinkDiamondIcon } from '../ui/PinkDiamondIcon';
 import { DAILY_GOALS } from '../../data/levelThresholds';
 import { computeWeekDays } from '../../utils/weekDays';
+import { StreakShieldBadge } from '../streak/StreakShieldBadge';
+import { RestoreStreakButton } from '../streak/RestoreStreakButton';
 
 export const StreakWidget: React.FC = () => {
   const { state } = useUser();
@@ -36,6 +38,15 @@ export const StreakWidget: React.FC = () => {
     >
       {/* Background decoration */}
       <div className="absolute top-0 end-0 w-40 h-40 bg-orange-500/8 rounded-full blur-[60px] pointer-events-none" />
+
+      {/* Streak Shield owned-count chip — top-end corner, RTL-aware (end-*).
+          Stops click propagation so it doesn't navigate to /profile. */}
+      <div
+        className="absolute top-3 end-3 z-10"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <StreakShieldBadge />
+      </div>
 
       {/* ── Section 1: Streak Count ── */}
       <div className="p-5 pb-4">
@@ -90,6 +101,12 @@ export const StreakWidget: React.FC = () => {
             <PinkDiamondIcon className="w-3.5 h-3.5" />
             <span className="text-sm font-black text-pink-300">{state.gems}</span>
           </div>
+        </div>
+
+        {/* Phoenix CTA — only renders when streak is broken-yesterday AND ≥1 owned.
+            Stop propagation so the button click doesn't bubble to navigate('/profile'). */}
+        <div onClick={(e) => e.stopPropagation()}>
+          <RestoreStreakButton />
         </div>
       </div>
 

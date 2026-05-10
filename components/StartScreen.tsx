@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HelpCircle } from 'lucide-react';
 import { GameRulesModal } from './GameRulesModal';
 import { PracticeModeCard } from './home/PracticeModeCard';
+import { ShopCard } from './home/ShopCard';
 import { DailyChallengeCard } from './home/DailyChallengeCard';
 import { WeeklyChampionCard } from './home/WeeklyChampionCard';
 import { StreakWidget } from './home/StreakWidget';
@@ -21,6 +22,9 @@ const StartScreen: React.FC = () => {
         <div className="space-y-4 sm:space-y-6">
           {/* Game mode cards */}
           <PracticeModeCard />
+
+          {/* Stardust Shop entry */}
+          <ShopCard />
 
           {/* Mobile/Tablet streak strip */}
           <div className="lg:hidden">
