@@ -13,19 +13,27 @@ const config: Config = {
     { pattern: /to-(blue|purple|emerald|orange|indigo|yellow|teal|pink|amber|violet|cyan|green|rose|sky|fuchsia|stone|lime|red|slate)-(400|500)/ },
     { pattern: /border-(blue|purple|emerald|orange|indigo|yellow|teal|pink|amber|violet|cyan|green|rose|sky|fuchsia|stone|lime|red|slate)-(200|300)/ },
     { pattern: /shadow-(blue|purple|emerald|orange|indigo|yellow|teal|pink|amber|violet|cyan|green|rose|sky|fuchsia|stone|lime|red|slate)-(500)/ },
-    // Phone-app palette safelist (kept here so JIT picks up tone-driven tokens
-    // even when our tone maps are read by name through static lookup).
-    'bg-phone-mint-50','bg-phone-mint-500','bg-phone-mint-600',
-    'bg-phone-cream-50','bg-phone-cream-100',
-    'bg-phone-coral-500','bg-phone-coral-600',
-    'bg-phone-sky-50','bg-phone-sky-500','bg-phone-sky-600',
-    'bg-phone-cloud','bg-phone-stone',
-    'text-phone-ink','text-phone-stone','text-phone-mint-500','text-phone-mint-600',
-    'text-phone-coral-500','text-phone-coral-600','text-phone-sky-500','text-phone-sky-600',
-    'border-phone-mint-500','border-phone-mint-600',
-    'border-phone-coral-500','border-phone-coral-600',
-    'border-phone-sky-500','border-phone-sky-600',
-    'bg-phone-gold-500','text-phone-gold-600','border-phone-gold-500',
+    // String-Quests Design System (sq-*) safelist. Every literal that the
+    // design-system static maps construct lives here so the JIT picks them
+    // up even when the consumer references them by name through a lookup.
+    'bg-sq-brand-50','bg-sq-brand-100','bg-sq-brand-500','bg-sq-brand-600','bg-sq-brand-700',
+    'text-sq-brand-500','text-sq-brand-600','text-sq-brand-700',
+    'border-sq-brand-200','border-sq-brand-500','border-sq-brand-600',
+    'ring-sq-brand-500','ring-sq-brand-500/40','ring-sq-brand-500/20',
+    'from-sq-brand-500','to-sq-brand-600',
+    'bg-sq-success-50','bg-sq-success-500','bg-sq-success-600',
+    'text-sq-success-500','text-sq-success-600','text-sq-success-700',
+    'border-sq-success-200','border-sq-success-500',
+    'bg-sq-warning-50','bg-sq-warning-500','bg-sq-warning-600',
+    'text-sq-warning-500','text-sq-warning-600','text-sq-warning-700',
+    'border-sq-warning-200','border-sq-warning-500',
+    'bg-sq-danger-50','bg-sq-danger-500','bg-sq-danger-600',
+    'text-sq-danger-500','text-sq-danger-600','text-sq-danger-700',
+    'border-sq-danger-200','border-sq-danger-500',
+    'bg-sq-info-50','bg-sq-info-500','bg-sq-info-600',
+    'text-sq-info-500','text-sq-info-600','text-sq-info-700',
+    'border-sq-info-200','border-sq-info-500',
+    'bg-sq-cloud','bg-sq-stone','text-sq-ink',
   ],
   theme: {
     extend: {
@@ -55,28 +63,34 @@ const config: Config = {
           purple: '#C7B8EA',
           pink: '#F8C8DC',
         },
-        // Phone App palette — distinct from the student-app `duo-*` tokens.
-        // Used EXCLUSIVELY inside `components/phone-app/**` so the onboarding
-        // reads as its own product, not a recoloured tutorial.
-        phone: {
-          'mint-50':   '#ECFDF5',
-          'mint-100':  '#D1FAE5',
-          'mint-500':  '#10B981',
-          'mint-600':  '#059669',
-          'cream-50':  '#FFFBEB',
-          'cream-100': '#FEF3C7',
-          'coral-500': '#F87171',
-          'coral-600': '#DC2626',
-          'sky-50':    '#F0F9FF',
-          'sky-100':   '#E0F2FE',
-          'sky-500':   '#0EA5E9',
-          'sky-600':   '#0284C7',
-          'gold-500':  '#FCD34D',
-          'gold-600':  '#D97706',
-          ink:         '#0F172A',
-          cloud:       '#F8FAFC',
-          stone:       '#94A3B8',
-          'stone-light': '#CBD5E1',
+        // ─── String-Quests Design System (sq-*) ─────────────────────────
+        // Brand-wide palette for the new design system. Coexists with
+        // `duo-*` — does NOT replace it. New modules opt in by referencing
+        // `sq-*` tokens; legacy modules keep their own.
+        // Brand: violet — most present in admin surfaces (NotificationAdmin,
+        // TopicManager, ConfirmDialog header). Mature, calm, distinctly
+        // educational without leaning playful.
+        sq: {
+          'brand-50':  '#F5F3FF',
+          'brand-100': '#EDE9FE',
+          'brand-500': '#8B5CF6',
+          'brand-600': '#7C3AED',
+          'brand-700': '#6D28D9',
+          'success-50':  '#ECFDF5',
+          'success-500': '#10B981',
+          'success-600': '#059669',
+          'warning-50':  '#FFFBEB',
+          'warning-500': '#F59E0B',
+          'warning-600': '#D97706',
+          'danger-50':   '#FFF1F2',
+          'danger-500':  '#F43F5E',
+          'danger-600':  '#E11D48',
+          'info-50':     '#F0F9FF',
+          'info-500':    '#0EA5E9',
+          'info-600':    '#0284C7',
+          ink:    '#0F172A',
+          stone:  '#94A3B8',
+          cloud:  '#F8FAFC',
         },
       },
     },
