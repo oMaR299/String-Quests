@@ -43,8 +43,8 @@ const ParentSkillMapPlaceholder = lazy(() =>
 const ParentProfilePlaceholder = lazy(() =>
   import('./components/parent-app/screens/ProfilePlaceholder').then(m => ({ default: m.ProfilePlaceholder }))
 );
-const ParentMessagesPlaceholder = lazy(() =>
-  import('./components/parent-app/screens/MessagesPlaceholder').then(m => ({ default: m.MessagesPlaceholder }))
+const ParentMessagesTab = lazy(() =>
+  import('./components/parent-app/messages/MessagesTab').then(m => ({ default: m.MessagesTab }))
 );
 
 // Design System showcase (lazy)
@@ -139,7 +139,7 @@ const App: React.FC = () => {
                 <Route path="aware-ai" element={<AwareAiPlaceholder />} />
                 <Route path="skill-map" element={<ParentSkillMapPlaceholder />} />
                 <Route path="profile" element={<ParentProfilePlaceholder />} />
-                <Route path="messages" element={<ParentMessagesPlaceholder />} />
+                <Route path="messages" element={<ParentMessagesTab />} />
               </Route>
 
               {/* Default redirect */}

@@ -22,19 +22,22 @@ import { useI18n } from '../../contexts/I18nContext';
 import { getParentAppString } from './parentAppI18n';
 import { useParentAppContext } from './useParentAppContext';
 import { ChildPills } from './ChildPills';
+import { useMessageThreads } from './messages/hooks/useMessageThreads';
+import { useAnnouncements } from './messages/hooks/useAnnouncements';
 
 export const ParentHeader: React.FC = () => {
   const navigate = useNavigate();
   const { locale } = useI18n();
   const { state, bumpLastUpdated } = useParentAppContext();
+  const { unreadCount: inboxUnread } = useMessageThreads();
+  const { unreadCount: announcementsUnread } = useAnnouncements();
   const reduceMotion = useReducedMotion();
   const [refreshing, setRefreshing] = useState(false);
 
   const t = useCallback((key: string) => getParentAppString(locale, key), [locale]);
 
-  const unreadCount =
-    state.announcements.filter((a) => a.unread).length +
-    state.messages.filter((m) => m.unread).length;
+  // Combined unread for the bell badge: Messages module (Inbox + Announcements).
+  const unreadCount = inboxUnread + announcementsUnread;
 
   const handleBell = useCallback(() => {
     navigate('/parent/messages');
