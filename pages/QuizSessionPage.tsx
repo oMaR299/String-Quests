@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuizCard from '../components/QuizCard';
@@ -19,6 +19,8 @@ import LoadoutModal, { type LoadoutSelection } from '../components/quiz/LoadoutM
 import InQuestionPowerupBar from '../components/quiz/InQuestionPowerupBar';
 import { SqToast } from '../components/design-system/components/Toast';
 import { usePowerups } from '../hooks/usePowerups';
+import PowerupCastOverlay from '../components/powerups/effects/PowerupCastOverlay';
+import HeartLockBadge from '../components/streak/HeartLockBadge';
 
 const QuizSessionPage: React.FC = () => {
   const { subjectSlug, lessonSlug } = useParams<{ subjectSlug: string; lessonSlug: string }>();
@@ -32,6 +34,15 @@ const QuizSessionPage: React.FC = () => {
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [levelUpInfo, setLevelUpInfo] = useState({ level: 1, titleAr: '', titleEn: '' });
   const prevLevelRef = useRef(level);
+
+  // ─── Cinematic power-up cast plumbing (Foundation chunk) ──────────────────
+  // QuizCard sets `correctAnswerRef` on the option tile that matches the
+  // question's correctAnswer (multi-choice only). After the card mounts we
+  // measure the tile and cache its rect so spatial effects (RobotCursor walk)
+  // know where to land. Non-multi-choice questions leave the ref null and
+  // effects fall back to the viewport center.
+  const correctAnswerRef = useRef<HTMLElement | null>(null);
+  const [correctAnswerRect, setCorrectAnswerRect] = useState<DOMRect | null>(null);
 
   // ─── Power-ups (Wave C) ─────────────────────────────────────────────────
   // LoadoutModal opens once per fresh session. Gated by `questionsAnswered`
@@ -113,6 +124,34 @@ const QuizSessionPage: React.FC = () => {
       quizDispatch({ type: 'END_SESSION' });
     }
   }, [userState.hearts, quizState.active, quizState.phase]);
+
+  // Measure the correct-answer tile rect after each question mounts and on
+  // resize (debounced ~100 ms). Spatial in-question power-up effects walk to
+  // this rect's center. Non-multi-choice questions clear the ref in QuizCard,
+  // so we set null explicitly to keep the cached value honest. useLayoutEffect
+  // runs synchronously after DOM mutation, so the ref is already attached.
+  useLayoutEffect(() => {
+    if (!currentQuestion) return;
+    let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const measure = () => {
+      const node = correctAnswerRef.current;
+      setCorrectAnswerRect(node ? node.getBoundingClientRect() : null);
+    };
+
+    measure();
+
+    const onResize = () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measure, 100);
+    };
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [currentQuestion?.id]);
 
   /**
    * Cryptographic Lucky-Dice roll. window.crypto.getRandomValues per spec —
@@ -258,24 +297,11 @@ const QuizSessionPage: React.FC = () => {
     }
   };
 
-  /**
-   * Synthetic answer — fired by InQuestionPowerupBar when the user hits
-   * Skip or Auto-Complete. We dispatch ANSWER with points=0 so the existing
-   * advance pipeline kicks in. The SKIP_QUESTION / AUTO_COMPLETE_QUESTION
-   * actions (already dispatched by the bar before this fires) handle the
-   * `perfect_bonus_disqualified` flag and `powerupsUsedThisArtifact` logging.
-   *
-   * Note: Wave A's ANSWER reducer pushes points==0 questions into
-   * `incorrectQuestionIds` so the user can review them. That is the desired
-   * behavior — skipped questions should appear in the review queue too.
-   */
-  const handleSyntheticAnswer = useCallback(() => {
-    if (!currentQuestion) return;
-    quizDispatch({
-      type: 'ANSWER',
-      payload: { points: 0, questionId: currentQuestion.id },
-    });
-  }, [currentQuestion, quizDispatch]);
+  // Note: the previous Wave-C `handleSyntheticAnswer` helper that dispatched
+  // a points=0 ANSWER on Skip / Auto-Complete is gone. The cinematic-cast
+  // effects (`Warp` for Skip, `RobotCursor` for Auto-Complete) now own that
+  // dispatch in their post phase via `useQuizSession()` directly — keeps the
+  // visual and the state in lockstep at the exact frame the cast resolves.
 
   /** Loadout modal start handler — applies the loadout to the session. */
   const handleLoadoutStart = useCallback(
@@ -367,9 +393,13 @@ const QuizSessionPage: React.FC = () => {
     );
   }
 
-  // Render hearts
+  // Render hearts.
+  // `data-hearts-row` is read by the EraserSweep cinematic effect to locate
+  // the hearts row's bounding rect and target the next-to-restore slot center
+  // for its sweep + sparkle + heart-pop. Do not remove without updating
+  // EraserSweep.tsx.
   const renderHearts = () => (
-    <div className="flex gap-1">
+    <div className="flex gap-1" data-hearts-row>
       {Array.from({ length: userState.maxHearts }).map((_, i) => (
         <Heart
           key={i}
@@ -412,6 +442,12 @@ const QuizSessionPage: React.FC = () => {
         onClose={() => setShowLevelUp(false)}
       />
 
+      {/* In-question power-up cinematic-cast overlay (z-70). Renders nothing
+          when the cast queue is empty; otherwise plays the head-of-queue
+          effect and dequeues on completion. Mounted outside AnimatePresence
+          so it survives card-swap transitions mid-cast. */}
+      <PowerupCastOverlay correctAnswerRect={correctAnswerRect} />
+
       <AnimatePresence mode="wait">
         {quizState.phase === 'playing' && currentQuestion && (
           <motion.div
@@ -434,19 +470,27 @@ const QuizSessionPage: React.FC = () => {
               </div>
             </div>
 
-            {/* In-question power-up dock (Wave C). Mounted above the card so
-                it can intercept activations before any answer is submitted. */}
-            <InQuestionPowerupBar
-              question={currentQuestion}
-              onSyntheticAnswer={handleSyntheticAnswer}
-            />
+            {/* In-question power-up dock. As of the cinematic-moments
+                Foundation chunk, the bar only ENQUEUES casts; the actual
+                state mutations (and synthetic answer for Skip / Auto-Complete)
+                fire from the cast effects' post phase. */}
+            <InQuestionPowerupBar question={currentQuestion} />
 
             <QuizCard
               currentIndex={quizState.currentQuestionIndex}
               totalQuestions={quizState.questions.length}
               question={currentQuestion}
               onAnswer={handleAnswer}
+              correctAnswerRef={correctAnswerRef}
             />
+
+            {/* Persistent "Second Chance armed" indicator. Mounts itself
+                only when quizState.secondChanceArmedQId matches the current
+                question's id; auto-unmounts when the chance is consumed or
+                the user moves on. Position is `fixed` (top-end corner of
+                the QuizCard area) — it lives inside the playing block so it
+                shares the same AnimatePresence lifecycle. */}
+            <HeartLockBadge />
           </motion.div>
         )}
 

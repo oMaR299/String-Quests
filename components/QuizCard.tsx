@@ -17,6 +17,15 @@ interface QuizCardProps {
   currentIndex: number;
   isReviewMode?: boolean;
   scoreMultiplier?: number;
+  /**
+   * Optional ref the parent (`QuizSessionPage`) uses to measure the correct
+   * answer's option tile. Spatial in-question power-up effects (RobotCursor)
+   * walk to that tile's center.
+   *
+   * Only set for `multiple-choice` questions — other question types leave the
+   * ref null and effects fall back to a viewport-center target.
+   */
+  correctAnswerRef?: React.MutableRefObject<HTMLElement | null>;
 }
 
 interface FeedbackState {
@@ -41,13 +50,14 @@ const MATCH_COLORS = [
 ];
 
 
-const QuizCard: React.FC<QuizCardProps> = ({ 
-  question, 
-  onAnswer, 
-  totalQuestions, 
-  currentIndex, 
+const QuizCard: React.FC<QuizCardProps> = ({
+  question,
+  onAnswer,
+  totalQuestions,
+  currentIndex,
   isReviewMode = false,
-  scoreMultiplier = 1
+  scoreMultiplier = 1,
+  correctAnswerRef,
 }) => {
   const [hintUsed, setHintUsed] = useState(false);
   const [showHint, setShowHint] = useState(false);
@@ -109,7 +119,14 @@ const QuizCard: React.FC<QuizCardProps> = ({
     setInputAnswer('');
     setReadingAnswer(null);
     setTextAreaAnswer('');
-    
+
+    // Drop the correct-answer ref — the multi-choice render path will refill
+    // it when the new question is itself multi-choice; otherwise the parent's
+    // measurement effect sees null and falls back appropriately.
+    if (correctAnswerRef) {
+      correctAnswerRef.current = null;
+    }
+
     if (question.type === 'reorder' && question.options) {
       const shuffled = [...question.options].sort(() => Math.random() - 0.5);
       setPoolList(shuffled);
@@ -375,9 +392,19 @@ const QuizCard: React.FC<QuizCardProps> = ({
         // 50/50 power-up — these indices are hidden from interaction but
         // remain in the DOM so layout doesn't collapse mid-question.
         const isHidden = hiddenOptionIndices.includes(idx);
+        // Mark the correct-option tile so the parent can measure it for
+        // cinematic spatial effects (RobotCursor walk target). We compare by
+        // string match because Question.correctAnswer is the option text.
+        const isCorrect = option === question.correctAnswer;
         return (
             <motion.button
             key={idx}
+            ref={(node) => {
+              if (isCorrect && correctAnswerRef) {
+                correctAnswerRef.current = node as HTMLElement | null;
+              }
+            }}
+            data-option-index={idx}
             onClick={() => !isHidden && handleOptionSelect(option)}
             animate={{ opacity: isHidden ? 0.3 : 1 }}
             transition={reduceMotion ? { duration: 0 } : { duration: 0.25 }}

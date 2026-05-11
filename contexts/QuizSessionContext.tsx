@@ -27,6 +27,25 @@ const EMPTY_LOADOUT: QuizLoadout = {
   combo_lock: false,
 };
 
+/**
+ * One cinematic-cast entry — produced by the in-question HUD bar when the
+ * user confirms a power-up, consumed by `<PowerupCastOverlay />` which renders
+ * the matching effect component (Annihilate, Illuminate, Warp, etc.) for ~1.2 s
+ * before dispatching the actual reducer mutation in its post phase.
+ *
+ *  - `id` is monotonic per session (used as React key on the overlay child)
+ *  - `slug` selects the effect component
+ *  - `questionId` carries forward to actions like ARM_SECOND_CHANCE
+ *  - `hiddenIndices` is pre-computed by the bar for 50/50 (so the effect
+ *    knows which option tiles to shatter)
+ */
+export interface CastEntry {
+  id: number;
+  slug: PowerupSlug;
+  questionId?: number;
+  hiddenIndices?: number[];
+}
+
 export interface QuizSessionState {
   active: boolean;
   subjectSlug: string;
@@ -58,6 +77,15 @@ export interface QuizSessionState {
   perfectBonusDisqualified: boolean;
   /** Last Lucky Dice multiplier rolled (for HUD readout). */
   luckyDiceLastRoll: number | null;
+  /**
+   * In-flight cinematic cast queue. The HUD bar enqueues; the overlay
+   * renders the head; the effect's post-phase dispatches DEQUEUE_CAST.
+   * FIFO; usually has 0 or 1 entries (taps are rate-limited by the
+   * confirm dialog).
+   */
+  powerupCastQueue: CastEntry[];
+  /** Monotonic id source for `CastEntry.id` (used as React key). */
+  nextCastId: number;
 }
 
 const INITIAL_STATE: QuizSessionState = {
@@ -80,6 +108,8 @@ const INITIAL_STATE: QuizSessionState = {
   powerupsUsedThisArtifact: [],
   perfectBonusDisqualified: false,
   luckyDiceLastRoll: null,
+  powerupCastQueue: [],
+  nextCastId: 1,
 };
 
 // ---- Actions ----
@@ -105,7 +135,11 @@ export type QuizSessionAction =
   | { type: 'SKIP_QUESTION' }
   | { type: 'AUTO_COMPLETE_QUESTION' }
   | { type: 'ROLL_LUCKY_DICE'; payload: { multiplier: number } }
-  | { type: 'INC_QUESTIONS_ANSWERED' };
+  | { type: 'INC_QUESTIONS_ANSWERED' }
+  // Cinematic-cast queue (Foundation chunk for in-question power-up moments).
+  // ENQUEUE auto-assigns a monotonic id; DEQUEUE pops the head FIFO.
+  | { type: 'ENQUEUE_CAST'; payload: { entry: Omit<CastEntry, 'id'> } }
+  | { type: 'DEQUEUE_CAST' };
 
 // ---- Reducer ----
 
@@ -123,6 +157,9 @@ function quizSessionReducer(state: QuizSessionState, action: QuizSessionAction):
         incorrectQuestionIds: [],
         currentReviewIndex: 0,
         phase: 'playing',
+        // Drain any leftover casts from a prior session.
+        powerupCastQueue: [],
+        nextCastId: 1,
       };
 
     case 'ANSWER': {
@@ -212,6 +249,9 @@ function quizSessionReducer(state: QuizSessionState, action: QuizSessionAction):
         subjectSlug: state.subjectSlug,
         lessonSlug: state.lessonSlug,
         questions: state.questions,
+        // Drain any leftover casts on restart.
+        powerupCastQueue: [],
+        nextCastId: 1,
       };
 
     // ---- Power-ups ----
@@ -291,6 +331,24 @@ function quizSessionReducer(state: QuizSessionState, action: QuizSessionAction):
 
     case 'INC_QUESTIONS_ANSWERED':
       return { ...state, questionsAnswered: state.questionsAnswered + 1 };
+
+    case 'ENQUEUE_CAST': {
+      const entry: CastEntry = {
+        ...action.payload.entry,
+        id: state.nextCastId,
+      };
+      return {
+        ...state,
+        powerupCastQueue: [...state.powerupCastQueue, entry],
+        nextCastId: state.nextCastId + 1,
+      };
+    }
+
+    case 'DEQUEUE_CAST':
+      // Early-return on empty saves a fresh `[]` allocation. Overlay won't
+      // dispatch when empty, but defending here keeps the reducer total.
+      if (state.powerupCastQueue.length === 0) return state;
+      return { ...state, powerupCastQueue: state.powerupCastQueue.slice(1) };
 
     default:
       return state;

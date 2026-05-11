@@ -8,6 +8,7 @@ import {
   MOCK_INITIAL_INVENTORY,
   type PowerupSlug,
 } from '../data/mockPowerupsData';
+import { setSfxMuted } from '../utils/sfx';
 
 // ---- State Interface ----
 
@@ -37,6 +38,8 @@ export interface UserState {
   powerups: Record<PowerupSlug, number>;
   /** Whether a Streak Shield is active (auto-consumed on missed-day). v2 stub. */
   streakShieldActive: boolean;
+  /** Master SFX toggle for in-question power-up signature sounds. Default true. */
+  sfxEnabled: boolean;
 }
 
 const getToday = () => new Date().toISOString().split('T')[0];
@@ -105,6 +108,7 @@ const DEFAULT_USER_STATE: UserState = {
   stardust: MOCK_STARDUST_BALANCE,
   powerups: { ...MOCK_INITIAL_INVENTORY },
   streakShieldActive: false,
+  sfxEnabled: true,
 };
 
 // ---- Actions ----
@@ -128,7 +132,8 @@ export type UserAction =
   | { type: 'CONSUME_POWERUP'; payload: { slug: PowerupSlug } }
   | { type: 'EARN_STARDUST'; payload: { amount: number } }
   | { type: 'SPEND_STARDUST'; payload: { amount: number } }
-  | { type: 'RESTORE_STREAK' };
+  | { type: 'RESTORE_STREAK' }
+  | { type: 'TOGGLE_SFX' };
 
 // ---- Reducer ----
 
@@ -320,6 +325,9 @@ function userReducer(state: UserState, action: UserAction): UserState {
       };
     }
 
+    case 'TOGGLE_SFX':
+      return { ...state, sfxEnabled: !state.sfxEnabled };
+
     default:
       return state;
   }
@@ -376,6 +384,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.lang = state.language;
     document.documentElement.dir = state.language === 'ar' ? 'rtl' : 'ltr';
   }, [state.language]);
+
+  // Sync the SFX mute flag to the synth singleton whenever the user toggles it.
+  useEffect(() => {
+    setSfxMuted(!state.sfxEnabled);
+  }, [state.sfxEnabled]);
 
   const levelInfo = getLevelForXP(state.xp);
   const accuracy = state.stats.total > 0

@@ -1,9 +1,19 @@
 /**
  * InQuestionPowerupBar — floating dock above the QuizCard exposing the
- * 6 in-question power-ups (Wave C integration).
+ * 6 in-question power-ups.
+ *
+ * As of the Foundation chunk for cinematic power-up moments, this bar's
+ * confirm handlers are PURE PRODUCERS for the cinematic-cast queue: each
+ * one computes any pre-needed data (50/50 picks the wrong-option indices)
+ * and dispatches `ENQUEUE_CAST`. The actual reducer mutations
+ * (CONSUME_POWERUP, APPLY_5050, REVEAL_HINT_FREE, ARM_SECOND_CHANCE,
+ * SKIP_QUESTION, AUTO_COMPLETE_QUESTION, REGEN_HEART) and the synthetic
+ * "answer" dispatch for Skip/Auto-Complete are owned by the effect
+ * components in `components/powerups/effects/`, fired in their post phase
+ * so the visual and the state stay in lockstep.
  *
  * Display order: fifty_fifty, hint_reveal, second_chance, eraser, skip,
- * auto_complete. Per-button visibility/state rules match the spec exactly:
+ * auto_complete. Per-button visibility/state rules unchanged:
  *
  *   - Owned == 0 → button HIDDEN entirely (keeps the dock tight; spec).
  *   - fifty_fifty: HIDDEN if not multiple-choice OR options < 4 OR already
@@ -16,13 +26,6 @@
  *     "no_perfect_bonus" warning.
  *   - v2 stubs (eraser, auto_complete) get a "قريبًا/Coming soon" pill
  *     overlay but remain functional per the Wave-C scope choice.
- *
- * Tap → PowerupConfirmDialog (cost shown via owned-line). Confirm dispatches
- * the per-slug action(s) below and toasts a brief notice.
- *
- * Skip / Auto-Complete additionally synthesize an answer payload (points=0)
- * via the parent-supplied `onSyntheticAnswer` callback so the existing
- * QuizSessionContext ANSWER reducer drives the question advance.
  */
 
 import React, { useCallback, useMemo, useState } from 'react';
@@ -38,23 +41,12 @@ import {
 } from '../../data/mockPowerupsData';
 import { SQ_SPRING, MOTION_FALLBACK } from '../design-system/tokens/motion';
 import { SqPill } from '../design-system/components/Pill';
-import { SqToast } from '../design-system/components/Toast';
 import { PowerupIcon } from '../powerups/PowerupIcon';
 import PowerupConfirmDialog from './PowerupConfirmDialog';
 import type { Question } from '../../types';
 
 export interface InQuestionPowerupBarProps {
   question: Question;
-  /**
-   * Synthetic answer dispatcher used by Skip / Auto-Complete. Wave A's
-   * SKIP_QUESTION / AUTO_COMPLETE_QUESTION reducer actions only flip the
-   * perfect-bonus flag — the actual question advance still rides on the
-   * shared ANSWER pipeline so the parent owns scoring + skill-map writes.
-   *
-   * `is_correct: null` keeps incorrect-counter clean (skipped questions
-   * are not "wrong"); `points: 0` forces zero score.
-   */
-  onSyntheticAnswer: () => void;
 }
 
 const HUD_SLUGS: PowerupSlug[] = [
@@ -84,35 +76,17 @@ const GROUP_SHADOW: Record<PowerupGroup, string> = {
   power_solve:     'shadow-md shadow-violet-500/25',
 };
 
-interface ToastState {
-  open: boolean;
-  variant: 'info' | 'success' | 'warning' | 'error';
-  title: string;
-  body?: string;
-}
-
 export const InQuestionPowerupBar: React.FC<InQuestionPowerupBarProps> = ({
   question,
-  onSyntheticAnswer,
 }) => {
   const { t, locale } = useI18n();
-  const { state: userState, dispatch: userDispatch } = useUser();
+  const { state: userState } = useUser();
   const { state: quizState, dispatch: quizDispatch } = useQuizSession();
-  const { getOwned, isV2, consume } = usePowerups();
+  const { getOwned, isV2 } = usePowerups();
   const reduce = useReducedMotion();
   const isAr = locale === 'ar';
 
   const [confirmSlug, setConfirmSlug] = useState<PowerupSlug | null>(null);
-  const [toast, setToast] = useState<ToastState>({ open: false, variant: 'info', title: '' });
-
-  const hideToast = useCallback(() => setToast((s) => ({ ...s, open: false })), []);
-
-  const fireToast = useCallback(
-    (variant: ToastState['variant'], title: string, body?: string) => {
-      setToast({ open: true, variant, title, body });
-    },
-    []
-  );
 
   /** Per-slug visibility + disabled rules for the dock. */
   const visibility = useMemo(() => {
@@ -196,6 +170,7 @@ export const InQuestionPowerupBar: React.FC<InQuestionPowerupBarProps> = ({
    *  uses (consistency over performance — answers are not hot-loop). */
   const pickFiftyFiftyHidden = useCallback((): number[] => {
     if (!question.options) return [];
+    // correctAnswer is a string match against the option text.
     const correctIdx = question.options.findIndex(
       (opt) => opt === question.correctAnswer
     );
@@ -224,69 +199,40 @@ export const InQuestionPowerupBar: React.FC<InQuestionPowerupBarProps> = ({
     return arr.slice(0, 2);
   }, [question.options, question.correctAnswer]);
 
-  /** Confirm-handler — fans out to the right reducer chain per slug. */
+  /**
+   * Confirm-handler — enqueues a cinematic cast for the chosen slug.
+   *
+   * The cast queue head is picked up by `<PowerupCastOverlay />`, which
+   * mounts the matching effect component (Annihilate, Illuminate, Warp,
+   * HeartLock, EraserSweep, RobotCursor). Each effect runs a pre/cast/post
+   * animation phase chain and, in `post`, dispatches the actual reducer
+   * mutations (CONSUME_POWERUP + the slug-specific QuizSession action) and
+   * the synthetic answer (Skip / Auto-Complete only).
+   *
+   * The bar itself does NOT touch state beyond enqueuing the cast — keeps
+   * visual + state in lockstep when the effect commits in its post phase.
+   */
   const handleConfirm = useCallback(() => {
     if (!confirmSlug) return;
     const slug = confirmSlug;
     setConfirmSlug(null);
 
-    switch (slug) {
-      case 'fifty_fifty': {
-        const hidden = pickFiftyFiftyHidden();
-        quizDispatch({ type: 'APPLY_5050', payload: { hiddenIndices: hidden } });
-        consume('fifty_fifty');
-        fireToast('success', t('powerups.name.fifty_fifty'));
-        break;
-      }
-      case 'hint_reveal': {
-        quizDispatch({ type: 'REVEAL_HINT_FREE' });
-        consume('hint_reveal');
-        fireToast('success', t('powerups.name.hint_reveal'));
-        break;
-      }
-      case 'second_chance': {
-        quizDispatch({ type: 'ARM_SECOND_CHANCE', payload: { questionId: question.id } });
-        consume('second_chance');
-        fireToast('success', t('powerups.toast.armed'));
-        break;
-      }
-      case 'eraser': {
-        if (userState.hearts < userState.maxHearts) {
-          // REGEN_HEART caps at maxHearts, increments by 1 — perfect for Eraser.
-          userDispatch({ type: 'REGEN_HEART' });
-        }
-        consume('eraser');
-        fireToast('success', t('powerups.name.eraser'));
-        break;
-      }
-      case 'skip': {
-        quizDispatch({ type: 'SKIP_QUESTION' });
-        consume('skip');
-        fireToast('warning', t('powerups.name.skip'), t('powerups.toast.no_perfect_bonus'));
-        onSyntheticAnswer();
-        break;
-      }
-      case 'auto_complete': {
-        quizDispatch({ type: 'AUTO_COMPLETE_QUESTION' });
-        consume('auto_complete');
-        fireToast('warning', t('powerups.name.auto_complete'), t('powerups.toast.no_perfect_bonus'));
-        onSyntheticAnswer();
-        break;
-      }
+    if (slug === 'fifty_fifty') {
+      // Pre-compute the 2 wrong indices NOW so the cast can shatter the right
+      // tiles. Excludes the correct option via the correctAnswer string match.
+      const hidden = pickFiftyFiftyHidden();
+      quizDispatch({
+        type: 'ENQUEUE_CAST',
+        payload: { entry: { slug, questionId: question.id, hiddenIndices: hidden } },
+      });
+      return;
     }
-  }, [
-    confirmSlug,
-    pickFiftyFiftyHidden,
-    quizDispatch,
-    consume,
-    fireToast,
-    t,
-    question.id,
-    userState.hearts,
-    userState.maxHearts,
-    userDispatch,
-    onSyntheticAnswer,
-  ]);
+
+    quizDispatch({
+      type: 'ENQUEUE_CAST',
+      payload: { entry: { slug, questionId: question.id } },
+    });
+  }, [confirmSlug, pickFiftyFiftyHidden, quizDispatch, question.id]);
 
   // Stagger reveal of the dock children.
   const containerVariants = {
@@ -339,7 +285,6 @@ export const InQuestionPowerupBar: React.FC<InQuestionPowerupBarProps> = ({
             shadow-lg shadow-slate-200/50 mx-auto
             max-w-full overflow-x-auto no-scrollbar
           "
-          style={{ display: 'flex' }}
         >
           {HUD_SLUGS.map((slug) => {
             const v = visibility.get(slug);
@@ -409,14 +354,6 @@ export const InQuestionPowerupBar: React.FC<InQuestionPowerupBarProps> = ({
         warning={warningForSlug(confirmSlug)}
         onConfirm={handleConfirm}
         onCancel={() => setConfirmSlug(null)}
-      />
-
-      <SqToast
-        open={toast.open}
-        variant={toast.variant}
-        title={toast.title}
-        body={toast.body}
-        onClose={hideToast}
       />
     </>
   );
