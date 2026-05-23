@@ -135,6 +135,26 @@ export const parentAppI18n: Record<Locale, Record<string, string>> = {
     'parentApp.skillMap.masteryLabel': 'الإتقان',
     'parentApp.skillMap.practiceTargetLabel': 'هدف التمرين',
 
+    // ── Subject Tree (Phase A — 2026-05) ──────────────────────────────────
+    // Big tree view: trunk = subject, branches = units, twigs = lessons,
+    // leaves = pages (colored by mastery).
+    'parentApp.skillMap.tree.unit': 'وحدة',
+    'parentApp.skillMap.tree.lesson': 'درس',
+    'parentApp.skillMap.tree.page': 'صفحة',
+    'parentApp.skillMap.tree.pagesCount': '{n} صفحات',
+    'parentApp.skillMap.tree.lessonsCount': '{n} دروس',
+    'parentApp.skillMap.tree.overallMastery': 'الإتقان العام',
+    'parentApp.skillMap.tree.sendPracticeUnit': 'أرسلوا تمريناً لهذه الوحدة',
+    'parentApp.skillMap.tree.sendPracticeLesson': 'أرسلوا تمريناً لهذا الدرس',
+    'parentApp.skillMap.tree.legendMastered': 'متقَن',
+    'parentApp.skillMap.tree.legendProficient': 'جيد',
+    'parentApp.skillMap.tree.legendDeveloping': 'قيد التطور',
+    'parentApp.skillMap.tree.legendNeedsHelp': 'يحتاج مساعدة',
+    'parentApp.skillMap.tree.legendNotStarted': 'لم يبدأ',
+    'parentApp.skillMap.tree.treeTitle': 'شجرة {subject} · {name}',
+    'parentApp.skillMap.tree.close': 'إغلاق',
+    'parentApp.skillMap.tree.tapHint': 'اضغط على غصن أو فرع لرؤية التفاصيل',
+
     // Profile placeholder
     'parentApp.profile.childTitle': 'ملف الطفل',
     'parentApp.profile.accountTitle': 'إعدادات الحساب',
@@ -599,6 +619,26 @@ export const parentAppI18n: Record<Locale, Record<string, string>> = {
     'parentApp.skillMap.statusMastered': 'Mastered',
     'parentApp.skillMap.masteryLabel': 'Mastery',
     'parentApp.skillMap.practiceTargetLabel': 'Practice target',
+
+    // ── Subject Tree (Phase A — 2026-05) ──────────────────────────────────
+    // Big tree view: trunk = subject, branches = units, twigs = lessons,
+    // leaves = pages (colored by mastery).
+    'parentApp.skillMap.tree.unit': 'Unit',
+    'parentApp.skillMap.tree.lesson': 'Lesson',
+    'parentApp.skillMap.tree.page': 'Page',
+    'parentApp.skillMap.tree.pagesCount': '{n} pages',
+    'parentApp.skillMap.tree.lessonsCount': '{n} lessons',
+    'parentApp.skillMap.tree.overallMastery': 'Overall mastery',
+    'parentApp.skillMap.tree.sendPracticeUnit': 'Send practice for this unit',
+    'parentApp.skillMap.tree.sendPracticeLesson': 'Send practice for this lesson',
+    'parentApp.skillMap.tree.legendMastered': 'Mastered',
+    'parentApp.skillMap.tree.legendProficient': 'Proficient',
+    'parentApp.skillMap.tree.legendDeveloping': 'Developing',
+    'parentApp.skillMap.tree.legendNeedsHelp': 'Needs help',
+    'parentApp.skillMap.tree.legendNotStarted': 'Not started',
+    'parentApp.skillMap.tree.treeTitle': "{subject} · {name}'s tree",
+    'parentApp.skillMap.tree.close': 'Close',
+    'parentApp.skillMap.tree.tapHint': 'Tap a branch or twig for details',
 
     // Profile placeholder
     'parentApp.profile.childTitle': 'Child profile',

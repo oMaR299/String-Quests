@@ -9,11 +9,11 @@
 //   Layer 2  FullPictureSection  — Shining / Needs a hand
 //   Layer 3  DeepMapSection      — subject mastery bars (calm reference)
 //
-// Tapping a plant in the hero smooth-scrolls to that subject's row in the deep
-// map. Runtime state (areas, today's focus, sent/cooldown) lives in
-// useParentSkillMap.
+// Tapping a plant in the hero opens that subject's full textbook TREE in a
+// full-screen sheet (units=branches, lessons=twigs, pages=leaves). Runtime
+// state (areas, today's focus, sent/cooldown) lives in useParentSkillMap.
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useI18n } from '../../../contexts/I18nContext';
 import { useParentAppContext } from '../useParentAppContext';
 import { useParentSkillMap } from './useParentSkillMap';
@@ -21,6 +21,7 @@ import { GardenHero } from './GardenHero';
 import { TodaysFocusSection } from './TodaysFocusSection';
 import { FullPictureSection } from './FullPictureSection';
 import { DeepMapSection } from './DeepMapSection';
+import { SubjectTreeSheet } from './tree/SubjectTreeSheet';
 
 export const ParentSkillMapScreen: React.FC = () => {
   const { locale } = useI18n();
@@ -32,35 +33,47 @@ export const ParentSkillMapScreen: React.FC = () => {
     activeChild?.id ?? '',
   );
 
+  // Which subject's tree sheet is open (null = closed). Set by tapping a plant.
+  const [openSubject, setOpenSubject] = useState<string | null>(null);
   const handlePlantTap = useCallback((subjectKey: string) => {
-    const el = document.getElementById(`skillmap-subject-${subjectKey}`);
-    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setOpenSubject(subjectKey);
   }, []);
 
   if (!activeChild) return null;
   const childName = locale === 'ar' ? activeChild.nameAr : activeChild.nameEn;
 
   return (
-    <div className="space-y-5 px-5 pt-5 pb-8">
-      <GardenHero areas={areas} childName={childName} onPlantTap={handlePlantTap} />
+    <>
+      <div className="space-y-5 px-5 pt-5 pb-8">
+        <GardenHero areas={areas} childName={childName} onPlantTap={handlePlantTap} />
 
-      <TodaysFocusSection
-        focus={today.focus}
-        shining={today.shining}
+        <TodaysFocusSection
+          focus={today.focus}
+          shining={today.shining}
+          childName={childName}
+          sentAreaIds={sentAreaIds}
+          onSendPractice={sendPractice}
+        />
+
+        <FullPictureSection
+          areas={areas}
+          childName={childName}
+          sentAreaIds={sentAreaIds}
+          onSendPractice={sendPractice}
+        />
+
+        <DeepMapSection areas={areas} />
+      </div>
+
+      {/* Tap a garden plant → the subject's full textbook tree. */}
+      <SubjectTreeSheet
+        open={openSubject !== null}
+        onClose={() => setOpenSubject(null)}
+        childId={activeChild.id}
         childName={childName}
-        sentAreaIds={sentAreaIds}
-        onSendPractice={sendPractice}
+        subjectKey={openSubject}
       />
-
-      <FullPictureSection
-        areas={areas}
-        childName={childName}
-        sentAreaIds={sentAreaIds}
-        onSendPractice={sendPractice}
-      />
-
-      <DeepMapSection areas={areas} />
-    </div>
+    </>
   );
 };
 
