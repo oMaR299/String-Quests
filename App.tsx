@@ -37,8 +37,8 @@ const HomeTab = lazy(() =>
 const AwareAiPlaceholder = lazy(() =>
   import('./components/parent-app/screens/AwareAiPlaceholder').then(m => ({ default: m.AwareAiPlaceholder }))
 );
-const ParentSkillMapPlaceholder = lazy(() =>
-  import('./components/parent-app/screens/SkillMapPlaceholder').then(m => ({ default: m.SkillMapPlaceholder }))
+const ParentSkillMapScreen = lazy(() =>
+  import('./components/parent-app/skillmap/ParentSkillMapScreen').then(m => ({ default: m.ParentSkillMapScreen }))
 );
 const ParentProfilePlaceholder = lazy(() =>
   import('./components/parent-app/screens/ProfilePlaceholder').then(m => ({ default: m.ProfilePlaceholder }))
@@ -137,7 +137,7 @@ const App: React.FC = () => {
                 <Route index element={<Navigate to="/parent/home" replace />} />
                 <Route path="home" element={<HomeTab />} />
                 <Route path="aware-ai" element={<AwareAiPlaceholder />} />
-                <Route path="skill-map" element={<ParentSkillMapPlaceholder />} />
+                <Route path="skill-map" element={<ParentSkillMapScreen />} />
                 <Route path="profile" element={<ParentProfilePlaceholder />} />
                 <Route path="messages" element={<ParentMessagesTab />} />
               </Route>
