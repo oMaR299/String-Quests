@@ -89,6 +89,28 @@ function leafColor(page: TreePage, dark = false): string {
   return (dark ? LEAF_FILL_DARK : LEAF_FILL)[page.status];
 }
 
+/**
+ * The dominant leaf color among a lesson's pages — used to paint a soft foliage
+ * "mass" behind each leaf fan so a cluster reads as full foliage, not a few
+ * scattered leaves.
+ */
+function fanBlobFill(pages: TreePage[]): string {
+  const counts = new Map<string, number>();
+  for (const p of pages) {
+    const c = leafColor(p);
+    counts.set(c, (counts.get(c) ?? 0) + 1);
+  }
+  let best = NOT_STARTED_FILL;
+  let max = -1;
+  counts.forEach((n, c) => {
+    if (n > max) {
+      max = n;
+      best = c;
+    }
+  });
+  return best;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Subject → trunk/branch hex tint. SVG needs raw hex (SUBJECT_STYLES only
 // carries Tailwind classes), so we keep a small parallel map keyed by the same
@@ -129,15 +151,16 @@ function getSubjectLabel(tree: SubjectTree, locale: 'ar' | 'en'): string {
 
 const W = 360; // canvas design width
 const CX = W / 2; // trunk center x
-const TOP_PAD = 70; // room above the top (last) unit for the crown
-const BOTTOM_PAD = 60; // room below the first unit for the base
-const UNIT_BAND = 224; // vertical space allotted to each unit
-const TRUNK_W = 18; // trunk stroke width
+const TOP_PAD = 60; // room above the top (last) unit for the crown
+const BOTTOM_PAD = 48; // room below the first unit for the base
+const UNIT_BAND = 150; // vertical space allotted to each unit (tighter → lusher)
+const TRUNK_BASE_HALF = 13; // trunk half-width at the base (tapers up)
+const TRUNK_TOP_HALF = 4; // trunk half-width just under the crown
 
-const BRANCH_LEN = 118; // horizontal reach of a unit branch limb
-const BRANCH_RISE = 56; // how much a branch rises as it reaches out
-const TWIG_LEN = 30; // length of a lesson twig off the branch
-const LEAF_LEN = 15; // page-leaf length (kept small → reads as foliage)
+const BRANCH_LEN = 122; // horizontal reach of a unit branch limb
+const BRANCH_RISE = 50; // how much a branch rises as it reaches out
+const TWIG_LEN = 32; // length of a lesson twig off the branch
+const LEAF_LEN = 17; // page-leaf length
 
 // ─────────────────────────────────────────────────────────────────────────────
 // A single flat almond leaf (mirrors GardenPlant's leaf vocabulary for
@@ -206,6 +229,10 @@ const LeafFan: React.FC<LeafFanProps> = ({ x, y, baseAngle, pages }) => {
   const start = baseAngle - spread / 2;
   return (
     <g>
+      {/* Soft foliage mass behind the leaves so the cluster reads full, not
+          scattered. Two stacked translucent blobs in the dominant leaf color. */}
+      <ellipse cx={x} cy={y} rx={LEAF_LEN * 1.55} ry={LEAF_LEN * 1.25} fill={fanBlobFill(pages)} opacity={0.22} />
+      <ellipse cx={x} cy={y} rx={LEAF_LEN * 1.05} ry={LEAF_LEN * 0.9} fill={fanBlobFill(pages)} opacity={0.28} />
       {pages.map((page, i) => {
         const angle = n > 1 ? start + step * i : baseAngle;
         // Alternate near/far + light/dark so the fan has depth, not a flat row.
@@ -493,6 +520,24 @@ export const SubjectTreeView: React.FC<SubjectTreeViewProps> = ({
   // Trunk: from just below the first (bottom) unit's anchor up past the last.
   const trunkTop = TOP_PAD + UNIT_BAND * 0.18;
   const trunkBottom = height - BOTTOM_PAD * 0.4;
+  const trunkMidY = (trunkTop + trunkBottom) / 2;
+  const trunkGradId = `trunkGrad-${tree.subjectKey}`;
+
+  // Tapering trunk silhouette: wide at the base, narrowing to the crown, with
+  // gently curved sides so it reads as a tree, not a uniform bar.
+  const trunkPath =
+    `M ${CX - TRUNK_BASE_HALF} ${trunkBottom}` +
+    ` C ${CX - TRUNK_BASE_HALF * 0.7} ${trunkMidY} ${CX - TRUNK_TOP_HALF * 1.8} ${trunkMidY} ${CX - TRUNK_TOP_HALF} ${trunkTop}` +
+    ` L ${CX + TRUNK_TOP_HALF} ${trunkTop}` +
+    ` C ${CX + TRUNK_TOP_HALF * 1.8} ${trunkMidY} ${CX + TRUNK_BASE_HALF * 0.7} ${trunkMidY} ${CX + TRUNK_BASE_HALF} ${trunkBottom}` +
+    ` Z`;
+  // A thin lighter sliver up the leading edge for subtle dimension.
+  const trunkHighlightPath =
+    `M ${CX - TRUNK_BASE_HALF * 0.5} ${trunkBottom}` +
+    ` C ${CX - TRUNK_BASE_HALF * 0.35} ${trunkMidY} ${CX - TRUNK_TOP_HALF * 0.9} ${trunkMidY} ${CX - TRUNK_TOP_HALF * 0.5} ${trunkTop}` +
+    ` L ${CX - TRUNK_TOP_HALF * 0.1} ${trunkTop}` +
+    ` C ${CX - TRUNK_TOP_HALF * 0.3} ${trunkMidY} ${CX - TRUNK_BASE_HALF * 0.12} ${trunkMidY} ${CX - TRUNK_BASE_HALF * 0.15} ${trunkBottom}` +
+    ` Z`;
 
   // Trunk entrance: draw upward from the base.
   const trunkGrow = reduceMotion
@@ -559,33 +604,29 @@ export const SubjectTreeView: React.FC<SubjectTreeViewProps> = ({
           transition={trunkGrow?.transition}
           style={{ transformOrigin: `${CX}px ${trunkBottom}px` }}
         >
-          {/* Soft ground ellipse to root the trunk. */}
-          <ellipse
-            cx={CX}
-            cy={trunkBottom + 6}
-            rx={70}
-            ry={10}
-            fill={wood.woodDark}
-            opacity={0.16}
-          />
-          {/* Trunk shaft (dark edge then lighter core). */}
-          <path
-            d={`M ${CX} ${trunkBottom} L ${CX} ${trunkTop}`}
-            stroke={wood.woodDark}
-            strokeWidth={TRUNK_W + 4}
-            strokeLinecap="round"
-          />
-          <path
-            d={`M ${CX} ${trunkBottom} L ${CX} ${trunkTop}`}
-            stroke={wood.wood}
-            strokeWidth={TRUNK_W}
-            strokeLinecap="round"
-          />
-          {/* A small leafy crown atop the trunk (above the last unit) — flat
-              blobs tinted with the subject color, echoing the garden plant. */}
-          <circle cx={CX} cy={trunkTop - 4} r={26} fill={wood.wood} opacity={0.9} />
-          <circle cx={CX - 20} cy={trunkTop + 8} r={17} fill={wood.woodDark} opacity={0.85} />
-          <circle cx={CX + 20} cy={trunkTop + 8} r={17} fill={wood.woodDark} opacity={0.85} />
+          <defs>
+            <linearGradient id={trunkGradId} x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stopColor={wood.woodDark} />
+              <stop offset="60%" stopColor={wood.wood} />
+              <stop offset="100%" stopColor={wood.wood} />
+            </linearGradient>
+          </defs>
+
+          {/* Soft ground shadow to root the trunk. */}
+          <ellipse cx={CX} cy={trunkBottom + 4} rx={62} ry={9} fill={wood.woodDark} opacity={0.14} />
+
+          {/* Tapering, gradient-filled trunk + a subtle highlight sliver. */}
+          <path d={trunkPath} fill={`url(#${trunkGradId})`} />
+          <path d={trunkHighlightPath} fill="#FFFFFF" opacity={0.12} />
+
+          {/* Fuller leafy crown atop the trunk — layered subject-tinted blobs. */}
+          <g>
+            <circle cx={CX} cy={trunkTop - 2} r={30} fill={wood.wood} opacity={0.95} />
+            <circle cx={CX - 24} cy={trunkTop + 10} r={21} fill={wood.woodDark} opacity={0.9} />
+            <circle cx={CX + 24} cy={trunkTop + 10} r={21} fill={wood.woodDark} opacity={0.9} />
+            <circle cx={CX - 13} cy={trunkTop - 17} r={16} fill={wood.wood} opacity={0.92} />
+            <circle cx={CX + 15} cy={trunkTop - 14} r={15} fill={wood.wood} opacity={0.92} />
+          </g>
         </motion.g>
 
         {/* ── Unit branches (alternating sides; unit 0 lowest). ── */}
