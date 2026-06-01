@@ -2,7 +2,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // 2x3 grid of glass shortcut buttons that open the six logistics drawers
 // (Assignments, Calendar, Tomorrow's bag, Exams, Forms, Attendance). Sits
-// right below the HeroWinCard on the Parent Home tab.
+// directly below the GreetingStrip on the Parent Home tab — the only two
+// sections rendered there in v1.3.
 //
 // JSX order (LTR source order; under dir="rtl" they read right-to-left):
 //   ┌──────────────┬──────────────┐
@@ -32,6 +33,7 @@ import {
   Briefcase,
   ClipboardList,
   UserCheck,
+  Bus,
 } from 'lucide-react';
 import { useI18n } from '../../../contexts/I18nContext';
 import { getParentAppString } from '../parentAppI18n';
@@ -42,6 +44,7 @@ import { ExamsDrawerContent } from '../drawers/ExamsDrawer';
 import { TomorrowBooksDrawerContent } from '../drawers/TomorrowBooksDrawer';
 import { FormsDrawerContent } from '../drawers/FormsDrawer';
 import { AttendanceDrawerContent } from '../drawers/AttendanceDrawer';
+import { PickupDrawerContent } from '../drawers/PickupDrawer';
 import {
   getPendingAssignmentCount,
   getTomorrowBooks,
@@ -58,6 +61,7 @@ type DrawerKey =
   | 'books'
   | 'forms'
   | 'attendance'
+  | 'pickup'
   | null;
 
 /**
@@ -73,6 +77,7 @@ const LOGISTICS_SEQUENCE: ReadonlyArray<Exclude<DrawerKey, null>> = [
   'exams',
   'forms',
   'attendance',
+  'pickup',
 ];
 
 interface ShortcutProps {
@@ -83,6 +88,8 @@ interface ShortcutProps {
   badge?: React.ReactNode;
   onClick: () => void;
   index: number;
+  /** Tailwind class to control grid span. Static literals only (JIT-safe). */
+  spanClass?: string;
 }
 
 const Shortcut: React.FC<ShortcutProps> = ({
@@ -93,6 +100,7 @@ const Shortcut: React.FC<ShortcutProps> = ({
   badge,
   onClick,
   index,
+  spanClass = '',
 }) => {
   const reduceMotion = useReducedMotion();
   return (
@@ -106,7 +114,7 @@ const Shortcut: React.FC<ShortcutProps> = ({
           ? { duration: 0 }
           : { type: 'spring', stiffness: 240, damping: 24, delay: index * 0.04 }
       }
-      className="relative w-full text-start rounded-2xl bg-white/90 backdrop-blur border border-white/80 shadow-sm p-3 flex items-center gap-3 active:scale-[0.98] hover:bg-white transition-all"
+      className={`relative w-full text-start rounded-2xl bg-white border border-slate-200 p-3 flex items-center gap-3 motion-safe:active:scale-[0.98] hover:bg-slate-50 transition-colors ${spanClass}`}
     >
       <div
         className={`w-10 h-10 rounded-full inline-flex items-center justify-center shrink-0 ${iconBg}`}
@@ -207,7 +215,7 @@ export const SchoolLogisticsStrip: React.FC = () => {
           subtitle={t('parentApp.school.assignments.subtitle')}
           badge={
             pendingCount > 0 ? (
-              <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full bg-rose-500 text-white text-[11px] font-black shadow-[0_2px_0_0_rgba(0,0,0,0.08)]">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full bg-rose-500 text-white text-[11px] font-black">
                 {pendingCount}
               </span>
             ) : null
@@ -261,7 +269,7 @@ export const SchoolLogisticsStrip: React.FC = () => {
           subtitle={t('parentApp.school.formsSubtitle')}
           badge={
             pendingFormsCount > 0 ? (
-              <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full bg-rose-500 text-white text-[11px] font-black shadow-[0_2px_0_0_rgba(0,0,0,0.08)]">
+              <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full bg-rose-500 text-white text-[11px] font-black">
                 {pendingFormsCount}
               </span>
             ) : null
@@ -289,6 +297,19 @@ export const SchoolLogisticsStrip: React.FC = () => {
             ) : null
           }
           onClick={() => setOpenDrawer('attendance')}
+        />
+
+        {/* 7. Pickup — spans both columns in row 4. Different visual hierarchy:
+            time-sensitive, parents glance at it daily. The `col-span-2` makes
+            it the visual anchor of the strip. JIT-safe literal class. */}
+        <Shortcut
+          index={6}
+          iconBg="bg-sky-500"
+          iconNode={<Bus className="w-5 h-5 text-white" strokeWidth={2.5} />}
+          title={t('parentApp.school.pickup.title')}
+          subtitle={t('parentApp.school.pickup.subtitle')}
+          onClick={() => setOpenDrawer('pickup')}
+          spanClass="col-span-2"
         />
       </section>
 
@@ -334,6 +355,7 @@ const DRAWER_TITLE_KEYS: Record<Exclude<DrawerKey, null>, string> = {
   exams: 'parentApp.school.exams.drawerTitle',
   forms: 'parentApp.school.forms.drawerTitle',
   attendance: 'parentApp.school.attendance.drawerTitle',
+  pickup: 'parentApp.school.pickup.drawerTitle',
 };
 
 const SharedLogisticsSheet: React.FC<SharedLogisticsSheetProps> = ({
@@ -374,6 +396,9 @@ const SharedLogisticsSheet: React.FC<SharedLogisticsSheetProps> = ({
       break;
     case 'attendance':
       body = <AttendanceDrawerContent />;
+      break;
+    case 'pickup':
+      body = <PickupDrawerContent />;
       break;
   }
 

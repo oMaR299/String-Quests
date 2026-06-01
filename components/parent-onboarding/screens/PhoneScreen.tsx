@@ -11,7 +11,7 @@
 
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Lock } from 'lucide-react';
 import { useI18n } from '../../../contexts/I18nContext';
 import { getParentOnboardingString, interpolate } from '../parentOnboardingI18n';
 import { PrimaryButton } from '../PrimaryButton';
@@ -220,8 +220,11 @@ export const PhoneScreen: React.FC<ScreenProps> = ({
         transition={{ type: 'spring', stiffness: 220, damping: 22, delay: 0.12 }}
         className="rounded-2xl bg-white/70 backdrop-blur border border-white/80 shadow-sm p-4 flex items-start gap-3"
       >
-        <span className="text-2xl leading-none" aria-hidden>
-          🔒
+        <span
+          className="shrink-0 w-9 h-9 rounded-full bg-slate-100 text-slate-500 inline-flex items-center justify-center"
+          aria-hidden
+        >
+          <Lock className="w-4 h-4" strokeWidth={2.5} />
         </span>
         <p className="text-xs font-semibold text-slate-500 leading-relaxed">
           {t('parentOnboarding.phone.reassurance')}

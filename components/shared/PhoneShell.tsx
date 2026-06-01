@@ -1,13 +1,13 @@
 // PhoneShell.tsx (shared)
 // ─────────────────────────────────────────────────────────────────────────────
 // Mobile-first wrapper. Caps content at ~430px on desktop and lets the
-// surrounding viewport show a soft duo-blue/duo-green gradient backdrop so
-// the "phone" floats on larger screens. Below md, it goes full-bleed.
+// surrounding viewport show a soft slate backdrop so the "phone" floats on
+// larger screens. Below md, it goes full-bleed.
 //
-// Lifted from `components/parent-onboarding/PhoneShell.tsx` to be shared
-// between the Parent Onboarding flow AND the Parent App home shell so we
-// don't drift two copies. The recipe is unchanged from the onboarding
-// version — onboarding now re-exports from here.
+// 2026-05 visual-language refactor: dropped the inner duo-blue→duo-green
+// gradient wash, the duo-color blob pseudo-elements, and the phone card's
+// own backdrop-blur. Surface is now solid white inside the phone with a
+// soft slate desktop backdrop — see the flat / Linear-Vercel design memo.
 //
 // Layout:
 //   [ chrome row: topStart (start) | topCenter (centered) | topEnd (end)   ]
@@ -29,8 +29,8 @@ interface PhoneShellProps {
   /**
    * When true, the chrome row is rendered without the default horizontal
    * padding/spacing — the consumer is rendering its own full-width sticky
-   * header. Used by the Parent App where the header has a backdrop blur,
-   * border, and own padding.
+   * header. Used by the Parent App where the header has its own border,
+   * padding, and (after the flat refactor) solid white background.
    */
   fullBleedChrome?: boolean;
   /**
@@ -59,32 +59,25 @@ export const PhoneShell: React.FC<PhoneShellProps> = ({
 
   return (
     <div
-      className="relative min-h-screen w-full font-cairo overflow-hidden flex items-stretch md:items-center justify-center bg-gradient-to-br from-duo-blue-light via-white to-duo-green-light"
+      className="relative min-h-screen w-full font-cairo overflow-hidden flex items-stretch md:items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200/60"
     >
-      {/* Soft pastel blobs in the desktop backdrop only — invisible behind the
-          phone shell on mobile because the shell goes full-bleed. */}
-      <div className="hidden md:block pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 -start-32 w-[420px] h-[420px] rounded-full bg-duo-blue/15 blur-[100px]" />
-        <div className="absolute -bottom-32 -end-32 w-[420px] h-[420px] rounded-full bg-duo-green/15 blur-[100px]" />
-      </div>
-
       {/* The "phone" — capped at 430px on md+, full-bleed below.
           Height is locked to the viewport so the body scrolls INTERNALLY
           (overflow-y-auto on the body slot below); without this, long
           content makes the whole page scroll and the sticky header + tab
           bar drift out of view. `100dvh` accounts for mobile URL-bar
           collapse so the bottom tab bar sits flush against the bottom
-          edge regardless of browser chrome state. */}
+          edge regardless of browser chrome state.
+
+          Flat refactor: solid `bg-white` (was `bg-white/85 backdrop-blur-xl`)
+          + a hairline `border-slate-200` on desktop instead of the soft
+          white/60 frame. No interior gradient wash anymore. */}
       <motion.div
         initial={reduceMotion ? false : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 220, damping: 24 }}
-        className="relative z-10 flex flex-col w-full md:max-w-[430px] md:my-8 md:rounded-[2rem] md:shadow-2xl md:shadow-slate-900/15 md:border md:border-white/60 bg-white/85 backdrop-blur-xl overflow-hidden h-[100dvh] md:h-auto md:min-h-[760px] md:max-h-[calc(100vh-4rem)]"
+        className="relative z-10 flex flex-col w-full md:max-w-[430px] md:my-8 md:rounded-[2rem] md:shadow-md md:shadow-slate-900/10 md:border md:border-slate-200 bg-white overflow-hidden h-[100dvh] md:h-auto md:min-h-[760px] md:max-h-[calc(100vh-4rem)]"
       >
-        {/* Inner gradient wash so the cards feel embedded in a duo-themed
-            surface rather than a plain white card. */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-duo-blue-light/40 via-white/0 to-duo-green-light/30 md:rounded-[2rem]" />
-
         {/* Chrome row — either the standard 3-column row or full-bleed pass
             through (Parent App home renders its own sticky header). */}
         {fullBleedChrome ? (

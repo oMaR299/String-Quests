@@ -1,14 +1,14 @@
 // InboxView.tsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Option A "Discovery first" layout:
+// Option A "Discovery first" layout (v2 — mentor hero removed):
 //   1. Search bar
-//   2. Mentor hero card (active child's mentor)
-//   3. Subject tiles grid (active child's 6 subject teachers)
-//   4. School staff tiles (cross-child principal/counselor/admin/nurse)
-//   5. Recent threads list (active child + cross-child)
+//   2. Subject tiles grid (active child's 6 subject teachers)
+//   3. School staff tiles (cross-child principal/counselor/admin/nurse)
+//   4. Recent threads list (active child + cross-child)
 //
 // The parent owns `searchQuery` and passes it down. Tiles + threads both
-// filter by it; the mentor hero stays visible regardless.
+// filter by it. (MentorHeroCard.tsx is retained on disk in case the mentor
+// emphasis is brought back later.)
 
 import React, { useMemo, useState } from 'react';
 import { useI18n } from '../../../../contexts/I18nContext';
@@ -17,7 +17,6 @@ import { useContacts } from '../hooks/useContacts';
 import { useMessageThreads } from '../hooks/useMessageThreads';
 import { getMessagesString } from '../data/parentAppMessagesI18n';
 import { MessagesSearchBar } from './MessagesSearchBar';
-import { MentorHeroCard } from './MentorHeroCard';
 import { SubjectTilesGrid } from './SubjectTilesGrid';
 import { SchoolStaffTiles } from './SchoolStaffTiles';
 import { RecentThreadsList } from './RecentThreadsList';
@@ -35,7 +34,7 @@ export const InboxView: React.FC<Props> = ({
 }) => {
   const { locale } = useI18n();
   const { activeChild } = useParentAppContext();
-  const { mentor, teachers, staff, all } = useContacts();
+  const { teachers, staff, all } = useContacts();
   const { visibleThreads, messagesFor } = useMessageThreads();
   const t = (k: string) => getMessagesString(locale, k);
 
@@ -97,17 +96,6 @@ export const InboxView: React.FC<Props> = ({
   return (
     <div className="px-4 pt-3 pb-6">
       <MessagesSearchBar value={searchQuery} onChange={setSearchQuery} />
-
-      <div className="mt-4">
-        {mentor && (
-          <MentorHeroCard
-            mentor={mentor}
-            childNameAr={activeChild.nameAr}
-            childNameEn={activeChild.nameEn}
-            onOpen={onOpenThreadByContact}
-          />
-        )}
-      </div>
 
       <SubjectTilesGrid
         teachers={visibleTeachers}

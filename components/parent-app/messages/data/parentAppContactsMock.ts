@@ -288,10 +288,89 @@ export function getContactById(id: string): MockContact | null {
   return MOCK_CONTACTS.find((c) => c.id === id) ?? null;
 }
 
+/**
+ * Map every subject key used elsewhere in the parent-app (which includes
+ * 'reading' as a separate subject) onto the 6-subject contact roster. Reading
+ * lives under the Arabic teacher in our Jordanian-primary mock model.
+ */
+const SCHOOL_SUBJECT_TO_CONTACT_SUBJECT: Record<string, SubjectKey> = {
+  math: 'math',
+  arabic: 'arabic',
+  english: 'english',
+  science: 'science',
+  reading: 'arabic',
+  pe: 'pe',
+  art: 'art',
+};
+
+/**
+ * Resolve the right teacher contact for a given (subject, child) pair. Falls
+ * back to the child's mentor if no subject teacher is found (defensive — the
+ * seed always covers the 6 subjects for every child). Accepts the wider
+ * school-side subject taxonomy via the SCHOOL_SUBJECT_TO_CONTACT_SUBJECT map.
+ *
+ * NEVER returns null — every Assignment/Exam tap should always have a target.
+ */
+export function getTeacherForSubject(
+  schoolSubject: string,
+  childId: string
+): MockContact {
+  const subject = SCHOOL_SUBJECT_TO_CONTACT_SUBJECT[schoolSubject];
+  if (subject) {
+    const teacher = MOCK_CONTACTS.find(
+      (c) => c.role === 'teacher' && c.childId === childId && c.subject === subject
+    );
+    if (teacher) return teacher;
+  }
+  // Fallback chain: homeroom → mentor → first teacher → first contact.
+  const homeroom = getHomeroomTeacher(childId);
+  if (homeroom) return homeroom;
+  const mentor = getMentorForChild(childId);
+  if (mentor) return mentor;
+  const anyTeacher = MOCK_CONTACTS.find(
+    (c) => c.role === 'teacher' && c.childId === childId
+  );
+  return anyTeacher ?? MOCK_CONTACTS[0];
+}
+
+/**
+ * Best stand-in for "homeroom teacher" in our mock model — the child's
+ * Arabic teacher (in Jordanian primary schools the Arabic teacher is
+ * typically the homeroom). Used for attendance / general comments when no
+ * specific subject context applies.
+ */
+export function getHomeroomTeacher(childId: string): MockContact | null {
+  return (
+    MOCK_CONTACTS.find(
+      (c) => c.role === 'teacher' && c.childId === childId && c.subject === 'arabic'
+    ) ?? null
+  );
+}
+
 // Subject color/icon registry used by tiles & elsewhere. Locked literal map
-// for Tailwind v4 JIT safety.
+// for Tailwind v4 JIT safety. Lucide icon slugs are looked up against a
+// static map inside `SubjectTile.tsx` (and any other consumer) so we keep
+// the data layer free of JSX.
+//
+// Slug → lucide component map (kept here as a comment for discoverability):
+//   math    → Calculator
+//   arabic  → Languages  (BookOpen is already overloaded; Languages reads as
+//                         "language subject" and matches the english slug visually)
+//   english → Languages
+//   science → FlaskConical
+//   pe      → Activity
+//   art     → Palette
+export type SubjectIconSlug =
+  | 'calculator'
+  | 'languages-ar'
+  | 'languages-en'
+  | 'flask'
+  | 'activity'
+  | 'palette';
+
 export interface SubjectStyle {
-  emoji: string;
+  /** Lucide icon slug — resolved to a component at render time. */
+  icon: SubjectIconSlug;
   /** Background class for the tile icon circle. */
   bg: string;
   /** Soft tint for chips / accents. */
@@ -299,12 +378,12 @@ export interface SubjectStyle {
 }
 
 export const SUBJECT_STYLES: Record<SubjectKey, SubjectStyle> = {
-  math: { emoji: '🔢', bg: 'bg-duo-blue', softBg: 'bg-duo-blue-light' },
-  arabic: { emoji: '📚', bg: 'bg-duo-gold', softBg: 'bg-duo-gold-light' },
-  english: { emoji: '🇬🇧', bg: 'bg-duo-purple', softBg: 'bg-duo-purple-light' },
-  science: { emoji: '🧪', bg: 'bg-emerald-500', softBg: 'bg-emerald-100' },
-  pe: { emoji: '🏃', bg: 'bg-duo-orange', softBg: 'bg-duo-orange-light' },
-  art: { emoji: '🎨', bg: 'bg-rose-500', softBg: 'bg-rose-100' },
+  math: { icon: 'calculator', bg: 'bg-duo-blue', softBg: 'bg-duo-blue-light' },
+  arabic: { icon: 'languages-ar', bg: 'bg-duo-gold', softBg: 'bg-duo-gold-light' },
+  english: { icon: 'languages-en', bg: 'bg-duo-purple', softBg: 'bg-duo-purple-light' },
+  science: { icon: 'flask', bg: 'bg-emerald-500', softBg: 'bg-emerald-100' },
+  pe: { icon: 'activity', bg: 'bg-duo-orange', softBg: 'bg-duo-orange-light' },
+  art: { icon: 'palette', bg: 'bg-rose-500', softBg: 'bg-rose-100' },
 };
 
 export const ALL_SUBJECTS: SubjectKey[] = SUBJECTS;

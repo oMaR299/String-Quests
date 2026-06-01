@@ -13,7 +13,15 @@ import type {
   AnnouncementKind,
 } from '../data/parentAppAnnouncementsMock';
 import type { MockContact } from '../data/parentAppContactsMock';
-import { Eye, X, MessageCircle, PartyPopper } from 'lucide-react';
+import {
+  Eye,
+  X,
+  MessageCircle,
+  PartyPopper,
+  Megaphone,
+  Clock,
+  ClipboardList,
+} from 'lucide-react';
 
 // Static stripe-color map — Tailwind v4 JIT safe.
 const STRIPE_COLOR: Record<AnnouncementKind, string> = {
@@ -23,11 +31,16 @@ const STRIPE_COLOR: Record<AnnouncementKind, string> = {
   'action-needed': 'bg-rose-500',
 };
 
-const KIND_ICON: Record<AnnouncementKind, string> = {
-  broadcast: '📢',
-  reminder: '⏰',
-  achievement: '🎉',
-  'action-needed': '📋',
+// Per-kind lucide icon (replaces the legacy emoji glyphs). Component is
+// rendered inline next to the kind label — small, slate-toned.
+const KIND_ICON: Record<
+  AnnouncementKind,
+  React.ComponentType<{ className?: string; strokeWidth?: number }>
+> = {
+  broadcast: Megaphone,
+  reminder: Clock,
+  achievement: PartyPopper,
+  'action-needed': ClipboardList,
 };
 
 const KIND_LABEL_KEY: Record<AnnouncementKind, string> = {
@@ -87,7 +100,7 @@ export const AnnouncementCard: React.FC<Props> = ({
 
   return (
     <article
-      className={`relative overflow-hidden rounded-2xl bg-white border border-slate-100 shadow-[0_1px_0_0_#E2E8F0] ${
+      className={`relative overflow-hidden rounded-2xl bg-white border border-slate-200 ${
         a.read ? 'opacity-75' : ''
       }`}
     >
@@ -99,7 +112,15 @@ export const AnnouncementCard: React.FC<Props> = ({
 
       <div className="ps-4 pe-3 py-3">
         <div className="flex items-center gap-2 mb-1">
-          <span aria-hidden="true">{KIND_ICON[a.kind]}</span>
+          {(() => {
+            const Icon = KIND_ICON[a.kind];
+            return (
+              <Icon
+                className="w-3.5 h-3.5 text-slate-500"
+                strokeWidth={2.5}
+              />
+            );
+          })()}
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
             {t(KIND_LABEL_KEY[a.kind])}
           </span>

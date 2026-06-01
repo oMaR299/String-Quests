@@ -119,7 +119,7 @@ export const SUBJECT_STYLES: Record<SubjectKey, SubjectStyle> = {
     dot: 'bg-duo-orange',
     pillBg: 'bg-duo-orange-light',
     pillText: 'text-orange-700',
-    glyph: '⚽',
+    glyph: 'ر',
   },
   art: {
     labelAr: 'فنون',
@@ -129,7 +129,7 @@ export const SUBJECT_STYLES: Record<SubjectKey, SubjectStyle> = {
     dot: 'bg-rose-500',
     pillBg: 'bg-rose-100',
     pillText: 'text-rose-700',
-    glyph: '✎',
+    glyph: 'ف',
   },
 };
 
@@ -292,6 +292,23 @@ export type AssignmentDisplayStatus =
 /** @deprecated Kept as an alias for back-compat; new code should use AssignmentDisplayStatus. */
 export type AssignmentStatus = AssignmentDisplayStatus;
 
+/**
+ * Grade attached to an Assignment or Exam once the teacher has scored it.
+ * Same shape for both surfaces so the grade pill + breakdown UI is reusable.
+ *
+ * `classAverage` is optional — typically populated on exams (school-wide
+ * data), rarely on individual assignments.
+ */
+export interface Grade {
+  score: number;
+  outOf: number;
+  /** ISO timestamp of when the grade was published. */
+  gradedAtIso: string;
+  classAverage?: number;
+  teacherCommentAr?: string;
+  teacherCommentEn?: string;
+}
+
 export interface Assignment {
   id: string;
   titleAr: string;
@@ -304,6 +321,8 @@ export interface Assignment {
   childId: string;
   descriptionAr: string;
   descriptionEn: string;
+  /** Set once the teacher scores it. Absent ⇒ not graded yet. */
+  grade?: Grade;
 }
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
@@ -344,6 +363,7 @@ function isoHoursFromNow(hours: number): string {
 
 export const MOCK_ASSIGNMENTS: Assignment[] = [
   // 1. DONE — completed, deadline already passed (still shows as done).
+  //          GRADED with strong score + teacher comment.
   {
     id: 'asg-1',
     titleAr: 'حل تمارين الكسور صفحة 42',
@@ -354,8 +374,16 @@ export const MOCK_ASSIGNMENTS: Assignment[] = [
     childId: CHILD_IDS[0],
     descriptionAr: 'حل التمارين من 1 إلى 8 على الكسور المتكافئة. أحضر دفتر الرياضيات وقلم رصاص.',
     descriptionEn: 'Solve problems 1–8 on equivalent fractions. Bring math notebook and pencil.',
+    grade: {
+      score: 9,
+      outOf: 10,
+      gradedAtIso: isoDaysFromNow(0),
+      classAverage: 7.4,
+      teacherCommentAr: 'أداء ممتاز، استمري هكذا!',
+      teacherCommentEn: 'Excellent work — keep it up!',
+    },
   },
-  // 2. LATE — deadline already passed and not done.
+  // 2. LATE — deadline already passed and not done. No grade.
   {
     id: 'asg-2',
     titleAr: 'قراءة قصة "العصفور الذكي"',
@@ -427,6 +455,62 @@ export const MOCK_ASSIGNMENTS: Assignment[] = [
     descriptionAr: 'رسم منظر طبيعي باستخدام أقلام التلوين الخشبية.',
     descriptionEn: 'Draw a landscape using colored pencils.',
   },
+  // 8. DONE + GRADED — amber tier (60–79%) with teacher comment.
+  {
+    id: 'asg-8',
+    titleAr: 'كتابة فقرة عن فصل الربيع',
+    titleEn: 'Paragraph about spring',
+    subject: 'arabic',
+    dueIso: isoDaysFromNow(-3),
+    progress: 'done',
+    childId: CHILD_IDS[0],
+    descriptionAr: 'اكتب فقرة من 5 جمل عن فصل الربيع باستخدام مفردات الوحدة.',
+    descriptionEn: 'Write a 5-sentence paragraph about spring using unit vocabulary.',
+    grade: {
+      score: 7,
+      outOf: 10,
+      gradedAtIso: isoDaysFromNow(-1),
+      teacherCommentAr: 'فكرة جميلة، ركّزي على التشكيل في الكلمات.',
+      teacherCommentEn: 'Nice ideas — focus on the diacritics next time.',
+    },
+  },
+  // 9. DONE + GRADED — emerald tier, no comment (clean perfect score).
+  {
+    id: 'asg-9',
+    titleAr: 'حل ورقة عمل المضاعفات',
+    titleEn: 'Multiples worksheet',
+    subject: 'math',
+    dueIso: isoDaysFromNow(-5),
+    progress: 'done',
+    childId: CHILD_IDS[0],
+    descriptionAr: 'حل التمارين من 1 إلى 15 على مضاعفات الأعداد من 2 إلى 9.',
+    descriptionEn: 'Solve problems 1–15 on multiples of 2 through 9.',
+    grade: {
+      score: 10,
+      outOf: 10,
+      gradedAtIso: isoDaysFromNow(-3),
+      classAverage: 8.1,
+    },
+  },
+  // 10. DONE + GRADED — rose tier (<60%) — drives the "needs help" path.
+  {
+    id: 'asg-10',
+    titleAr: 'تجربة دورة الماء',
+    titleEn: 'Water cycle diagram',
+    subject: 'science',
+    dueIso: isoDaysFromNow(-7),
+    progress: 'done',
+    childId: CHILD_IDS[0],
+    descriptionAr: 'ارسم دورة الماء واكتب أسماء المراحل بالعربي والإنجليزي.',
+    descriptionEn: 'Draw the water cycle and label each stage in Arabic and English.',
+    grade: {
+      score: 5,
+      outOf: 10,
+      gradedAtIso: isoDaysFromNow(-4),
+      teacherCommentAr: 'راجعي مرحلتي التكثف والهطول — مهمتان جداً.',
+      teacherCommentEn: 'Review condensation & precipitation — both are important.',
+    },
+  },
 ];
 
 // Reference rng so the unused-import lint doesn't trip — the seeded RNG is
@@ -449,6 +533,8 @@ export interface Exam {
   tipsAr: string[];
   tipsEn: string[];
   childId: string;
+  /** Set after the exam is taken AND scored. Absent ⇒ upcoming or not yet graded. */
+  grade?: Grade;
 }
 
 export const MOCK_EXAMS: Exam[] = [
@@ -532,6 +618,65 @@ export const MOCK_EXAMS: Exam[] = [
     ],
     childId: CHILD_IDS[2],
   },
+  // ── PAST + GRADED exams (active child) — demonstrate the grade pill +
+  //    breakdown + teacher comment + class-average flow.
+  {
+    id: 'exam-5',
+    titleAr: 'اختبار رياضيات — الفصل الثاني',
+    titleEn: 'Math exam — Chapter 2',
+    subject: 'math',
+    dateIso: isoDaysFromNow(-9),
+    topicsAr: 'الجمع والطرح للأعداد المكونة من 3 خانات',
+    topicsEn: 'Addition & subtraction of 3-digit numbers',
+    tipsAr: [],
+    tipsEn: [],
+    childId: CHILD_IDS[0],
+    grade: {
+      score: 92,
+      outOf: 100,
+      gradedAtIso: isoDaysFromNow(-5),
+      classAverage: 78,
+      teacherCommentAr: 'إجابات دقيقة جداً، أحسنت يا سارة.',
+      teacherCommentEn: 'Very accurate answers — well done, Sara.',
+    },
+  },
+  {
+    id: 'exam-6',
+    titleAr: 'اختبار قراءة — الفصل الثالث',
+    titleEn: 'Reading exam — Chapter 3',
+    subject: 'reading',
+    dateIso: isoDaysFromNow(-14),
+    topicsAr: 'الفهم القرائي وتلخيص الفقرات',
+    topicsEn: 'Reading comprehension & paragraph summarising',
+    tipsAr: [],
+    tipsEn: [],
+    childId: CHILD_IDS[0],
+    grade: {
+      score: 72,
+      outOf: 100,
+      gradedAtIso: isoDaysFromNow(-10),
+      classAverage: 75,
+      teacherCommentAr: 'ركّزي على فكرة الفقرة الرئيسية في المرات القادمة.',
+      teacherCommentEn: 'Work on identifying the main idea of each paragraph next time.',
+    },
+  },
+  {
+    id: 'exam-7',
+    titleAr: 'اختبار علوم قصير',
+    titleEn: 'Science pop quiz',
+    subject: 'science',
+    dateIso: isoDaysFromNow(-21),
+    topicsAr: 'حالات المادة',
+    topicsEn: 'States of matter',
+    tipsAr: [],
+    tipsEn: [],
+    childId: CHILD_IDS[0],
+    grade: {
+      score: 8,
+      outOf: 10,
+      gradedAtIso: isoDaysFromNow(-19),
+    },
+  },
 ];
 
 // ============================================================================
@@ -545,9 +690,9 @@ export interface PackItem {
   titleAr: string;
   titleEn: string;
   kind: PackItemKind;
-  /** Optional emoji-style hint glyph (legacy — books now prefer subject icon). */
-  glyph: string;
-  /** Subject hint — drives the colored subject icon on book rows. */
+  /** Subject hint — drives the colored subject icon on book rows. The
+   *  per-subject letter glyph in SUBJECT_STYLES is what renders inside the
+   *  colored circle, so individual items no longer need their own glyph. */
   subject?: SubjectKey;
 }
 
@@ -614,7 +759,6 @@ export function getTomorrowBooks(_childId: string, today: Date = new Date()): Pa
     titleAr: 'كتاب الرياضيات',
     titleEn: 'Math book',
     kind: 'book',
-    glyph: '📘',
     subject: 'math',
   };
   const A: PackItem = {
@@ -622,7 +766,6 @@ export function getTomorrowBooks(_childId: string, today: Date = new Date()): Pa
     titleAr: 'كتاب اللغة العربية',
     titleEn: 'Arabic book',
     kind: 'book',
-    glyph: '📕',
     subject: 'arabic',
   };
   const E: PackItem = {
@@ -630,7 +773,6 @@ export function getTomorrowBooks(_childId: string, today: Date = new Date()): Pa
     titleAr: 'كتاب الإنجليزية',
     titleEn: 'English book',
     kind: 'book',
-    glyph: '📕',
     subject: 'english',
   };
   const S: PackItem = {
@@ -638,7 +780,6 @@ export function getTomorrowBooks(_childId: string, today: Date = new Date()): Pa
     titleAr: 'كتاب العلوم',
     titleEn: 'Science book',
     kind: 'book',
-    glyph: '🔬',
     subject: 'science',
   };
   const Soc: PackItem = {
@@ -646,7 +787,6 @@ export function getTomorrowBooks(_childId: string, today: Date = new Date()): Pa
     titleAr: 'كتاب الدراسات الاجتماعية',
     titleEn: 'Social Studies book',
     kind: 'book',
-    glyph: '🌍',
     // 'reading' subject used here for green tone — matches the social-studies
     // identity in our limited subject palette.
     subject: 'reading',
@@ -656,7 +796,6 @@ export function getTomorrowBooks(_childId: string, today: Date = new Date()): Pa
     titleAr: 'كتاب الفن',
     titleEn: 'Art book',
     kind: 'book',
-    glyph: '🎨',
     subject: 'art',
   };
   const PE: PackItem = {
@@ -664,7 +803,6 @@ export function getTomorrowBooks(_childId: string, today: Date = new Date()): Pa
     titleAr: 'كتاب التربية البدنية',
     titleEn: 'PE book',
     kind: 'book',
-    glyph: '🏃',
     subject: 'pe',
   };
   const Music: PackItem = {
@@ -672,7 +810,6 @@ export function getTomorrowBooks(_childId: string, today: Date = new Date()): Pa
     titleAr: 'كتاب الموسيقى',
     titleEn: 'Music book',
     kind: 'book',
-    glyph: '🎵',
     // Use the rose 'art' tone for music — closest fit in the existing palette.
     subject: 'art',
   };
@@ -693,6 +830,161 @@ export function getTomorrowBooks(_childId: string, today: Date = new Date()): Pa
       // fall back to a sensible Sunday-style list just in case.
       return [M, A, S];
   }
+}
+
+// ============================================================================
+// Tomorrow's dress code
+// ============================================================================
+
+/**
+ * Daily attire suggestion. Always one of three kinds:
+ *   • formal  — the normal school uniform (DEFAULT).
+ *   • sports  — sports uniform — auto-picked when tomorrow's schedule
+ *               includes PE. Parent doesn't need to think about it.
+ *   • special — a teacher-driven override (color days, heritage days,
+ *               field-trip outfits, etc.). Always carries a teacher comment
+ *               + an optional list of extra items the parent should pack.
+ *
+ * The "special" kind is what the user's spec described as: "options for
+ * other stuff for special days and the comment will be sent by the teacher".
+ * The teacher comment is the source of truth — the parent reads it and
+ * knows what to do.
+ */
+export type DressCodeKind = 'formal' | 'sports' | 'special';
+
+/**
+ * A single suggestion for tomorrow's dress + any extra items the parent
+ * needs to pack. For 'formal' and 'sports' this is fully deterministic
+ * from the schedule. For 'special' it's driven by a teacher-set override.
+ */
+export interface DressCode {
+  kind: DressCodeKind;
+  /** Optional teacher comment — REQUIRED for 'special', usually empty for
+   *  the other two kinds. AR + EN paired. */
+  teacherCommentAr?: string;
+  teacherCommentEn?: string;
+  /** Optional name of the teacher who set the override (rendered on the
+   *  comment quote line). */
+  teacherNameAr?: string;
+  teacherNameEn?: string;
+  /** Extra items to pack on top of the regular books (color shirt, water
+   *  bottle for sports day, costume, etc.). Always [] for 'formal'. */
+  extraItems: PackItem[];
+}
+
+/**
+ * Per-child special-day overrides keyed by ISO date. When tomorrow's date
+ * matches a key here, the dress code becomes 'special' and the teacher
+ * comment is surfaced verbatim. The mock seeds 2 special days for the
+ * active child within the next 7 days so the demo always has something
+ * interesting to show.
+ */
+function isoDaysFromTomorrow(daysFromTomorrow: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() + 1 + daysFromTomorrow);
+  return toIsoDate(d);
+}
+
+const SPECIAL_DAY_OVERRIDES: Record<string, DressCode> = (() => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  // Two special days seeded relative to "now" so the demo always has them:
+  //   • tomorrow + 1 day = "Colors day" (orange theme).
+  //   • tomorrow + 4 days = "Heritage day" (traditional dress).
+  return {
+    [isoDaysFromTomorrow(1)]: {
+      kind: 'special',
+      teacherCommentAr:
+        'غداً يوم الألوان — يلبس الجميع قميصاً برتقالياً ويحضر شريطاً أصفر للزينة.',
+      teacherCommentEn:
+        "It's Colors Day — everyone wears an orange shirt and brings a yellow ribbon for decoration.",
+      teacherNameAr: 'الأستاذة هدى',
+      teacherNameEn: 'Ms. Huda',
+      extraItems: [
+        {
+          id: 'special-orange-shirt',
+          titleAr: 'قميص برتقالي',
+          titleEn: 'Orange shirt',
+          kind: 'clothes',
+        },
+        {
+          id: 'special-yellow-ribbon',
+          titleAr: 'شريط أصفر',
+          titleEn: 'Yellow ribbon',
+          kind: 'supply',
+        },
+      ],
+    },
+    [isoDaysFromTomorrow(4)]: {
+      kind: 'special',
+      teacherCommentAr:
+        'يوم التراث الأردني — يلبس الطلاب الزي التراثي (ثوب أو شماغ) ويحضرون طبقاً من المعمول.',
+      teacherCommentEn:
+        'Jordanian Heritage Day — students wear traditional dress (thobe or shemagh) and bring a plate of ma\'amoul.',
+      teacherNameAr: 'الأستاذ جمال',
+      teacherNameEn: 'Mr. Jamal',
+      extraItems: [
+        {
+          id: 'special-heritage-outfit',
+          titleAr: 'زي تراثي',
+          titleEn: 'Traditional outfit',
+          kind: 'clothes',
+        },
+        {
+          id: 'special-maamoul',
+          titleAr: 'طبق معمول',
+          titleEn: 'Plate of ma\'amoul',
+          kind: 'food',
+        },
+      ],
+    },
+  };
+})();
+
+/**
+ * Compute the dress code for the next school day. Order of precedence:
+ *   1. Special-day override (teacher-driven) — wins outright when present.
+ *   2. Tomorrow's schedule includes PE → 'sports' uniform.
+ *   3. Otherwise → 'formal' (default).
+ *
+ * Returns a fully-formed DressCode with extraItems[] (empty for formal &
+ * sports — only special days surface extra packables).
+ */
+export function getTomorrowDressCode(
+  childId: string,
+  today: Date = new Date()
+): DressCode {
+  const next = getNextSchoolDay(today);
+  const nextIso = toIsoDate(next);
+
+  // 1. Special-day override.
+  const override = SPECIAL_DAY_OVERRIDES[nextIso];
+  if (override) return override;
+
+  // 2. Sports day — re-use the same Day → schedule map driving the books
+  //    pool, since that's where "today has PE" is encoded.
+  //    Wed (3) = PE in the canonical Jordanian-primary mock schedule.
+  const dow = next.getDay();
+  const hasPE = dow === 3;
+  if (hasPE) {
+    return {
+      kind: 'sports',
+      extraItems: [
+        {
+          id: 'sports-water',
+          titleAr: 'زجاجة ماء',
+          titleEn: 'Water bottle',
+          kind: 'food',
+        },
+      ],
+    };
+  }
+
+  // 3. Default formal — no extras, no teacher comment.
+  // childId is reserved for future per-child overrides (a kid in a class
+  // with a different schedule); for now the choice depends only on the day.
+  void childId;
+  return { kind: 'formal', extraItems: [] };
 }
 
 // ============================================================================
@@ -1034,6 +1326,24 @@ export function getPendingFormsCount(activeChildId: string): number {
 // ============================================================================
 // Attendance
 // ============================================================================
+
+/**
+ * Quick-pick chips offered to the parent when adding a reason for an absent
+ * day. Each chip carries both AR + EN canonical phrases so a chip selection
+ * sets `reasonAr` AND `reasonEn` atomically — no language drift later when
+ * the parent toggles locale.
+ *
+ * `other` is the free-text path — the textarea becomes required when picked.
+ */
+export const ABSENCE_REASON_CHIPS = [
+  { id: 'sick',        ar: 'مرض',         en: 'Sick' },
+  { id: 'appointment', ar: 'موعد طبي',    en: 'Medical appointment' },
+  { id: 'family',      ar: 'سبب عائلي',   en: 'Family reason' },
+  { id: 'travel',      ar: 'سفر',         en: 'Travel' },
+  { id: 'other',       ar: 'آخر',         en: 'Other' },
+] as const;
+
+export type AbsenceReasonChipId = (typeof ABSENCE_REASON_CHIPS)[number]['id'];
 
 export type AttendanceStatus =
   | 'present'
@@ -1392,4 +1702,204 @@ export function getAttendanceStats(
     else if (a.status === 'tardy') tardy++;
   }
   return { present, absent, tardy };
+}
+
+// ============================================================================
+// Pickup method
+// ============================================================================
+
+export type PickupMethod = 'bus' | 'parent' | 'walk' | 'aftercare';
+
+/**
+ * Live state for today's pickup. Drives the home mini-card + the drawer's
+ * timeline. State machine:
+ *   not-yet → boarded → en-route → arrived
+ *   ↳ cancelled (terminal — parent overrode today)
+ */
+export type PickupStatus =
+  | 'not-yet'
+  | 'boarded'
+  | 'en-route'
+  | 'arrived'
+  | 'cancelled';
+
+/** Discrete event in today's pickup timeline. */
+export interface PickupEvent {
+  kind: 'boarded' | 'en-route' | 'arrived' | 'cancelled';
+  /** Full ISO timestamp. */
+  timeIso: string;
+}
+
+/**
+ * Settings + metadata for a single pickup choice. Optional fields are
+ * conditional on `method` — bus needs busNumber, aftercare needs program, etc.
+ */
+export interface PickupMethodDetails {
+  method: PickupMethod;
+  // bus
+  busNumber?: string;
+  busDriverNameAr?: string;
+  busDriverNameEn?: string;
+  /** ISO HH:mm of the bus's typical home-arrival time, e.g. "14:50". */
+  busTypicalArrival?: string;
+  // parent
+  parentGuardianAr?: string;
+  parentGuardianEn?: string;
+  // aftercare
+  aftercareProgramAr?: string;
+  aftercareProgramEn?: string;
+}
+
+/** One day's resolved pickup record. */
+export interface PickupDay {
+  /** ISO YYYY-MM-DD. */
+  dateIso: string;
+  childId: string;
+  details: PickupMethodDetails;
+  status: PickupStatus;
+  events: PickupEvent[];
+}
+
+/** Per-child pickup configuration — default method + history. */
+export interface ChildPickupConfig {
+  childId: string;
+  /** What happens if no day-level override exists. */
+  defaultMethod: PickupMethodDetails;
+  /** Last ~7 days, oldest → newest. Today is always present. */
+  history: PickupDay[];
+}
+
+// Bus + aftercare option pools — used by the drawer's edit mode pickers.
+export const MOCK_BUSES: PickupMethodDetails[] = [
+  {
+    method: 'bus',
+    busNumber: '12',
+    busDriverNameAr: 'الأستاذ خليل',
+    busDriverNameEn: 'Mr. Khalil',
+    busTypicalArrival: '14:50',
+  },
+  {
+    method: 'bus',
+    busNumber: '7',
+    busDriverNameAr: 'الأستاذ ماهر',
+    busDriverNameEn: 'Mr. Maher',
+    busTypicalArrival: '14:45',
+  },
+  {
+    method: 'bus',
+    busNumber: '3',
+    busDriverNameAr: 'الأستاذ سامي',
+    busDriverNameEn: 'Mr. Sami',
+    busTypicalArrival: '15:00',
+  },
+];
+
+export const MOCK_AFTERCARE_PROGRAMS: PickupMethodDetails[] = [
+  {
+    method: 'aftercare',
+    aftercareProgramAr: 'برنامج المهارات بعد الدوام',
+    aftercareProgramEn: 'After-school enrichment',
+  },
+  {
+    method: 'aftercare',
+    aftercareProgramAr: 'نادي الرياضيات',
+    aftercareProgramEn: 'Math club',
+  },
+];
+
+export const MOCK_PARENT_GUARDIANS: PickupMethodDetails[] = [
+  { method: 'parent', parentGuardianAr: 'الأم', parentGuardianEn: 'Mom' },
+  { method: 'parent', parentGuardianAr: 'الأب', parentGuardianEn: 'Dad' },
+  { method: 'parent', parentGuardianAr: 'الجدّة', parentGuardianEn: 'Grandma' },
+  { method: 'parent', parentGuardianAr: 'العمّة', parentGuardianEn: 'Aunt' },
+];
+
+/** Per-child seeded defaults — each kid feels different (bus / parent / etc). */
+const PICKUP_DEFAULTS: Record<string, PickupMethodDetails> = {
+  'child-sara': MOCK_BUSES[0],
+  'child-omar': MOCK_PARENT_GUARDIANS[0],
+  'child-lina': MOCK_AFTERCARE_PROGRAMS[0],
+};
+
+/** Realistic per-method arrival-time targets in minutes-since-dismissal. */
+function arrivalAt(method: PickupMethod, dateIso: string): string {
+  const [hh, mm] = (
+    method === 'bus' ? '14:50' :
+    method === 'parent' ? '14:40' :
+    method === 'walk' ? '15:00' :
+    /* aftercare */ '17:00'
+  ).split(':');
+  return `${dateIso}T${hh.padStart(2, '0')}:${mm.padStart(2, '0')}:00`;
+}
+
+/**
+ * Build a 7-day history (oldest → newest) for one child. Today is `not-yet`
+ * by default — the live mock-clock in `usePickupForChild` advances it.
+ * Past days are all `arrived` with realistic timestamps. Weekends are
+ * skipped (no school-day pickup).
+ */
+function buildChildPickup(childId: string, today: Date): ChildPickupConfig {
+  const defaults = PICKUP_DEFAULTS[childId] ?? MOCK_BUSES[0];
+  const history: PickupDay[] = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = dateMinusDays(today, i);
+    const dow = d.getDay();
+    if (dow === 5 || dow === 6) continue; // Jordanian weekend
+    const iso = toIsoDate(d);
+    if (i === 0) {
+      // Today — start in not-yet, no events.
+      history.push({
+        dateIso: iso,
+        childId,
+        details: defaults,
+        status: 'not-yet',
+        events: [],
+      });
+    } else {
+      // Past school day — all completed.
+      const arrivedIso = arrivalAt(defaults.method, iso);
+      history.push({
+        dateIso: iso,
+        childId,
+        details: defaults,
+        status: 'arrived',
+        events: [
+          {
+            kind: 'boarded',
+            timeIso: arrivalAt(defaults.method, iso).replace(
+              /T(\d{2}):(\d{2})/,
+              (_, h, m) =>
+                `T${h.padStart(2, '0')}:${String(
+                  Math.max(0, parseInt(m, 10) - 15)
+                ).padStart(2, '0')}`
+            ),
+          },
+          { kind: 'arrived', timeIso: arrivedIso },
+        ],
+      });
+    }
+  }
+  return { childId, defaultMethod: defaults, history };
+}
+
+function buildAllPickup(): ChildPickupConfig[] {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return CHILD_IDS.map((cid) => buildChildPickup(cid, today));
+}
+
+export const MOCK_PICKUP: ChildPickupConfig[] = buildAllPickup();
+
+/** Lookup the seeded pickup config for a single child. */
+export function getPickupForChild(childId: string): ChildPickupConfig | null {
+  return MOCK_PICKUP.find((p) => p.childId === childId) ?? null;
+}
+
+/**
+ * True if today is a school day in Jordan (Sun–Thu). The Pickup Home card
+ * hides on weekends.
+ */
+export function isSchoolDayToday(today: Date = new Date()): boolean {
+  const dow = today.getDay();
+  return dow !== 5 && dow !== 6;
 }

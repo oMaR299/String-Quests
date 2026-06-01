@@ -41,9 +41,6 @@ export interface Scene {
   weather: SceneWeather;
   /** Foreground-text overlay strength. */
   overlay: OverlayWeight;
-  /** Optional emoji shown in the date pill. Defaults to a band-level emoji
-   *  if absent (set in GreetingStrip). */
-  emoji?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -58,7 +55,6 @@ export const SCENES: Scene[] = [
     time: 'day',
     weather: 'sunny',
     overlay: 'heavy',
-    emoji: '☀️',
   },
   {
     id: 'cloudy-day',
@@ -66,7 +62,6 @@ export const SCENES: Scene[] = [
     time: 'day',
     weather: 'cloudy',
     overlay: 'heavy',
-    emoji: '⛅',
   },
   {
     id: 'rainy-day',
@@ -74,7 +69,6 @@ export const SCENES: Scene[] = [
     time: 'day',
     weather: 'rainy',
     overlay: 'medium',
-    emoji: '🌧',
   },
   {
     id: 'stormy-day',
@@ -82,7 +76,6 @@ export const SCENES: Scene[] = [
     time: 'day',
     weather: 'stormy',
     overlay: 'light',
-    emoji: '⛈',
   },
   {
     id: 'snowy-day',
@@ -90,7 +83,6 @@ export const SCENES: Scene[] = [
     time: 'day',
     weather: 'snowy',
     overlay: 'heavy',
-    emoji: '❄️',
   },
   {
     id: 'foggy-day',
@@ -98,7 +90,6 @@ export const SCENES: Scene[] = [
     time: 'day',
     weather: 'foggy',
     overlay: 'medium',
-    emoji: '🌫',
   },
 
   // Sunset variants — used by the evening band.
@@ -108,7 +99,6 @@ export const SCENES: Scene[] = [
     time: 'sunset',
     weather: 'clear',
     overlay: 'medium',
-    emoji: '🌅',
   },
   // sunset-cloudy will land here when the user provides it.
 
@@ -119,7 +109,6 @@ export const SCENES: Scene[] = [
     time: 'night',
     weather: 'clear',
     overlay: 'light',
-    emoji: '🌙',
   },
   {
     id: 'cloudy-night',
@@ -127,7 +116,6 @@ export const SCENES: Scene[] = [
     time: 'night',
     weather: 'cloudy',
     overlay: 'light',
-    emoji: '☁️',
   },
   {
     id: 'rainy-night',
@@ -135,7 +123,6 @@ export const SCENES: Scene[] = [
     time: 'night',
     weather: 'rainy',
     overlay: 'light',
-    emoji: '🌧',
   },
   {
     id: 'stormy-night',
@@ -143,7 +130,6 @@ export const SCENES: Scene[] = [
     time: 'night',
     weather: 'stormy',
     overlay: 'light',
-    emoji: '⚡',
   },
 ];
 

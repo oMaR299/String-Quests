@@ -171,7 +171,7 @@ export const CalendarDrawerContent: React.FC = () => {
               onClick={() => setSelectedIso(cell.iso!)}
               className={`aspect-square flex flex-col items-center justify-center rounded-xl text-sm font-extrabold transition-all active:scale-95 ${
                 isToday
-                  ? 'bg-duo-blue text-white shadow-[0_2px_0_0_#1899D6]'
+                  ? 'bg-duo-blue text-white'
                   : isSelected
                     ? 'bg-duo-blue-light text-duo-blue ring-2 ring-duo-blue/40'
                     : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-100'

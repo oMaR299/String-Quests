@@ -100,7 +100,7 @@ const FloatingToast: React.FC<ToastProps> = ({ toast, reduceMotion }) => {
           className="fixed bottom-24 inset-x-0 flex justify-center pointer-events-none z-50"
           aria-live="polite"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-duo-green text-white text-sm font-extrabold shadow-[0_4px_0_0_#4CAD00]">
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-duo-green text-white text-sm font-bold">
             <CheckCircle2 className="w-4 h-4" strokeWidth={3} />
             <span>{toast.message}</span>
           </div>
@@ -151,7 +151,7 @@ const SignModal: React.FC<SignModalProps> = ({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
           transition={{ type: 'spring', stiffness: 280, damping: 28 }}
-          className="w-full max-w-sm rounded-3xl bg-white shadow-[0_12px_48px_rgba(15,23,42,0.18)] p-5 space-y-4"
+          className="w-full max-w-sm rounded-2xl bg-white border border-slate-200 shadow-md p-5 space-y-4"
           onClick={(e) => e.stopPropagation()}
           role="dialog"
           aria-modal="true"
@@ -178,7 +178,7 @@ const SignModal: React.FC<SignModalProps> = ({
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 px-4 py-3 rounded-2xl bg-white text-slate-700 border-2 border-slate-200 font-extrabold text-sm hover:bg-slate-50 transition-colors"
+              className="flex-1 px-4 py-3 rounded-xl bg-white text-slate-700 border border-slate-200 font-bold text-sm hover:bg-slate-50 transition-colors"
             >
               {cancelLabel}
             </button>
@@ -234,7 +234,7 @@ const ReplyModal: React.FC<ReplyModalProps> = ({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
           transition={{ type: 'spring', stiffness: 280, damping: 28 }}
-          className="w-full max-w-sm rounded-3xl bg-white shadow-[0_12px_48px_rgba(15,23,42,0.18)] p-5 space-y-3"
+          className="w-full max-w-sm rounded-2xl bg-white border border-slate-200 shadow-md p-5 space-y-3"
           onClick={(e) => e.stopPropagation()}
           role="dialog"
           aria-modal="true"
@@ -259,14 +259,14 @@ const ReplyModal: React.FC<ReplyModalProps> = ({
             onChange={(e) => setDraft(e.target.value)}
             placeholder={placeholder}
             rows={4}
-            className="w-full rounded-2xl border-2 border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 placeholder:text-slate-400 outline-none focus:border-duo-purple focus:ring-2 focus:ring-duo-purple/20 transition-colors resize-none"
+            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 placeholder:text-slate-400 outline-none focus:border-duo-purple focus:ring-2 focus:ring-duo-purple/20 transition-colors resize-none"
             autoFocus
           />
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 px-4 py-3 rounded-2xl bg-white text-slate-700 border-2 border-slate-200 font-extrabold text-sm hover:bg-slate-50 transition-colors"
+              className="flex-1 px-4 py-3 rounded-xl bg-white text-slate-700 border border-slate-200 font-bold text-sm hover:bg-slate-50 transition-colors"
             >
               {cancelLabel}
             </button>
@@ -274,7 +274,7 @@ const ReplyModal: React.FC<ReplyModalProps> = ({
               type="button"
               disabled={draft.trim().length === 0}
               onClick={() => onSend(draft.trim())}
-              className="flex-1 px-4 py-3 rounded-2xl font-extrabold text-sm bg-duo-purple text-white shadow-[0_4px_0_0_#7E3FCC] hover:bg-[#9D52F2] active:translate-y-[2px] active:shadow-none transition-all disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:cursor-not-allowed disabled:active:translate-y-0"
+              className="flex-1 px-4 py-3 rounded-xl font-bold text-sm bg-duo-purple text-white hover:bg-[#B970FF] active:bg-[#B970FF] motion-safe:active:scale-[0.98] transition-colors disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed disabled:active:scale-100"
             >
               {sendLabel}
             </button>
@@ -317,10 +317,10 @@ const CardShell: React.FC<CardShellProps> = ({ item, locale, t, children }) => {
   }
 
   return (
-    <div className="rounded-2xl bg-white/95 backdrop-blur border border-slate-200/80 shadow-[0_1px_0_0_rgba(15,23,42,0.04)] p-4 space-y-3">
+    <div className="rounded-2xl bg-white border border-slate-200 p-4 space-y-3">
       <div className="flex items-start gap-3">
         <div
-          className={`w-10 h-10 rounded-full inline-flex items-center justify-center shrink-0 ring-2 ${style.iconBg} ${style.iconText} ${style.ring}`}
+          className={`w-10 h-10 rounded-full inline-flex items-center justify-center shrink-0 ${style.iconBg} ${style.iconText}`}
         >
           <Icon className="w-5 h-5" strokeWidth={2.5} />
         </div>
@@ -448,14 +448,14 @@ const RsvpAction: React.FC<ItemActionProps> = ({ t, onResolve }) => {
       <button
         type="button"
         onClick={() => onResolve(t('parentApp.actions.rsvpResolvedToast'))}
-        className="flex-1 inline-flex items-center justify-center px-4 py-2.5 rounded-2xl bg-duo-green text-white text-sm font-extrabold shadow-[0_3px_0_0_#4CAD00] hover:bg-[#52BC02] active:translate-y-[2px] active:shadow-none transition-all"
+        className="flex-1 inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-duo-green text-white text-sm font-bold hover:bg-duo-green-dark active:bg-duo-green-dark motion-safe:active:scale-[0.98] transition-colors"
       >
         {t('parentApp.actions.rsvpYes')}
       </button>
       <button
         type="button"
         onClick={() => onResolve(t('parentApp.actions.rsvpResolvedToast'))}
-        className="flex-1 inline-flex items-center justify-center px-4 py-2.5 rounded-2xl bg-white text-slate-700 border-2 border-slate-200 text-sm font-extrabold hover:bg-slate-50 active:translate-y-[2px] active:shadow-none transition-all"
+        className="flex-1 inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-white text-slate-700 border border-slate-200 text-sm font-bold hover:bg-slate-50 motion-safe:active:scale-[0.98] transition-colors"
       >
         {t('parentApp.actions.rsvpNo')}
       </button>

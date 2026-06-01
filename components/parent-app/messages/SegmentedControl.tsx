@@ -1,11 +1,15 @@
 // SegmentedControl.tsx
 // ─────────────────────────────────────────────────────────────────────────────
-// Two-option pill toggle for the Messages tab — "💬 Inbox" / "📢 Announcements"
+// Two-option pill toggle for the Messages tab — Inbox / Announcements
 // with optional unread badges. Active segment background slides between the
 // two via Framer `layoutId="messages-segment-active"`. Reduced motion → instant.
+//
+// Lucide icons (MessageCircle / Megaphone) sit before each label to keep the
+// segments scannable without leaning on emoji glyphs.
 
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { MessageCircle, Megaphone } from 'lucide-react';
 import { useI18n } from '../../../contexts/I18nContext';
 import { getMessagesString } from './data/parentAppMessagesI18n';
 
@@ -22,6 +26,7 @@ interface SegmentDef {
   key: MessagesSegment;
   labelKey: string;
   unread: number;
+  Icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
 }
 
 export const SegmentedControl: React.FC<SegmentedControlProps> = ({
@@ -39,11 +44,13 @@ export const SegmentedControl: React.FC<SegmentedControlProps> = ({
       key: 'inbox',
       labelKey: 'parentApp.messages.segments.inbox',
       unread: inboxUnread,
+      Icon: MessageCircle,
     },
     {
       key: 'announcements',
       labelKey: 'parentApp.messages.segments.announcements',
       unread: announcementsUnread,
+      Icon: Megaphone,
     },
   ];
 
@@ -80,7 +87,8 @@ export const SegmentedControl: React.FC<SegmentedControlProps> = ({
                 aria-hidden="true"
               />
             )}
-            <span className="relative z-10 whitespace-nowrap">
+            <span className="relative z-10 inline-flex items-center gap-1.5 whitespace-nowrap">
+              <seg.Icon className="w-4 h-4" strokeWidth={2.5} />
               {t(seg.labelKey)}
             </span>
             {seg.unread > 0 && (

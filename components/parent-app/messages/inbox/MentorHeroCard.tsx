@@ -76,7 +76,7 @@ export const MentorHeroCard: React.FC<Props> = ({
       initial={reduceMotion ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={reduceMotion ? { duration: 0 } : { duration: 0.25 }}
-      className="rounded-3xl border border-white/90 bg-gradient-to-br from-duo-purple-light via-duo-blue-light to-white p-4 shadow-sm"
+      className="rounded-2xl border border-slate-200 border-s-4 border-s-duo-purple bg-white p-4"
     >
       <div className="flex items-start gap-3">
         {/* Avatar with mortarboard overlay */}

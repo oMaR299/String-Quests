@@ -9,12 +9,12 @@
 //   ┌────────────────────────────────────────────────────────────┐
 //   │ [avatar] Sara                                  [اليوم/Today]│
 //   │                                                             │
-//   │ Sara finished 3 lessons today 🎉                            │
+//   │ Sara finished 3 lessons today                               │
 //   │                                                             │
 //   │ [Time 22 min] [Accuracy 88%]                                │
 //   │                                                             │
 //   │ ┌─────────────────────────────────────────────────────────┐│
-//   │ │              Cheer Sara 🎉                              ││
+//   │ │              Cheer Sara                                  ││
 //   │ └─────────────────────────────────────────────────────────┘│
 //   └────────────────────────────────────────────────────────────┘
 //
@@ -73,13 +73,13 @@ export const HeroWinCard: React.FC = () => {
           ? { duration: 0 }
           : { type: 'spring', stiffness: 240, damping: 24 }
       }
-      className="rounded-3xl bg-white/95 backdrop-blur border border-white/80 shadow-[0_2px_24px_rgba(28,176,246,0.15)] p-5"
+      className="rounded-2xl bg-white border border-slate-200 p-5"
       aria-label={t('parentApp.hero.todayPill')}
     >
       {/* Top row: avatar + kid name + Today pill */}
       <div className="flex items-center gap-3">
         <div
-          className={`w-12 h-12 rounded-full inline-flex items-center justify-center shrink-0 ring-2 ring-white ${focalStyle.bg} ${focalStyle.text} ${focalStyle.shadow}`}
+          className={`w-12 h-12 rounded-full inline-flex items-center justify-center shrink-0 ${focalStyle.bg} ${focalStyle.text}`}
         >
           <span className="text-xl font-black">{focal.avatarInitial}</span>
         </div>
@@ -137,7 +137,7 @@ export const HeroWinCard: React.FC = () => {
               transition={{ duration: 0.18 }}
               className="absolute inset-x-0 -top-10 flex items-center justify-center pointer-events-none"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-duo-green text-white text-xs font-extrabold shadow-[0_3px_0_0_#4CAD00]">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-duo-green text-white text-xs font-bold">
                 <span>{t('parentApp.hero.cheeredToast')}</span>
               </div>
             </motion.div>

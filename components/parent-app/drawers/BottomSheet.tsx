@@ -236,7 +236,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                 ? { duration: 0.15 }
                 : { type: 'spring', stiffness: 220, damping: 22 }
             }
-            className="fixed inset-x-0 bottom-0 z-[200] mx-auto max-w-[430px] bg-white rounded-t-3xl max-h-[85vh] flex flex-col shadow-2xl font-cairo"
+            className="fixed inset-x-0 bottom-0 z-[200] mx-auto max-w-[430px] bg-white rounded-t-3xl max-h-[85vh] flex flex-col shadow-lg font-cairo border-t border-slate-200"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Drag-handle pill */}

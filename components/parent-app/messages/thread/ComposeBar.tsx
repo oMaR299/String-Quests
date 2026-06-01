@@ -1,7 +1,8 @@
 // ComposeBar.tsx
 // ─────────────────────────────────────────────────────────────────────────────
 // Bottom-sticky compose surface inside ThreadView. Layout from start to end:
-//   [📎 attach] [📷 camera] [text input (auto-grow)] [🎤 mic | ↗ send]
+//   [Paperclip attach] [Camera] [text input (auto-grow)] [Mic | Send]
+// All icons are lucide components.
 //
 // Mic interactions:
 //   • pointer-down OR touch-start → voiceRecorder.start() + show overlay
@@ -136,7 +137,7 @@ export const ComposeBar: React.FC<Props> = ({ onSendText, onSendVoice }) => {
   };
 
   return (
-    <div className="border-t border-slate-100 bg-white px-3 pt-2 pb-3 shadow-[0_-1px_0_0_rgba(15,23,42,0.04)]">
+    <div className="border-t border-slate-200 bg-white px-3 pt-2 pb-3">
       {showOverlay ? (
         <VoiceRecorderOverlay
           durationSec={recorder.duration}
@@ -186,7 +187,7 @@ export const ComposeBar: React.FC<Props> = ({ onSendText, onSendVoice }) => {
               type="button"
               onClick={handleSendText}
               aria-label={t('parentApp.messages.compose.sendAria')}
-              className="shrink-0 w-9 h-9 rounded-full bg-duo-blue text-white shadow-[0_2px_0_0_#1899D6] inline-flex items-center justify-center active:translate-y-[1px] active:shadow-none transition-transform"
+              className="shrink-0 w-9 h-9 rounded-full bg-duo-blue text-white inline-flex items-center justify-center hover:bg-duo-blue-dark active:bg-duo-blue-dark motion-safe:active:scale-[0.97] transition-colors"
             >
               <Send
                 className={`w-4 h-4 ${locale === 'ar' ? '-scale-x-100' : ''}`}
@@ -211,9 +212,9 @@ export const ComposeBar: React.FC<Props> = ({ onSendText, onSendVoice }) => {
               onPointerMove={recorder.supported ? onPointerMove : undefined}
               onPointerUp={recorder.supported ? onPointerUp : undefined}
               onPointerCancel={recorder.supported ? onPointerCancel : undefined}
-              className={`shrink-0 w-9 h-9 rounded-full inline-flex items-center justify-center transition-transform select-none ${
+              className={`shrink-0 w-9 h-9 rounded-full inline-flex items-center justify-center transition-colors select-none ${
                 recorder.supported
-                  ? 'bg-duo-blue text-white shadow-[0_2px_0_0_#1899D6] active:translate-y-[1px] active:shadow-none'
+                  ? 'bg-duo-blue text-white hover:bg-duo-blue-dark active:bg-duo-blue-dark motion-safe:active:scale-[0.97]'
                   : 'bg-slate-200 text-slate-400 cursor-not-allowed'
               }`}
               style={{ touchAction: 'none' }}

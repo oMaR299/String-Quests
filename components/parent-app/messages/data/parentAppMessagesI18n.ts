@@ -12,8 +12,8 @@ export type Locale = 'ar' | 'en';
 export const parentAppMessagesI18n: Record<Locale, Record<string, string>> = {
   ar: {
     // Segmented control
-    'parentApp.messages.segments.inbox': '💬 الرسائل',
-    'parentApp.messages.segments.announcements': '📢 الإعلانات',
+    'parentApp.messages.segments.inbox': 'الرسائل',
+    'parentApp.messages.segments.announcements': 'الإعلانات',
 
     // Search
     'parentApp.messages.search.placeholder': 'ابحث عن معلم أو رسالة...',
@@ -24,7 +24,7 @@ export const parentAppMessagesI18n: Record<Locale, Record<string, string>> = {
       'ترد عادة خلال {minutes} دقيقة',
     'parentApp.messages.mentor.replyTimeHours': 'ترد عادة خلال {hours} ساعة',
     'parentApp.messages.mentor.replyTimeApproxHour': 'ترد عادة خلال ساعة',
-    'parentApp.messages.mentor.openChat': 'بدء محادثة 💬',
+    'parentApp.messages.mentor.openChat': 'بدء محادثة',
     'parentApp.messages.mentor.statusOnline': 'متاحة الآن',
     'parentApp.messages.mentor.statusBusy': 'مشغولة الآن',
     'parentApp.messages.mentor.statusOffline': 'غير متصلة',
@@ -61,7 +61,7 @@ export const parentAppMessagesI18n: Record<Locale, Record<string, string>> = {
     'parentApp.messages.recent.header': 'المحادثات الأخيرة',
     'parentApp.messages.recent.headerWithUnread':
       'المحادثات الأخيرة ({count} غير مقروءة)',
-    'parentApp.messages.recent.emptyState': 'ابدأ محادثة من الأعلى ↑',
+    'parentApp.messages.recent.emptyState': 'ابدأ محادثة من الأعلى',
     'parentApp.messages.recent.noResults': 'لا توجد نتائج مطابقة',
 
     // Announcements
@@ -72,12 +72,12 @@ export const parentAppMessagesI18n: Record<Locale, Record<string, string>> = {
     'parentApp.messages.announcements.markRead': 'قرأت',
     'parentApp.messages.announcements.dismiss': 'تجاهل',
     'parentApp.messages.announcements.messageTeacher': 'اسأل المعلم',
-    'parentApp.messages.announcements.celebrate': 'احتفلوا معاً 🎉',
+    'parentApp.messages.announcements.celebrate': 'احتفلوا معاً',
     'parentApp.messages.announcements.filterAll': 'الكل',
     'parentApp.messages.announcements.filterSchool': 'مدرسي',
     'parentApp.messages.announcements.filterClass': 'صف {name}',
     'parentApp.messages.announcements.filterUnread': 'غير مقروء',
-    'parentApp.messages.announcements.emptyState': 'لا توجد إعلانات حالياً 🌿',
+    'parentApp.messages.announcements.emptyState': 'لا توجد إعلانات حالياً',
     'parentApp.messages.announcements.fromLabel': 'من: {name}',
 
     // Time grouping
@@ -121,8 +121,8 @@ export const parentAppMessagesI18n: Record<Locale, Record<string, string>> = {
   },
   en: {
     // Segmented control
-    'parentApp.messages.segments.inbox': '💬 Inbox',
-    'parentApp.messages.segments.announcements': '📢 Announcements',
+    'parentApp.messages.segments.inbox': 'Inbox',
+    'parentApp.messages.segments.announcements': 'Announcements',
 
     // Search
     'parentApp.messages.search.placeholder': 'Search teachers or messages...',
@@ -132,7 +132,7 @@ export const parentAppMessagesI18n: Record<Locale, Record<string, string>> = {
     'parentApp.messages.mentor.replyTimeMinutes': 'Usually replies in ~{minutes}m',
     'parentApp.messages.mentor.replyTimeHours': 'Usually replies in ~{hours}h',
     'parentApp.messages.mentor.replyTimeApproxHour': 'Usually replies in ~1h',
-    'parentApp.messages.mentor.openChat': 'Open chat 💬',
+    'parentApp.messages.mentor.openChat': 'Open chat',
     'parentApp.messages.mentor.statusOnline': 'Online now',
     'parentApp.messages.mentor.statusBusy': 'Busy',
     'parentApp.messages.mentor.statusOffline': 'Offline',
@@ -166,7 +166,7 @@ export const parentAppMessagesI18n: Record<Locale, Record<string, string>> = {
     // Recent threads
     'parentApp.messages.recent.header': 'Recent',
     'parentApp.messages.recent.headerWithUnread': 'Recent ({count} unread)',
-    'parentApp.messages.recent.emptyState': 'Start a conversation above ↑',
+    'parentApp.messages.recent.emptyState': 'Start a conversation above',
     'parentApp.messages.recent.noResults': 'No matching conversations',
 
     // Announcements
@@ -178,12 +178,12 @@ export const parentAppMessagesI18n: Record<Locale, Record<string, string>> = {
     'parentApp.messages.announcements.markRead': 'Mark read',
     'parentApp.messages.announcements.dismiss': 'Dismiss',
     'parentApp.messages.announcements.messageTeacher': 'Message teacher',
-    'parentApp.messages.announcements.celebrate': 'Celebrate 🎉',
+    'parentApp.messages.announcements.celebrate': 'Celebrate',
     'parentApp.messages.announcements.filterAll': 'All',
     'parentApp.messages.announcements.filterSchool': 'School-wide',
     'parentApp.messages.announcements.filterClass': "{name}'s class",
     'parentApp.messages.announcements.filterUnread': 'Unread',
-    'parentApp.messages.announcements.emptyState': 'No announcements right now 🌿',
+    'parentApp.messages.announcements.emptyState': 'No announcements right now',
     'parentApp.messages.announcements.fromLabel': 'From: {name}',
 
     // Time grouping

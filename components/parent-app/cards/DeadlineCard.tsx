@@ -56,7 +56,7 @@ export const DeadlineCard: React.FC = () => {
     <button
       type="button"
       onClick={() => navigate('/parent/messages')}
-      className="w-full text-start rounded-2xl bg-white/90 backdrop-blur border border-slate-200 overflow-hidden flex hover:bg-white transition-colors active:scale-[0.99]"
+      className="w-full text-start rounded-2xl bg-white border border-slate-200 overflow-hidden flex hover:bg-slate-50 transition-colors motion-safe:active:scale-[0.99]"
     >
       <div className={`w-1.5 shrink-0 ${styles.band}`} aria-hidden="true" />
       <div className="flex-1 p-4 flex gap-3 items-start min-w-0">

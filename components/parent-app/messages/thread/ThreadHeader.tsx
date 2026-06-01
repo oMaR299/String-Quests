@@ -51,7 +51,7 @@ export const ThreadHeader: React.FC<Props> = ({ contact, onBack }) => {
         : 'bg-slate-300';
 
   return (
-    <header className="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-slate-100">
+    <header className="sticky top-0 z-20 bg-white border-b border-slate-200">
       <div className="flex items-center gap-2.5 h-14 px-2">
         <button
           type="button"

@@ -4,19 +4,30 @@
 // than subject tiles.
 
 import React from 'react';
+import {
+  Briefcase,
+  Brain,
+  ClipboardList,
+  Stethoscope,
+  GraduationCap,
+  BookOpen,
+} from 'lucide-react';
 import { useI18n } from '../../../../contexts/I18nContext';
 import { getMessagesString } from '../data/parentAppMessagesI18n';
 import type { MockContact, ContactRole } from '../data/parentAppContactsMock';
 
-// Role-specific emoji icons, locked literal map for Tailwind JIT safety
-// (we're not generating classes from role names, only mapping to emoji).
-const ROLE_EMOJI: Record<ContactRole, string> = {
-  principal: '👨‍💼',
-  counselor: '🧠',
-  admin: '📋',
-  nurse: '🩺',
-  mentor: '🎓',
-  teacher: '📖',
+// Role-specific lucide icons. Locked literal map so the JIT picks up every
+// utility class used inside this component at build time.
+const ROLE_ICON: Record<
+  ContactRole,
+  React.ComponentType<{ className?: string; strokeWidth?: number }>
+> = {
+  principal: Briefcase,
+  counselor: Brain,
+  admin: ClipboardList,
+  nurse: Stethoscope,
+  mentor: GraduationCap,
+  teacher: BookOpen,
 };
 
 interface Props {
@@ -28,18 +39,19 @@ interface Props {
 export const StaffTile: React.FC<Props> = ({ contact, unread, onOpen }) => {
   const { locale } = useI18n();
   const t = (k: string) => getMessagesString(locale, k);
+  const Icon = ROLE_ICON[contact.role];
 
   return (
     <button
       type="button"
       onClick={() => onOpen(contact.id)}
-      className="relative rounded-2xl bg-white border border-slate-100 p-3 flex items-center gap-2.5 text-start hover:bg-slate-50 active:scale-[0.98] transition-transform shadow-[0_1px_0_0_#E2E8F0]"
+      className="relative rounded-2xl bg-white border border-slate-200 p-3 flex items-center gap-2.5 text-start hover:bg-slate-50 motion-safe:active:scale-[0.98] transition-colors"
     >
       <div
         className="shrink-0 w-9 h-9 rounded-full inline-flex items-center justify-center bg-slate-100 text-slate-600"
         aria-hidden="true"
       >
-        <span className="text-base">{ROLE_EMOJI[contact.role]}</span>
+        <Icon className="w-4 h-4" strokeWidth={2.5} />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500 truncate">

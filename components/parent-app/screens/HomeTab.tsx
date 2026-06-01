@@ -1,26 +1,26 @@
 // HomeTab.tsx
 // ─────────────────────────────────────────────────────────────────────────────
-// v1.2 Home — trimmed card stack. Per design ask the cards below the action
-// items (celebration, AI convo, deadline, announcement, message preview, and
-// the freshness/privacy footer) were removed: parents found them noisy and
-// the action items already capture everything that needs a response. The
-// equivalent content still lives in the dedicated tabs (Aware AI for the
-// convo starter, Messages for announcements + threads, etc.).
+// v1.3 Home — further trimmed stack. Per the latest design ask the kid
+// "today's win" hero card and the pending action items stack were also
+// removed: parents found them either noisy (Win felt repetitive day-over-day)
+// or duplicative (Action items overlap with what each logistics drawer
+// already surfaces inline — pending forms badge, attendance dot, etc.).
 //
 // Final order:
 //   1. GreetingStrip        — time-of-day weather hero with parent salutation
-//   2. HeroWinCard          — kid's "today's win" white-glass card
-//   3. SchoolLogisticsStrip — 6-button grid (Assignments / Calendar / Bag /
+//   2. SchoolLogisticsStrip — 6-button grid (Assignments / Calendar / Bag /
 //                             Exams / Forms / Attendance)
-//   4. ActionItemsStack     — pending parent chores (sign / ack / RSVP)
 //
-// SupernovaTeaserCard remains gated to Day 30+ and is not mounted here.
+// HeroWinCard, ActionItemsStack, SupernovaTeaserCard, and the older
+// celebration / convo / deadline / announcement / preview / footer cards
+// all live as code on disk but are not mounted here.
 
 import React from 'react';
 import { GreetingStrip } from '../cards/GreetingStrip';
-import { HeroWinCard } from '../cards/HeroWinCard';
 import { SchoolLogisticsStrip } from '../cards/SchoolLogisticsStrip';
-import { ActionItemsStack } from '../cards/ActionItemsStack';
+import { TodaysPickupCard } from '../cards/TodaysPickupCard';
+import { ReportCardSection } from '../cards/ReportCardSection';
+import { DailyInsightsSection } from '../cards/DailyInsightsSection';
 
 export const HomeTab: React.FC = () => {
   return (
@@ -29,11 +29,22 @@ export const HomeTab: React.FC = () => {
           for v1.x home redesign mockup. */}
       <GreetingStrip parentName="أحمد" />
 
-      <HeroWinCard />
+      {/* Live pickup status — hides automatically on weekends + when no
+          pickup data is seeded for today. Tap opens the full Pickup drawer. */}
+      <TodaysPickupCard />
 
       <SchoolLogisticsStrip />
 
-      <ActionItemsStack />
+      {/* AI-styled daily insights: a weekly hero card + a horizontal-scroll
+          strip of per-topic insight cards (focus, mood, sleep, social, etc.).
+          Different visual register from the report card so the two surfaces
+          don't blur together. */}
+      <DailyInsightsSection />
+
+      {/* Term-end consolidated grades view + per-cell breakdown popovers + AI
+          summaries + "Generate full report" CTA. Lower priority than the
+          live pickup card and daily logistics, so it sits below them. */}
+      <ReportCardSection />
     </div>
   );
 };

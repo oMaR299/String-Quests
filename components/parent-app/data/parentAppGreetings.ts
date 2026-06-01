@@ -11,7 +11,8 @@
 //   • Warm, parental, Levantine-Jordan colored. Address the parent
 //     directly with plural-respect ("بتقدر/ي" or just inclusive plural)
 //     where natural. Avoid stiff MSA flourishes.
-//   • At most one emoji per phrase, used sparingly for warmth.
+//   • No emojis — the hero photo carries the time-of-day mood; text is
+//     pure prose so it stays clean and locale-neutral.
 //   • Keep each phrase ≤ ~70 chars so it fits on one line on a phone.
 //
 // Bands (see useTimeBand.ts):
@@ -31,7 +32,7 @@ export type Locale = 'ar' | 'en';
  */
 export const SALUTATIONS: Record<Band, Record<Locale, string>> = {
   morning: {
-    ar: 'صباح الخير، {name} ☀️',
+    ar: 'صباح الخير، {name}',
     en: 'Good morning, {name}',
   },
   afternoon: {
@@ -43,7 +44,7 @@ export const SALUTATIONS: Record<Band, Record<Locale, string>> = {
     en: 'Good evening, {name}',
   },
   night: {
-    ar: 'مساء الخير، {name} 🌙',
+    ar: 'مساء الخير، {name}',
     en: 'Good evening, {name}',
   },
   late: {
@@ -56,10 +57,10 @@ export const SALUTATIONS: Record<Band, Record<Locale, string>> = {
  * Salutations to use when no parent name is available — same vibe, no comma.
  */
 export const SALUTATIONS_NO_NAME: Record<Band, Record<Locale, string>> = {
-  morning: { ar: 'صباح الخير ☀️', en: 'Good morning' },
+  morning: { ar: 'صباح الخير', en: 'Good morning' },
   afternoon: { ar: 'مساء النور', en: 'Good afternoon' },
   evening: { ar: 'مساء الخير', en: 'Good evening' },
-  night: { ar: 'مساء الخير 🌙', en: 'Good evening' },
+  night: { ar: 'مساء الخير', en: 'Good evening' },
   late: { ar: 'ليلة هادئة', en: 'Quiet night' },
 };
 
@@ -75,7 +76,7 @@ export const PHRASES: Record<Band, Record<Locale, string[]>> = {
       'تابع رحلة أبنائك من هون',
       'كل صباح هو بداية صغيرة، شجّعهم اليوم',
       'شوف وين وصلوا أبناؤك بدرسهم اليوم',
-      'كوب قهوة وإطلالة سريعة على تقدم العيلة ☕',
+      'كوب قهوة وإطلالة سريعة على تقدم العيلة',
       'يلا نشوف شو في جديد عند أبنائك اليوم',
       'بدايات الصباح بترسم باقي اليوم — جاهزين؟',
       'أبناؤك بيبدأو يومهم — كن قريب منهم',
@@ -86,7 +87,7 @@ export const PHRASES: Record<Band, Record<Locale, string[]>> = {
       "Catch up on your children's progress from here",
       'Every morning is a small beginning. Cheer them on today',
       "Take a quick look at what they're tackling today",
-      'Coffee in hand, a quick glance at the family ☕',
+      'Coffee in hand, a quick glance at the family',
       "Let's see what's new for your kids today",
       "How a morning starts shapes the day. Ready?",
       'Your kids are starting their day — be close',
@@ -124,7 +125,7 @@ export const PHRASES: Record<Band, Record<Locale, string[]>> = {
       'دقايق معهم اليوم بتعمل فرق كبير بكرة',
       'شوف نقاط القوة وشجّعهم عليها قبل النوم',
       'وقت ذهبي تسأل عن درس اليوم وتحتفلوا فيه',
-      'مساء عيلتك يستاهل لمسة دفء — ابدأ من هون 🌟',
+      'مساء عيلتك يستاهل لمسة دفء — ابدأ من هون',
       'تقدّم اليوم بإيد أبنائك — وأنت بتشاركهم الفرحة',
       'لحظة بسيطة معهم اليوم تثبّت اللي تعلموه',
     ],
@@ -135,7 +136,7 @@ export const PHRASES: Record<Band, Record<Locale, string[]>> = {
       'A few minutes with them today makes a big difference tomorrow',
       "See their strengths and celebrate them before bed",
       'A golden window to ask about a lesson and cheer it on',
-      'Your family evening deserves a warm touch. Start here 🌟',
+      'Your family evening deserves a warm touch. Start here',
       "Today's progress is theirs — you share the joy",
       'A small moment with them today locks in what they learned',
     ],
@@ -148,7 +149,7 @@ export const PHRASES: Record<Band, Record<Locale, string[]>> = {
       'النوم بيرسّخ التعلم — بكرة بيقدروا أكتر',
       'كل ليلة هي فرصة شكر صغيرة لأبنائك',
       'شوف الإنجازات الحلوة قبل ما تطفي الضو',
-      'يوم حلو بيستاهل ابتسامة قبل النوم 🌙',
+      'يوم حلو بيستاهل ابتسامة قبل النوم',
       'دقايق هاي الليلة بتزرع ثقة بكرة',
     ],
     en: [
@@ -158,7 +159,7 @@ export const PHRASES: Record<Band, Record<Locale, string[]>> = {
       'Sleep locks in learning — tomorrow they can do more',
       'Every night is a small thank-you to your kids',
       'A peek at the wins before lights-out',
-      'A good day deserves a smile before bed 🌙',
+      'A good day deserves a smile before bed',
       "Tonight's minutes plant tomorrow's confidence",
     ],
   },

@@ -24,8 +24,8 @@ export const SupernovaTeaserCard: React.FC = () => {
   if (!shouldShowSupernovaTeaser(state)) return null;
 
   return (
-    <section className="rounded-2xl border border-duo-purple/30 bg-gradient-to-r from-duo-purple-light to-duo-blue-light p-4 flex gap-3 items-start">
-      <div className="w-10 h-10 rounded-full bg-white/90 inline-flex items-center justify-center shrink-0 shadow-[0_2px_0_0_#A855F7]">
+    <section className="rounded-2xl border border-slate-200 bg-white p-4 flex gap-3 items-start">
+      <div className="w-10 h-10 rounded-full bg-duo-purple-light inline-flex items-center justify-center shrink-0">
         <Crown className="w-5 h-5 text-duo-purple" strokeWidth={2.5} />
       </div>
       <div className="flex-1 min-w-0 space-y-1">
@@ -37,7 +37,7 @@ export const SupernovaTeaserCard: React.FC = () => {
         </p>
         <button
           type="button"
-          className="mt-1 inline-flex items-center px-3 py-1.5 rounded-full bg-duo-purple text-white text-xs font-extrabold shadow-[0_2px_0_0_#A855F7] active:translate-y-[1px] active:shadow-none transition-transform duration-100"
+          className="mt-1 inline-flex items-center px-3 py-1.5 rounded-full bg-duo-purple text-white text-xs font-bold hover:bg-[#B970FF] active:bg-[#B970FF] motion-safe:active:scale-[0.97] transition-colors duration-100"
         >
           {t('parentApp.supernova.cta')}
         </button>

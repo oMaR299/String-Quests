@@ -28,15 +28,18 @@
 
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { Check, BookOpen, Sparkles } from 'lucide-react';
+import { Check, BookOpen, Sparkles, Shirt, Activity, Star } from 'lucide-react';
 import { useI18n } from '../../../contexts/I18nContext';
 import { getParentAppString, interpolate } from '../parentAppI18n';
 import { BottomSheet } from './BottomSheet';
 import {
   getTomorrowBooks,
+  getTomorrowDressCode,
   getNextSchoolDay,
   getDayOfWeekLabel,
   SUBJECT_STYLES,
+  type DressCode,
+  type DressCodeKind,
   type PackItem,
 } from '../data/parentAppSchoolMockData';
 import { AVATAR_STYLES, type ChildAvatarColor } from '../parentAppMockData';
@@ -49,6 +52,152 @@ interface Props {
   onSwipeNext?: () => void;
   onSwipePrev?: () => void;
 }
+
+// ─── Dress code section ────────────────────────────────────────────────────
+//
+// Renders the auto-resolved dress for tomorrow (formal / sports / special)
+// plus, on special days, the teacher comment + any extra items to pack.
+// Lives ABOVE the PackList so it's the first thing the parent sees when
+// they open the drawer — they read the dress, then scan the books.
+
+const DRESS_TONE: Record<
+  DressCodeKind,
+  { bg: string; text: string; border: string; iconBg: string; iconText: string }
+> = {
+  formal: {
+    bg: 'bg-duo-blue-light',
+    text: 'text-duo-blue',
+    border: 'border-duo-blue/30',
+    iconBg: 'bg-duo-blue',
+    iconText: 'text-white',
+  },
+  sports: {
+    bg: 'bg-duo-orange-light',
+    text: 'text-orange-700',
+    border: 'border-duo-orange/30',
+    iconBg: 'bg-duo-orange',
+    iconText: 'text-white',
+  },
+  special: {
+    bg: 'bg-duo-purple-light',
+    text: 'text-purple-700',
+    border: 'border-duo-purple/40',
+    iconBg: 'bg-duo-purple',
+    iconText: 'text-white',
+  },
+};
+
+const DRESS_ICON: Record<
+  DressCodeKind,
+  React.ComponentType<{ className?: string; strokeWidth?: number }>
+> = {
+  formal: Shirt,
+  sports: Activity,
+  special: Star,
+};
+
+const DRESS_LABEL_KEY: Record<DressCodeKind, string> = {
+  formal: 'parentApp.school.books.dress.formal',
+  sports: 'parentApp.school.books.dress.sports',
+  special: 'parentApp.school.books.dress.special',
+};
+
+const DRESS_HINT_KEY: Partial<Record<DressCodeKind, string>> = {
+  formal: 'parentApp.school.books.dress.formalHint',
+  sports: 'parentApp.school.books.dress.sportsHint',
+};
+
+interface DressSectionProps {
+  dress: DressCode;
+}
+
+const DressSection: React.FC<DressSectionProps> = ({ dress }) => {
+  const { locale } = useI18n();
+  const t = useCallback((key: string) => getParentAppString(locale, key), [locale]);
+  const tone = DRESS_TONE[dress.kind];
+  const Icon = DRESS_ICON[dress.kind];
+
+  const teacherComment =
+    locale === 'ar' ? dress.teacherCommentAr : dress.teacherCommentEn;
+  const teacherName =
+    locale === 'ar' ? dress.teacherNameAr : dress.teacherNameEn;
+  const hint = DRESS_HINT_KEY[dress.kind]
+    ? t(DRESS_HINT_KEY[dress.kind] as string)
+    : null;
+
+  return (
+    <section
+      aria-label={t('parentApp.school.books.dress.sectionLabel')}
+      className={`rounded-2xl border-2 ${tone.bg} ${tone.border} p-3 space-y-2`}
+    >
+      <div className="flex items-center gap-3">
+        <div
+          className={`w-10 h-10 rounded-full inline-flex items-center justify-center shrink-0 ${tone.iconBg} ${tone.iconText}`}
+          aria-hidden="true"
+        >
+          <Icon className="w-5 h-5" strokeWidth={2.5} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-[9px] font-extrabold uppercase tracking-wider text-slate-500 leading-none mb-0.5">
+            {t('parentApp.school.books.dress.sectionLabel')}
+          </div>
+          <div className={`text-sm font-black leading-tight ${tone.text}`}>
+            {t(DRESS_LABEL_KEY[dress.kind])}
+          </div>
+        </div>
+      </div>
+
+      {/* Hint line (formal / sports only). */}
+      {hint && (
+        <p className="text-[11px] font-bold text-slate-600 leading-relaxed ps-1">
+          {hint}
+        </p>
+      )}
+
+      {/* Teacher comment quote — special days. */}
+      {teacherComment && (
+        <div className="rounded-xl bg-white/80 border border-white p-2.5">
+          <p className="text-xs font-bold italic text-slate-700 leading-relaxed">
+            ❝ {teacherComment} ❞
+          </p>
+          {teacherName && (
+            <div className="text-[10px] font-extrabold text-slate-500 mt-1">
+              — {interpolate(t('parentApp.school.books.dress.fromTeacher'), {
+                name: teacherName,
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Extra items the parent should pack (water bottle for sports, special
+          outfit pieces, etc.). */}
+      {dress.extraItems.length > 0 && (
+        <div className="space-y-1.5">
+          <div className="text-[9px] font-extrabold uppercase tracking-wider text-slate-500 leading-none">
+            {t('parentApp.school.books.dress.extrasLabel')}
+          </div>
+          <ul className="space-y-1">
+            {dress.extraItems.map((item) => (
+              <li
+                key={item.id}
+                className="rounded-xl bg-white/70 border border-white px-2.5 py-1.5 flex items-center gap-2"
+              >
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${tone.iconBg} shrink-0`}
+                  aria-hidden="true"
+                />
+                <span className="text-xs font-extrabold text-slate-700 leading-tight">
+                  {locale === 'ar' ? item.titleAr : item.titleEn}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  );
+};
 
 interface PackListProps {
   childId: string;
@@ -141,7 +290,7 @@ const PackList: React.FC<PackListProps> = ({
                   transition={reduceMotion ? { duration: 0 } : { duration: 0.25 }}
                   className={`w-7 h-7 rounded-full inline-flex items-center justify-center shrink-0 transition-colors ${
                     isPacked
-                      ? 'bg-emerald-500 text-white shadow-[0_2px_0_0_#059669]'
+                      ? 'bg-emerald-500 text-white'
                       : 'bg-slate-100 text-transparent border border-slate-200'
                   }`}
                   aria-hidden="true"
@@ -271,6 +420,16 @@ export const TomorrowBooksDrawerContent: React.FC = () => {
     return map;
   }, [childrenToShow, today]);
 
+  // Per-child dress code (auto-resolved from tomorrow's schedule + special-
+  // day overrides). Cached per (childId, day) so re-renders don't recompute.
+  const childDress = useMemo(() => {
+    const map: Record<string, ReturnType<typeof getTomorrowDressCode>> = {};
+    for (const c of childrenToShow) {
+      map[c.id] = getTomorrowDressCode(c.id, today);
+    }
+    return map;
+  }, [childrenToShow, today]);
+
   // Per-child packing state. Reset on mount (the parent strip remounts this
   // content fresh whenever the active drawer changes — see Fix 2).
   const [packed, setPacked] = useState<Record<string, Record<string, boolean>>>(
@@ -324,21 +483,24 @@ export const TomorrowBooksDrawerContent: React.FC = () => {
       )}
       {childrenToShow.map((child) => {
         const items = childItems[child.id] ?? [];
+        const dress = childDress[child.id];
         const childName = locale === 'ar' ? child.nameAr : child.nameEn;
         return (
-          <PackList
-            key={child.id}
-            childId={child.id}
-            childName={childName}
-            childAvatarColor={child.avatarColor}
-            childInitial={child.avatarInitial}
-            items={items}
-            packed={packed[child.id] ?? {}}
-            onToggle={(itemId) => togglePacked(child.id, itemId)}
-            showHeader
-            todayIsThursdayOrLater={todayIsThursdayOrLater}
-            dayLabel={dayLabel}
-          />
+          <div key={child.id} className="space-y-3">
+            {dress && <DressSection dress={dress} />}
+            <PackList
+              childId={child.id}
+              childName={childName}
+              childAvatarColor={child.avatarColor}
+              childInitial={child.avatarInitial}
+              items={items}
+              packed={packed[child.id] ?? {}}
+              onToggle={(itemId) => togglePacked(child.id, itemId)}
+              showHeader
+              todayIsThursdayOrLater={todayIsThursdayOrLater}
+              dayLabel={dayLabel}
+            />
+          </div>
         );
       })}
     </div>

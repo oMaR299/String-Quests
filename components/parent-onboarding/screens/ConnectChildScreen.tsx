@@ -160,7 +160,7 @@ export const ConnectChildScreen: React.FC<ScreenProps> = ({
               transition={{ type: 'spring', stiffness: 360, damping: 18 }}
               className="absolute inset-0 flex items-center justify-center"
             >
-              <div className="w-16 h-16 rounded-full bg-duo-green flex items-center justify-center shadow-[0_4px_0_0_#4CAD00]">
+              <div className="w-16 h-16 rounded-full bg-duo-green flex items-center justify-center">
                 <Check className="w-9 h-9 text-white" strokeWidth={3.5} />
               </div>
             </motion.div>

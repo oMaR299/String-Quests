@@ -30,14 +30,14 @@ export const ProfilePlaceholder: React.FC = () => {
   return (
     <div className="space-y-4 px-5 pt-5 pb-6">
       {/* Child profile card */}
-      <section className="rounded-3xl bg-white/95 backdrop-blur border border-white/80 shadow-[0_2px_24px_rgba(28,176,246,0.10)] p-5 space-y-4">
+      <section className="rounded-2xl bg-white border border-slate-200 p-5 space-y-4">
         <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
           {t('parentApp.profile.childTitle')}
         </div>
 
         <div className="flex items-center gap-3">
           <div
-            className={`w-16 h-16 rounded-full inline-flex items-center justify-center shrink-0 ${style.bg} ${style.text} ${style.shadow}`}
+            className={`w-16 h-16 rounded-full inline-flex items-center justify-center shrink-0 ${style.bg} ${style.text}`}
           >
             <span className="text-2xl font-black">{child.avatarInitial}</span>
           </div>
@@ -54,7 +54,7 @@ export const ProfilePlaceholder: React.FC = () => {
       </section>
 
       {/* Account settings card */}
-      <section className="rounded-3xl bg-white/95 backdrop-blur border border-white/80 shadow-[0_2px_24px_rgba(28,176,246,0.10)] p-5 space-y-4">
+      <section className="rounded-2xl bg-white border border-slate-200 p-5 space-y-4">
         <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
           {t('parentApp.profile.accountTitle')}
         </div>

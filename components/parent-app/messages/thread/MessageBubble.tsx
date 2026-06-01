@@ -39,12 +39,11 @@ export const MessageBubble: React.FC<Props> = ({
   const isOwn = m.fromParent;
   const wrapperAlign = isOwn ? 'justify-end' : 'justify-start';
 
-  const bubbleBase =
-    'max-w-[78%] px-3 py-2 text-sm leading-snug shadow-[0_1px_0_0_rgba(15,23,42,0.06)]';
+  const bubbleBase = 'max-w-[78%] px-3 py-2 text-sm leading-snug';
 
   const bubbleTone = isOwn
     ? 'bg-duo-blue text-white rounded-2xl rounded-ee-md'
-    : 'bg-white text-slate-800 border border-slate-100 rounded-2xl rounded-ss-md';
+    : 'bg-slate-100 text-slate-900 rounded-2xl rounded-ss-md';
 
   const opacity = m.state === 'sending' ? 'opacity-70' : 'opacity-100';
 

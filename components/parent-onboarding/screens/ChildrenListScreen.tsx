@@ -121,7 +121,7 @@ export const ChildrenListScreen: React.FC<ScreenProps> = ({
                 className="flex items-center gap-3 p-4 rounded-2xl bg-white/85 backdrop-blur border border-white shadow-sm"
               >
                 {/* Avatar */}
-                <div className="w-12 h-12 rounded-full bg-duo-green flex items-center justify-center shrink-0 shadow-[0_3px_0_0_#4CAD00]">
+                <div className="w-12 h-12 rounded-full bg-duo-green flex items-center justify-center shrink-0">
                   <span className="text-lg font-black text-white">{initial}</span>
                 </div>
 
@@ -186,7 +186,7 @@ export const ChildrenListScreen: React.FC<ScreenProps> = ({
             transition={{ type: 'spring', stiffness: 320, damping: 22 }}
             className="fixed top-6 inset-x-0 z-[140] flex items-center justify-center px-4 pointer-events-none"
           >
-            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-duo-green text-white shadow-[0_4px_0_0_#4CAD00] font-extrabold text-base pointer-events-auto">
+            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-duo-green text-white font-bold text-base pointer-events-auto">
               <PartyPopper className="w-5 h-5" />
               <span>{t('parentOnboarding.list.doneToast')}</span>
             </div>

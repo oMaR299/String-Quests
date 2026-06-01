@@ -46,8 +46,8 @@ function formatTime(iso: string, locale: 'ar' | 'en'): string {
 
 function summarizeMessage(m: MockMessage | null, locale: 'ar' | 'en'): string {
   if (!m) return '';
-  if (m.kind === 'voice') return locale === 'ar' ? '🎤 رسالة صوتية' : '🎤 Voice message';
-  if (m.kind === 'image') return locale === 'ar' ? '🖼️ صورة' : '🖼️ Photo';
+  if (m.kind === 'voice') return locale === 'ar' ? 'رسالة صوتية' : 'Voice message';
+  if (m.kind === 'image') return locale === 'ar' ? 'صورة' : 'Photo';
   const body = locale === 'ar' ? m.bodyAr : m.bodyEn;
   return (body ?? '').trim();
 }
@@ -63,8 +63,9 @@ export const ThreadRow: React.FC<Props> = ({
 
   const avatar = AVATAR_STYLES[contact.avatarColor === 'slate' ? 'duo-blue' : contact.avatarColor];
   const avatarBg = contact.avatarColor === 'slate' ? 'bg-slate-400' : avatar.bg;
-  const avatarShadow =
-    contact.avatarColor === 'slate' ? 'shadow-[0_2px_0_0_#64748B]' : avatar.shadow;
+  // Flat refactor: no more 3D bottom shadow. `avatar.shadow` now resolves to
+  // an empty string from parentAppMockData; the slate fallback follows suit.
+  const avatarShadow = '';
 
   const name = locale === 'ar' ? contact.nameAr : contact.nameEn;
   const roleLabel = t(`parentApp.messages.roles.${contact.role}`);

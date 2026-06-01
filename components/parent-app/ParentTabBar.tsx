@@ -48,7 +48,7 @@ export const ParentTabBar: React.FC = () => {
 
   return (
     <nav
-      className="bg-white/95 backdrop-blur border-t border-slate-200"
+      className="bg-white border-t border-slate-200"
       style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
       role="tablist"
       aria-label={t('parentApp.tab.home')}

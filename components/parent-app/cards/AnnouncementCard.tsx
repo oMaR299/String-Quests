@@ -33,7 +33,7 @@ export const AnnouncementCard: React.FC = () => {
     <button
       type="button"
       onClick={() => navigate('/parent/messages')}
-      className="w-full text-start rounded-2xl bg-white/90 backdrop-blur border border-slate-200 p-4 flex gap-3 items-start hover:bg-white transition-colors active:scale-[0.99]"
+      className="w-full text-start rounded-2xl bg-white border border-slate-200 p-4 flex gap-3 items-start hover:bg-slate-50 transition-colors motion-safe:active:scale-[0.99]"
     >
       <div className="w-10 h-10 rounded-full bg-slate-100 inline-flex items-center justify-center shrink-0">
         <Megaphone className="w-5 h-5 text-slate-500" strokeWidth={2.5} />

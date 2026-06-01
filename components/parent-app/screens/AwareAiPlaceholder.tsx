@@ -23,7 +23,7 @@ export const AwareAiPlaceholder: React.FC = () => {
         initial={reduceMotion ? false : { scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 220, damping: 22 }}
-        className="w-24 h-24 rounded-full bg-duo-purple-light inline-flex items-center justify-center shadow-[0_4px_0_0_#A855F7] mb-5"
+        className="w-24 h-24 rounded-full bg-duo-purple-light inline-flex items-center justify-center mb-5"
       >
         <Sparkles className="w-12 h-12 text-duo-purple" strokeWidth={2.5} />
       </motion.div>
@@ -56,7 +56,7 @@ interface FeatureBulletProps {
 }
 
 const FeatureBullet: React.FC<FeatureBulletProps> = ({ icon: Icon, text }) => (
-  <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/85 border border-white">
+  <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white border border-slate-200">
     <div className="w-8 h-8 rounded-full bg-duo-purple-light inline-flex items-center justify-center shrink-0">
       <Icon className="w-4 h-4 text-duo-purple" strokeWidth={2.5} />
     </div>

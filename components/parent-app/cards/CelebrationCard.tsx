@@ -27,7 +27,7 @@ export const CelebrationCard: React.FC = () => {
       initial={reduceMotion ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 260, damping: 24 }}
-      className="rounded-2xl border border-duo-gold/30 bg-gradient-to-r from-duo-gold-light to-duo-orange-light/60 p-4 flex items-center gap-3"
+      className="rounded-2xl border border-slate-200 bg-white p-4 flex items-center gap-3"
     >
       <motion.div
         animate={
@@ -40,7 +40,7 @@ export const CelebrationCard: React.FC = () => {
             ? { duration: 0 }
             : { duration: 2.4, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut' }
         }
-        className="w-11 h-11 rounded-full bg-white/90 inline-flex items-center justify-center shrink-0 shadow-[0_2px_0_0_#E5A500]"
+        className="w-11 h-11 rounded-full bg-duo-gold-light inline-flex items-center justify-center shrink-0"
       >
         <Sparkles className="w-5 h-5 text-duo-orange" />
       </motion.div>

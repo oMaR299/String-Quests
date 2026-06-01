@@ -33,7 +33,7 @@
 //   absent   → rose X
 //   excused  → slate doc
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ChevronLeft,
@@ -42,18 +42,25 @@ import {
   X as XIcon,
   Clock,
   FileText,
+  MessageSquare,
+  Edit2,
+  Plus,
 } from 'lucide-react';
 import { useI18n } from '../../../contexts/I18nContext';
 import { getParentAppString } from '../parentAppI18n';
 import { BottomSheet } from './BottomSheet';
 import {
-  getAttendanceForDay,
   getAttendanceStats,
+  ABSENCE_REASON_CHIPS,
+  type AbsenceReasonChipId,
   type AttendanceStatus,
   type SessionStatus,
   type AttendanceSession,
 } from '../data/parentAppSchoolMockData';
 import { useParentAppContext } from '../useParentAppContext';
+import { useAttendanceForChild } from '../hooks/useAttendanceForChild';
+import { MessageTeacherSheet } from '../messages/MessageTeacherSheet';
+import { getHomeroomTeacher } from '../messages/data/parentAppContactsMock';
 
 interface Props {
   open: boolean;
@@ -203,6 +210,9 @@ export const AttendanceDrawerContent: React.FC = () => {
   const { activeChildId } = useParentAppContext();
   const t = useCallback((key: string) => getParentAppString(locale, key), [locale]);
 
+  // Hook owns the reason-override layer on top of the seeded mock data.
+  const { getDay, setAbsenceReason } = useAttendanceForChild(activeChildId);
+
   // Today (immutable per render).
   const today = useMemo(() => new Date(), []);
   const todayIso = useMemo(
@@ -242,7 +252,7 @@ export const AttendanceDrawerContent: React.FC = () => {
       cellDate.setHours(0, 0, 0, 0);
 
       // Look up seeded attendance first; otherwise infer from weekend/future.
-      const seeded = getAttendanceForDay(activeChildId, iso);
+      const seeded = getDay(iso);
       let status: AttendanceStatus;
       if (seeded) {
         status = seeded.status;
@@ -263,7 +273,7 @@ export const AttendanceDrawerContent: React.FC = () => {
       cells.push({ day: null, iso: null, status: null });
     }
     return cells;
-  }, [cursorYear, cursorMonth, activeChildId, today]);
+  }, [cursorYear, cursorMonth, getDay, today]);
 
   const goPrev = useCallback(() => {
     if (cursorMonth === 0) {
@@ -285,11 +295,108 @@ export const AttendanceDrawerContent: React.FC = () => {
 
   const monthLabel = `${t(`parentApp.school.calendar.month.${cursorMonth}`)} ${cursorYear}`;
 
-  // Selected-day attendance lookup (only for the seeded 30-day window).
+  // Selected-day attendance lookup (with parent-saved reason overrides
+  // merged on top of the seed).
   const selectedDay = useMemo(
-    () => getAttendanceForDay(activeChildId, selectedIso),
-    [activeChildId, selectedIso]
+    () => getDay(selectedIso),
+    [getDay, selectedIso]
   );
+
+  // ── Reason-edit state (inline form inside the selectedDay panel) ──────────
+  // Editing is local — pressing "Edit" or "Add reason" reveals the form pre-
+  // filled with the current chip / notes. "Save" commits via the hook;
+  // "Cancel" closes without changes. Re-opens fresh per absence day.
+  const [editingReasonForIso, setEditingReasonForIso] = useState<string | null>(null);
+  const [editChipId, setEditChipId] = useState<AbsenceReasonChipId | null>(null);
+  const [editNotes, setEditNotes] = useState<string>('');
+
+  // Close the edit form whenever the user navigates to a different day.
+  useEffect(() => {
+    if (editingReasonForIso && editingReasonForIso !== selectedIso) {
+      setEditingReasonForIso(null);
+    }
+  }, [selectedIso, editingReasonForIso]);
+
+  const beginEditReason = useCallback(() => {
+    if (!selectedDay) return;
+    // Best-effort: try to match the current reason text to a known chip.
+    const currentAr = selectedDay.reasonAr ?? '';
+    const currentEn = selectedDay.reasonEn ?? '';
+    let chip: AbsenceReasonChipId | null = null;
+    let notes = '';
+    for (const c of ABSENCE_REASON_CHIPS) {
+      if (currentAr.startsWith(c.ar) || currentEn.toLowerCase().startsWith(c.en.toLowerCase())) {
+        chip = c.id;
+        // Everything after the chip label + an optional " — " is treated as
+        // notes (only triggers when the parent saved chip+notes earlier).
+        const restAr = currentAr.slice(c.ar.length).replace(/^\s*[—\-:]\s*/, '');
+        const restEn = currentEn.slice(c.en.length).replace(/^\s*[—\-:]\s*/, '');
+        notes = restAr || restEn;
+        break;
+      }
+    }
+    if (!chip && (currentAr || currentEn)) {
+      // Free-text only — assume "other" chip and put the body in notes.
+      chip = 'other';
+      notes = currentAr || currentEn;
+    }
+    setEditChipId(chip);
+    setEditNotes(notes);
+    setEditingReasonForIso(selectedIso);
+  }, [selectedDay, selectedIso]);
+
+  const cancelEditReason = useCallback(() => {
+    setEditingReasonForIso(null);
+    setEditChipId(null);
+    setEditNotes('');
+  }, []);
+
+  const saveReason = useCallback(() => {
+    if (!editingReasonForIso || !editChipId) return;
+    const chip = ABSENCE_REASON_CHIPS.find((c) => c.id === editChipId);
+    if (!chip) return;
+    const notes = editNotes.trim();
+    let reasonAr: string = chip.ar;
+    let reasonEn: string = chip.en;
+    if (editChipId === 'other') {
+      // 'other' chip uses ONLY the free-text notes as the reason — the chip
+      // label itself is just a UI signal that this is custom-text.
+      if (!notes) return;
+      reasonAr = notes;
+      reasonEn = notes;
+    } else if (notes) {
+      reasonAr = `${chip.ar} — ${notes}`;
+      reasonEn = `${chip.en} — ${notes}`;
+    }
+    setAbsenceReason(editingReasonForIso, reasonAr, reasonEn);
+    cancelEditReason();
+    // Lightweight in-component toast — uses the same ariaLive region the
+    // sheet primitive already provides via aria-modal; for now a simple
+    // local timeout-driven banner.
+    setSavedToast(t('parentApp.school.attendance.reason.savedToast'));
+    window.setTimeout(() => setSavedToast(null), 1800);
+  }, [editingReasonForIso, editChipId, editNotes, setAbsenceReason, cancelEditReason, t]);
+
+  const [savedToast, setSavedToast] = useState<string | null>(null);
+
+  // MessageTeacherSheet state — opens with the child's homeroom teacher
+  // pre-selected when the parent taps the contextual CTA on an absent day.
+  const [messageOpen, setMessageOpen] = useState(false);
+  const homeroom = useMemo(() => getHomeroomTeacher(activeChildId), [activeChildId]);
+  const messageContextLabel = useMemo(() => {
+    if (!selectedDay) return undefined;
+    const reasonText =
+      locale === 'ar' ? selectedDay.reasonAr : selectedDay.reasonEn;
+    const datePart = selectedIso;
+    if (reasonText) {
+      return locale === 'ar'
+        ? `غياب ${datePart} — ${reasonText}`
+        : `Absence ${datePart} — ${reasonText}`;
+    }
+    return locale === 'ar'
+      ? `غياب ${datePart}`
+      : `Absence ${datePart}`;
+  }, [selectedDay, selectedIso, locale]);
 
   // Helper — render the per-cell glyph (dot, X, clock, or nothing).
   const renderGlyph = (status: AttendanceStatus) => {
@@ -555,10 +662,196 @@ export const AttendanceDrawerContent: React.FC = () => {
                 </p>
               </div>
             )}
+
+            {/* Reason add / edit + Message teacher — only for absent days.
+                Lives inside the selected-day panel so the user's focus stays
+                in one place. Form expands inline (no nested sheet). */}
+            {selectedDay && selectedDay.status === 'absent' && (
+              <div className="mt-3 pt-3 border-t border-slate-100 space-y-2">
+                {editingReasonForIso === selectedIso ? (
+                  <ReasonEditForm
+                    chipId={editChipId}
+                    notes={editNotes}
+                    onChipChange={setEditChipId}
+                    onNotesChange={setEditNotes}
+                    onSave={saveReason}
+                    onCancel={cancelEditReason}
+                  />
+                ) : (
+                  <div className="flex flex-wrap items-center gap-2">
+                    {selectedReason ? (
+                      <button
+                        type="button"
+                        onClick={beginEditReason}
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 bg-slate-100 text-slate-700 text-[11px] font-extrabold hover:bg-slate-200 active:scale-[0.97] transition-all"
+                      >
+                        <Edit2 className="w-3.5 h-3.5" strokeWidth={2.5} />
+                        {t('parentApp.school.attendance.reason.editCta')}
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={beginEditReason}
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 bg-duo-blue-light text-duo-blue text-[11px] font-extrabold hover:bg-duo-blue/15 active:scale-[0.97] transition-all"
+                      >
+                        <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
+                        {t('parentApp.school.attendance.reason.addCta')}
+                      </button>
+                    )}
+                    {selectedReason && homeroom && (
+                      <button
+                        type="button"
+                        onClick={() => setMessageOpen(true)}
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 bg-duo-blue-light text-duo-blue text-[11px] font-extrabold hover:bg-duo-blue/15 active:scale-[0.97] transition-all"
+                      >
+                        <MessageSquare
+                          className="w-3.5 h-3.5 rtl:scale-x-[-1]"
+                          strokeWidth={2.5}
+                        />
+                        {t('parentApp.school.attendance.reason.messageTeacherCta')}
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {/* Saved toast (local to this drawer — independent of the message
+          sheet's own toast). */}
+      <AnimatePresence>
+        {savedToast && (
+          <motion.div
+            key={savedToast}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -14, scale: 0.92 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8, scale: 0.92 }}
+            transition={{ duration: reduceMotion ? 0.18 : 0.22 }}
+            className="fixed top-4 inset-x-0 flex justify-center pointer-events-none z-[310] px-4"
+            aria-live="polite"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-duo-green text-white text-sm font-bold">
+              <Check className="w-4 h-4" strokeWidth={2.5} />
+              <span>{savedToast}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Message-teacher sheet — child's homeroom teacher, attendance-context label. */}
+      {homeroom && (
+        <MessageTeacherSheet
+          open={messageOpen}
+          onClose={() => setMessageOpen(false)}
+          contactId={homeroom.id}
+          childId={activeChildId}
+          contextLabel={messageContextLabel}
+        />
+      )}
     </>
+  );
+};
+
+// ─── Reason edit form (inline, sub-component for readability) ───────────────
+
+interface ReasonEditFormProps {
+  chipId: AbsenceReasonChipId | null;
+  notes: string;
+  onChipChange: (id: AbsenceReasonChipId) => void;
+  onNotesChange: (text: string) => void;
+  onSave: () => void;
+  onCancel: () => void;
+}
+
+const ReasonEditForm: React.FC<ReasonEditFormProps> = ({
+  chipId,
+  notes,
+  onChipChange,
+  onNotesChange,
+  onSave,
+  onCancel,
+}) => {
+  const { locale } = useI18n();
+  const t = useCallback(
+    (key: string) => getParentAppString(locale, key),
+    [locale]
+  );
+  // 'other' requires non-empty notes to be saveable; every other chip is
+  // valid on its own.
+  const canSave = chipId !== null && (chipId !== 'other' || notes.trim().length > 0);
+
+  return (
+    <div className="rounded-2xl bg-slate-50 border border-slate-200 p-3 space-y-3">
+      <div className="space-y-1.5">
+        <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">
+          {t('parentApp.school.attendance.reason.pickReasonLabel')}
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {ABSENCE_REASON_CHIPS.map((chip) => {
+            const active = chipId === chip.id;
+            return (
+              <button
+                key={chip.id}
+                type="button"
+                onClick={() => onChipChange(chip.id)}
+                aria-pressed={active}
+                className={`inline-flex items-center px-3 py-1.5 rounded-full text-[11px] font-extrabold transition-all active:scale-[0.97] ${
+                  active
+                    ? 'bg-duo-blue text-white'
+                    : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
+                }`}
+              >
+                {locale === 'ar'
+                  ? t(`parentApp.school.attendance.reason.chip.${chip.id}`)
+                  : t(`parentApp.school.attendance.reason.chip.${chip.id}`)}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="space-y-1.5">
+        <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">
+          {t('parentApp.school.attendance.reason.notesLabel')}
+          {chipId === 'other' && <span className="text-rose-500 ms-0.5">*</span>}
+        </div>
+        <textarea
+          value={notes}
+          onChange={(e) => onNotesChange(e.target.value)}
+          placeholder={
+            chipId === 'other'
+              ? t('parentApp.school.attendance.reason.notesRequiredPlaceholder')
+              : t('parentApp.school.attendance.reason.notesPlaceholder')
+          }
+          rows={3}
+          className="w-full rounded-xl bg-white border border-slate-200 p-2.5 text-xs font-bold text-slate-800 placeholder:text-slate-400 placeholder:font-semibold focus:border-duo-blue focus:outline-none focus:ring-4 focus:ring-duo-blue/15 transition-all resize-none"
+        />
+      </div>
+
+      <div className="flex items-center gap-2 justify-end">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="px-3 py-1.5 rounded-full text-[11px] font-extrabold text-slate-600 hover:bg-slate-200 active:scale-[0.97] transition-all"
+        >
+          {t('parentApp.school.attendance.reason.cancel')}
+        </button>
+        <button
+          type="button"
+          onClick={onSave}
+          disabled={!canSave}
+          className={`px-4 py-1.5 rounded-full text-[11px] font-black transition-all active:scale-[0.97] ${
+            canSave
+              ? 'bg-duo-blue text-white hover:bg-duo-blue-dark'
+              : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+          }`}
+        >
+          {t('parentApp.school.attendance.reason.save')}
+        </button>
+      </div>
+    </div>
   );
 };
 

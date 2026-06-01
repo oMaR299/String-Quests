@@ -210,7 +210,7 @@ export const OtpScreen: React.FC<ScreenProps> = ({
               verifying
                 ? 'w-12 h-14 rounded-2xl flex items-center justify-center bg-duo-blue-light/70 border-2 border-duo-blue/60 transition-colors'
                 : filled
-                  ? 'w-12 h-14 rounded-2xl flex items-center justify-center bg-white border-2 border-duo-blue shadow-[0_2px_0_0_#1899D6] transition-colors'
+                  ? 'w-12 h-14 rounded-xl flex items-center justify-center bg-white border border-duo-blue ring-2 ring-duo-blue/20 transition-colors'
                   : 'w-12 h-14 rounded-2xl flex items-center justify-center bg-white border-2 border-slate-200 shadow-sm transition-colors focus-within:border-duo-blue focus-within:shadow-[0_0_0_4px_rgba(28,176,246,0.15)]'
             }
           >
@@ -327,8 +327,8 @@ export const OtpScreen: React.FC<ScreenProps> = ({
       disabled={!allFilled || verifying}
       className={
         allFilled && !verifying
-          ? 'w-full bg-duo-blue text-white shadow-[0_4px_0_0_#1899D6] active:translate-y-[2px] active:shadow-none rounded-2xl py-4 px-6 font-extrabold text-lg transition-transform'
-          : 'w-full bg-slate-200 text-slate-400 cursor-not-allowed rounded-2xl py-4 px-6 font-extrabold text-lg'
+          ? 'w-full bg-duo-blue text-white hover:bg-duo-blue-dark active:bg-duo-blue-dark motion-safe:active:scale-[0.98] rounded-xl py-3 px-5 font-bold text-base transition-colors'
+          : 'w-full bg-slate-200 text-slate-400 cursor-not-allowed rounded-xl py-3 px-5 font-bold text-base'
       }
     >
       {verifying ? t('parentOnboarding.otp.verifying') : t('parentOnboarding.otp.cta')}

@@ -98,9 +98,8 @@ export const GreetingStrip: React.FC<GreetingStripProps> = ({ parentName }) => {
   // scene; different days surface different scenes within the band's pool.
   const scene = useMemo(() => pickSceneForBand(band), [band]);
   const overlayClass = OVERLAY_CLASS[scene.overlay];
-  // Date pill emoji — prefer the scene's specific emoji (☀️/⛅/🌧/⚡/❄️/🌫
-  // for day variants; 🌙/☁️ for night) over a generic band emoji.
-  const pillEmoji = scene.emoji ?? '☀️';
+  // Date pill is plain text — no leading weather glyph. The per-band hero
+  // photo already conveys time-of-day + weather.
   // All scenes need white-on-dark contrast (overlay enforces this), so the
   // text shadow is always the dark variant.
   const dark = true;
@@ -197,13 +196,13 @@ export const GreetingStrip: React.FC<GreetingStripProps> = ({ parentName }) => {
 
       {/* Layer 5: foreground content */}
       <div className="relative z-10 p-5 flex flex-col gap-3 min-h-[200px]">
-        {/* Date pill — top, end-aligned via ms-auto */}
+        {/* Date pill — top, end-aligned via ms-auto. Plain date text — no
+            leading icon (the hero photo already carries the time-of-day mood). */}
         <span
-          className="self-end inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-[11px] font-extrabold tracking-wide"
+          className="self-end inline-flex items-center px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-[11px] font-extrabold tracking-wide"
           style={textShadow}
         >
-          <span aria-hidden>{pillEmoji}</span>
-          <span>{dateLabel}</span>
+          {dateLabel}
         </span>
 
         {/* Salutation + rotating phrase — start-aligned, vertical stack

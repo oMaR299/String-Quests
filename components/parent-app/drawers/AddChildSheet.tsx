@@ -213,7 +213,7 @@ export const AddChildSheet: React.FC<AddChildSheetProps> = ({
         </p>
 
         {/* Scan card */}
-        <div className="rounded-3xl bg-white border border-slate-200 shadow-sm p-4 space-y-4">
+        <div className="rounded-2xl bg-white border border-slate-200 p-4 space-y-4">
           <div className="flex items-center gap-2">
             <div className="w-9 h-9 rounded-xl bg-duo-blue-light flex items-center justify-center shrink-0">
               <Camera className="w-5 h-5 text-duo-blue" />
@@ -291,7 +291,7 @@ export const AddChildSheet: React.FC<AddChildSheetProps> = ({
                 }
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <div className="w-14 h-14 rounded-full bg-duo-green flex items-center justify-center shadow-[0_4px_0_0_#4CAD00]">
+                <div className="w-14 h-14 rounded-full bg-duo-green flex items-center justify-center">
                   <Check className="w-8 h-8 text-white" strokeWidth={3.5} />
                 </div>
               </motion.div>
@@ -315,8 +315,8 @@ export const AddChildSheet: React.FC<AddChildSheetProps> = ({
             disabled={scanState === 'success' || linkState === 'linking'}
             className={
               scanState === 'success' || linkState === 'linking'
-                ? 'relative w-full inline-flex items-center justify-center gap-2 rounded-2xl py-3.5 px-5 font-extrabold text-base tracking-tight transition-all duration-100 outline-none bg-slate-200 text-slate-400 shadow-none cursor-not-allowed'
-                : 'relative w-full inline-flex items-center justify-center gap-2 rounded-2xl py-3.5 px-5 font-extrabold text-base tracking-tight transition-all duration-100 outline-none focus-visible:ring-4 focus-visible:ring-blue-200 bg-duo-blue text-white shadow-[0_4px_0_0_#1899D6] hover:bg-[#16A0E0] active:translate-y-[2px] active:shadow-none'
+                ? 'relative w-full inline-flex items-center justify-center gap-2 rounded-xl py-3 px-5 font-bold text-base tracking-tight transition-colors duration-100 outline-none bg-slate-200 text-slate-400 cursor-not-allowed'
+                : 'relative w-full inline-flex items-center justify-center gap-2 rounded-xl py-3 px-5 font-bold text-base tracking-tight transition-colors duration-100 outline-none focus-visible:ring-2 focus-visible:ring-duo-blue/40 bg-duo-blue text-white hover:bg-duo-blue-dark active:bg-duo-blue-dark motion-safe:active:scale-[0.98]'
             }
           >
             {scanState === 'scanning' && (
@@ -340,7 +340,7 @@ export const AddChildSheet: React.FC<AddChildSheetProps> = ({
         </div>
 
         {/* Invite-code card */}
-        <div className="rounded-3xl bg-white border border-slate-200 shadow-sm p-4 space-y-3">
+        <div className="rounded-2xl bg-white border border-slate-200 p-4 space-y-3">
           <h3 className="text-sm font-extrabold text-slate-800 leading-tight">
             {t('parentApp.addChild.codeTitle')}
           </h3>
@@ -348,8 +348,8 @@ export const AddChildSheet: React.FC<AddChildSheetProps> = ({
           <div
             className={
               isCodeValid
-                ? 'rounded-2xl bg-white border-2 border-duo-blue shadow-[0_0_0_4px_rgba(28,176,246,0.15)] transition-all duration-150'
-                : 'rounded-2xl bg-white border-2 border-slate-200 shadow-sm transition-all duration-150 focus-within:border-duo-blue focus-within:shadow-[0_0_0_4px_rgba(28,176,246,0.15)]'
+                ? 'rounded-xl bg-white border border-duo-blue ring-2 ring-duo-blue/20 transition-colors duration-150'
+                : 'rounded-xl bg-white border border-slate-200 transition-colors duration-150 focus-within:border-duo-blue focus-within:ring-2 focus-within:ring-duo-blue/20'
             }
           >
             <textarea
@@ -373,8 +373,8 @@ export const AddChildSheet: React.FC<AddChildSheetProps> = ({
             disabled={!isCodeValid || scanState !== 'idle' || linkState === 'linking'}
             className={
               !isCodeValid || scanState !== 'idle' || linkState === 'linking'
-                ? 'relative w-full inline-flex items-center justify-center gap-2 rounded-2xl py-3.5 px-5 font-extrabold text-base tracking-tight transition-all duration-100 outline-none bg-slate-50 text-slate-300 border-2 border-slate-100 shadow-none cursor-not-allowed'
-                : 'relative w-full inline-flex items-center justify-center gap-2 rounded-2xl py-3.5 px-5 font-extrabold text-base tracking-tight transition-all duration-100 outline-none focus-visible:ring-4 focus-visible:ring-blue-200 bg-white text-slate-700 border-2 border-slate-200 shadow-[0_4px_0_0_#E2E8F0] hover:bg-slate-50 active:translate-y-[2px] active:shadow-none'
+                ? 'relative w-full inline-flex items-center justify-center gap-2 rounded-xl py-3 px-5 font-bold text-base tracking-tight transition-colors duration-100 outline-none bg-slate-50 text-slate-300 border border-slate-100 cursor-not-allowed'
+                : 'relative w-full inline-flex items-center justify-center gap-2 rounded-xl py-3 px-5 font-bold text-base tracking-tight transition-colors duration-100 outline-none focus-visible:ring-2 focus-visible:ring-duo-blue/40 bg-white text-duo-blue border border-slate-200 hover:bg-slate-50 motion-safe:active:scale-[0.98]'
             }
           >
             {linkState === 'linking' && (
