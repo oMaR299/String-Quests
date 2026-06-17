@@ -231,7 +231,6 @@ export function MabadiProposal() {
           font-weight: 500;
         }
         .cover-toc {
-          margin-top: auto;
           border-top: 1px solid #e8f0fa;
           padding-top: 24px;
         }
@@ -738,7 +737,24 @@ export function MabadiProposal() {
               </div>
             </div>
 
-            <div className="cover-toc">
+            {/* Feature strip */}
+            <div style={{ display: 'flex', gap: 10, margin: '28px 0 0 0' }}>
+              {['الفكرة', 'الذكاء الاصطناعي', 'DNA', 'Quests', 'الأهل'].map(label => (
+                <div key={label} style={{
+                  flex: 1,
+                  background: '#f5f9ff',
+                  border: '1px solid #d8e8f8',
+                  borderRadius: 8,
+                  padding: '10px 6px',
+                  textAlign: 'center' as const,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#4a6a8a'
+                }}>{label}</div>
+              ))}
+            </div>
+
+            <div className="cover-toc" style={{ marginTop: 24 }}>
               <div className="cover-toc-title">محتويات الوثيقة</div>
               <div className="cover-toc-grid">
                 {[
