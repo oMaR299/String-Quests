@@ -592,6 +592,31 @@ export function MabadiProposal() {
           letter-spacing: -2px;
         }
 
+        /* ── Print button ── */
+        .print-btn {
+          position: fixed;
+          bottom: 32px;
+          left: 32px;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: #0c1a2e;
+          color: #fff;
+          font-family: 'Cairo', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 12px 20px;
+          border-radius: 12px;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+          transition: background 0.2s;
+          direction: rtl;
+        }
+        .print-btn:hover { background: #1e3050; }
+        .print-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
         /* ── Spacers ── */
         .mt8  { margin-top: 8px; }
         .mt12 { margin-top: 12px; }
@@ -635,6 +660,19 @@ export function MabadiProposal() {
       `}</style>
 
       <div className="proposal-root">
+
+        <button
+          className="print-btn"
+          onClick={() => window.print()}
+          aria-label="طباعة / حفظ PDF"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          <span>طباعة · PDF</span>
+        </button>
 
         {/* ══════════════════════════════════════════════════
             PAGE 1 — Cover
