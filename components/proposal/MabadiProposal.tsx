@@ -110,7 +110,7 @@ export function MabadiProposal() {
           position: relative;
           display: flex;
           flex-direction: column;
-          overflow: hidden;
+          overflow: visible;
         }
 
         /* ── Cover page ── */
@@ -652,6 +652,11 @@ export function MabadiProposal() {
             break-after: page;
           }
 
+          .page-sheet:last-child {
+            break-after: avoid;
+            page-break-after: avoid;
+          }
+
           .print-btn {
             display: none !important;
           }
@@ -662,7 +667,7 @@ export function MabadiProposal() {
 
         <button
           className="print-btn"
-          onClick={() => window.print()}
+          onClick={() => typeof window !== 'undefined' && window.print()}
           aria-label="طباعة / حفظ PDF"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
