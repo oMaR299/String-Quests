@@ -623,12 +623,7 @@ export function MabadiProposal() {
             width: 210mm !important;
             min-height: 297mm !important;
             box-shadow: none !important;
-            page-break-after: always;
-            break-after: page;
-            overflow: hidden;
-          }
-
-          .cover-page {
+            overflow: visible !important;
             page-break-after: always;
             break-after: page;
           }
