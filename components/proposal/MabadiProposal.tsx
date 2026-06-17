@@ -680,7 +680,13 @@ export function MabadiProposal() {
         <div className="cover-page page-sheet">
           {/* Left sidebar */}
           <div className="cover-sidebar">
-            <div className="cover-sidebar-logo">S</div>
+            <div className="cover-sidebar-logo">
+              <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 32, height: 32 }}>
+                <rect width="36" height="36" rx="9" fill="#1e90d6"/>
+                <text x="18" y="26" textAnchor="middle" fill="white"
+                  style={{ fontSize: '20px', fontWeight: 900, fontFamily: 'Cairo, sans-serif' }}>S</text>
+              </svg>
+            </div>
             <div className="cover-sidebar-brand">String</div>
             <div className="cover-sidebar-divider" />
             <div className="cover-sidebar-tagline">
@@ -697,6 +703,14 @@ export function MabadiProposal() {
 
           {/* Right body */}
           <div className="cover-body">
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
+              <svg viewBox="0 0 28 28" fill="none" style={{ width: 28, height: 28, flexShrink: 0 }}>
+                <rect width="28" height="28" rx="7" fill="#1e90d6"/>
+                <text x="14" y="20" textAnchor="middle" fill="white"
+                  style={{ fontSize: '16px', fontWeight: 900, fontFamily: 'Cairo, sans-serif' }}>S</text>
+              </svg>
+              <span style={{ fontSize: 13, fontWeight: 900, color: '#0c1a2e', letterSpacing: '2px', textTransform: 'uppercase' as const }}>STRING</span>
+            </div>
             <div className="cover-eyebrow">نظرة عامة شاملة</div>
 
             <div className="cover-title">
