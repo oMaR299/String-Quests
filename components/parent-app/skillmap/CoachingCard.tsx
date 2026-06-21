@@ -214,7 +214,7 @@ export const CoachingCard: React.FC<CoachingCardProps> = ({
           ? { duration: 0 }
           : { type: 'spring', stiffness: 240, damping: 24 }
       }
-      className="rounded-2xl bg-white border border-slate-200 p-4 flex flex-col gap-3"
+      className="rounded-3xl bg-white border border-slate-100 p-4 flex flex-col gap-3"
       aria-label={`${subject} — ${skill}`}
     >
       {/* Header — status + trend chips (start) · stepper (end) */}

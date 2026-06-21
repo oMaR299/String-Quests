@@ -25,6 +25,7 @@
 // slate), pending forms count (red), recent absence count (slate or red dot).
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
   Calendar,
@@ -39,7 +40,6 @@ import { useI18n } from '../../../contexts/I18nContext';
 import { getParentAppString } from '../parentAppI18n';
 import { BottomSheet } from '../drawers/BottomSheet';
 import { CalendarDrawerContent } from '../drawers/CalendarDrawer';
-import { AssignmentsDrawerContent } from '../drawers/AssignmentsDrawer';
 import { ExamsDrawerContent } from '../drawers/ExamsDrawer';
 import { TomorrowBooksDrawerContent } from '../drawers/TomorrowBooksDrawer';
 import { FormsDrawerContent } from '../drawers/FormsDrawer';
@@ -56,7 +56,6 @@ import { useParentAppContext } from '../useParentAppContext';
 
 type DrawerKey =
   | 'calendar'
-  | 'assignments'
   | 'exams'
   | 'books'
   | 'forms'
@@ -66,12 +65,14 @@ type DrawerKey =
 
 /**
  * Linear sequence the user steps through when swiping left/right inside an
- * open drawer. Order matches the JSX/grid reading order in RTL:
- *   Assignments → Calendar → Tomorrow's bag → Exams → Forms → Attendance
+ * open drawer. Order matches the JSX/grid reading order in RTL.
+ *
+ * NOTE: 'assignments' is intentionally absent — homework was consolidated into
+ * the Results-hub Tasks view (see the Assignments shortcut, which now deep-links
+ * there instead of opening a drawer). Single source of truth for homework.
  * Wraps at the ends (modular indexing, see handleSwipe* below).
  */
 const LOGISTICS_SEQUENCE: ReadonlyArray<Exclude<DrawerKey, null>> = [
-  'assignments',
   'calendar',
   'books',
   'exams',
@@ -139,6 +140,7 @@ const Shortcut: React.FC<ShortcutProps> = ({
 
 export const SchoolLogisticsStrip: React.FC = () => {
   const { locale } = useI18n();
+  const navigate = useNavigate();
   const { activeChildId, setDrawerOpen, swipeLocked } = useParentAppContext();
   const t = useCallback((key: string) => getParentAppString(locale, key), [locale]);
 
@@ -206,7 +208,8 @@ export const SchoolLogisticsStrip: React.FC = () => {
         aria-label={t('parentApp.school.shortcutsLabel')}
         className="grid grid-cols-2 gap-3"
       >
-        {/* 1. Assignments — top-right in RTL */}
+        {/* 1. Assignments — top-right in RTL. Deep-links into the Results-hub
+            Tasks view (homework's single home) instead of opening a drawer. */}
         <Shortcut
           index={0}
           iconBg="bg-duo-green"
@@ -220,7 +223,7 @@ export const SchoolLogisticsStrip: React.FC = () => {
               </span>
             ) : null
           }
-          onClick={() => setOpenDrawer('assignments')}
+          onClick={() => navigate('/parent/skill-map', { state: { view: 'tasks' } })}
         />
 
         {/* 2. Calendar — top-left in RTL */}
@@ -349,7 +352,6 @@ interface SharedLogisticsSheetProps {
 // Per-drawer title keys + content. Static map (no closures) so the JIT picks
 // up everything, and so swapping between drawers is a pure index lookup.
 const DRAWER_TITLE_KEYS: Record<Exclude<DrawerKey, null>, string> = {
-  assignments: 'parentApp.school.assignments.drawerTitle',
   calendar: 'parentApp.school.calendar.drawerTitle',
   books: 'parentApp.school.books.drawerTitle',
   exams: 'parentApp.school.exams.drawerTitle',
@@ -368,7 +370,7 @@ const SharedLogisticsSheet: React.FC<SharedLogisticsSheetProps> = ({
   // and content during the slide-down close animation. Without this, the
   // sheet would visibly blank out before sliding away.
   const [lastKey, setLastKey] = useState<Exclude<DrawerKey, null>>(
-    () => openDrawer ?? 'assignments'
+    () => openDrawer ?? 'calendar'
   );
   useEffect(() => {
     if (openDrawer) setLastKey(openDrawer);
@@ -379,9 +381,6 @@ const SharedLogisticsSheet: React.FC<SharedLogisticsSheetProps> = ({
 
   let body: React.ReactNode = null;
   switch (lastKey) {
-    case 'assignments':
-      body = <AssignmentsDrawerContent />;
-      break;
     case 'calendar':
       body = <CalendarDrawerContent />;
       break;

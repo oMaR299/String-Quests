@@ -61,6 +61,7 @@ import { TopicManagerLayout } from './components/topic-manager/TopicManagerLayou
 import { ScheduleLayout } from './components/schedule/ScheduleLayout';
 import { SkillMapPremiumPage } from './components/skill-map-premium/SkillMapPremiumPage';
 import { EdisonProposal } from './components/proposal/EdisonProposal';
+import { MabadiProposal } from './components/proposal/MabadiProposal';
 import { TeacherProfileRoute } from './components/teacher-profile/TeacherProfileRoute';
 
 const LoadingFallback = () => (
@@ -121,6 +122,7 @@ const App: React.FC = () => {
 
               {/* Proposal */}
               <Route path="/proposal/edison" element={<EdisonProposal />} />
+              <Route path="/proposal/mabadi" element={<MabadiProposal />} />
 
               {/* Stakeholder report routes */}
               <Route path="/parent-report" element={<ParentReportPage />} />

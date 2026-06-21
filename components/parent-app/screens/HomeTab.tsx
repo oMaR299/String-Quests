@@ -20,7 +20,7 @@ import { GreetingStrip } from '../cards/GreetingStrip';
 import { SchoolLogisticsStrip } from '../cards/SchoolLogisticsStrip';
 import { TodaysPickupCard } from '../cards/TodaysPickupCard';
 import { ReportCardSection } from '../cards/ReportCardSection';
-import { DailyInsightsSection } from '../cards/DailyInsightsSection';
+import { DailyStorySection } from '../cards/DailyStorySection';
 
 export const HomeTab: React.FC = () => {
   return (
@@ -35,11 +35,12 @@ export const HomeTab: React.FC = () => {
 
       <SchoolLogisticsStrip />
 
-      {/* AI-styled daily insights: a weekly hero card + a horizontal-scroll
-          strip of per-topic insight cards (focus, mood, sleep, social, etc.).
-          Different visual register from the report card so the two surfaces
-          don't blur together. */}
-      <DailyInsightsSection />
+      {/* Daily Story — the child's whole day told as six self-contained
+          pastel cards (school / home / well-being / academic / attendance /
+          proud moment). Each card carries its own summary, score rings, a
+          highlight, and a CTA. A "previous days" button reveals a week-day
+          strip to flip back through past days. */}
+      <DailyStorySection />
 
       {/* Term-end consolidated grades view + per-cell breakdown popovers + AI
           summaries + "Generate full report" CTA. Lower priority than the

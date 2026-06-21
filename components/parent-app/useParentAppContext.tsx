@@ -61,6 +61,14 @@ interface ParentAppContextValue {
   isDrawerOpen: boolean;
   setDrawerOpen: (open: boolean) => void;
   /**
+   * True while a FULL-SCREEN hub overlay (subject detail / learn-more) is open.
+   * ParentHomeLayout hides BOTH the top header and the bottom tab bar so the
+   * overlay owns the entire phone frame. Distinct from `isDrawerOpen` (bottom
+   * sheets only hide the tab bar and keep the header visible).
+   */
+  isOverlayOpen: boolean;
+  setOverlayOpen: (open: boolean) => void;
+  /**
    * True while a drawer is in a sub-mode where horizontal swipe navigation
    * between drawers must be suppressed (currently: FormsDrawer's "fill" mode
    * — the parent is filling out a form and a sideways swipe should NOT
@@ -102,6 +110,10 @@ export function ParentAppProvider({
   const [isDrawerOpen, setIsDrawerOpenState] = useState<boolean>(false);
   const setDrawerOpen = useCallback((open: boolean) => {
     setIsDrawerOpenState(open);
+  }, []);
+  const [isOverlayOpen, setIsOverlayOpenState] = useState<boolean>(false);
+  const setOverlayOpen = useCallback((open: boolean) => {
+    setIsOverlayOpenState(open);
   }, []);
   const [swipeLocked, setSwipeLockedState] = useState<boolean>(false);
   const setSwipeLocked = useCallback((locked: boolean) => {
@@ -149,6 +161,8 @@ export function ParentAppProvider({
       addChild,
       isDrawerOpen,
       setDrawerOpen,
+      isOverlayOpen,
+      setOverlayOpen,
       swipeLocked,
       setSwipeLocked,
     }),
@@ -161,6 +175,8 @@ export function ParentAppProvider({
       addChild,
       isDrawerOpen,
       setDrawerOpen,
+      isOverlayOpen,
+      setOverlayOpen,
       swipeLocked,
       setSwipeLocked,
     ]

@@ -1,649 +1,527 @@
 import React from 'react';
 
-/* ─────────────────────────────────────────────────────────────
-   Mabadi Proposal — Premium Report Style
-   A4 pages stacked on a gray desk; Ctrl+P gives a clean PDF.
-   Arabic RTL, Cairo font, no JS animations (print-safe).
-───────────────────────────────────────────────────────────── */
+/*
+  Mabadi Proposal — Professional Document
+  Looks like a real InDesign/Word document, not a React landing page.
+  Rules:
+  - Accent color (#2c4a3e) used ONLY on: cover sidebar, section header bands, section numbers, divider lines.
+  - No emoji, no gradient cards, no colored callout boxes.
+  - Body text is black on white. Always.
+  - A4 pages stacked on a gray desk. Ctrl+P → clean PDF.
+*/
 
-// ── Tiny helpers ──────────────────────────────────────────────
-
-function Page({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return (
-    <div className={`page-sheet ${className}`}>
-      {children}
-    </div>
-  );
-}
-
-function PageHeader({ section, label }: { section: string; label: string }) {
-  return (
-    <div className="page-header">
-      <div className="page-header-band">
-        <span className="section-num">{section}</span>
-        <span className="section-label">{label}</span>
-      </div>
-    </div>
-  );
-}
-
-function PageFooter({ page, total }: { page: number; total: number }) {
-  return (
-    <div className="page-footer">
-      <span>String · مدارس المبادئ العلمية · يونيو ٢٠٢٦</span>
-      <span>سري — للاطلاع المحدود فقط</span>
-      <span>{page} / {total}</span>
-    </div>
-  );
-}
-
-function TwoCol({ children }: { children: React.ReactNode }) {
-  return <div className="two-col">{children}</div>;
-}
-
-function CalloutBox({ children, color = 'blue' }: { children: React.ReactNode; color?: 'blue' | 'green' | 'amber' | 'dark' }) {
-  return <div className={`callout callout-${color}`}>{children}</div>;
-}
-
-function FeatureRow({ icon, title, body }: { icon: string; title: string; body: string }) {
-  return (
-    <div className="feature-row">
-      <span className="feature-icon">{icon}</span>
-      <div>
-        <p className="feature-title">{title}</p>
-        <p className="feature-body">{body}</p>
-      </div>
-    </div>
-  );
-}
-
-function Tag({ children }: { children: React.ReactNode }) {
-  return <span className="tag">{children}</span>;
-}
-
-function DataCard({ number, label, sub }: { number: string; label: string; sub?: string }) {
-  return (
-    <div className="data-card">
-      <p className="data-number">{number}</p>
-      <p className="data-label">{label}</p>
-      {sub && <p className="data-sub">{sub}</p>}
-    </div>
-  );
-}
-
-// ── Main component ────────────────────────────────────────────
+const ACCENT = '#2c4a3e';
+const ACCENT_MID = '#4a7c6a';
 
 export function MabadiProposal() {
   return (
     <>
-      {/* ── Injected styles ── */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
 
-        @page {
-          size: A4 portrait;
-          margin: 0;
-        }
+        @page { size: A4 portrait; margin: 0; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body { background: #e8e8e8 !important; }
+        body { background: #d4d4d4 !important; }
 
-        .proposal-root {
+        .doc-root {
           font-family: 'Cairo', sans-serif;
           direction: rtl;
-          background: #d8d8d8;
+          background: #d4d4d4;
           min-height: 100vh;
-          padding: 40px 20px;
+          padding: 48px 24px;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 24px;
+          gap: 28px;
         }
 
-        /* ── A4 sheet ── */
-        .page-sheet {
+        /* ── A4 sheet ─────────────────────────────────────── */
+        .sheet {
           background: #fff;
           width: 794px;
           min-height: 1123px;
-          box-shadow: 0 4px 32px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.08);
-          position: relative;
+          box-shadow: 0 2px 16px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08);
           display: flex;
           flex-direction: column;
           overflow: visible;
+          position: relative;
         }
 
-        /* ── Cover page ── */
-        .cover-page {
+        /* ── Cover page ─────────────────────────────────────── */
+        .cover {
           display: flex;
           flex-direction: row;
           min-height: 1123px;
         }
-        .cover-sidebar {
-          width: 220px;
+        .cover-left {
+          width: 240px;
           flex-shrink: 0;
-          background: #0c1a2e;
+          background: ${ACCENT};
           display: flex;
           flex-direction: column;
-          align-items: center;
-          padding: 52px 24px;
-          gap: 0;
+          padding: 56px 32px 40px;
         }
-        .cover-sidebar-logo {
-          width: 52px;
-          height: 52px;
-          background: #1e90d6;
-          border-radius: 14px;
+        .cover-logo-mark {
+          width: 44px;
+          height: 44px;
+          background: rgba(255,255,255,0.15);
+          border: 1.5px solid rgba(255,255,255,0.3);
+          border-radius: 10px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 26px;
+          font-size: 20px;
           font-weight: 900;
           color: #fff;
-          letter-spacing: -1px;
-          margin-bottom: 16px;
-          flex-shrink: 0;
+          margin-bottom: 12px;
+          letter-spacing: -0.5px;
         }
-        .cover-sidebar-brand {
-          color: #fff;
-          font-size: 15px;
-          font-weight: 800;
-          letter-spacing: 3px;
-          text-transform: uppercase;
-          margin-bottom: 0;
-        }
-        .cover-sidebar-divider {
-          width: 32px;
-          height: 2px;
-          background: #1e90d6;
-          margin: 28px 0;
-        }
-        .cover-sidebar-tagline {
-          color: rgba(255,255,255,0.45);
+        .cover-brand {
           font-size: 11px;
-          font-weight: 600;
-          line-height: 1.7;
-          text-align: center;
-          writing-mode: horizontal-tb;
+          font-weight: 800;
+          letter-spacing: 4px;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.9);
+          margin-bottom: 32px;
         }
-        .cover-sidebar-bottom {
+        .cover-left-divider {
+          width: 28px;
+          height: 1.5px;
+          background: rgba(255,255,255,0.35);
+          margin-bottom: 24px;
+        }
+        .cover-left-tagline {
+          font-size: 11px;
+          font-weight: 500;
+          line-height: 1.9;
+          color: rgba(255,255,255,0.55);
+        }
+        .cover-left-bottom {
           margin-top: auto;
-          color: rgba(255,255,255,0.25);
-          font-size: 10px;
-          text-align: center;
-          line-height: 1.8;
+          border-top: 1px solid rgba(255,255,255,0.12);
+          padding-top: 20px;
+          font-size: 9.5px;
+          color: rgba(255,255,255,0.3);
+          line-height: 2;
+          font-weight: 500;
         }
-        .cover-body {
+        .cover-right {
           flex: 1;
-          padding: 64px 48px 48px;
+          padding: 56px 52px 44px;
           display: flex;
           flex-direction: column;
         }
         .cover-eyebrow {
-          font-size: 10px;
+          font-size: 9px;
           font-weight: 800;
           letter-spacing: 3px;
           text-transform: uppercase;
-          color: #1e90d6;
-          margin-bottom: 20px;
+          color: ${ACCENT_MID};
+          margin-bottom: 18px;
         }
         .cover-title {
-          font-size: 52px;
+          font-size: 50px;
           font-weight: 900;
-          color: #0c1a2e;
-          line-height: 1.15;
+          color: #111;
+          line-height: 1.2;
           margin-bottom: 8px;
+          letter-spacing: -0.5px;
         }
         .cover-subtitle {
-          font-size: 16px;
-          color: #5a7a99;
-          font-weight: 600;
-          margin-bottom: 48px;
+          font-size: 14px;
+          color: #777;
+          font-weight: 500;
+          margin-bottom: 44px;
+          padding-bottom: 44px;
+          border-bottom: 1px solid #e8e8e8;
         }
-        .cover-meta-block {
-          border-top: 2px solid #e8f0fa;
-          padding-top: 28px;
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
+        .cover-meta-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 24px 32px;
           margin-bottom: 40px;
         }
-        .cover-meta-row {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-        }
         .cover-meta-label {
-          font-size: 9px;
+          font-size: 8.5px;
           font-weight: 800;
           letter-spacing: 2.5px;
           text-transform: uppercase;
-          color: #1e90d6;
+          color: ${ACCENT_MID};
+          margin-bottom: 5px;
         }
         .cover-meta-value {
-          font-size: 15px;
+          font-size: 13px;
           font-weight: 800;
-          color: #0c1a2e;
+          color: #111;
+          line-height: 1.5;
         }
         .cover-meta-sub {
-          font-size: 12px;
-          color: #7a94b0;
-          font-weight: 500;
+          font-size: 11px;
+          color: #888;
+          font-weight: 400;
+          line-height: 1.6;
+          margin-top: 2px;
         }
-        .cover-toc {
-          border-top: 1px solid #e8f0fa;
+        .cover-toc-wrap {
+          margin-top: auto;
+          border-top: 1px solid #e8e8e8;
           padding-top: 24px;
         }
-        .cover-toc-title {
-          font-size: 10px;
+        .cover-toc-label {
+          font-size: 8.5px;
           font-weight: 800;
-          letter-spacing: 2px;
+          letter-spacing: 2.5px;
           text-transform: uppercase;
-          color: #9ab0c8;
+          color: #aaa;
           margin-bottom: 14px;
         }
         .cover-toc-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 8px 24px;
+          gap: 7px 28px;
         }
-        .cover-toc-item {
+        .cover-toc-row {
           display: flex;
           align-items: center;
           gap: 8px;
-          font-size: 12px;
-          color: #4a6a8a;
-          font-weight: 600;
+          font-size: 11.5px;
+          color: #555;
+          font-weight: 500;
         }
         .cover-toc-num {
-          font-size: 10px;
+          font-size: 9px;
           font-weight: 800;
-          color: #1e90d6;
-          width: 18px;
+          color: ${ACCENT_MID};
+          min-width: 20px;
+        }
+        .cover-conf {
+          margin-top: 24px;
+          font-size: 9.5px;
+          color: #aaa;
+          font-weight: 500;
+          letter-spacing: 0.3px;
+        }
+
+        /* ── Page header band ─────────────────────────────────── */
+        .page-band {
+          background: ${ACCENT};
+          padding: 13px 48px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           flex-shrink: 0;
         }
-        .confidential-badge {
-          margin-top: 20px;
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          background: #fff8e6;
-          border: 1px solid #f5d470;
-          color: #b48b00;
+        .band-title {
+          font-size: 14px;
+          font-weight: 800;
+          color: #fff;
+          letter-spacing: 0.3px;
+        }
+        .band-num {
           font-size: 10px;
           font-weight: 700;
-          padding: 5px 12px;
-          border-radius: 20px;
-        }
-
-        /* ── Page header band ── */
-        .page-header {
-          flex-shrink: 0;
-        }
-        .page-header-band {
-          background: #0c1a2e;
-          padding: 14px 48px;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-        }
-        .section-num {
-          font-size: 11px;
-          font-weight: 900;
+          color: rgba(255,255,255,0.45);
           letter-spacing: 2px;
-          color: #1e90d6;
-        }
-        .section-label {
-          font-size: 15px;
-          font-weight: 800;
-          color: #ffffff;
-          letter-spacing: 0.5px;
         }
 
-        /* ── Page body ── */
+        /* ── Page body ─────────────────────────────────────────── */
         .page-body {
           flex: 1;
-          padding: 40px 48px;
+          padding: 36px 48px 28px;
+          display: flex;
+          flex-direction: column;
+          gap: 0;
         }
 
-        /* ── Page footer ── */
-        .page-footer {
+        /* ── Page footer ─────────────────────────────────────── */
+        .page-foot {
           flex-shrink: 0;
-          padding: 12px 48px;
-          border-top: 1px solid #eaeef4;
+          border-top: 1px solid #e8e8e8;
+          padding: 10px 48px;
           display: flex;
           justify-content: space-between;
-          font-size: 9px;
-          font-weight: 600;
-          color: #b0bec8;
-          letter-spacing: 0.5px;
+          font-size: 8.5px;
+          color: #bbb;
+          font-weight: 500;
+          letter-spacing: 0.3px;
         }
 
-        /* ── Typography ── */
-        .section-heading {
-          font-size: 28px;
+        /* ── Typography ────────────────────────────────────────── */
+        .doc-h2 {
+          font-size: 24px;
           font-weight: 900;
-          color: #0c1a2e;
-          line-height: 1.3;
-          margin-bottom: 14px;
+          color: #111;
+          line-height: 1.35;
+          margin-bottom: 10px;
         }
-        .section-lead {
-          font-size: 14px;
-          color: #4a6a8a;
-          line-height: 1.85;
-          font-weight: 500;
-          margin-bottom: 24px;
-        }
-        .body-text {
+        .doc-lead {
           font-size: 13px;
-          color: #3a5070;
+          color: #444;
+          line-height: 1.95;
+          font-weight: 400;
+          margin-bottom: 22px;
+        }
+        .doc-p {
+          font-size: 12.5px;
+          color: #444;
           line-height: 1.9;
-          font-weight: 500;
+          font-weight: 400;
           margin-bottom: 14px;
         }
-        .body-text:last-child { margin-bottom: 0; }
+        .doc-p:last-child { margin-bottom: 0; }
 
-        /* ── Two column ── */
+        .doc-label {
+          font-size: 8.5px;
+          font-weight: 800;
+          letter-spacing: 2.5px;
+          text-transform: uppercase;
+          color: ${ACCENT_MID};
+          margin-bottom: 10px;
+          margin-top: 22px;
+        }
+        .doc-label:first-child { margin-top: 0; }
+
+        /* ── Section divider ─────────────────────────────────── */
+        .doc-rule {
+          height: 1px;
+          background: #e8e8e8;
+          margin: 20px 0;
+          border: none;
+        }
+
+        /* ── Pull quote ─────────────────────────────────────── */
+        .pull-quote {
+          border-right: 3px solid ${ACCENT};
+          padding: 12px 16px;
+          margin: 18px 0;
+          background: #fafafa;
+        }
+        .pull-quote p {
+          font-size: 13px;
+          font-weight: 700;
+          color: #222;
+          line-height: 1.8;
+          font-style: italic;
+        }
+
+        /* ── Two-column ──────────────────────────────────────── */
         .two-col {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 24px;
-          margin-bottom: 24px;
+          gap: 0 36px;
         }
 
-        /* ── Callout boxes ── */
-        .callout {
-          border-radius: 8px;
-          padding: 18px 20px;
-          margin-bottom: 18px;
-          font-size: 13px;
-          line-height: 1.8;
-          font-weight: 500;
-        }
-        .callout-blue {
-          background: #f0f7ff;
-          border-right: 4px solid #1e90d6;
-          color: #1a4060;
-        }
-        .callout-green {
-          background: #f0faf4;
-          border-right: 4px solid #16a34a;
-          color: #1a4030;
-        }
-        .callout-amber {
-          background: #fffbf0;
-          border-right: 4px solid #d97706;
-          color: #5a3a00;
-        }
-        .callout-dark {
-          background: #0c1a2e;
-          border-radius: 10px;
-          padding: 22px 24px;
-          color: rgba(255,255,255,0.8);
-          margin-bottom: 18px;
-          font-size: 13px;
-          line-height: 1.8;
-        }
-        .callout-dark strong { color: #5bc8ff; }
-        .callout strong { font-weight: 800; }
-
-        .callout, .feature-row, .dna-card, .data-card, .skill-bar-row {
-          page-break-inside: avoid;
-          break-inside: avoid;
-        }
-
-        /* ── Feature rows ── */
-        .feature-row {
+        /* ── Bullet list ─────────────────────────────────────── */
+        .doc-list {
+          list-style: none;
           display: flex;
-          gap: 14px;
-          align-items: flex-start;
-          padding: 14px 0;
-          border-bottom: 1px solid #f0f4f8;
+          flex-direction: column;
+          gap: 10px;
+          margin-bottom: 18px;
         }
-        .feature-row:last-child { border-bottom: none; }
-        .feature-icon {
-          font-size: 22px;
-          flex-shrink: 0;
-          margin-top: 2px;
-          width: 32px;
-          text-align: center;
-        }
-        .feature-title {
-          font-size: 13px;
-          font-weight: 800;
-          color: #0c1a2e;
-          margin-bottom: 3px;
-        }
-        .feature-body {
-          font-size: 12px;
-          color: #4a6a8a;
+        .doc-list li {
+          display: flex;
+          gap: 10px;
+          font-size: 12.5px;
+          color: #444;
           line-height: 1.75;
-          font-weight: 500;
+          font-weight: 400;
         }
-
-        /* ── Data cards ── */
-        .data-cards-row {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 14px;
-          margin-bottom: 24px;
-        }
-        .data-card {
-          background: #f5f9ff;
-          border: 1px solid #d8e8f8;
-          border-radius: 10px;
-          padding: 18px 16px;
-          text-align: center;
-        }
-        .data-number {
-          font-size: 32px;
-          font-weight: 900;
-          color: #0c1a2e;
-          line-height: 1;
-          margin-bottom: 6px;
-        }
-        .data-label {
-          font-size: 11px;
+        .doc-list li::before {
+          content: '—';
+          color: ${ACCENT_MID};
           font-weight: 700;
-          color: #4a6a8a;
-          line-height: 1.5;
-        }
-        .data-sub {
-          font-size: 10px;
-          color: #9ab0c8;
-          margin-top: 4px;
-          font-weight: 500;
+          flex-shrink: 0;
+          margin-top: 1px;
         }
 
-        /* ── Tags ── */
-        .tag {
-          display: inline-flex;
-          align-items: center;
-          background: #edf4ff;
-          color: #1a5a9a;
-          font-size: 11px;
-          font-weight: 700;
-          padding: 4px 10px;
-          border-radius: 20px;
-          margin-left: 6px;
-          margin-bottom: 6px;
-        }
-        .tags-row { margin-bottom: 16px; }
-
-        /* ── Numbered list ── */
+        /* ── Numbered list ───────────────────────────────────── */
         .num-list {
           list-style: none;
           display: flex;
           flex-direction: column;
-          gap: 14px;
-          margin-bottom: 24px;
+          gap: 12px;
+          margin-bottom: 18px;
         }
         .num-list li {
           display: flex;
           gap: 12px;
           align-items: flex-start;
-          font-size: 13px;
-          color: #3a5070;
-          line-height: 1.8;
-          font-weight: 500;
+          font-size: 12.5px;
+          color: #444;
+          line-height: 1.75;
+          font-weight: 400;
         }
-        .num-badge {
-          flex-shrink: 0;
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: #0c1a2e;
-          color: #fff;
+        .num-list li .n {
           font-size: 11px;
-          font-weight: 900;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          font-weight: 800;
+          color: ${ACCENT};
+          min-width: 18px;
           margin-top: 2px;
         }
 
-        /* ── Skill bar ── */
-        .skill-bars { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-        .skill-bar-row { display: flex; flex-direction: column; gap: 4px; }
-        .skill-bar-top { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #3a5070; }
-        .skill-bar-track { height: 8px; background: #e8eef4; border-radius: 4px; overflow: hidden; }
-        .skill-bar-fill { height: 100%; border-radius: 4px; }
-
-        /* ── DNA layers ── */
-        .dna-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 12px;
-          margin-bottom: 20px;
+        /* ── Phase block ─────────────────────────────────────── */
+        .phase {
+          border: 1px solid #e0e8e4;
+          border-top: 3px solid ${ACCENT};
+          border-radius: 2px;
+          padding: 14px 16px;
+          margin-bottom: 12px;
+          page-break-inside: avoid;
+          break-inside: avoid;
         }
-        .dna-card {
-          border: 1px solid #e0ecf8;
-          border-radius: 8px;
-          padding: 16px 14px;
-          background: #fafcff;
-        }
-        .dna-num {
-          font-size: 9px;
-          font-weight: 900;
-          letter-spacing: 2px;
-          color: #1e90d6;
-          margin-bottom: 8px;
-        }
-        .dna-q {
-          font-size: 12px;
+        .phase-num {
+          font-size: 8.5px;
           font-weight: 800;
-          color: #0c1a2e;
-          margin-bottom: 6px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: ${ACCENT_MID};
+          margin-bottom: 5px;
         }
-        .dna-a {
-          font-size: 11px;
-          color: #5a7a99;
-          line-height: 1.7;
-          font-weight: 500;
+        .phase-title {
+          font-size: 13px;
+          font-weight: 800;
+          color: #111;
+          margin-bottom: 5px;
+        }
+        .phase-body {
+          font-size: 12px;
+          color: #555;
+          line-height: 1.75;
+          font-weight: 400;
         }
 
-        /* ── Contact card ── */
-        .contact-card {
-          background: #f5f9ff;
-          border: 1px solid #d0e4f8;
-          border-radius: 12px;
+        /* ── Simple table ────────────────────────────────────── */
+        .doc-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 16px;
+          font-size: 12px;
+        }
+        .doc-table th {
+          background: ${ACCENT};
+          color: #fff;
+          font-weight: 700;
+          font-size: 10.5px;
+          padding: 8px 12px;
+          text-align: right;
+          letter-spacing: 0.5px;
+        }
+        .doc-table td {
+          padding: 8px 12px;
+          border-bottom: 1px solid #eee;
+          color: #444;
+          font-weight: 400;
+          line-height: 1.6;
+        }
+        .doc-table tr:last-child td { border-bottom: none; }
+        .doc-table tr:nth-child(even) td { background: #fafafa; }
+        .doc-table td.strong { font-weight: 700; color: #111; }
+        .doc-table td.good { color: #2a7a4a; font-weight: 700; }
+        .doc-table td.warn { color: #b85c00; font-weight: 700; }
+
+        /* ── Info box ──────────────────────────────────────── */
+        .info-box {
+          border: 1px solid #dde8e4;
+          border-radius: 3px;
+          padding: 14px 18px;
+          margin: 14px 0;
+          background: #f7faf9;
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+        .info-box-label {
+          font-size: 8.5px;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: ${ACCENT_MID};
+          margin-bottom: 7px;
+        }
+        .info-box p {
+          font-size: 12px;
+          color: #444;
+          line-height: 1.8;
+          font-weight: 400;
+        }
+        .info-box p strong { font-weight: 700; color: #222; }
+
+        /* ── Contact card ────────────────────────────────────── */
+        .contact-wrap {
+          border: 1px solid #e0e8e4;
+          border-top: 3px solid ${ACCENT};
+          border-radius: 2px;
           padding: 28px 32px;
           display: flex;
+          align-items: flex-start;
           justify-content: space-between;
-          align-items: center;
-          gap: 24px;
+          gap: 32px;
         }
-        .contact-left { flex: 1; }
         .contact-name {
-          font-size: 18px;
+          font-size: 17px;
           font-weight: 900;
-          color: #0c1a2e;
-          margin-bottom: 4px;
+          color: #111;
+          margin-bottom: 3px;
         }
         .contact-role {
-          font-size: 12px;
-          color: #5a7a99;
-          font-weight: 600;
+          font-size: 11.5px;
+          color: #888;
+          font-weight: 400;
           margin-bottom: 16px;
         }
         .contact-detail {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
+          font-size: 12.5px;
+          color: #333;
+          font-weight: 500;
+          line-height: 2;
         }
-        .contact-line {
-          font-size: 13px;
-          font-weight: 600;
-          color: #1e4a7a;
-        }
-        .contact-right {
-          width: 80px;
-          height: 80px;
-          background: #0c1a2e;
-          border-radius: 16px;
+        .contact-icon {
+          width: 56px;
+          height: 56px;
+          background: ${ACCENT};
+          border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 32px;
+          font-size: 22px;
           font-weight: 900;
-          color: #1e90d6;
+          color: #fff;
           flex-shrink: 0;
-          letter-spacing: -2px;
+          letter-spacing: -1px;
         }
 
-        /* ── Print button ── */
+        /* ── Print button ──────────────────────────────────── */
         .print-btn {
           position: fixed;
-          bottom: 32px;
-          left: 32px;
+          bottom: 28px;
+          left: 28px;
           z-index: 100;
           display: flex;
           align-items: center;
           gap: 8px;
-          background: #0c1a2e;
+          background: ${ACCENT};
           color: #fff;
           font-family: 'Cairo', sans-serif;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 700;
-          padding: 12px 20px;
-          border-radius: 12px;
+          padding: 11px 18px;
+          border-radius: 8px;
           border: none;
           cursor: pointer;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+          box-shadow: 0 3px 12px rgba(0,0,0,0.2);
           transition: background 0.2s;
           direction: rtl;
+          letter-spacing: 0.3px;
         }
-        .print-btn:hover { background: #1e3050; }
-        .print-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+        .print-btn:hover { background: #1e3830; }
 
-        /* ── Spacers ── */
-        .mt8  { margin-top: 8px; }
-        .mt12 { margin-top: 12px; }
-        .mt16 { margin-top: 16px; }
-        .mt24 { margin-top: 24px; }
-        .mb8  { margin-bottom: 8px; }
-        .mb16 { margin-bottom: 16px; }
-        .mb20 { margin-bottom: 20px; }
-        .label-sm {
-          font-size: 9px;
-          font-weight: 900;
-          letter-spacing: 2.5px;
-          text-transform: uppercase;
-          color: #1e90d6;
-          margin-bottom: 10px;
-        }
-
-        /* ── Print ── */
+        /* ── Print media ─────────────────────────────────────── */
         @media print {
           * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-
-          body, .proposal-root {
-            background: #fff !important;
-            padding: 0 !important;
-            gap: 0 !important;
-          }
-
-          .page-sheet {
+          body, .doc-root { background: #fff !important; padding: 0 !important; gap: 0 !important; }
+          .sheet {
             width: 210mm !important;
             min-height: 297mm !important;
             box-shadow: none !important;
@@ -651,26 +529,20 @@ export function MabadiProposal() {
             page-break-after: always;
             break-after: page;
           }
-
-          .page-sheet:last-child {
-            break-after: avoid;
-            page-break-after: avoid;
-          }
-
-          .print-btn {
-            display: none !important;
-          }
+          .sheet:last-child { break-after: avoid; page-break-after: avoid; }
+          .print-btn { display: none !important; }
+          .phase, .info-box, .pull-quote { page-break-inside: avoid; break-inside: avoid; }
         }
       `}</style>
 
-      <div className="proposal-root">
+      <div className="doc-root">
 
         <button
           className="print-btn"
           onClick={() => typeof window !== 'undefined' && window.print()}
           aria-label="طباعة / حفظ PDF"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 6 2 18 2 18 9"/>
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
             <rect x="6" y="14" width="12" height="8"/>
@@ -678,433 +550,483 @@ export function MabadiProposal() {
           <span>طباعة · PDF</span>
         </button>
 
-        {/* ══════════════════════════════════════════════════
-            PAGE 1 — Cover
-           ══════════════════════════════════════════════════ */}
-        <div className="cover-page page-sheet">
-          {/* Left sidebar */}
-          <div className="cover-sidebar">
-            <div className="cover-sidebar-logo">
-              <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 32, height: 32 }}>
-                <rect width="36" height="36" rx="9" fill="#1e90d6"/>
-                <text x="18" y="26" textAnchor="middle" fill="white"
-                  style={{ fontSize: '20px', fontWeight: 900, fontFamily: 'Cairo, sans-serif' }}>S</text>
-              </svg>
-            </div>
-            <div className="cover-sidebar-brand">String</div>
-            <div className="cover-sidebar-divider" />
-            <div className="cover-sidebar-tagline">
+        {/* COVER */}
+        <div className="sheet cover">
+          <div className="cover-left">
+            <div className="cover-logo-mark">S</div>
+            <div className="cover-brand">String</div>
+            <div className="cover-left-divider" />
+            <div className="cover-left-tagline">
               نظام تشغيل<br />للتعليم
             </div>
-            <div className="cover-sidebar-bottom" style={{ marginTop: 'auto' }}>
-              <div>© 2026</div>
+            <div className="cover-left-bottom">
+              <div>يونيو ٢٠٢٦</div>
               <div>String Education</div>
-              <div style={{ marginTop: 8, color: 'rgba(255,255,255,0.15)' }}>
-                string.education
-              </div>
+              <div style={{ marginTop: 8 }}>string.education</div>
             </div>
           </div>
 
-          {/* Right body */}
-          <div className="cover-body">
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-              <svg viewBox="0 0 28 28" fill="none" style={{ width: 28, height: 28, flexShrink: 0 }}>
-                <rect width="28" height="28" rx="7" fill="#1e90d6"/>
-                <text x="14" y="20" textAnchor="middle" fill="white"
-                  style={{ fontSize: '16px', fontWeight: 900, fontFamily: 'Cairo, sans-serif' }}>S</text>
-              </svg>
-              <span style={{ fontSize: 13, fontWeight: 900, color: '#0c1a2e', letterSpacing: '2px', textTransform: 'uppercase' as const }}>STRING</span>
-            </div>
+          <div className="cover-right">
             <div className="cover-eyebrow">نظرة عامة شاملة</div>
+            <div className="cover-title">نظام تشغيل<br/>للتعليم</div>
+            <div className="cover-subtitle">تعليمٌ يدرك تفرّد كل طالب</div>
 
-            <div className="cover-title">
-              نظام تشغيل<br />للتعليم
-            </div>
-            <div className="cover-subtitle">
-              تعليمٌ يدرك تفرّد كل طالب
-            </div>
-
-            <div className="cover-meta-block">
-              <div className="cover-meta-row">
+            <div className="cover-meta-grid">
+              <div>
                 <div className="cover-meta-label">مُعَد لـ</div>
                 <div className="cover-meta-value">مدارس المبادئ العلمية</div>
-                <div className="cover-meta-sub">عناية المدير العام — المهندس محمد الملازم</div>
-                <div className="cover-meta-sub">بالتنسيق مع المهندسة سلام اليوسف</div>
+                <div className="cover-meta-sub">عناية المدير العام<br/>المهندس محمد الملازم</div>
               </div>
-              <div className="cover-meta-row">
+              <div>
+                <div className="cover-meta-label">بالتنسيق مع</div>
+                <div className="cover-meta-value">المهندسة سلام اليوسف</div>
+              </div>
+              <div>
                 <div className="cover-meta-label">مُعَد من</div>
                 <div className="cover-meta-value">فريق String</div>
-                <div className="cover-meta-sub">عمر أبو سليم — المؤسس والرئيس التنفيذي</div>
+                <div className="cover-meta-sub">عمر أبو سليم<br/>المؤسس والرئيس التنفيذي</div>
               </div>
-              <div className="cover-meta-row">
+              <div>
                 <div className="cover-meta-label">التاريخ</div>
                 <div className="cover-meta-value">يونيو ٢٠٢٦</div>
               </div>
             </div>
 
-            {/* Feature strip */}
-            <div style={{ display: 'flex', gap: 10, margin: '28px 0 0 0' }}>
-              {['الفكرة', 'الذكاء الاصطناعي', 'DNA', 'Quests', 'الأهل'].map(label => (
-                <div key={label} style={{
-                  flex: 1,
-                  background: '#f5f9ff',
-                  border: '1px solid #d8e8f8',
-                  borderRadius: 8,
-                  padding: '10px 6px',
-                  textAlign: 'center' as const,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  color: '#4a6a8a'
-                }}>{label}</div>
-              ))}
-            </div>
-
-            <div className="cover-toc" style={{ marginTop: 24 }}>
-              <div className="cover-toc-title">محتويات الوثيقة</div>
+            <div className="cover-toc-wrap">
+              <div className="cover-toc-label">محتويات الوثيقة</div>
               <div className="cover-toc-grid">
                 {[
                   ['٠١', 'الفكرة والرؤية'],
-                  ['٠٢', 'توظيف الذكاء الاصطناعي'],
+                  ['٠٢', 'الذكاء الاصطناعي'],
                   ['٠٣', 'ما يميز String'],
                   ['٠٤', 'String DNA'],
                   ['٠٥', 'خريطة المهارات'],
                   ['٠٦', 'Quests'],
                   ['٠٧', 'تطبيق الأهل'],
                   ['٠٨', 'التكامل والأمان'],
-                ].map(([num, label]) => (
-                  <div key={num} className="cover-toc-item">
-                    <span className="cover-toc-num">{num}</span>
-                    <span>{label}</span>
+                ].map(([n, l]) => (
+                  <div key={n} className="cover-toc-row">
+                    <span className="cover-toc-num">{n}</span>
+                    <span>{l}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="confidential-badge" style={{ marginTop: 28 }}>
-              🔒 سري وخاص — للاطلاع المحدود فقط
-            </div>
+            <div className="cover-conf">سري وخاص — للاطلاع المحدود فقط</div>
           </div>
         </div>
 
-        {/* ══════════════════════════════════════════════════
-            PAGE 2 — الفكرة والرؤية
-           ══════════════════════════════════════════════════ */}
-        <Page>
-          <PageHeader section="٠١" label="الفكرة والرؤية" />
+        {/* PAGE 2 — الفكرة والرؤية */}
+        <div className="sheet">
+          <div className="page-band">
+            <span className="band-title">الفكرة والرؤية</span>
+            <span className="band-num">٠١</span>
+          </div>
           <div className="page-body">
-            <h2 className="section-heading">فئة جديدة بالكامل في عالم التعليم</h2>
-            <p className="section-lead">
+            <div className="doc-h2">فئة جديدة بالكامل في عالم التعليم</div>
+            <p className="doc-lead">
               تعاني المدارس اليوم من تشتت الأدوات: نظام للدرجات، وآخر للحضور، وثالث للتواصل مع الأهل. هذه الأنظمة المنعزلة لا تتخاطب مع بعضها، مما يترك عبء نقل المعلومات يدوياً على عاتق المعلم طوال اليوم.
             </p>
 
-            <TwoCol>
+            <div className="two-col">
               <div>
-                <div className="label-sm">المشكلة الحالية</div>
-                <p className="body-text">
-                  أنظمة منعزلة لا تتحدث مع بعضها. المعلم يقضي ساعات في نقل البيانات يدوياً بدلاً من التدريس.
+                <div className="doc-label">المشكلة</div>
+                <p className="doc-p">
+                  المدرسة تشتري أنظمة لا تتحدث مع بعضها. نظام الدرجات لا يعرف بيانات الحضور، ومنصة المحتوى لا تعرف نتائج الطلاب. المعلم هو الجسر الوحيد بينها — يقضي ساعات في نقل البيانات يدوياً بدلاً من التدريس.
                 </p>
-                <CalloutBox color="amber">
-                  <strong>النتيجة:</strong> بيانات متفرقة تجعل التخصيص مستحيلاً ومساعدة الطالب بدقة أمراً بعيد المنال.
-                </CalloutBox>
               </div>
               <div>
-                <div className="label-sm">حل String</div>
-                <p className="body-text">
-                  كما يجمع نظام iOS كل تطبيقاتك، يعمل String كنظام تشغيل شامل للمدرسة. داخله تعمل كل أدواتكم بتناغم تام.
+                <div className="doc-label">الحل</div>
+                <p className="doc-p">
+                  فكما يجمع نظام iOS كل تطبيقاتك لتتشارك البيانات بسلاسة، يعمل String كنظام تشغيل شامل للمدرسة. داخله، تعمل كل أدواتكم بتناغم تام، ويرى النظام الصورة الأكاديمية الكاملة لأول مرة.
                 </p>
-                <CalloutBox color="blue">
-                  <strong>النتيجة:</strong> النظام يرى الصورة الأكاديمية الكاملة للطالب لأول مرة — ويتصرف بناءً عليها.
-                </CalloutBox>
               </div>
-            </TwoCol>
+            </div>
 
-            <CalloutBox color="dark">
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#fff', marginBottom: 8, lineHeight: 1.5 }}>
-                "لن يتمكن أي نظام من مساعدة طالب لا يرى تفاصيل رحلته. String يرى الصورة الكاملة."
+            <hr className="doc-rule" />
+
+            <div className="pull-quote">
+              <p>"لن يتمكن أي نظام من مساعدة طالب لا يرى تفاصيل رحلته. String يرى الصورة الكاملة."</p>
+            </div>
+
+            <hr className="doc-rule" />
+
+            <div className="two-col">
+              <div>
+                <div className="doc-label">ليس نظام إدارة تعلم آخر</div>
+                <p className="doc-p">
+                  أنظمة LMS التقليدية تستضيف المحتوى فقط. String يفهم المنهاج نفسه، ويتتبع تقدم كل طالب في كل مفهوم، ويربط هذا الفهم بكل أداة تعليمية داخله.
+                </p>
               </div>
-            </CalloutBox>
-
-            <div className="data-cards-row">
-              <DataCard number="٩+" label="أنظمة تُدار بشكل منفصل في المدرسة الواحدة" sub="يمكن توحيدها في String" />
-              <DataCard number="١٠ س" label="أسبوعياً يستعيدها المعلم من المهام الإدارية" />
-              <DataCard number="١٢٨" label="نمطاً معرفياً مختلفاً يبنيها String لكل طالب" />
+              <div>
+                <div className="doc-label">البنية التحتية الجديدة</div>
+                <p className="doc-p">
+                  String ليس أداة إضافية تثقل كاهل المعلم، بل هو البنية التحتية التي توحد جميع أدواتكم — نظام متكامل يمنحكم الرؤية الشاملة لكل ما يحدث داخل الغرفة الصفية.
+                </p>
+              </div>
             </div>
           </div>
-          <PageFooter page={2} total={8} />
-        </Page>
+          <div className="page-foot">
+            <span>String · مدارس المبادئ العلمية · يونيو ٢٠٢٦</span>
+            <span>سري — للاطلاع المحدود فقط</span>
+            <span>2 / 8</span>
+          </div>
+        </div>
 
-        {/* ══════════════════════════════════════════════════
-            PAGE 3 — توظيف الذكاء الاصطناعي
-           ══════════════════════════════════════════════════ */}
-        <Page>
-          <PageHeader section="٠٢" label="توظيف الذكاء الاصطناعي" />
+        {/* PAGE 3 — الذكاء الاصطناعي */}
+        <div className="sheet">
+          <div className="page-band">
+            <span className="band-title">توظيف الذكاء الاصطناعي</span>
+            <span className="band-num">٠٢</span>
+          </div>
           <div className="page-body">
-            <h2 className="section-heading">كيف نوظّف الذكاء الاصطناعي لإحداث تأثير حقيقي؟</h2>
-            <p className="section-lead">
-              أحدث الذكاء الاصطناعي ثورة في كل القطاعات باستثناء التعليم — لأن التعليم يتوزع بين الغرفة الصفية والمنصات والواجبات. String صُمّم ليتجاوز ثلاث حقائق جوهرية:
+            <div className="doc-h2">كيف نوظّف الذكاء الاصطناعي لإحداث تأثير حقيقي؟</div>
+            <p className="doc-lead">
+              أحدث الذكاء الاصطناعي ثورة في كل القطاعات باستثناء التعليم. السبب جوهري: التعليم يتوزع بين الغرفة الصفية والمنصات والواجبات. الذكاء الاصطناعي يفتقر للقدرة على تحليل بيانات مبعثرة لا يراها. لذلك صُمّم String ليتجاوز ثلاث حقائق جوهرية:
             </p>
 
-            <ul className="num-list mb16">
-              <li><span className="num-badge">١</span><span>لا يمكن أتمتة مهام لا يراها النظام بوضوح.</span></li>
-              <li><span className="num-badge">٢</span><span>لا يمكن تخصيص تجربة التعلم دون فهم دقيق وعميق للطالب.</span></li>
-              <li><span className="num-badge">٣</span><span>لا يُبنى ذكاء حقيقي استناداً إلى بيانات مشتتة.</span></li>
+            <ul className="num-list">
+              <li><span className="n">١.</span><span>لا يمكن أتمتة مهام لا يراها النظام بوضوح.</span></li>
+              <li><span className="n">٢.</span><span>لا يمكن تخصيص تجربة التعلم دون فهم دقيق وعميق للطالب.</span></li>
+              <li><span className="n">٣.</span><span>لا يُبنى ذكاء حقيقي استناداً إلى بيانات مشتتة.</span></li>
             </ul>
 
-            <div className="label-sm">عندما تتكامل المنظومة: ثلاث قدرات محورية</div>
+            <hr className="doc-rule" />
+            <div className="doc-label">عندما تتكامل المنظومة: ثلاث قدرات محورية</div>
 
-            <FeatureRow
-              icon="⏱️"
-              title="أتمتة تُعيد للمعلم وقته وشغفه"
-              body="رصد الحضور بثوانٍ، إدخال الدرجات آلياً، وكتابة التقارير تلقائياً. كل دقيقة كانت تُهدر في الإدارة، تعود الآن للتدريس."
-            />
-            <FeatureRow
-              icon="🧬"
-              title="تجربة تعليمية تُصمم على مقاس كل طالب"
-              body="يبني String ملفاً معرفياً لكل طالب يحدد آلية تفكيره ضمن 128 نمطاً مختلفاً. تتكيف صعوبة الأسئلة وأسلوب الشرح مع مستوى إتقان الطالب لكل مفهوم."
-            />
-            <FeatureRow
-              icon="🔮"
-              title="ذكاء يقرأ ما وراء الأرقام"
-              body="تحليل دقيق لتحديد الفجوات المعرفية (وليس مجرد 'ضعيف في الرياضيات')، تنبيه مبكر قبل تعثر الطالب، والتنبؤ بالنتائج قبل الامتحانات."
-            />
-
-            <div className="mt24">
-              <CalloutBox color="dark">
-                <div className="label-sm" style={{ color: '#5bc8ff' }}>المحرك — الذكاء الاصطناعي يعمل بصمت</div>
-                <p style={{ marginBottom: 12 }}>
-                  في المنصات التقليدية الذكاء الاصطناعي مجرد نافذة محادثة. في String يعمل عبر مجموعة وكلاء (Agents) تنجز المهام تلقائياً — كل نموذج يتولى ما يبرع فيه.
-                </p>
-                <div className="tags-row">
-                  {['Aware — خوارزميتنا الخاصة', 'Gemini', 'GPT', 'Claude'].map(t => (
-                    <span key={t} style={{ display: 'inline-flex', alignItems: 'center', background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.75)', fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 20, marginLeft: 6, marginBottom: 6 }}>{t}</span>
-                  ))}
-                </div>
-              </CalloutBox>
-            </div>
-          </div>
-          <PageFooter page={3} total={8} />
-        </Page>
-
-        {/* ══════════════════════════════════════════════════
-            PAGE 4 — ما يميز String
-           ══════════════════════════════════════════════════ */}
-        <Page>
-          <PageHeader section="٠٣" label="ما يميز String" />
-          <div className="page-body">
-            <h2 className="section-heading">أربعة أسباب تضع String في الريادة</h2>
-            <p className="section-lead">
-              ليس تحديثاً لأنظمة قائمة — بل إعادة تصوّر جذرية لكيفية عمل المدرسة.
-            </p>
-
-            <FeatureRow
-              icon="🔗"
-              title="جميع أدواتكم في منصة واحدة"
-              body="يجمع String مئات الأدوات التعليمية (Canva، Scratch…) بحساب دخول واحد. ومنصاتكم الحالية (بما فيها منصة تمرين) تتكامل بسلاسة — لا استغناء، بل توحيد."
-            />
-            <FeatureRow
-              icon="📖"
-              title="فهم عميق للمنهاج، وليس مجرد استضافة للمحتوى"
-              body="يفهم String المنهاج نفسه حتى أصغر مفهوم، ويتكيف مع المناهج الوطنية الأردنية ومناهج كامبريدج الدولية."
-            />
-            <FeatureRow
-              icon="🧠"
-              title="ذكاء يمتد لكل تطبيق"
-              body="يمنح String قدرات الذكاء الاصطناعي للتطبيقات التي تفتقر إليه. اطلب من المساعد إنشاء مسابقة حول تاريخ الأردن ليجهزها فوراً — حتى اجتماعات الفيديو تُلخَّص آلياً."
-            />
-            <FeatureRow
-              icon="🎥"
-              title="توثيق ذكي للحصص"
-              body="يُسجل النظام الحصة كاملاً (الشاشة، السبورة، النقاشات)، يلخصها ويرصد تفاعل الطلاب — مع احتفاظ المعلم بالصلاحية الكاملة وفق معايير الخصوصية الصارمة."
-            />
-
-            <div className="mt24">
-              <CalloutBox color="blue">
-                <strong>ملاحظة:</strong> معظم المعلمين لا يحتاجون لأي مهارات تقنية. لوحة المعلم اليومية مصممة ببساطة متناهية، بينما تتم العمليات المعقدة في الخلفية تلقائياً.
-              </CalloutBox>
-            </div>
-          </div>
-          <PageFooter page={4} total={8} />
-        </Page>
-
-        {/* ══════════════════════════════════════════════════
-            PAGE 5 — String DNA + خريطة المهارات
-           ══════════════════════════════════════════════════ */}
-        <Page>
-          <PageHeader section="٠٤ · ٠٥" label="String DNA · خريطة المهارات" />
-          <div className="page-body">
-
-            <h2 className="section-heading">عقل كل طالب، مفهوماً بعمق</h2>
-            <p className="body-text">
-              String DNA ليس اختبار شخصية تقليدي، بل تحليل علمي لآلية عمل عقل الطالب. من خلال تجربة تفاعلية قصيرة، يكشف النظام كيف يفكر الطالب فعلياً عبر ثلاث طبقات:
-            </p>
-
-            <div className="dna-grid mb20">
-              <div className="dna-card">
-                <div className="dna-num">٠١ — كيف يفكر</div>
-                <div className="dna-q">أسلوب المعالجة</div>
-                <div className="dna-a">هل يستوعب الصورة الكبيرة أولاً أم يركز على التفاصيل؟</div>
-              </div>
-              <div className="dna-card">
-                <div className="dna-num">٠٢ — لماذا يتعلم</div>
-                <div className="dna-q">عقلية النمو</div>
-                <div className="dna-a">هل يؤمن بأن الجهد يؤدي للنمو، أم يستسلم عند الخطأ الأول؟</div>
-              </div>
-              <div className="dna-card">
-                <div className="dna-num">٠٣ — كيف يركز</div>
-                <div className="dna-q">أسلوب التنظيم</div>
-                <div className="dna-a">هل يميل للتخطيط المسبق أم يعتمد المحاولة والخطأ؟</div>
-              </div>
+            <div className="phase">
+              <div className="phase-num">القدرة الأولى</div>
+              <div className="phase-title">أتمتة تُعيد للمعلم وقته وشغفه</div>
+              <div className="phase-body">رصد الحضور بثوانٍ، إدخال الدرجات آلياً، وكتابة التقارير تلقائياً. كل دقيقة كانت تُهدر في الإدارة، تعود الآن للتدريس.</div>
             </div>
 
-            <CalloutBox color="blue">
-              تُنتج هذه المعايير <strong>128 ملفاً مختلفاً</strong> تُحدَّث باستمرار مع كل نشاط. النظام ينبه المعلم مبكراً إلى الطالب الموهوب الذي تنقصه الثقة، قبل أن يتعثر.
-            </CalloutBox>
+            <div className="phase">
+              <div className="phase-num">القدرة الثانية</div>
+              <div className="phase-title">تجربة تعليمية تُصمم على مقاس كل طالب</div>
+              <div className="phase-body">يبني String ملفاً معرفياً لكل طالب يحدد آلية تفكيره وعمله ضمن 128 نمطاً مختلفاً. تتكيف صعوبة الأسئلة وأسلوب الشرح مع مستوى إتقان الطالب لكل مفهوم.</div>
+            </div>
 
-            <div style={{ marginTop: 28 }}>
-              <div className="label-sm">خريطة المهارات — رصد الإتقان حتى أصغر مفهوم</div>
-              <p className="body-text">
-                يقسم النظام المنهاج إلى وحدات معرفية دقيقة ويتابع مستوى إتقان الطالب لكل منها. لا نكتفي بالدرجة النهائية:
-              </p>
+            <div className="phase">
+              <div className="phase-num">القدرة الثالثة</div>
+              <div className="phase-title">ذكاء يقرأ ما وراء الأرقام</div>
+              <div className="phase-body">تحليل دقيق لتحديد الفجوات المعرفية — لا مجرد "ضعيف في الرياضيات"، بل تحديد المفهوم بدقة. تنبيه مبكر قبل تعثر الطالب، والتنبؤ بنتائجه قبل الامتحانات.</div>
+            </div>
 
-              <div className="skill-bars">
-                {[
-                  { label: 'قراءة الكسور', pct: 90, color: '#16a34a' },
-                  { label: 'الجمع ثلاثي الأرقام', pct: 75, color: '#1e90d6' },
-                  { label: 'جمع الكسور', pct: 25, color: '#e53e3e' },
-                ].map(s => (
-                  <div key={s.label} className="skill-bar-row">
-                    <div className="skill-bar-top">
-                      <span>{s.label}</span>
-                      <span style={{ color: s.color }}>{s.pct}%</span>
-                    </div>
-                    <div className="skill-bar-track">
-                      <div className="skill-bar-fill" style={{ width: `${s.pct}%`, background: s.color }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <p style={{ fontSize: 11, color: '#9ab0c8', lineHeight: 1.7, fontWeight: 500 }}>
-                تُبنى هذه الخريطة تلقائياً أثناء تعلم الطالب دون الحاجة لامتحانات قياس إضافية.
-                بحث علمي قيد الإعداد بالشراكة مع جامعة الحسين التقنية (HTU).
+            <div className="info-box">
+              <div className="info-box-label">المحرك — الذكاء الاصطناعي يعمل بصمت</div>
+              <p>
+                في المنصات التقليدية الذكاء الاصطناعي مجرد نافذة محادثة. في String يعمل عبر مجموعة وكلاء (Agents) تنجز المهام تلقائياً، باستخدام خوارزميتنا الخاصة (Aware) مدمجةً مع أقوى النماذج العالمية — <strong>Gemini · GPT · Claude</strong>. كل نموذج يتولى ما يبرع فيه: سرعة التصحيح، عمق التحليل، وضوح الصياغة.
               </p>
             </div>
           </div>
-          <PageFooter page={5} total={8} />
-        </Page>
+          <div className="page-foot">
+            <span>String · مدارس المبادئ العلمية · يونيو ٢٠٢٦</span>
+            <span>سري — للاطلاع المحدود فقط</span>
+            <span>3 / 8</span>
+          </div>
+        </div>
 
-        {/* ══════════════════════════════════════════════════
-            PAGE 6 — Quests + تطبيق الأهل
-           ══════════════════════════════════════════════════ */}
-        <Page>
-          <PageHeader section="٠٦ · ٠٧" label="Quests · تطبيق الأهل" />
+        {/* PAGE 4 — ما يميز String */}
+        <div className="sheet">
+          <div className="page-band">
+            <span className="band-title">ما يميز String</span>
+            <span className="band-num">٠٣</span>
+          </div>
           <div className="page-body">
+            <div className="doc-h2">أربعة أسباب تضع String في الريادة</div>
+            <p className="doc-lead">
+              ليس تحديثاً لأنظمة قائمة — بل إعادة تصوّر جذرية لكيفية عمل المدرسة. هذه الأسباب الأربعة هي ما يجعل String فئة مستقلة، وليس مجرد أداة إضافية.
+            </p>
 
-            <h2 className="section-heading">التعلم التفاعلي + الأهل في قلب العملية</h2>
+            <div className="phase">
+              <div className="phase-num">الميزة الأولى</div>
+              <div className="phase-title">جميع أدواتكم في منصة واحدة</div>
+              <div className="phase-body">
+                يجمع String مئات الأدوات التعليمية — Canva، Scratch، وغيرها — بحساب دخول واحد. ومنصاتكم الحالية، بما فيها منصة تمرين وغيرها، لا تُستبدل؛ بل تتكامل بسلاسة داخل String لتبادل البيانات. القرار لكم بالكامل.
+              </div>
+            </div>
 
-            <TwoCol>
+            <div className="phase">
+              <div className="phase-num">الميزة الثانية</div>
+              <div className="phase-title">فهم عميق للمنهاج، لا مجرد استضافة للمحتوى</div>
+              <div className="phase-body">
+                خلافاً للأنظمة التي تكتفي برفع الملفات، يفهم String المنهاج نفسه حتى أصغر مفهوم. يتكيف بمرونة تامة مع المناهج المعتمدة لديكم — سواء كان المنهاج الوطني الأردني أو مناهج كامبريدج الدولية.
+              </div>
+            </div>
+
+            <div className="phase">
+              <div className="phase-num">الميزة الثالثة</div>
+              <div className="phase-title">ذكاء يمتد لكل تطبيق</div>
+              <div className="phase-body">
+                يمنح String قدرات الذكاء الاصطناعي للتطبيقات التي تفتقر إليه. اطلب من المساعد إنشاء مسابقة حول تاريخ الأردن ليجهزها فوراً. حتى اجتماعات الفيديو تُسجَّل وتُلخَّص وتُحلَّل آلياً.
+              </div>
+            </div>
+
+            <div className="phase">
+              <div className="phase-num">الميزة الرابعة</div>
+              <div className="phase-title">توثيق ذكي للحصص</div>
+              <div className="phase-body">
+                يُسجل النظام الحصة كاملاً — الشاشة والسبورة والنقاشات — ثم يلخصها ويرصد تفاعل الطلاب، مع احتفاظ المعلم بالصلاحية الكاملة للمشاركة وفق معايير الخصوصية الصارمة.
+              </div>
+            </div>
+
+            <div className="info-box" style={{ marginTop: 8 }}>
+              <div className="info-box-label">ملاحظة للمعلمين</div>
+              <p>
+                معظم المعلمين لا يحتاجون لأي مهارات تقنية. لوحة المعلم اليومية مصممة ببساطة متناهية، بينما تتم العمليات المعقدة في الخلفية تلقائياً. واجهة <strong>Studio</strong> هي مساحة إبداعية اختيارية للمعلمين الأكثر ابتكاراً فقط.
+              </p>
+            </div>
+          </div>
+          <div className="page-foot">
+            <span>String · مدارس المبادئ العلمية · يونيو ٢٠٢٦</span>
+            <span>سري — للاطلاع المحدود فقط</span>
+            <span>4 / 8</span>
+          </div>
+        </div>
+
+        {/* PAGE 5 — DNA + خريطة المهارات */}
+        <div className="sheet">
+          <div className="page-band">
+            <span className="band-title">String DNA · خريطة المهارات</span>
+            <span className="band-num">٠٤ · ٠٥</span>
+          </div>
+          <div className="page-body">
+            <div className="doc-h2">عقل كل طالب، مفهوماً بعمق</div>
+            <p className="doc-p">
+              String DNA ليس اختبار شخصية تقليدي، بل تحليل علمي دقيق لآلية عمل عقل الطالب. من خلال تجربة تفاعلية قصيرة، يكشف النظام كيف يفكر الطالب فعلياً عبر ثلاث طبقات: كيف يفكر، لماذا يتعلم، وكيف يركز.
+            </p>
+
+            <table className="doc-table">
+              <thead>
+                <tr>
+                  <th>الطبقة</th>
+                  <th>السؤال الجوهري</th>
+                  <th>ما يكشفه النظام</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="strong">كيف يفكر</td>
+                  <td>أسلوب المعالجة</td>
+                  <td>هل يستوعب الصورة الكبيرة أولاً أم يركز على التفاصيل؟</td>
+                </tr>
+                <tr>
+                  <td className="strong">لماذا يتعلم</td>
+                  <td>عقلية النمو</td>
+                  <td>هل يؤمن بأن الجهد يؤدي للنمو، أم يستسلم عند الخطأ الأول؟</td>
+                </tr>
+                <tr>
+                  <td className="strong">كيف يركز</td>
+                  <td>أسلوب التنظيم</td>
+                  <td>هل يميل للتخطيط المسبق أم يعتمد المحاولة والخطأ؟</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p className="doc-p">
+              تُنتج هذه المعايير <strong>128 ملفاً معرفياً مختلفاً</strong> تُحدَّث باستمرار مع كل نشاط. لا يكتفي النظام بوصف الطالب، بل ينبه المعلم مبكراً إلى الطالب الموهوب الذي تنقصه الثقة — قبل أن يتعثر.
+            </p>
+
+            <hr className="doc-rule" />
+
+            <div className="doc-h2" style={{ fontSize: 20 }}>خريطة المهارات — رصد الإتقان حتى أصغر مفهوم</div>
+            <p className="doc-p">
+              يقسم النظام المنهاج إلى وحدات معرفية دقيقة ويتابع مستوى إتقان الطالب لكل منها. لا نكتفي بالدرجة النهائية:
+            </p>
+
+            <table className="doc-table">
+              <thead>
+                <tr>
+                  <th>المفهوم</th>
+                  <th>مستوى الإتقان</th>
+                  <th>الحالة</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>قراءة الكسور</td>
+                  <td>90%</td>
+                  <td className="good">ممتاز</td>
+                </tr>
+                <tr>
+                  <td>الجمع ثلاثي الأرقام</td>
+                  <td>75%</td>
+                  <td className="good">جيد</td>
+                </tr>
+                <tr>
+                  <td>جمع الكسور</td>
+                  <td>25%</td>
+                  <td className="warn">يحتاج دعم</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p className="doc-p" style={{ fontSize: 11, color: '#888' }}>
+              تُبنى هذه الخريطة تلقائياً أثناء تعلم الطالب واستخدامه للمنصة، دون الحاجة لامتحانات قياس إضافية.
+              بحث علمي قيد الإعداد بالشراكة مع جامعة الحسين التقنية (HTU).
+            </p>
+          </div>
+          <div className="page-foot">
+            <span>String · مدارس المبادئ العلمية · يونيو ٢٠٢٦</span>
+            <span>سري — للاطلاع المحدود فقط</span>
+            <span>5 / 8</span>
+          </div>
+        </div>
+
+        {/* PAGE 6 — Quests + تطبيق الأهل */}
+        <div className="sheet">
+          <div className="page-band">
+            <span className="band-title">Quests · تطبيق الأهل</span>
+            <span className="band-num">٠٦ · ٠٧</span>
+          </div>
+          <div className="page-body">
+            <div className="two-col">
               <div>
-                <div className="label-sm">Quests — التعلم التفاعلي الموجه</div>
-                <p className="body-text">
+                <div className="doc-h2" style={{ fontSize: 20 }}>Quests</div>
+                <div className="doc-label">التعلم التفاعلي الموجَّه</div>
+                <p className="doc-p">
                   يحول النظام منهجكم الرسمي إلى تجربة تفاعلية ممتعة مخصصة لمدرستكم — أشبه بـ Duolingo لكن بمحتوى مناهجكم تماماً.
                 </p>
-                <FeatureRow icon="⚡" title="محتوى جاهز" body="تُولد الأسئلة من المنهاج تلقائياً لتوفر وقت المعلم." />
-                <FeatureRow icon="🔥" title="شغف التعلم" body="يُقبل الطلاب على الدراسة بدافع داخلي حتى في المنزل." />
-                <FeatureRow icon="🎯" title="تخصيص كامل" body="تتكيف الأسئلة مع مستوى كل طالب بناءً على DNA وخريطة مهاراته." />
+                <ul className="doc-list">
+                  <li><strong>محتوى جاهز:</strong> تُولد الأسئلة من المنهاج تلقائياً لتوفر وقت المعلم.</li>
+                  <li><strong>شغف التعلم:</strong> بفضل التحديات، يُقبل الطلاب على الدراسة بدافع داخلي حتى في المنزل.</li>
+                  <li><strong>تخصيص كامل:</strong> تتكيف الأسئلة مع مستوى كل طالب بناءً على DNA وخريطة مهاراته.</li>
+                  <li><strong>التركيز على الفهم</strong> بدلاً من الحفظ — أسئلة تقيس التطبيق والتفكير.</li>
+                </ul>
               </div>
               <div>
-                <div className="label-sm">تطبيق الأهل — نافذة شفافة ومتابعة هادفة</div>
-                <p className="body-text">
+                <div className="doc-h2" style={{ fontSize: 20 }}>تطبيق الأهل</div>
+                <div className="doc-label">نافذة شفافة ومتابعة هادفة</div>
+                <p className="doc-p">
                   يضع تطبيق String الأهل في قلب العملية التعليمية يومياً.
                 </p>
-                <FeatureRow icon="📊" title="تفاصيل يوم الطالب" body="خريطة مهاراته ونصائح تربوية مخصصة يومياً." />
-                <FeatureRow icon="🤖" title="المساعد الذكي Aware" body="يلخص تقدم الطالب ويقترح طرقاً لتقديم الدعم." />
-                <FeatureRow icon="📋" title="نافذة شاملة" body="الواجبات، النماذج، طلبات الغياب، وتنسيق الاستلام." />
+                <ul className="doc-list">
+                  <li>تفاصيل يوم الطالب وخريطة مهاراته ونصائح تربوية مخصصة.</li>
+                  <li>المساعد الذكي Aware يلخص التقدم ويقترح طرق الدعم.</li>
+                  <li>نافذة شاملة للواجبات، النماذج، وطلبات الغياب.</li>
+                  <li>وقت شاشة هادف: بدلاً من المتابعة المرهقة، تقرير يومي يُثبت التقدم بشكل تفاعلي.</li>
+                </ul>
               </div>
-            </TwoCol>
+            </div>
 
-            <CalloutBox color="green">
-              <strong>وقت شاشة هادف:</strong> يدرك String قلق الأهل من الأجهزة، لذا يحوّل انشغال الطلاب بها إلى أداة لرفع التحصيل. بدلاً من المتابعة المرهقة، يصل الأهل تقرير يومي يُثبت تقدم أبنائهم بشكل تفاعلي ومثمر.
-            </CalloutBox>
+            <hr className="doc-rule" />
+
+            <div className="info-box">
+              <div className="info-box-label">وقت الشاشة — موقف String</div>
+              <p>
+                يدرك String قلق الأهل من انشغال الأبناء بالأجهزة، لذا يحوّل هذا الانشغال إلى أداة لرفع التحصيل. بدلاً من المتابعة المرهقة، يصل الأهل تقرير يومي يُثبت تقدم أبنائهم وإتقانهم للمفاهيم بشكل تفاعلي ومثمر.
+              </p>
+            </div>
           </div>
-          <PageFooter page={6} total={8} />
-        </Page>
+          <div className="page-foot">
+            <span>String · مدارس المبادئ العلمية · يونيو ٢٠٢٦</span>
+            <span>سري — للاطلاع المحدود فقط</span>
+            <span>6 / 8</span>
+          </div>
+        </div>
 
-        {/* ══════════════════════════════════════════════════
-            PAGE 7 — التكامل
-           ══════════════════════════════════════════════════ */}
-        <Page>
-          <PageHeader section="٠٨" label="التكامل من اليوم الأول" />
+        {/* PAGE 7 — التكامل والأمان */}
+        <div className="sheet">
+          <div className="page-band">
+            <span className="band-title">التكامل والأمان</span>
+            <span className="band-num">٠٨</span>
+          </div>
           <div className="page-body">
-            <h2 className="section-heading">جاهز من اليوم الأول</h2>
-            <p className="section-lead">
+            <div className="doc-h2">جاهز من اليوم الأول</div>
+            <p className="doc-lead">
               أنتم لا تُعِدّون النظام؛ أنتم تقدمون بياناتكم فقط، وهو يتولى الباقي.
             </p>
 
-            <FeatureRow
-              icon="⚙️"
-              title="تجهيز سريع — أقل من أسبوع"
-              body="بمجرد ربط String بنظامكم الحالي (K12NET) أو تزويده بملفات البيانات، يقوم بسحب الجداول وتجهيز السجلات ليكون جاهزاً للعمل في أقل من أسبوع."
-            />
-            <FeatureRow
-              icon="🔗"
-              title="تكامل دون استغناء"
-              body="ما ترغبون بالاحتفاظ به (المحاسبة وتتبع الحافلات في K12NET) يبقى كما هو ويتكامل String معه بسلاسة. القرار لكم بالكامل، دون فوضى أو انقطاع."
-            />
-            <FeatureRow
-              icon="🤖"
-              title="إدارة ذاتية مستمرة"
-              body="يستمر النظام بإدارة العمل اليومي (أخذ الحضور، تصحيح المهام) في الخلفية لتتفرغوا للارتقاء بجودة التعليم."
-            />
+            <div className="phase">
+              <div className="phase-num">المرحلة الأولى</div>
+              <div className="phase-title">تجهيز سريع — أقل من أسبوع</div>
+              <div className="phase-body">
+                بمجرد ربط String بنظامكم الحالي (K12NET) أو تزويده بملفات البيانات، يقوم بسحب الجداول وتجهيز السجلات ليكون جاهزاً للعمل في أقل من أسبوع.
+              </div>
+            </div>
 
-            <div className="mt24">
-              <CalloutBox color="dark">
-                <div className="label-sm" style={{ color: '#5bc8ff' }}>الخصوصية والأمان</div>
-                <p>
-                  كل ما يراه String يبقى ملكاً خاصاً لمدرستكم. <strong>لا نحتفظ بالبيانات</strong>، ولا نسمح لمزوّدي الذكاء الاصطناعي الخارجيين بالتدريب عليها أو تخزينها. رسائل مشفرة وصلاحيات دقيقة لكل مستخدم — السيطرة الكاملة بين أيديكم.
+            <div className="phase">
+              <div className="phase-num">المرحلة الثانية</div>
+              <div className="phase-title">تكامل دون استغناء</div>
+              <div className="phase-body">
+                لا حاجة للتخلي عن أنظمتكم الإدارية الحالية. ما ترغبون بالاحتفاظ به — كالمحاسبة وتتبع الحافلات في K12NET — يبقى كما هو، ويتكامل String معه بسلاسة لتبادل البيانات. القرار لكم بالكامل، دون فوضى أو انقطاع.
+              </div>
+            </div>
+
+            <div className="phase">
+              <div className="phase-num">المرحلة الثالثة</div>
+              <div className="phase-title">إدارة ذاتية مستمرة</div>
+              <div className="phase-body">
+                يستمر النظام بإدارة العمل اليومي — أخذ الحضور، تصحيح المهام — في الخلفية، لتتفرغوا أنتم للارتقاء بجودة التعليم.
+              </div>
+            </div>
+
+            <hr className="doc-rule" />
+            <div className="doc-label">الخصوصية والأمان</div>
+
+            <div className="two-col">
+              <div>
+                <p className="doc-p">
+                  كل ما يراه String يبقى ملكاً خاصاً لمدرستكم. لا نحتفظ بالبيانات، ولا نسمح لمزوّدي الذكاء الاصطناعي الخارجيين بالتدريب عليها أو تخزينها.
                 </p>
-              </CalloutBox>
+              </div>
+              <div>
+                <p className="doc-p">
+                  رسائل مشفرة وصلاحيات دقيقة لكل مستخدم. السيطرة الكاملة بين أيديكم — نضمن لكم بيئة آمنة في كل الأوقات.
+                </p>
+              </div>
             </div>
           </div>
-          <PageFooter page={7} total={8} />
-        </Page>
+          <div className="page-foot">
+            <span>String · مدارس المبادئ العلمية · يونيو ٢٠٢٦</span>
+            <span>سري — للاطلاع المحدود فقط</span>
+            <span>7 / 8</span>
+          </div>
+        </div>
 
-        {/* ══════════════════════════════════════════════════
-            PAGE 8 — Contact
-           ══════════════════════════════════════════════════ */}
-        <Page>
-          <PageHeader section="" label="للتواصل والاستفسار" />
-          <div className="page-body" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', flex: 1 }}>
+        {/* PAGE 8 — التواصل */}
+        <div className="sheet">
+          <div className="page-band">
+            <span className="band-title">للتواصل والاستفسار</span>
+            <span className="band-num" />
+          </div>
+          <div className="page-body" style={{ justifyContent: 'center' }}>
 
-            <div style={{ textAlign: 'center', marginBottom: 48 }}>
-              <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: '3px', textTransform: 'uppercase' as const, color: '#1e90d6', marginBottom: 16 }}>الخطوة التالية</div>
-              <h2 style={{ fontSize: 32, fontWeight: 900, color: '#0c1a2e', marginBottom: 12 }}>
+            <div style={{ textAlign: 'center', marginBottom: 40 }}>
+              <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase' as const, color: ACCENT_MID, marginBottom: 14 }}>الخطوة التالية</div>
+              <div className="doc-h2" style={{ fontSize: 28, textAlign: 'center' }}>
                 جاهزون لجلسة عرض مخصصة<br />لمدارس المبادئ العلمية؟
-              </h2>
-              <p style={{ fontSize: 14, color: '#5a7a99', fontWeight: 500, lineHeight: 1.8 }}>
-                تواصلوا مباشرة لترتيب جلسة عرض تفصيلية تشمل عرضاً حياً للنظام<br />وخطة تكامل مخصصة لبيئتكم التقنية.
+              </div>
+              <p className="doc-p" style={{ textAlign: 'center', marginTop: 12 }}>
+                تواصلوا مباشرة لترتيب جلسة عرض تفصيلية تشمل عرضاً حياً للنظام وخطة تكامل مخصصة لبيئتكم التقنية.
               </p>
             </div>
 
-            <div className="contact-card">
-              <div className="contact-left">
+            <div className="contact-wrap">
+              <div>
                 <div className="contact-name">عمر أبو سليم</div>
                 <div className="contact-role">المؤسس والرئيس التنفيذي · String Education</div>
                 <div className="contact-detail">
-                  <div className="contact-line">📧 omar@string.education</div>
-                  <div className="contact-line" dir="ltr" style={{ textAlign: 'right' }}>📞 +962 78 671 7634</div>
+                  <div>omar@string.education</div>
+                  <div dir="ltr" style={{ textAlign: 'right' }}>+962 78 671 7634</div>
                 </div>
               </div>
-              <div className="contact-right">S</div>
+              <div className="contact-icon">S</div>
             </div>
 
-            <div style={{ marginTop: 48, padding: '20px 0', borderTop: '1px solid #eaeef4', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: 10, color: '#b0bec8', fontWeight: 600 }}>© 2026 String Education. جميع الحقوق محفوظة.</span>
-              <span className="confidential-badge">🔒 سري — للاطلاع المحدود فقط</span>
+            <div style={{ marginTop: 40, borderTop: '1px solid #e8e8e8', paddingTop: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: 10, color: '#bbb', fontWeight: 500 }}>© 2026 String Education. جميع الحقوق محفوظة.</span>
+              <span style={{ fontSize: 9.5, color: '#aaa', fontWeight: 500 }}>سري — للاطلاع المحدود فقط</span>
             </div>
+
           </div>
-          <PageFooter page={8} total={8} />
-        </Page>
+          <div className="page-foot">
+            <span>String · مدارس المبادئ العلمية · يونيو ٢٠٢٦</span>
+            <span>سري — للاطلاع المحدود فقط</span>
+            <span>8 / 8</span>
+          </div>
+        </div>
 
       </div>
     </>

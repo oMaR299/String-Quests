@@ -26,27 +26,7 @@
 // Seeded PRNG (mirrors parentAppMockData.ts / parentAppSchoolMockData.ts)
 // ============================================================================
 
-function createRng(seed: number) {
-  // Guard against a zero/negative seed collapsing the Lehmer generator.
-  let s = (Math.abs(Math.trunc(seed)) % 2147483646) + 1;
-  return () => {
-    s = (s * 16807) % 2147483647;
-    return (s - 1) / 2147483646;
-  };
-}
-
-/**
- * Deterministic string → 31-bit unsigned seed (djb2). Lets us seed the RNG
- * directly off a `childId` so each child is stable across reloads while still
- * differing meaningfully from one another.
- */
-function hashStringToSeed(str: string): number {
-  let h = 5381;
-  for (let i = 0; i < str.length; i++) {
-    h = ((h << 5) + h + str.charCodeAt(i)) | 0; // h * 33 + c
-  }
-  return Math.abs(h) % 2147483647;
-}
+import { createRng, hashStringToSeed } from '../../data/mockKit';
 
 // ============================================================================
 // Types (exported contract — UI agents build against these)

@@ -33,7 +33,7 @@ import { ParentTabBar } from './ParentTabBar';
  */
 const ParentHomeLayoutInner: React.FC = () => {
   const { dir } = useI18n();
-  const { isDrawerOpen } = useParentAppContext();
+  const { isDrawerOpen, isOverlayOpen } = useParentAppContext();
   const reduceMotion = useReducedMotion();
 
   // Bottom slot content — wrapped in AnimatePresence so the tab bar slides
@@ -41,7 +41,7 @@ const ParentHomeLayoutInner: React.FC = () => {
   // motion → instant disappear/reappear.
   const bottomSlot = (
     <AnimatePresence mode="wait" initial={false}>
-      {!isDrawerOpen && (
+      {!isDrawerOpen && !isOverlayOpen && (
         <motion.div
           key="parent-tab-bar"
           initial={
@@ -68,7 +68,7 @@ const ParentHomeLayoutInner: React.FC = () => {
       <PhoneShell
         fullBleedChrome
         fullBleedBottom
-        topCenter={<ParentHeader />}
+        topCenter={isOverlayOpen ? null : <ParentHeader />}
         bottom={bottomSlot}
         bodyClassName="relative z-10 flex-1 overflow-y-auto"
       >

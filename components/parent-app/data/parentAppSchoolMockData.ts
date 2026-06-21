@@ -1002,6 +1002,49 @@ export function getPendingAssignmentCount(activeChildId: string): number {
   ).length;
 }
 
+/**
+ * CALM homework taxonomy for the Results-hub Tasks view. The Home-tab drawer
+ * uses the 5-state {not-started/started/in-danger/late/done} model with red
+ * "late/in-danger" tones; the parent-facing hub deliberately collapses that to
+ * a non-alarming 3-state model:
+ *   • done    → completed.
+ *   • pending → not done yet, deadline still ahead (or today).
+ *   • pastDue → not done and deadline passed ("not handed in yet" — never "late").
+ */
+export type HomeworkCalmStatus = 'done' | 'pending' | 'pastDue';
+
+export interface HomeworkItem extends Assignment {
+  calmStatus: HomeworkCalmStatus;
+  /** Whole-day offset of the deadline from today: 0 = today, 1 = tomorrow, -1 = yesterday. */
+  daysUntilDue: number;
+}
+
+/** Compare an ISO date against `base` as whole local days (TZ-safe; ignores time-of-day). */
+function wholeDayDiff(fromIso: string, base: Date): number {
+  const due = new Date(fromIso);
+  const dueMid = new Date(due.getFullYear(), due.getMonth(), due.getDate());
+  const baseMid = new Date(base.getFullYear(), base.getMonth(), base.getDate());
+  return Math.round((dueMid.getTime() - baseMid.getTime()) / ONE_DAY_MS);
+}
+
+/**
+ * Homework for one child with the calm 3-state status + day offset, sorted
+ * "what needs attention first": remaining items (most urgent/overdue first),
+ * then completed items last. Drives the hub Tasks view.
+ */
+export function getHomeworkForChild(childId: string, today: Date = new Date()): HomeworkItem[] {
+  const items = MOCK_ASSIGNMENTS.filter((a) => a.childId === childId).map((a) => {
+    const daysUntilDue = wholeDayDiff(a.dueIso, today);
+    const calmStatus: HomeworkCalmStatus =
+      a.progress === 'done' ? 'done' : daysUntilDue < 0 ? 'pastDue' : 'pending';
+    return { ...a, calmStatus, daysUntilDue };
+  });
+  const doneRank = (s: HomeworkCalmStatus) => (s === 'done' ? 1 : 0);
+  return items.sort(
+    (x, y) => doneRank(x.calmStatus) - doneRank(y.calmStatus) || x.daysUntilDue - y.daysUntilDue,
+  );
+}
+
 /** Days until the soonest exam for the given active child. */
 export function getSoonestExamDays(activeChildId: string): number | null {
   const now = new Date();
