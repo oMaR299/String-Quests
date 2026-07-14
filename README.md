@@ -2,7 +2,7 @@
 
 # 🎯 String‑Quests
 
-**A Duolingo‑style Arabic learning platform for Al‑Khadr Modern Schools.**
+**An experimental, Duolingo‑style Arabic learning platform by String.**
 Students play quizzes and quests built from their real textbooks, a deep skill‑map engine tracks mastery at every level, and parents follow their child's progress in a calm, coach‑style companion app.
 
 `React 19` · `TypeScript` · `Vite` · `Tailwind CSS v4` · `Framer Motion` · **Full RTL (Arabic‑first)**
@@ -10,6 +10,8 @@ Students play quizzes and quests built from their real textbooks, a deep skill�
 </div>
 
 ---
+
+> 🧪 **Experimental** — an in‑progress exploration by String, not a production release.
 
 ## ✨ What it is
 
@@ -77,4 +79,4 @@ types.ts       question / domain types
 
 ---
 
-<div align="center"><sub>Built for Al‑Khadr Modern Schools.</sub></div>
+<div align="center"><sub>🧪 An experimental project by String.</sub></div>
